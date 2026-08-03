@@ -8,6 +8,25 @@
       name="description"
       content="Liga recreativa de hockey sobre hielo de Ushuaia, Tierra del Fuego."
     />
+
+    <!--
+      The three families the league's identity is built on: Bebas Neue for the
+      display type, Barlow Condensed for the chrome, Barlow for body copy. Only
+      the weights the stylesheet actually uses are requested, and Barlow
+      Condensed 900 is left out because no rule sets it.
+
+      Loaded from Google's CDN, as the reference site does. Self-hosting them as
+      woff2 under `public/fonts/` would drop the third-party connection and is
+      worth doing before this is handed over; the tokens in
+      `src/styles/tokens.css` already name each family with a fallback, so it is
+      a change to this file and nothing else.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap"
+    />
   </head>
   <body>
     <div id="root"></div>
