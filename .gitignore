@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# Editor and OS
+.DS_Store
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Supabase local state
+supabase/.branches/
+supabase/.temp/
+
+# Per-developer agent kit overrides, the shared kit is versioned
+.claude/settings.local.json
+
+# Skills installed by the Supabase MCP server, not ours to version
+.agents/
+.claude/skills/supabase-postgres-best-practices
