@@ -1,0 +1,44 @@
+/*
+ * `.gallery-grid` and `.g-slot` in the reference, which paints four columns
+ * everywhere and drops to two only below 680px. Two is the phone default here.
+ */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.gallery__slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  background: var(--card-bg);
+  border: var(--border-width-hairline) dashed var(--color-border);
+}
+
+.gallery__glyph {
+  font-size: var(--text-xl);
+
+  /* An emoji takes no colour, so the reference dims it with an inline
+   * `opacity: .3`. Kept as a literal because it is the transparency of a glyph,
+   * not a value the palette can express. */
+  opacity: 0.3;
+}
+
+.gallery__note {
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  text-align: center;
+  color: var(--color-text-muted);
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 42.5em) {
+  .gallery {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

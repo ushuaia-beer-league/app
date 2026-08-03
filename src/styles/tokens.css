@@ -264,6 +264,15 @@
   --layout-section-x: var(--space-4);
   --layout-nav-height: 56px;
 
+  /* Smallest side of anything a thumb has to hit. The reference has no such
+   * floor because it was drawn for a mouse; the functional document asks for a
+   * site that works from a phone, so the floor is a token rather than a value
+   * repeated in every component. */
+  --layout-tap-min: 44px;
+
+  /* Narrowest column an auto-filled card grid may collapse to. */
+  --grid-card-min: 155px;
+
   /* `svh` rather than the reference's `vh`: on a phone the address bar makes
    * `100vh` taller than the viewport and the hero jumps as it retracts. */
   --layout-hero-min-height: 100svh;
@@ -338,6 +347,18 @@
   /* The gold rule under a section title. */
   --rule-accent-width: 38px;
   --rule-accent-height: 3px;
+
+  /* The crest at the three sizes the reference paints it. The 36px navigation
+   * crest and the 40px footer one are collapsed into `sm`. */
+  --crest-sm: 40px;
+  --crest-md: 130px;
+  --crest-lg: 260px;
+
+  /* The two concentric rink rings behind the hero. The reference sets their
+   * diameters as inline styles on the markup, which is why they were not part
+   * of the first extraction. */
+  --hero-ring-outer: 680px;
+  --hero-ring-inner: 360px;
 }
 
 /*

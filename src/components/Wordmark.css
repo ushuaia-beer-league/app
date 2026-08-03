@@ -1,0 +1,30 @@
+/* `.nav-logo-text` and `.footer-name` in the reference, which differ only in size. */
+
+.wordmark {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  color: var(--color-text-bright);
+}
+
+.wordmark__accent {
+  color: var(--color-accent);
+}
+
+.wordmark--sm {
+  font-size: var(--text-lg);
+}
+
+.wordmark--md {
+  font-size: var(--text-xl);
+}
+
+@media (min-width: 42.5em) {
+  .wordmark--sm {
+    font-size: var(--text-xl);
+  }
+
+  .wordmark--md {
+    font-size: var(--text-2xl);
+  }
+}

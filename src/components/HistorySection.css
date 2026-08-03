@@ -1,0 +1,90 @@
+/*
+ * `.historia-grid` and `.historia-block` in the reference. The reference's grid
+ * is `1fr 2fr` at every width and only collapses below 680px; here the single
+ * column is the default.
+ */
+
+.history {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.history__crest {
+  display: flex;
+  justify-content: center;
+}
+
+.history__blocks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.history__block {
+  background: var(--card-bg);
+  border: var(--card-border);
+  border-inline-start: var(--border-width-accent) solid var(--color-accent);
+  padding: var(--card-padding-y) var(--card-padding-x);
+}
+
+.history__block-title {
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+}
+
+.history__block p + p {
+  margin-top: var(--space-4);
+}
+
+/* The reference sets its `<em>` upright and ice blue, so emphasis reads as a
+ * change of voice rather than as italics. */
+.history__block em {
+  font-style: normal;
+  color: var(--color-text-bright);
+}
+
+.history__closing strong {
+  color: var(--color-accent);
+  font-weight: var(--weight-bold);
+}
+
+.history__commandments {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-inline-start: var(--space-5);
+}
+
+.history__commandments li::marker {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+}
+
+.history__hashtags {
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  color: var(--color-text-muted);
+  padding-block: var(--space-3);
+  border-top: var(--border-width-hairline) solid var(--color-border);
+  margin-top: var(--space-2);
+}
+
+@media (min-width: 42.5em) {
+  .history {
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-7);
+    align-items: start;
+  }
+
+  .history__crest {
+    justify-content: flex-start;
+  }
+}

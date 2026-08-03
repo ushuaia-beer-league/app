@@ -224,6 +224,16 @@ within a pixel or two.
 | `--space-8` | `5rem`    | section padding, wide screens   |
 
 - `--layout-max-width` `1100px` — `.container`. The content column.
+- `--layout-tap-min` `44px` — **not in the reference.** The smallest side of
+  anything a thumb has to hit: the navigation disclosure, every link inside the
+  phone menu, the hero button, a sponsor link, a contact channel. The reference
+  was drawn for a mouse and has no such floor, while the functional document
+  rules out "un sistema difícil de utilizar desde el celular", so the floor is a
+  token instead of a value repeated in six components.
+- `--grid-card-min` `155px` — `.sponsors-grid`
+  (`repeat(auto-fill,minmax(155px,1fr))`). The narrowest column an auto-filled
+  card grid may collapse to. Shared by the sponsors wall and the contact
+  channels.
 - `--layout-section-y` `3rem` → `5rem` — `padding:5rem 2rem` on five
   sections. Section vertical rhythm.
 - `--layout-section-x` `1rem` → `2rem` — same rule. Section gutter.
@@ -288,6 +298,15 @@ There is no shadow scale because the reference has no shadows.
   radius, no shadow.
 - `--rule-accent-width`, `--rule-accent-height` — `.gold-bar`. The 38 × 3 gold
   rule under a section title.
+- `--crest-sm` `40px`, `--crest-md` `130px`, `--crest-lg` `260px` — the crest at
+  the three sizes the reference paints it: `.nav-logo img` at 36px and
+  `.footer-logo img` at 40px, collapsed into `sm`; `.hero-logo` at 130px;
+  `.historia-logo` at `max-width: 260px`. `--crest-sm` also sizes the round
+  sponsor icon, which the reference draws at 48px.
+- `--hero-ring-outer` `680px`, `--hero-ring-inner` `360px` — the two concentric
+  `.rink-ring` circles behind the hero. Their diameters are inline styles on the
+  markup rather than rules in the stylesheet, which is why the first extraction
+  missed them.
 
 ## What was collapsed
 

@@ -1,0 +1,56 @@
+/*
+ * `#historia`, `#ligas`, `#galeria`, `#sponsors` in the reference, which repeat
+ * the same padding, container, `.sec-label`, `.sec-title` and `.gold-bar` five
+ * times over.
+ *
+ * `position: relative` and `z-index: 1` are not decoration: the backdrop in
+ * `src/index.css` is fixed at `z-index: -1`, and a section without them
+ * disappears behind it.
+ */
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding: var(--layout-section-y) var(--layout-section-x);
+}
+
+.section--base {
+  background: var(--color-bg);
+}
+
+.section--alt {
+  background: var(--color-bg-alt);
+}
+
+.section__inner {
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+}
+
+.section__eyebrow {
+  font-family: var(--font-condensed);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-eyebrow);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: var(--text-section);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+  color: var(--color-text-heading);
+  margin-bottom: var(--space-4);
+}
+
+.section__rule {
+  width: var(--rule-accent-width);
+  height: var(--rule-accent-height);
+  background: var(--color-accent);
+  margin-bottom: var(--space-5);
+}
