@@ -1,0 +1,63 @@
+name: Keep the database awake
+
+# The Supabase free tier pauses a project after about a week without activity,
+# and this league plays every two to four weeks. Left alone the database would be
+# asleep on most match nights: the public site would carry on from the versioned
+# seed, but the back office would be dead exactly when somebody sits down to load
+# a result. One query a week is enough to prevent that.
+#
+# Until the repository variables exist this job says so and exits cleanly, which
+# is why it reads as a no-op in the log rather than as a failure.
+
+on:
+  schedule:
+    # Mondays at 12:17 UTC, which is a quiet hour and an odd minute: GitHub
+    # spreads scheduled runs, and an on-the-hour cron waits the longest.
+    - cron: '17 12 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: keepalive
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    name: One query against the season
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping the database
+        env:
+          # Both are repository variables rather than secrets: the project URL
+          # and the publishable key are public by design, they ship inside the
+          # site's own bundle, and security rests on row level security.
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${SUPABASE_URL}" ] || [ -z "${SUPABASE_PUBLISHABLE_KEY}" ]; then
+            echo "SUPABASE_URL or SUPABASE_PUBLISHABLE_KEY is not set as a repository variable."
+            echo "Nothing to ping. Set both under Settings > Secrets and variables > Actions > Variables."
+            exit 0
+          fi
+
+          # A real read against a real table, because that is what counts as
+          # activity: an endpoint that never touches Postgres would let the
+          # database sleep while this job reported success every Monday.
+          status=$(curl --silent --show-error --max-time 30 \
+            --output /tmp/keepalive-body \
+            --write-out '%{http_code}' \
+            --header "apikey: ${SUPABASE_PUBLISHABLE_KEY}" \
+            --header "Authorization: Bearer ${SUPABASE_PUBLISHABLE_KEY}" \
+            "${SUPABASE_URL}/rest/v1/competitions?select=key&limit=1")
+
+          echo "HTTP ${status}"
+          cat /tmp/keepalive-body
+
+          if [ "${status}" != "200" ]; then
+            echo "::error::The database did not answer with 200. It may be paused, or the key may have been rotated."
+            exit 1
+          fi

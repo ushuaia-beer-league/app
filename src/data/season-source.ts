@@ -62,7 +62,7 @@ interface TeamRow {
   nickname: string | null
 }
 
-interface MatchRow {
+export interface MatchRow {
   id: string
   competition_key: CompetitionKey
   stage: MatchStage
@@ -104,7 +104,12 @@ function trimSeconds(time: string): string {
   return time.slice(0, 5)
 }
 
-function toMatch(row: MatchRow): Match {
+/**
+ * One database row as a domain match. Exported because this is where a wrong
+ * mapping would corrupt every table quietly: a uuid escaping as a team id, a
+ * time keeping its seconds, or a half-filled score being read as a result.
+ */
+export function matchFromRow(row: MatchRow): Match {
   const scored = row.home_goals !== null && row.away_goals !== null
 
   return {
@@ -221,7 +226,7 @@ async function loadFromSupabase(
       // free tier's request budget for nothing.
       players: SEED_2026.players,
       rosters: SEED_2026.rosters,
-      matches: matchRows.map(toMatch),
+      matches: matchRows.map(matchFromRow),
       publishedPlayerStats: playerRows.map((row) => ({
         competition: row.competition_key,
         sourceFile: row.source_file,

@@ -34,7 +34,16 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test -- --run
+
+      # The site reads the season from Supabase when these two are set and from
+      # the versioned seed when they are not, so a build with no variables is a
+      # working site rather than a broken one. Both are repository variables and
+      # not secrets: the project URL and the publishable key ship inside the
+      # bundle by design, and security rests on row level security.
       - run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
 
       # The Pages site is created once by hand, by an administrator of the
       # repository, with "GitHub Actions" as the source. The workflow token
