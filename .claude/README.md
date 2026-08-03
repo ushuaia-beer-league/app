@@ -17,21 +17,21 @@ subagents.
 
 ## Hooks
 
-| Hook | Event | What it does |
-|---|---|---|
-| `pre-bash-block-destructive.sh` | PreToolUse, Bash | Blocks deletion of `docs/sources`, `docs`, `supabase/migrations`, `.github`, `.claude`; blocks `--no-verify`, force push to `main`, `git reset --hard`, `git clean -fd`, and branch deletion of `main`. |
-| `pre-write-warn-protected.sh` | PreToolUse, Edit/Write | Warns when a write targets `docs/sources/` (original league material, read only) or a lockfile. |
-| `session-start.sh` | SessionStart | Prints branch and upstream, plus the domain rules most easily got wrong. |
+| Hook                            | Event                  | What it does                                                                                                                                                                                            |
+| ------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pre-bash-block-destructive.sh` | PreToolUse, Bash       | Blocks deletion of `docs/sources`, `docs`, `supabase/migrations`, `.github`, `.claude`; blocks `--no-verify`, force push to `main`, `git reset --hard`, `git clean -fd`, and branch deletion of `main`. |
+| `pre-write-warn-protected.sh`   | PreToolUse, Edit/Write | Warns when a write targets `docs/sources/` (original league material, read only) or a lockfile.                                                                                                         |
+| `session-start.sh`              | SessionStart           | Prints branch and upstream, plus the domain rules most easily got wrong.                                                                                                                                |
 
 All hooks fail open: if `jq` is missing they warn once and allow the call.
 
 ## Skills
 
-| Skill | Use it when |
-|---|---|
-| `standings-rules` | Touching standings, scoring leaders or goalkeeping maths. |
+| Skill                | Use it when                                                 |
+| -------------------- | ----------------------------------------------------------- |
+| `standings-rules`    | Touching standings, scoring leaders or goalkeeping maths.   |
 | `import-source-data` | Importing or re-importing league data from `docs/sources/`. |
-| `supabase-schema` | Adding or changing a table, a policy or a migration. |
+| `supabase-schema`    | Adding or changing a table, a policy or a migration.        |
 
 ## Optional per-developer settings
 

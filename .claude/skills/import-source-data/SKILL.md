@@ -21,13 +21,13 @@ paper sheet.
 
 ## Sources and which one wins
 
-| File | Holds | Trust |
-|---|---|---|
-| `fixture-2026-calendar.csv` | fixture, scores, venue, round dates | highest, use for results |
-| `spreadsheet-export/teams.html` | rosters with jersey numbers | high |
-| `spreadsheet-export/standings.html` | published standings | reconciliation target only |
-| `spreadsheet-export/player-stats.html`, `goalie-stats.html`, and the `wubl-` pair | published totals | reconciliation target only |
-| `spreadsheet-export/results.html` | matchups without goals | do not use, the export lost the numbers |
+| File                                                                              | Holds                               | Trust                                   |
+| --------------------------------------------------------------------------------- | ----------------------------------- | --------------------------------------- |
+| `fixture-2026-calendar.csv`                                                       | fixture, scores, venue, round dates | highest, use for results                |
+| `spreadsheet-export/teams.html`                                                   | rosters with jersey numbers         | high                                    |
+| `spreadsheet-export/standings.html`                                               | published standings                 | reconciliation target only              |
+| `spreadsheet-export/player-stats.html`, `goalie-stats.html`, and the `wubl-` pair | published totals                    | reconciliation target only              |
+| `spreadsheet-export/results.html`                                                 | matchups without goals              | do not use, the export lost the numbers |
 
 Never import a published total as a stored value. Totals are recomputed from
 match records; the published ones exist to check the import.

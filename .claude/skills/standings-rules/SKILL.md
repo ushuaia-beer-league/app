@@ -23,13 +23,13 @@ in components and must call the pure functions rather than reimplementing them.
 
 Scoring:
 
-| Outcome | Points |
-|---|---|
-| Win in regulation | 2 |
-| Win in a shootout | 2 |
-| Loss in a shootout | 1 |
-| Draw | 1 |
-| Loss in regulation | 0 |
+| Outcome            | Points |
+| ------------------ | ------ |
+| Win in regulation  | 2      |
+| Win in a shootout  | 2      |
+| Loss in a shootout | 1      |
+| Draw               | 1      |
+| Loss in regulation | 0      |
 
 A regulation win and a shootout win pay the same but are stored apart, because
 **PGR** (wins outside a shootout) is the first tiebreaker.

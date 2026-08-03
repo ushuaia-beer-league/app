@@ -86,12 +86,12 @@ the five-player threshold for requesting a substitute in the playoffs, the
 
 Scoring, read from the league's own standings sheet:
 
-| Code | Meaning | Points |
-|---|---|---|
-| PG | games won | 2 |
-| PP | games lost | 0 |
-| PPSO | games lost in a shootout | 1 |
-| PGR | games won outside a shootout | 2, used as a tiebreaker |
+| Code | Meaning                      | Points                  |
+| ---- | ---------------------------- | ----------------------- |
+| PG   | games won                    | 2                       |
+| PP   | games lost                   | 0                       |
+| PPSO | games lost in a shootout     | 1                       |
+| PGR  | games won outside a shootout | 2, used as a tiebreaker |
 
 Other columns: GA (goals for), GE (goals against), DIF (goal difference), PJ
 (games played).
@@ -136,15 +136,15 @@ The reference site already carries all three under the keys `beer`, `wbeer` and
 Each team has a short name (used by the fixture) and a full sponsored name (used
 by the roster sheet).
 
-| Short name | Full name | Nickname seen in the playoff sheet |
-|---|---|---|
-| Birra del Fuego | Green Seven Birra del fuego | verde |
-| Short Shift Soft Sticks (SSSS) | Beerros Azulvetrados | azul |
-| Rock Choppers | Hantachoppers | hanta |
-| Blanco | Blancaspuma y las 7 pintas | vitox |
-| Sucucho | Frozen Sucucho | suc |
-| Tipo Nine (T9) | Beerizar Rompehielos T9 | t9 |
-| Zhockey | Castores Zhockey | z hockey |
+| Short name                     | Full name                   | Nickname seen in the playoff sheet |
+| ------------------------------ | --------------------------- | ---------------------------------- |
+| Birra del Fuego                | Green Seven Birra del fuego | verde                              |
+| Short Shift Soft Sticks (SSSS) | Beerros Azulvetrados        | azul                               |
+| Rock Choppers                  | Hantachoppers               | hanta                              |
+| Blanco                         | Blancaspuma y las 7 pintas  | vitox                              |
+| Sucucho                        | Frozen Sucucho              | suc                                |
+| Tipo Nine (T9)                 | Beerizar Rompehielos T9     | t9                                 |
+| Zhockey                        | Castores Zhockey            | z hockey                           |
 
 The short-name to full-name mapping was inferred by cross-checking the standings
 against the playoff brackets. **To be confirmed with the organisation.**
@@ -207,15 +207,15 @@ Sucucho. **The organisation needs to confirm all four.**
 
 Beer League, six games played each:
 
-| Pos | Team | Pts | PG | PP | PPSO | PGR | GA | GE | DIF | PJ |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Birra del Fuego | 12 | 6 | 0 | 0 | 5 | 49 | 32 | 17 | 6 |
-| 2 | Short Shift Soft Sticks | 10 | 5 | 1 | 0 | 4 | 40 | 28 | 12 | 6 |
-| 3 | Rock Choppers | 6 | 3 | 3 | 0 | 3 | 44 | 48 | -4 | 6 |
-| 4 | Blanco | 6 | 2 | 1 | 2 | 2 | 37 | 33 | 4 | 6 |
-| 5 | Sucucho | 4 | 2 | 4 | 0 | 2 | 30 | 34 | -4 | 6 |
-| 6 | Tipo Nine | 4 | 2 | 4 | 0 | 2 | 38 | 43 | -5 | 6 |
-| 7 | Zhockey | 2 | 1 | 5 | 0 | 1 | 31 | 51 | -20 | 6 |
+| Pos | Team                    | Pts | PG  | PP  | PPSO | PGR | GA  | GE  | DIF | PJ  |
+| --- | ----------------------- | --- | --- | --- | ---- | --- | --- | --- | --- | --- |
+| 1   | Birra del Fuego         | 12  | 6   | 0   | 0    | 5   | 49  | 32  | 17  | 6   |
+| 2   | Short Shift Soft Sticks | 10  | 5   | 1   | 0    | 4   | 40  | 28  | 12  | 6   |
+| 3   | Rock Choppers           | 6   | 3   | 3   | 0    | 3   | 44  | 48  | -4  | 6   |
+| 4   | Blanco                  | 6   | 2   | 1   | 2    | 2   | 37  | 33  | 4   | 6   |
+| 5   | Sucucho                 | 4   | 2   | 4   | 0    | 2   | 30  | 34  | -4  | 6   |
+| 6   | Tipo Nine               | 4   | 2   | 4   | 0    | 2   | 38  | 43  | -5  | 6   |
+| 7   | Zhockey                 | 2   | 1   | 5   | 0    | 1   | 31  | 51  | -20 | 6   |
 
 The source sheet lists the rows out of order: Rock Choppers and Blanco appear
 below the four-point teams. The order above follows the points, and the playoff
@@ -223,12 +223,12 @@ brackets confirm those positions.
 
 Women's Beer League, three games played each:
 
-| Pos | Team | Pts | PG | PP | Draw | PGR | GA | GE | DIF | PJ |
-|---|---|---|---|---|---|---|---|---|---|---|
-| 1 | Sucucho | 6 | 3 | 0 | 0 | 3 | 11 | 5 | 6 | 3 |
-| 2 | Birra del Fuego | 3 | 1 | 1 | 1 | 1 | 13 | 13 | 0 | 3 |
-| 3 | Tipo Nine | 3 | 1 | 1 | 1 | 1 | 10 | 11 | -1 | 3 |
-| 4 | Zhockey | 0 | 0 | 3 | 0 | 0 | 11 | 16 | -5 | 3 |
+| Pos | Team            | Pts | PG  | PP  | Draw | PGR | GA  | GE  | DIF | PJ  |
+| --- | --------------- | --- | --- | --- | ---- | --- | --- | --- | --- | --- |
+| 1   | Sucucho         | 6   | 3   | 0   | 0    | 3   | 11  | 5   | 6   | 3   |
+| 2   | Birra del Fuego | 3   | 1   | 1   | 1    | 1   | 13  | 13  | 0   | 3   |
+| 3   | Tipo Nine       | 3   | 1   | 1   | 1    | 1   | 10  | 11  | -1  | 3   |
+| 4   | Zhockey         | 0   | 0   | 3   | 0    | 0   | 11  | 16  | -5  | 3   |
 
 ### 6.5 Fixture and results
 
@@ -241,64 +241,64 @@ Sheet notation: `5 p` or `8p` means that side won in a shootout.
 
 **Round 1, Saturday 23 May 2026**
 
-| Time | Home | Score | Away | Venue |
-|---|---|---|---|---|
-| 21:30 | (row with no teams recorded) | | | Bahía |
-| 21:30 | Rock Choppers | 9 - 6 | Sucucho | Poli |
-| 22:30 | Short Shift Soft Sticks | 5 p - 4 | Blanco | Bahía |
-| 22:30 | Zhockey | 6 - 14 | Birra del Fuego | Poli |
-| 23:30 | Rock Choppers | 8 - 11 | Birra del Fuego | Bahía |
-| 23:30 | Zhockey | 6 - 3 | Sucucho | Poli |
+| Time  | Home                         | Score   | Away            | Venue |
+| ----- | ---------------------------- | ------- | --------------- | ----- |
+| 21:30 | (row with no teams recorded) |         |                 | Bahía |
+| 21:30 | Rock Choppers                | 9 - 6   | Sucucho         | Poli  |
+| 22:30 | Short Shift Soft Sticks      | 5 p - 4 | Blanco          | Bahía |
+| 22:30 | Zhockey                      | 6 - 14  | Birra del Fuego | Poli  |
+| 23:30 | Rock Choppers                | 8 - 11  | Birra del Fuego | Bahía |
+| 23:30 | Zhockey                      | 6 - 3   | Sucucho         | Poli  |
 
 That first row has a time and a venue but no teams and no score. A gap to
 resolve with the organisation.
 
 **Round 2, Saturday 30 May 2026**
 
-| Time | Home | Score | Away | Venue |
-|---|---|---|---|---|
-| 21:30 | Sucucho | 10 - 3 | Tipo Nine | Bahía |
-| 21:30 | Blanco | 7 - 8 p | Birra del Fuego | Poli |
-| 22:30 | Short Shift Soft Sticks | 9 - 6 | Rock Choppers | Bahía |
-| 22:30 | Sucucho | 4 - 3 | Blanco | Poli |
-| 23:30 | Zhockey | 6 - 8 | Tipo Nine | Bahía |
-| 23:30 | Short Shift Soft Sticks | 2 - 5 | Birra del Fuego | Poli |
+| Time  | Home                    | Score   | Away            | Venue |
+| ----- | ----------------------- | ------- | --------------- | ----- |
+| 21:30 | Sucucho                 | 10 - 3  | Tipo Nine       | Bahía |
+| 21:30 | Blanco                  | 7 - 8 p | Birra del Fuego | Poli  |
+| 22:30 | Short Shift Soft Sticks | 9 - 6   | Rock Choppers   | Bahía |
+| 22:30 | Sucucho                 | 4 - 3   | Blanco          | Poli  |
+| 23:30 | Zhockey                 | 6 - 8   | Tipo Nine       | Bahía |
+| 23:30 | Short Shift Soft Sticks | 2 - 5   | Birra del Fuego | Poli  |
 
 **Round 3, Saturday 6 June 2026** (first women's round)
 
-| Time | Home | Score | Away | Venue |
-|---|---|---|---|---|
-| 21:30 | Mujeres Zhockey | 3 - 5 | Mujeres Tipo Nine | Bahía |
-| 21:30 | Mujeres Birra del Fuego | 2 - 3 | Mujeres Sucucho | Poli |
-| 22:30 | Zhockey | 5 - 9 | Short Shift Soft Sticks | Bahía |
-| 22:30 | Rock Choppers | 4 - 10 | Tipo Nine | Poli |
-| 23:30 | Mujeres Zhockey | 6 - 7 | Mujeres Birra del Fuego | Bahía |
-| 23:30 | Mujeres Sucucho | 4 - 1 | Mujeres Tipo Nine | Poli |
+| Time  | Home                    | Score  | Away                    | Venue |
+| ----- | ----------------------- | ------ | ----------------------- | ----- |
+| 21:30 | Mujeres Zhockey         | 3 - 5  | Mujeres Tipo Nine       | Bahía |
+| 21:30 | Mujeres Birra del Fuego | 2 - 3  | Mujeres Sucucho         | Poli  |
+| 22:30 | Zhockey                 | 5 - 9  | Short Shift Soft Sticks | Bahía |
+| 22:30 | Rock Choppers           | 4 - 10 | Tipo Nine               | Poli  |
+| 23:30 | Mujeres Zhockey         | 6 - 7  | Mujeres Birra del Fuego | Bahía |
+| 23:30 | Mujeres Sucucho         | 4 - 1  | Mujeres Tipo Nine       | Poli  |
 
 **Round 4, Sunday 28 June 2026**
 
-| Time | Home | Score | Away | Venue |
-|---|---|---|---|---|
-| 21:30 | Zhockey | 7 - 9 | Rock Choppers | Bahía |
-| 21:30 | Tipo Nine | 6 - 7 | Birra del Fuego | Poli |
-| 22:30 | Mujeres Birra del Fuego | 4 - 4 | Mujeres Tipo Nine | Bahía |
-| 22:30 | Mujeres Sucucho | 4 - 2 | Mujeres Zhockey | Poli |
-| 23:30 | Sucucho | 4 - 9 | Short Shift Soft Sticks | Bahía |
-| 23:30 | Blanco | 10 - 7 | Tipo Nine | Poli |
+| Time  | Home                    | Score  | Away                    | Venue |
+| ----- | ----------------------- | ------ | ----------------------- | ----- |
+| 21:30 | Zhockey                 | 7 - 9  | Rock Choppers           | Bahía |
+| 21:30 | Tipo Nine               | 6 - 7  | Birra del Fuego         | Poli  |
+| 22:30 | Mujeres Birra del Fuego | 4 - 4  | Mujeres Tipo Nine       | Bahía |
+| 22:30 | Mujeres Sucucho         | 4 - 2  | Mujeres Zhockey         | Poli  |
+| 23:30 | Sucucho                 | 4 - 9  | Short Shift Soft Sticks | Bahía |
+| 23:30 | Blanco                  | 10 - 7 | Tipo Nine               | Poli  |
 
 The women's 4-4 has no winner recorded: this is the draw that proves the
 women's competition allows them.
 
 **Round 5, Saturday 4 July 2026**
 
-| Time | Home | Score | Away | Venue |
-|---|---|---|---|---|
-| 21:30 | Rock Choppers | 8 - 5 | Blanco | Bahía |
-| 21:30 | Sucucho | 3 - 4 | Birra del Fuego | Poli |
-| 22:30 | Short Shift Soft Sticks | 6 - 4 | Tipo Nine | Bahía |
-| 22:30 | Zhockey | 1 - 8 | Blanco | Poli |
-| 23:30 | 6th place | 10 - 7 | 7th place | Bahía |
-| 23:30 | Bye | | Bye | Poli |
+| Time  | Home                    | Score  | Away            | Venue |
+| ----- | ----------------------- | ------ | --------------- | ----- |
+| 21:30 | Rock Choppers           | 8 - 5  | Blanco          | Bahía |
+| 21:30 | Sucucho                 | 3 - 4  | Birra del Fuego | Poli  |
+| 22:30 | Short Shift Soft Sticks | 6 - 4  | Tipo Nine       | Bahía |
+| 22:30 | Zhockey                 | 1 - 8  | Blanco          | Poli  |
+| 23:30 | 6th place               | 10 - 7 | 7th place       | Bahía |
+| 23:30 | Bye                     |        | Bye             | Poli  |
 
 In this round the sheet carries the goals but leaves the "Resultado" and
 "Ganador" columns empty on the last four matches, and the final two rows carry a
@@ -313,13 +313,13 @@ and 22:30, with no teams named in the sheet.
 
 **Semifinals, Saturday 8 August 2026**
 
-| Time | Matchup |
-|---|---|
-| 21:30 | 3rd place (Hantachoppers) vs winner of 6th/7th (Tipo Nine) |
-| 21:30 | 4th place (Blanco) vs 5th place (Sucucho) |
-| 22:30 | 1st women's (Sucucho) vs 4th women's (Zhockey) |
-| 22:30 | 2nd women's (Birra del Fuego) vs 3rd women's (Tipo Nine) |
-| 23:30 | Semifinal 1: Birra del Fuego (verde) vs to be determined |
+| Time  | Matchup                                                         |
+| ----- | --------------------------------------------------------------- |
+| 21:30 | 3rd place (Hantachoppers) vs winner of 6th/7th (Tipo Nine)      |
+| 21:30 | 4th place (Blanco) vs 5th place (Sucucho)                       |
+| 22:30 | 1st women's (Sucucho) vs 4th women's (Zhockey)                  |
+| 22:30 | 2nd women's (Birra del Fuego) vs 3rd women's (Tipo Nine)        |
+| 23:30 | Semifinal 1: Birra del Fuego (verde) vs to be determined        |
 | 23:30 | Semifinal 2: Short Shift Soft Sticks (azul) vs to be determined |
 
 The first and second seeds wait in the semifinals for the winners of the earlier
@@ -327,14 +327,14 @@ matches on the same night.
 
 **Finals, Saturday 15 August 2026**
 
-| Time | Match |
-|---|---|
-| 20:30 | Third place |
+| Time  | Match              |
+| ----- | ------------------ |
+| 20:30 | Third place        |
 | 20:30 | Third place, women |
-| 21:30 | Final, women |
-| 21:30 | Fifth place |
-| 22:30 | Final |
-| 22:30 | Venue free |
+| 21:30 | Final, women       |
+| 21:30 | Fifth place        |
+| 22:30 | Final              |
+| 22:30 | Venue free         |
 
 **Saturday 22 August 2026:** emergency date, reserved in case of cancellation.
 
@@ -342,72 +342,72 @@ matches on the same night.
 
 Points are goals plus assists. Full table as the league publishes it:
 
-| Player | Team | A | G | Pts |
-|---|---|---|---|---|
-| Beltrami Ramiro | Beerizar Rompehielos T9 | 6 | 23 | 29 |
-| Baeza Pedro | Green Seven Birra del fuego | 6 | 17 | 23 |
-| Ruggirello Matt | Hantachoppers | 6 | 17 | 23 |
-| Velásquez Luciano | Beerros Azulvetrados | 5 | 11 | 16 |
-| Carrión Jaureguiberry Francisco | Hantachoppers | 11 | 5 | 16 |
-| Zahr Leandro | Blancaspuma y las 7 pintas | 3 | 11 | 14 |
-| Leuenberger Federico | Green Seven Birra del fuego | 1 | 12 | 13 |
-| Ávila Leandro | Green Seven Birra del fuego | 3 | 10 | 13 |
-| Sueldo Adolfo | Beerros Azulvetrados | 1 | 11 | 12 |
-| Seru Campos Victoria | Beerizar Rompehielos T9 | 3 | 9 | 12 |
-| Firmapaz Martín | Frozen Sucucho | 0 | 11 | 11 |
-| Jofré Matías | Beerros Azulvetrados | 1 | 9 | 10 |
-| Val Francisco | Blancaspuma y las 7 pintas | 2 | 8 | 10 |
-| Piccolini Alejo | Hantachoppers | 2 | 8 | 10 |
-| Lapertosa Facundo | Castores Zhockey | 2 | 8 | 10 |
-| Ceravolo Agustín | Beerros Azulvetrados | 3 | 5 | 8 |
-| Muñoz Lautaro | Frozen Sucucho | 3 | 5 | 8 |
-| López Mieres Martín | Beerizar Rompehielos T9 | 0 | 6 | 6 |
-| Encinas Camacho Valen | Hantachoppers | 1 | 5 | 6 |
-| Tabares Ian | Castores Zhockey | 1 | 5 | 6 |
-| Fermín López Silva | Blancaspuma y las 7 pintas (sub) | 2 | 4 | 6 |
-| Baeza Juan | Castores Zhockey | 0 | 5 | 5 |
-| Bianciotto Catalina | Frozen Sucucho | 0 | 5 | 5 |
-| Guillamet Chargue Cecilia | Blancaspuma y las 7 pintas | 0 | 5 | 5 |
-| Aquino Ailín | Castores Zhockey | 0 | 5 | 5 |
-| Piccone Nicolás | Beerizar Rompehielos T9 | 1 | 4 | 5 |
-| Brallard Iván | Blancaspuma y las 7 pintas | 2 | 3 | 5 |
-| Romero José | Castores Zhockey | 0 | 4 | 4 |
-| Gowland Guillermina | Green Seven Birra del fuego | 1 | 3 | 4 |
-| Ávila Ariadna | Castores Zhockey | 1 | 3 | 4 |
-| Aguado Bárbara | Green Seven Birra del fuego | 2 | 2 | 4 |
-| Carbone Ana | Hantachoppers | 2 | 2 | 4 |
-| Quiroga Agustín | Green Seven Birra del fuego | 2 | 2 | 4 |
-| Molinolo Osvaldo | Green Seven Birra del fuego | 0 | 3 | 3 |
-| Legal Cristian | Castores Zhockey | 0 | 3 | 3 |
-| Magnelli Francisco | Frozen Sucucho | 1 | 2 | 3 |
-| Galar Ezequiel | Castores Zhockey | 1 | 2 | 3 |
-| Atristain Juan | Beerizar Rompehielos T9 | 1 | 2 | 3 |
-| Echague Guillermo | Hantachoppers | 1 | 2 | 3 |
-| Vaca Marcelo | Castores Zhockey | 1 | 2 | 3 |
-| Sobral Lucas | Castores Zhockey | 2 | 1 | 3 |
-| Zayas Díaz Matías | Frozen Sucucho | 0 | 2 | 2 |
-| Sueldo Kevin | Substitute (Castores) | 0 | 2 | 2 |
-| Molinolo Santi | Green Seven Birra del fuego | 0 | 2 | 2 |
-| Cuitiño Joaquín | Substitute (Sucucho) | 0 | 2 | 2 |
-| Cotignola Florencia | Hantachoppers | 0 | 2 | 2 |
-| Guete Nadin | Green Seven Birra del fuego | 1 | 1 | 2 |
-| Bergeonneau Mauri | Hantachoppers | 1 | 1 | 2 |
-| Cicka Ariel | Beerros Azulvetrados | 1 | 1 | 2 |
-| Rodríguez Luciano | Hantachoppers | 1 | 1 | 2 |
-| Nardi Christina | Blancaspuma y las 7 pintas | 1 | 1 | 2 |
-| Zayas Díaz Santiago | Beerros Azulvetrados | 1 | 1 | 2 |
-| Romano Salinas Felipe | Green Seven Birra del fuego | 0 | 2 | 2 |
-| Alarcón Gonza | Beerizar Rompehielos T9 | 0 | 2 | 2 |
-| Díaz Ofelia | Beerizar Rompehielos T9 | 0 | 2 | 2 |
-| Vittori Juan | Hantachoppers | 0 | 2 | 2 |
-| Ureta Facundo | Frozen Sucucho | 0 | 1 | 1 |
-| Ercole Maximiliano | Frozen Sucucho | 0 | 1 | 1 |
-| Dumais Virginia | Blancaspuma y las 7 pintas | 0 | 1 | 1 |
-| Flecha Yesica | Frozen Sucucho | 0 | 1 | 1 |
-| Coria Omar | Blancaspuma y las 7 pintas | 0 | 1 | 1 |
-| Verón Nicolás | Blancaspuma y las 7 pintas | 0 | 1 | 1 |
-| Simari Birkner Cristian | Frozen Sucucho (sub) | 0 | 1 | 1 |
-| Mosqueira Victoria | Frozen Sucucho | 0 | 1 | 1 |
+| Player                          | Team                             | A   | G   | Pts |
+| ------------------------------- | -------------------------------- | --- | --- | --- |
+| Beltrami Ramiro                 | Beerizar Rompehielos T9          | 6   | 23  | 29  |
+| Baeza Pedro                     | Green Seven Birra del fuego      | 6   | 17  | 23  |
+| Ruggirello Matt                 | Hantachoppers                    | 6   | 17  | 23  |
+| Velásquez Luciano               | Beerros Azulvetrados             | 5   | 11  | 16  |
+| Carrión Jaureguiberry Francisco | Hantachoppers                    | 11  | 5   | 16  |
+| Zahr Leandro                    | Blancaspuma y las 7 pintas       | 3   | 11  | 14  |
+| Leuenberger Federico            | Green Seven Birra del fuego      | 1   | 12  | 13  |
+| Ávila Leandro                   | Green Seven Birra del fuego      | 3   | 10  | 13  |
+| Sueldo Adolfo                   | Beerros Azulvetrados             | 1   | 11  | 12  |
+| Seru Campos Victoria            | Beerizar Rompehielos T9          | 3   | 9   | 12  |
+| Firmapaz Martín                 | Frozen Sucucho                   | 0   | 11  | 11  |
+| Jofré Matías                    | Beerros Azulvetrados             | 1   | 9   | 10  |
+| Val Francisco                   | Blancaspuma y las 7 pintas       | 2   | 8   | 10  |
+| Piccolini Alejo                 | Hantachoppers                    | 2   | 8   | 10  |
+| Lapertosa Facundo               | Castores Zhockey                 | 2   | 8   | 10  |
+| Ceravolo Agustín                | Beerros Azulvetrados             | 3   | 5   | 8   |
+| Muñoz Lautaro                   | Frozen Sucucho                   | 3   | 5   | 8   |
+| López Mieres Martín             | Beerizar Rompehielos T9          | 0   | 6   | 6   |
+| Encinas Camacho Valen           | Hantachoppers                    | 1   | 5   | 6   |
+| Tabares Ian                     | Castores Zhockey                 | 1   | 5   | 6   |
+| Fermín López Silva              | Blancaspuma y las 7 pintas (sub) | 2   | 4   | 6   |
+| Baeza Juan                      | Castores Zhockey                 | 0   | 5   | 5   |
+| Bianciotto Catalina             | Frozen Sucucho                   | 0   | 5   | 5   |
+| Guillamet Chargue Cecilia       | Blancaspuma y las 7 pintas       | 0   | 5   | 5   |
+| Aquino Ailín                    | Castores Zhockey                 | 0   | 5   | 5   |
+| Piccone Nicolás                 | Beerizar Rompehielos T9          | 1   | 4   | 5   |
+| Brallard Iván                   | Blancaspuma y las 7 pintas       | 2   | 3   | 5   |
+| Romero José                     | Castores Zhockey                 | 0   | 4   | 4   |
+| Gowland Guillermina             | Green Seven Birra del fuego      | 1   | 3   | 4   |
+| Ávila Ariadna                   | Castores Zhockey                 | 1   | 3   | 4   |
+| Aguado Bárbara                  | Green Seven Birra del fuego      | 2   | 2   | 4   |
+| Carbone Ana                     | Hantachoppers                    | 2   | 2   | 4   |
+| Quiroga Agustín                 | Green Seven Birra del fuego      | 2   | 2   | 4   |
+| Molinolo Osvaldo                | Green Seven Birra del fuego      | 0   | 3   | 3   |
+| Legal Cristian                  | Castores Zhockey                 | 0   | 3   | 3   |
+| Magnelli Francisco              | Frozen Sucucho                   | 1   | 2   | 3   |
+| Galar Ezequiel                  | Castores Zhockey                 | 1   | 2   | 3   |
+| Atristain Juan                  | Beerizar Rompehielos T9          | 1   | 2   | 3   |
+| Echague Guillermo               | Hantachoppers                    | 1   | 2   | 3   |
+| Vaca Marcelo                    | Castores Zhockey                 | 1   | 2   | 3   |
+| Sobral Lucas                    | Castores Zhockey                 | 2   | 1   | 3   |
+| Zayas Díaz Matías               | Frozen Sucucho                   | 0   | 2   | 2   |
+| Sueldo Kevin                    | Substitute (Castores)            | 0   | 2   | 2   |
+| Molinolo Santi                  | Green Seven Birra del fuego      | 0   | 2   | 2   |
+| Cuitiño Joaquín                 | Substitute (Sucucho)             | 0   | 2   | 2   |
+| Cotignola Florencia             | Hantachoppers                    | 0   | 2   | 2   |
+| Guete Nadin                     | Green Seven Birra del fuego      | 1   | 1   | 2   |
+| Bergeonneau Mauri               | Hantachoppers                    | 1   | 1   | 2   |
+| Cicka Ariel                     | Beerros Azulvetrados             | 1   | 1   | 2   |
+| Rodríguez Luciano               | Hantachoppers                    | 1   | 1   | 2   |
+| Nardi Christina                 | Blancaspuma y las 7 pintas       | 1   | 1   | 2   |
+| Zayas Díaz Santiago             | Beerros Azulvetrados             | 1   | 1   | 2   |
+| Romano Salinas Felipe           | Green Seven Birra del fuego      | 0   | 2   | 2   |
+| Alarcón Gonza                   | Beerizar Rompehielos T9          | 0   | 2   | 2   |
+| Díaz Ofelia                     | Beerizar Rompehielos T9          | 0   | 2   | 2   |
+| Vittori Juan                    | Hantachoppers                    | 0   | 2   | 2   |
+| Ureta Facundo                   | Frozen Sucucho                   | 0   | 1   | 1   |
+| Ercole Maximiliano              | Frozen Sucucho                   | 0   | 1   | 1   |
+| Dumais Virginia                 | Blancaspuma y las 7 pintas       | 0   | 1   | 1   |
+| Flecha Yesica                   | Frozen Sucucho                   | 0   | 1   | 1   |
+| Coria Omar                      | Blancaspuma y las 7 pintas       | 0   | 1   | 1   |
+| Verón Nicolás                   | Blancaspuma y las 7 pintas       | 0   | 1   | 1   |
+| Simari Birkner Cristian         | Frozen Sucucho (sub)             | 0   | 1   | 1   |
+| Mosqueira Victoria              | Frozen Sucucho                   | 0   | 1   | 1   |
 
 On zero points: Brito Esteban (Beerros), Tibaudin José (Blancaspuma),
 Sigel Carol (Beerros), Longart Reyner (T9), Cosentino Martín (T9),
@@ -419,17 +419,17 @@ as roster players.
 
 ### 6.7 Beer League goalkeepers
 
-| Goalkeeper | Team | GP | Shots faced | Goals against | Save % |
-|---|---|---|---|---|---|
-| Badaracco Nico | Frozen Sucucho | 5 | 173 | 25 | 86% |
-| Amaolo Lanata Gonza | Substitute (Beerizar) | 2 | 84 | 10 | 88% |
-| Zayas Marcelo | Blancaspuma y las 7 pintas | 6 | 156 | 32 | 79% |
-| Bernales Joaquín | Green Seven Birra del fuego | 6 | 151 | 32 | 79% |
-| López Mieres Martín | Beerizar Rompehielos T9 (sub) | 3 | 84 | 23 | 73% |
-| Zunino Francisco | Beerros Azulvetrados | 6 | 121 | 35 | 71% |
-| Valdez Gustavo | Hantachoppers | 6 | 185 | 57 | 69% |
-| Amaolo Lanata Eugenia | Castores Zhockey | 6 | 134 | 52 | 61% |
-| Jofré Lautaro | Substitute (Sucucho) | 2 | 46 | 19 | 59% |
+| Goalkeeper            | Team                          | GP  | Shots faced | Goals against | Save % |
+| --------------------- | ----------------------------- | --- | ----------- | ------------- | ------ |
+| Badaracco Nico        | Frozen Sucucho                | 5   | 173         | 25            | 86%    |
+| Amaolo Lanata Gonza   | Substitute (Beerizar)         | 2   | 84          | 10            | 88%    |
+| Zayas Marcelo         | Blancaspuma y las 7 pintas    | 6   | 156         | 32            | 79%    |
+| Bernales Joaquín      | Green Seven Birra del fuego   | 6   | 151         | 32            | 79%    |
+| López Mieres Martín   | Beerizar Rompehielos T9 (sub) | 3   | 84          | 23            | 73%    |
+| Zunino Francisco      | Beerros Azulvetrados          | 6   | 121         | 35            | 71%    |
+| Valdez Gustavo        | Hantachoppers                 | 6   | 185         | 57            | 69%    |
+| Amaolo Lanata Eugenia | Castores Zhockey              | 6   | 134         | 52            | 61%    |
+| Jofré Lautaro         | Substitute (Sucucho)          | 2   | 46          | 19            | 59%    |
 
 The source sheet groups the six-game goalkeepers first and everyone else after;
 the table above is ordered by save percentage. All nine percentages reconcile
@@ -439,33 +439,33 @@ disagree.
 
 ### 6.8 Women's Beer League scoring leaders
 
-| Player | Team | A | G | Pts |
-|---|---|---|---|---|
-| Seru Campos Victoria | Turbeerras | 3 | 5 | 8 |
-| Carbone Ana | Substitute (Zambirreras) | 1 | 4 | 5 |
-| Bianciotto Catalina | Frozen Queens | 1 | 4 | 5 |
-| Aquino Ailín | Turbeerras | 0 | 4 | 4 |
-| Nardi Christina | Zambirreras | 1 | 3 | 4 |
-| Tibaudin Ana J | Zambirreras | 1 | 3 | 4 |
-| Alvarado Daniela | Moby Drink | 0 | 3 | 3 |
-| Dumais Virginia | Frozen Queens | 1 | 2 | 3 |
-| Denti Silvana | Frozen Queens | 1 | 2 | 3 |
-| Guillamet Chargue Cecilia | Frozen Queens | 1 | 2 | 3 |
-| Abrahan Maura | Moby Drink | 2 | 1 | 3 |
-| Paz Luciana | Moby Drink | 0 | 3 | 3 |
-| Mosqueira Victoria | Moby Drink | 0 | 2 | 2 |
-| Sigel Carol | Moby Drink | 1 | 1 | 2 |
-| Guerra Marina | Zambirreras | 0 | 2 | 2 |
-| Ferreyra Marina | Turbeerras | 0 | 1 | 1 |
-| Aguado Bárbara | Turbeerras | 0 | 1 | 1 |
-| Ávila Ariadna | Turbeerras | 0 | 1 | 1 |
-| Oviedo Nieto Jessica | Moby Drink | 0 | 1 | 1 |
-| Garro María | Turbeerras | 0 | 1 | 1 |
-| Guete Nadin | Frozen Queens | 0 | 1 | 1 |
-| Dana Gonzales | no team | 0 | 1 | 1 |
-| Varaona Agustina | Turbeerras | 0 | 1 | 1 |
-| Ferrari Verónica | Moby Drink | 0 | 1 | 1 |
-| Alegre Flor | Zambirreras | 0 | 1 | 1 |
+| Player                    | Team                     | A   | G   | Pts |
+| ------------------------- | ------------------------ | --- | --- | --- |
+| Seru Campos Victoria      | Turbeerras               | 3   | 5   | 8   |
+| Carbone Ana               | Substitute (Zambirreras) | 1   | 4   | 5   |
+| Bianciotto Catalina       | Frozen Queens            | 1   | 4   | 5   |
+| Aquino Ailín              | Turbeerras               | 0   | 4   | 4   |
+| Nardi Christina           | Zambirreras              | 1   | 3   | 4   |
+| Tibaudin Ana J            | Zambirreras              | 1   | 3   | 4   |
+| Alvarado Daniela          | Moby Drink               | 0   | 3   | 3   |
+| Dumais Virginia           | Frozen Queens            | 1   | 2   | 3   |
+| Denti Silvana             | Frozen Queens            | 1   | 2   | 3   |
+| Guillamet Chargue Cecilia | Frozen Queens            | 1   | 2   | 3   |
+| Abrahan Maura             | Moby Drink               | 2   | 1   | 3   |
+| Paz Luciana               | Moby Drink               | 0   | 3   | 3   |
+| Mosqueira Victoria        | Moby Drink               | 0   | 2   | 2   |
+| Sigel Carol               | Moby Drink               | 1   | 1   | 2   |
+| Guerra Marina             | Zambirreras              | 0   | 2   | 2   |
+| Ferreyra Marina           | Turbeerras               | 0   | 1   | 1   |
+| Aguado Bárbara            | Turbeerras               | 0   | 1   | 1   |
+| Ávila Ariadna             | Turbeerras               | 0   | 1   | 1   |
+| Oviedo Nieto Jessica      | Moby Drink               | 0   | 1   | 1   |
+| Garro María               | Turbeerras               | 0   | 1   | 1   |
+| Guete Nadin               | Frozen Queens            | 0   | 1   | 1   |
+| Dana Gonzales             | no team                  | 0   | 1   | 1   |
+| Varaona Agustina          | Turbeerras               | 0   | 1   | 1   |
+| Ferrari Verónica          | Moby Drink               | 0   | 1   | 1   |
+| Alegre Flor               | Zambirreras              | 0   | 1   | 1   |
 
 On zero points: Amaolo Lanata Eugenia, Echazú Eugenia, Barrios Bentancor
 Valeria (Turbeerras); Álvarez de Oro Alejandra (Moby Drink); Cavalleri
@@ -475,10 +475,10 @@ María (Frozen Queens).
 
 ### 6.9 Women's Beer League goalkeepers
 
-| Goalkeeper | Team | GP | Shots faced | Goals against | Save % |
-|---|---|---|---|---|---|
-| Amaolo Lanata Eugenia | Turbeerras | 2 | 39 | 8 | 79% |
-| Cavaliere Milagros | Zambirreras | 3 | 54 | 16 | 70% |
+| Goalkeeper            | Team        | GP  | Shots faced | Goals against | Save % |
+| --------------------- | ----------- | --- | ----------- | ------------- | ------ |
+| Amaolo Lanata Eugenia | Turbeerras  | 2   | 39          | 8             | 79%    |
+| Cavaliere Milagros    | Zambirreras | 3   | 54          | 16            | 70%    |
 
 The surname reads "Cavalleri" on the player sheet and "Cavaliere" on the
 goalkeeper sheet. To be unified.
@@ -528,11 +528,11 @@ which substitute played in each match and for which team.
 
 Initial roles:
 
-| Role | Permissions |
-|---|---|
-| General administrator | Full access |
-| Sporting management | Teams, fixture, results and statistics |
-| Communications | News, photos and sponsors |
+| Role                  | Permissions                            |
+| --------------------- | -------------------------------------- |
+| General administrator | Full access                            |
+| Sporting management   | Teams, fixture, results and statistics |
+| Communications        | News, photos and sponsors              |
 
 Every administrator gets their own account. **No** shared password.
 
@@ -565,18 +565,18 @@ appearances.
 
 ### 7.7 Core entities
 
-| Element | Minimum information |
-|---|---|
-| Player | First name, surname, gender, level and position |
-| Team | Name, colour, logo, sponsor and season |
-| Competition | Name, description and applicable rulebook |
-| Season | Year, start and end dates, status |
-| Match | Date, teams, result and statistics |
-| News item | Title, body, date and images |
-| Photo | File, event, season and description |
-| Sponsor | Name, logo, link and category |
-| Active substitute | Player, position, level, eligible competition and availability |
-| Substitute request | Requesting team, match, position needed, reason, date and status |
+| Element               | Minimum information                                                       |
+| --------------------- | ------------------------------------------------------------------------- |
+| Player                | First name, surname, gender, level and position                           |
+| Team                  | Name, colour, logo, sponsor and season                                    |
+| Competition           | Name, description and applicable rulebook                                 |
+| Season                | Year, start and end dates, status                                         |
+| Match                 | Date, teams, result and statistics                                        |
+| News item             | Title, body, date and images                                              |
+| Photo                 | File, event, season and description                                       |
+| Sponsor               | Name, logo, link and category                                             |
+| Active substitute     | Player, position, level, eligible competition and availability            |
+| Substitute request    | Requesting team, match, position needed, reason, date and status          |
 | Substitute assignment | Approved request, confirmed substitute, team, match and actual appearance |
 
 At this stage there is no need to publish national ID, phone number, address or
@@ -617,16 +617,16 @@ Verbatim from the document:
 
 ### 7.10 Development order proposed by the organisation
 
-| Stage | Scope |
-|---|---|
-| 1 | Database and administration: seasons, competitions, players and teams |
-| 2 | Match and substitute management: fixture, results, sheets, pool and requests |
-| 3 | Public portal: history, teams, upcoming matches, standings and statistics |
-| 4 | Institutional content: news, gallery and sponsors |
-| 5 | History: past seasons |
-| 6 | Profiles: player accounts and history |
-| 7 | Registration and payments |
-| 8 | Stadium project |
+| Stage | Scope                                                                        |
+| ----- | ---------------------------------------------------------------------------- |
+| 1     | Database and administration: seasons, competitions, players and teams        |
+| 2     | Match and substitute management: fixture, results, sheets, pool and requests |
+| 3     | Public portal: history, teams, upcoming matches, standings and statistics    |
+| 4     | Institutional content: news, gallery and sponsors                            |
+| 5     | History: past seasons                                                        |
+| 6     | Profiles: player accounts and history                                        |
+| 7     | Registration and payments                                                    |
+| 8     | Stadium project                                                              |
 
 ### 7.11 Definition of done for the first version
 
@@ -722,14 +722,14 @@ only the matchups. Use the calendar CSV for results.
 
 What cannot be copied unchanged:
 
-| Topic | CFM | UBL |
-|---|---|---|
-| Scoring | 3 for a win | 2 for a win |
-| Draws | impossible | allowed, at least in the women's competition |
-| Tiebreaking | mini-table among tied teams | PGR then goal difference |
-| Discipline | penalty minutes, ejection on accumulation | penalty shot and leaving the game, no minutes |
-| Simultaneous matches | one per hour | two venues in parallel |
-| Seasons | a single one | multi-season history by design |
-| Substitutes | none | pool, requests and franchise player |
-| Content | sporting only | news, gallery and sponsors |
-| Goalkeepers | saves from the sheet footer | shots faced and goals against |
+| Topic                | CFM                                       | UBL                                           |
+| -------------------- | ----------------------------------------- | --------------------------------------------- |
+| Scoring              | 3 for a win                               | 2 for a win                                   |
+| Draws                | impossible                                | allowed, at least in the women's competition  |
+| Tiebreaking          | mini-table among tied teams               | PGR then goal difference                      |
+| Discipline           | penalty minutes, ejection on accumulation | penalty shot and leaving the game, no minutes |
+| Simultaneous matches | one per hour                              | two venues in parallel                        |
+| Seasons              | a single one                              | multi-season history by design                |
+| Substitutes          | none                                      | pool, requests and franchise player           |
+| Content              | sporting only                             | news, gallery and sponsors                    |
+| Goalkeepers          | saves from the sheet footer               | shots faced and goals against                 |
