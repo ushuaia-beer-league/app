@@ -96,6 +96,12 @@ interface ParsedSeason {
 
 const parsed = JSON.parse(readFileSync(PARSED, 'utf8')) as ParsedSeason
 
+/** The roster spelling of a matched line, for the site to show instead of a truncation. */
+const nameOf = (slug: string | null): string | null =>
+  slug === null
+    ? null
+    : (parsed.players.find((player) => player.slug === slug)?.name ?? null)
+
 // ---------------------------------------------------------------------------
 // The parsed fixture, as the domain types see it
 // ---------------------------------------------------------------------------
@@ -292,11 +298,15 @@ const seed: Seed = {
     jerseyNumber: entry.jerseyNumber,
   })),
   matches,
-  publishedPlayerStats: parsed.publishedPlayerStats,
+  publishedPlayerStats: parsed.publishedPlayerStats.map((line) => ({
+    ...line,
+    resolvedName: nameOf(line.playerSlug),
+  })),
   // The printed percentage stays behind: it was checked above against the two
   // numbers it is made of, and carrying it further would be a second answer to
   // the same question.
   publishedGoalieStats: parsed.publishedGoalieStats.map((line) => ({
+    resolvedName: nameOf(line.playerSlug),
     competition: line.competition,
     sourceFile: line.sourceFile,
     printedPlayerName: line.printedPlayerName,

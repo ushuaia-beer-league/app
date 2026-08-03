@@ -1520,6 +1520,7 @@ export const SEED_2026: Seed = {
       assists: 6,
       goals: 23,
       points: 29,
+      resolvedName: 'Beltrami Ramiro',
     },
     {
       competition: 'beer',
@@ -1531,6 +1532,7 @@ export const SEED_2026: Seed = {
       assists: 6,
       goals: 17,
       points: 23,
+      resolvedName: 'Baeza Pedro/Tincho',
     },
     {
       competition: 'beer',
@@ -1542,6 +1544,7 @@ export const SEED_2026: Seed = {
       assists: 6,
       goals: 17,
       points: 23,
+      resolvedName: 'Ruggirello Matt',
     },
     {
       competition: 'beer',
@@ -1553,6 +1556,7 @@ export const SEED_2026: Seed = {
       assists: 5,
       goals: 11,
       points: 16,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -1564,6 +1568,7 @@ export const SEED_2026: Seed = {
       assists: 11,
       goals: 5,
       points: 16,
+      resolvedName: 'Carrion Francisco',
     },
     {
       competition: 'beer',
@@ -1575,6 +1580,7 @@ export const SEED_2026: Seed = {
       assists: 3,
       goals: 11,
       points: 14,
+      resolvedName: 'Zahr Turco Leandro',
     },
     {
       competition: 'beer',
@@ -1586,6 +1592,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 12,
       points: 13,
+      resolvedName: 'Leuenberger Colo Federico',
     },
     {
       competition: 'beer',
@@ -1597,6 +1604,7 @@ export const SEED_2026: Seed = {
       assists: 3,
       goals: 10,
       points: 13,
+      resolvedName: 'Avila Chori Leandro',
     },
     {
       competition: 'beer',
@@ -1608,6 +1616,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 11,
       points: 12,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -1619,6 +1628,7 @@ export const SEED_2026: Seed = {
       assists: 3,
       goals: 9,
       points: 12,
+      resolvedName: 'Seru Campos Victoria',
     },
     {
       competition: 'beer',
@@ -1630,6 +1640,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 11,
       points: 11,
+      resolvedName: 'Firmapaz Martin',
     },
     {
       competition: 'beer',
@@ -1641,6 +1652,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 9,
       points: 10,
+      resolvedName: 'Jofre Matias',
     },
     {
       competition: 'beer',
@@ -1652,6 +1664,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 8,
       points: 10,
+      resolvedName: 'Val Francisco',
     },
     {
       competition: 'beer',
@@ -1663,6 +1676,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 8,
       points: 10,
+      resolvedName: 'Piccolini Alejo',
     },
     {
       competition: 'beer',
@@ -1674,6 +1688,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 8,
       points: 10,
+      resolvedName: 'Lapertosa Facundo',
     },
     {
       competition: 'beer',
@@ -1685,6 +1700,7 @@ export const SEED_2026: Seed = {
       assists: 3,
       goals: 5,
       points: 8,
+      resolvedName: 'Ceravolo Agus',
     },
     {
       competition: 'beer',
@@ -1696,6 +1712,7 @@ export const SEED_2026: Seed = {
       assists: 3,
       goals: 5,
       points: 8,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -1707,6 +1724,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 6,
       points: 6,
+      resolvedName: 'Lopez Mieres Martin',
     },
     {
       competition: 'beer',
@@ -1718,6 +1736,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 5,
       points: 6,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -1729,6 +1748,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 5,
       points: 6,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -1740,6 +1760,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 4,
       points: 6,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -1751,6 +1772,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 5,
       points: 5,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -1762,6 +1784,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 5,
       points: 5,
+      resolvedName: 'Bianciotto Cata',
     },
     {
       competition: 'beer',
@@ -1773,6 +1796,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 5,
       points: 5,
+      resolvedName: 'Guillamet Cecilia',
     },
     {
       competition: 'beer',
@@ -1784,6 +1808,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 5,
       points: 5,
+      resolvedName: 'Aquino Ailin',
     },
     {
       competition: 'beer',
@@ -1795,6 +1820,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 4,
       points: 5,
+      resolvedName: 'Piccone Nicolas',
     },
     {
       competition: 'beer',
@@ -1806,6 +1832,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 3,
       points: 5,
+      resolvedName: 'Brallard Ivan',
     },
     {
       competition: 'beer',
@@ -1817,6 +1844,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 4,
       points: 4,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -1828,6 +1856,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 3,
       points: 4,
+      resolvedName: 'Gowland Guillermina',
     },
     {
       competition: 'beer',
@@ -1839,6 +1868,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 3,
       points: 4,
+      resolvedName: 'Avila Ariadna',
     },
     {
       competition: 'beer',
@@ -1850,6 +1880,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 2,
       points: 4,
+      resolvedName: 'Aguado Barbara',
     },
     {
       competition: 'beer',
@@ -1861,6 +1892,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 2,
       points: 4,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -1872,6 +1904,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 2,
       points: 4,
+      resolvedName: 'Quiroga Agustin',
     },
     {
       competition: 'beer',
@@ -1883,6 +1916,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 3,
       points: 3,
+      resolvedName: 'Molinolo Osvaldo',
     },
     {
       competition: 'beer',
@@ -1894,6 +1928,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 3,
       points: 3,
+      resolvedName: 'Legal Cristian',
     },
     {
       competition: 'beer',
@@ -1905,6 +1940,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 2,
       points: 3,
+      resolvedName: 'Magnelli Francisco',
     },
     {
       competition: 'beer',
@@ -1916,6 +1952,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 2,
       points: 3,
+      resolvedName: 'Galar Ezequiel',
     },
     {
       competition: 'beer',
@@ -1927,6 +1964,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 2,
       points: 3,
+      resolvedName: 'Atristain Juan',
     },
     {
       competition: 'beer',
@@ -1938,6 +1976,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 2,
       points: 3,
+      resolvedName: 'Echague Guillermo',
     },
     {
       competition: 'beer',
@@ -1949,6 +1988,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 2,
       points: 3,
+      resolvedName: 'Vaca Marcelo',
     },
     {
       competition: 'beer',
@@ -1960,6 +2000,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 1,
       points: 3,
+      resolvedName: 'Sobral Lucas',
     },
     {
       competition: 'beer',
@@ -1971,6 +2012,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 2,
       points: 2,
+      resolvedName: 'Zayas Matias',
     },
     {
       competition: 'beer',
@@ -1982,6 +2024,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 2,
       points: 2,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -1993,6 +2036,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 2,
       points: 2,
+      resolvedName: 'Molinolo Santi',
     },
     {
       competition: 'beer',
@@ -2004,6 +2048,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 2,
       points: 2,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -2015,6 +2060,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 2,
       points: 2,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -2026,6 +2072,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 1,
       points: 2,
+      resolvedName: 'Guete Nadin',
     },
     {
       competition: 'beer',
@@ -2037,6 +2084,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 1,
       points: 2,
+      resolvedName: 'Bergeonneau, Mauri',
     },
     {
       competition: 'beer',
@@ -2048,6 +2096,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 1,
       points: 2,
+      resolvedName: 'Cicka Ariel',
     },
     {
       competition: 'beer',
@@ -2059,6 +2108,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 1,
       points: 2,
+      resolvedName: 'Rodriguez Puma Luciano',
     },
     {
       competition: 'beer',
@@ -2070,6 +2120,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 1,
       points: 2,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -2081,6 +2132,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 1,
       points: 2,
+      resolvedName: 'Zayas Santiago',
     },
     {
       competition: 'beer',
@@ -2092,6 +2144,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 0,
       points: 2,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -2103,6 +2156,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 0,
       points: 2,
+      resolvedName: 'Alarcon Gonza',
     },
     {
       competition: 'beer',
@@ -2114,6 +2168,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 0,
       points: 2,
+      resolvedName: 'Diaz Ofelia',
     },
     {
       competition: 'beer',
@@ -2125,6 +2180,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 0,
       points: 2,
+      resolvedName: 'Vittori Juan',
     },
     {
       competition: 'beer',
@@ -2136,6 +2192,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: 'Ureta Facundo',
     },
     {
       competition: 'beer',
@@ -2147,6 +2204,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: 'Ercole Maxi',
     },
     {
       competition: 'beer',
@@ -2158,6 +2216,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: 'Dumais Virginia',
     },
     {
       competition: 'beer',
@@ -2169,6 +2228,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: 'Flecha Yesicca',
     },
     {
       competition: 'beer',
@@ -2180,6 +2240,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: 'Coria Omar',
     },
     {
       competition: 'beer',
@@ -2191,6 +2252,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: 'Veron Nico',
     },
     {
       competition: 'beer',
@@ -2202,6 +2264,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -2213,6 +2276,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 0,
       points: 1,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -2224,6 +2288,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: 'Brito Esteban',
     },
     {
       competition: 'beer',
@@ -2235,6 +2300,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: 'Tibaudin Jose',
     },
     {
       competition: 'beer',
@@ -2246,6 +2312,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: 'Sigel Carol',
     },
     {
       competition: 'beer',
@@ -2257,6 +2324,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: 'Longart Reyner',
     },
     {
       competition: 'beer',
@@ -2268,6 +2336,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: 'Cosentino Martin',
     },
     {
       competition: 'beer',
@@ -2279,6 +2348,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -2290,6 +2360,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -2301,6 +2372,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'beer',
@@ -2312,6 +2384,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2323,6 +2396,7 @@ export const SEED_2026: Seed = {
       assists: 3,
       goals: 5,
       points: 8,
+      resolvedName: 'Seru Campos Victoria',
     },
     {
       competition: 'wubl',
@@ -2334,6 +2408,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 4,
       points: 5,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2345,6 +2420,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 4,
       points: 5,
+      resolvedName: 'Bianciotto Cata',
     },
     {
       competition: 'wubl',
@@ -2356,6 +2432,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 4,
       points: 4,
+      resolvedName: 'Aquino Ailin',
     },
     {
       competition: 'wubl',
@@ -2367,6 +2444,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 3,
       points: 4,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2378,6 +2456,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 3,
       points: 4,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2389,6 +2468,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 3,
       points: 3,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2400,6 +2480,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 2,
       points: 3,
+      resolvedName: 'Dumais Virginia',
     },
     {
       competition: 'wubl',
@@ -2411,6 +2492,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 2,
       points: 3,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2422,6 +2504,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 2,
       points: 3,
+      resolvedName: 'Guillamet Cecilia',
     },
     {
       competition: 'wubl',
@@ -2433,6 +2516,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 1,
       points: 3,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2444,6 +2528,7 @@ export const SEED_2026: Seed = {
       assists: 3,
       goals: 0,
       points: 3,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2455,6 +2540,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 2,
       points: 2,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2466,6 +2552,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 1,
       points: 2,
+      resolvedName: 'Sigel Carol',
     },
     {
       competition: 'wubl',
@@ -2477,6 +2564,7 @@ export const SEED_2026: Seed = {
       assists: 2,
       goals: 0,
       points: 2,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2488,6 +2576,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2499,6 +2588,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: 'Aguado Barbara',
     },
     {
       competition: 'wubl',
@@ -2510,6 +2600,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: 'Avila Ariadna',
     },
     {
       competition: 'wubl',
@@ -2521,6 +2612,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2532,6 +2624,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2543,6 +2636,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: 'Guete Nadin',
     },
     {
       competition: 'wubl',
@@ -2554,6 +2648,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 1,
       points: 1,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2565,6 +2660,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 0,
       points: 1,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2576,6 +2672,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 0,
       points: 1,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2587,6 +2684,7 @@ export const SEED_2026: Seed = {
       assists: 1,
       goals: 0,
       points: 1,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2598,6 +2696,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: 'Amaolo Lanata Eugenia',
     },
     {
       competition: 'wubl',
@@ -2609,6 +2708,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2620,6 +2720,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2631,6 +2732,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2642,6 +2744,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2653,6 +2756,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2664,6 +2768,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: 'Diaz Ofelia',
     },
     {
       competition: 'wubl',
@@ -2675,6 +2780,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2686,6 +2792,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2697,6 +2804,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: 'Zayas Maitena',
     },
     {
       competition: 'wubl',
@@ -2708,6 +2816,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
     {
       competition: 'wubl',
@@ -2719,6 +2828,7 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: 'Flecha Yesicca',
     },
     {
       competition: 'wubl',
@@ -2730,10 +2840,12 @@ export const SEED_2026: Seed = {
       assists: 0,
       goals: 0,
       points: 0,
+      resolvedName: null,
     },
   ],
   publishedGoalieStats: [
     {
+      resolvedName: 'Zayas Marcelo',
       competition: 'beer',
       sourceFile: 'spreadsheet-export/goalie-stats.html',
       printedPlayerName: 'Zayas Marce',
@@ -2745,6 +2857,7 @@ export const SEED_2026: Seed = {
       goalsAgainst: 32,
     },
     {
+      resolvedName: 'Bernales Joaquin',
       competition: 'beer',
       sourceFile: 'spreadsheet-export/goalie-stats.html',
       printedPlayerName: 'bernales joaqu',
@@ -2756,6 +2869,7 @@ export const SEED_2026: Seed = {
       goalsAgainst: 32,
     },
     {
+      resolvedName: 'Zunino Francisco',
       competition: 'beer',
       sourceFile: 'spreadsheet-export/goalie-stats.html',
       printedPlayerName: 'Zunino franc',
@@ -2767,6 +2881,7 @@ export const SEED_2026: Seed = {
       goalsAgainst: 35,
     },
     {
+      resolvedName: 'Valdez Gustavo',
       competition: 'beer',
       sourceFile: 'spreadsheet-export/goalie-stats.html',
       printedPlayerName: 'Valdez Gusta',
@@ -2778,6 +2893,7 @@ export const SEED_2026: Seed = {
       goalsAgainst: 57,
     },
     {
+      resolvedName: 'Amaolo Lanata Eugenia',
       competition: 'beer',
       sourceFile: 'spreadsheet-export/goalie-stats.html',
       printedPlayerName: 'Amaolo Lanata, Euge',
@@ -2789,6 +2905,7 @@ export const SEED_2026: Seed = {
       goalsAgainst: 52,
     },
     {
+      resolvedName: null,
       competition: 'beer',
       sourceFile: 'spreadsheet-export/goalie-stats.html',
       printedPlayerName: 'Badaraco Nico',
@@ -2800,6 +2917,7 @@ export const SEED_2026: Seed = {
       goalsAgainst: 25,
     },
     {
+      resolvedName: 'Lopez Mieres Martin',
       competition: 'beer',
       sourceFile: 'spreadsheet-export/goalie-stats.html',
       printedPlayerName: 'Martin lopez mieres',
@@ -2811,6 +2929,7 @@ export const SEED_2026: Seed = {
       goalsAgainst: 23,
     },
     {
+      resolvedName: null,
       competition: 'beer',
       sourceFile: 'spreadsheet-export/goalie-stats.html',
       printedPlayerName: 'Amaolo Lanata, Gonza',
@@ -2822,6 +2941,7 @@ export const SEED_2026: Seed = {
       goalsAgainst: 10,
     },
     {
+      resolvedName: null,
       competition: 'beer',
       sourceFile: 'spreadsheet-export/goalie-stats.html',
       printedPlayerName: 'Lautaro Jofre',
@@ -2833,6 +2953,7 @@ export const SEED_2026: Seed = {
       goalsAgainst: 19,
     },
     {
+      resolvedName: null,
       competition: 'wubl',
       sourceFile: 'spreadsheet-export/wubl-goalie-stats.html',
       printedPlayerName: 'Cavaliere Milag',
@@ -2844,6 +2965,7 @@ export const SEED_2026: Seed = {
       goalsAgainst: 16,
     },
     {
+      resolvedName: 'Amaolo Lanata Eugenia',
       competition: 'wubl',
       sourceFile: 'spreadsheet-export/wubl-goalie-stats.html',
       printedPlayerName: 'Amaolo Lanata Euge',

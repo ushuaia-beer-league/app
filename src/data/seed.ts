@@ -44,6 +44,12 @@ export interface SeedPublishedPlayerLine {
   printedTeam: string | null
   playerSlug: string | null
   teamSlug: string | null
+  /**
+   * The player's name as the roster spells it, when the line was matched. The
+   * site shows this and falls back to the printed text, so a truncated
+   * "Beltrami Ramir" is only ever displayed when nothing better is known.
+   */
+  resolvedName: string | null
   assists: number
   goals: number
   points: number
@@ -56,6 +62,7 @@ export interface SeedPublishedGoalieLine {
   printedTeam: string | null
   playerSlug: string | null
   teamSlug: string | null
+  resolvedName: string | null
   gamesPlayed: number
   shotsFaced: number
   goalsAgainst: number
