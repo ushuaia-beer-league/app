@@ -36,7 +36,11 @@ jobs:
       - run: npm test -- --run
       - run: npm run build
 
+      # `enablement` creates the Pages site on the first run, so publishing does
+      # not depend on anyone holding admin rights on the repository.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
