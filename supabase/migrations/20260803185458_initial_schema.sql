@@ -3,7 +3,7 @@
 -- Phase 1, step 4 of docs/plan.md. Row level security is enabled here, at
 -- creation time, so no table is ever reachable before its policies exist; the
 -- policies, the privilege grants and the helper functions land in
--- 20260803185459_row_level_security.sql.
+-- 20260803190531_row_level_security.sql.
 --
 -- Three rules govern every line of this file.
 --
