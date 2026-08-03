@@ -66,6 +66,13 @@ export interface Match {
   homeTeamId: string | null
   awayTeamId: string | null
   score: MatchScore | null
+  /**
+   * What the sheet said where a fact is missing: the sides printed as positions
+   * ("3er Lugar (hanta)"), a winner column naming a team that did not play, a
+   * slot with no teams at all. Null when the row needs no explanation. This is
+   * how an incomplete fact stays readable instead of being merely absent.
+   */
+  notes: string | null
 }
 
 /** What one team took from one match. */

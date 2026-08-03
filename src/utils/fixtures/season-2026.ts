@@ -350,6 +350,7 @@ export const SEASON_2026_MATCHES: readonly Match[] = ROWS.map((row, index) => ({
         resolution: row.resolution ?? 'regulation',
       }
     : null,
+  notes: null,
 }))
 
 /**

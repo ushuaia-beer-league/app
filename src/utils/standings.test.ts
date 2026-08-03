@@ -32,6 +32,9 @@ function match(
     awayTeamId: away,
     score: { home: goals[0], away: goals[1], resolution },
     ...overrides,
+    // Spreading a Partial widens every field to include undefined, and a match
+    // with no note carries null.
+    notes: overrides.notes ?? null,
   }
 }
 

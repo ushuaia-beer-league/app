@@ -20,7 +20,9 @@
     "typecheck": "tsc -b --noEmit",
     "test": "vitest",
     "format": "prettier --write .",
-    "parse:sources": "tsx scripts/parse-sources.ts"
+    "parse:sources": "tsx scripts/parse-sources.ts",
+    "build:seed": "tsx scripts/build-seed.ts",
+    "build:load": "tsx scripts/load-supabase.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.109.0",
