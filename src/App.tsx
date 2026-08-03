@@ -38,7 +38,7 @@ export function App() {
         {season ? (
           <LeaguesSection season={season} />
         ) : (
-          <p className="page-loading" aria-live="polite">
+          <p className="page-loading" id="ligas" aria-live="polite">
             {loading ? 'Cargando la temporada…' : ''}
           </p>
         )}

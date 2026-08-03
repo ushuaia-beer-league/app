@@ -127,27 +127,6 @@
   color: var(--color-accent);
 }
 
-/*
- * The importer's record of what the sheet does not say, verbatim. Muted and
- * small, because it is provenance rather than a result, but never hidden.
- */
-.fixture__note {
-  font-size: var(--text-xs);
-  line-height: var(--leading-display);
-  text-align: start;
-  color: var(--color-text-muted);
-  padding-top: var(--space-2);
-  border-top: var(--border-width-hairline) solid var(--color-border-subtle);
-  margin-top: var(--space-3);
-}
-
-.fixture__note-label {
-  font-family: var(--font-condensed);
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-}
-
 @media (min-width: 42.5em) {
   /* Both cabeceras of one slot, side by side, which is how they are played. */
   .fixture__venues {

@@ -163,13 +163,16 @@ describe('FixtureList', () => {
     expect(screen.getAllByText('Sin registrar')).toHaveLength(2)
   })
 
-  it('carries the record of what the sheet left out', () => {
+  it('shows the gap in Spanish and keeps the importer’s English out of the page', () => {
     render(<FixtureList rounds={[ROUND_ONE]} teamName={teamName} />)
 
-    expect(
-      screen.getByText(/names no teams at all/, { exact: false }),
-    ).toBeVisible()
-    expect(screen.getByText('Nota sobre este partido:')).toBeVisible()
+    // The slot the sheet left blank says so, twice, one side each.
+    expect(screen.getAllByText('Sin registrar')).toHaveLength(2)
+
+    // `Match.notes` explains that gap in English, for the panel and for an
+    // audit. It never reaches a visitor of a Spanish page.
+    expect(screen.queryByText(/names no teams at all/)).toBeNull()
+    expect(screen.queryByText('Nota sobre este partido:')).toBeNull()
   })
 
   it('says so when the competition has no dates', () => {

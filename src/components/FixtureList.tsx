@@ -138,14 +138,16 @@ export function FixtureList({ rounds, teamName }: FixtureListProps) {
                           </span>
                         </div>
 
-                        {match.notes !== null && (
-                          <p className="fixture__note">
-                            <span className="fixture__note-label">
-                              Nota sobre este partido:
-                            </span>{' '}
-                            {match.notes}
-                          </p>
-                        )}
+                        {/*
+                         * `match.notes` is deliberately not printed here. It is
+                         * the importer's own account of a gap, written in English
+                         * like everything else in this repository, and this is a
+                         * Spanish page. What a visitor needs from it is already
+                         * on screen in their language: the side the sheet printed
+                         * as a position, and "Sin registrar" where it printed
+                         * nothing. The full note stays in the database and in the
+                         * seed, for the panel and for anyone auditing the import.
+                         */}
                       </li>
                     )
                   })}
