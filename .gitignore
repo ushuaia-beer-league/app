@@ -27,6 +27,9 @@ yarn-error.log*
 supabase/.branches/
 supabase/.temp/
 
+# Attachments the desktop client drops in the working directory, not ours
+.atelier/
+
 # Per-developer agent kit overrides, the shared kit is versioned
 .claude/settings.local.json
 
