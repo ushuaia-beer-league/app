@@ -1,0 +1,110 @@
+/*
+ * The panel's chrome. It borrows the site's tokens so it does not feel like a
+ * different product, and nothing else: no hero, no photograph behind it, no
+ * animation. Three or four people use this standing at a rink with cold hands.
+ */
+
+.admin {
+  min-height: 100svh;
+}
+
+.admin__bar {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: var(--border-width) solid var(--color-border);
+  background: var(--color-surface-sunken);
+}
+
+.admin__brand {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-wide);
+}
+
+.admin__brand-rest {
+  color: var(--color-text-muted);
+}
+
+.admin__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+}
+
+.admin__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--layout-tap-min);
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.admin__nav a:hover {
+  color: var(--color-text-strong);
+}
+
+/* react-router marks the current section, which is the one thing this nav has
+ * to communicate. */
+.admin__nav a.active {
+  border-bottom: var(--border-width-emphasis) solid var(--color-accent);
+  color: var(--color-accent);
+}
+
+.admin__who {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.admin__signout {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-2);
+  border: var(--border-width) solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.admin__signout:hover {
+  border-color: var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+.admin__main {
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+}
+
+.admin__waiting,
+.admin__pending,
+.admin__error {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.admin__error {
+  color: var(--color-negative);
+}
+
+@media (min-width: 42.5em) {
+  .admin__bar {
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    column-gap: var(--space-5);
+  }
+}

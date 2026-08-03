@@ -18,6 +18,11 @@
  */
 
 import { SEED_2026 } from './seed-2026'
+import {
+  getSupabaseClient,
+  supabaseConfig,
+  type SupabaseConfig,
+} from './supabase-client'
 import type { Seed } from './seed'
 import type {
   CompetitionKey,
@@ -32,25 +37,6 @@ export interface SeasonData extends Seed {
   source: 'supabase' | 'seed'
   /** Why the seed was used, when it was. */
   fellBackBecause: string | null
-}
-
-interface SupabaseConfig {
-  url: string
-  key: string
-}
-
-/**
- * Reads the configuration from the environment. Both halves have to be present:
- * a URL with no key would fail on every request and a key with no URL has
- * nowhere to go, and either way the seed is the better answer.
- */
-export function supabaseConfig(
-  env: Record<string, string | undefined> = import.meta.env,
-): SupabaseConfig | null {
-  const url = env.VITE_SUPABASE_URL?.trim()
-  const key = env.VITE_SUPABASE_PUBLISHABLE_KEY?.trim()
-
-  return url && key ? { url, key } : null
 }
 
 /** The row shapes the queries below ask for, named so the mapping reads. */
@@ -146,8 +132,8 @@ async function loadFromSupabase(
   config: SupabaseConfig,
   season: number,
 ): Promise<{ data: SeasonData | null; because: string | null }> {
-  const { createClient } = await import('@supabase/supabase-js')
-  const client = createClient(config.url, config.key)
+  const client = await getSupabaseClient(config)
+  if (!client) return { data: null, because: 'Supabase is not configured' }
 
   const seasonRow = await client
     .from('seasons')

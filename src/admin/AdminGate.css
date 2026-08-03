@@ -1,0 +1,60 @@
+/*
+ * The door. Deliberately plain: nothing here is the league's identity, it is a
+ * form on a dark page, and the panel behind it is a tool for three or four
+ * people rather than a shop window.
+ */
+
+.admin-gate {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+}
+
+.admin-gate__title {
+  margin-bottom: var(--space-4);
+  color: var(--color-text-heading);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-wide);
+}
+
+.admin-gate__message {
+  margin-bottom: var(--space-5);
+  color: var(--color-text);
+  line-height: var(--leading-body);
+}
+
+.admin-gate__button {
+  min-height: var(--layout-tap-min);
+  padding: var(--space-3) var(--space-5);
+  border: var(--border-width-emphasis) solid var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  cursor: pointer;
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  transition: background var(--duration-fast) var(--ease-default);
+}
+
+.admin-gate__button:hover {
+  background: var(--color-accent-soft);
+}
+
+.admin-gate__error {
+  margin-top: var(--space-4);
+  color: var(--color-negative);
+  font-size: var(--text-sm);
+}
+
+.admin-gate__waiting {
+  padding: var(--space-8) var(--space-4);
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  letter-spacing: var(--tracking-wide);
+  text-align: center;
+  text-transform: uppercase;
+}

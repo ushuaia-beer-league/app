@@ -1,0 +1,130 @@
+/*
+ * A list somebody works through with a paper sheet in their other hand, on a
+ * phone, standing at the rink. Every row is one tap target, tall enough to hit.
+ */
+
+.matches__header {
+  margin-bottom: var(--space-5);
+}
+
+.matches__title {
+  color: var(--color-text-heading);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-wide);
+}
+
+.matches__count,
+.matches__empty,
+.matches__legend {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.matches__legend {
+  margin-top: var(--space-5);
+  line-height: var(--leading-body);
+}
+
+.matches__list {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.matches__link {
+  display: grid;
+  gap: var(--space-1);
+  min-height: var(--layout-tap-min);
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: border-color var(--duration-fast) var(--ease-default);
+}
+
+.matches__link:hover {
+  border-color: var(--color-border-accent);
+}
+
+.matches__when,
+.matches__stage {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.matches__teams {
+  color: var(--color-text-strong);
+  font-family: var(--font-condensed);
+  font-size: var(--text-lg);
+}
+
+.matches__score {
+  color: var(--color-accent);
+}
+
+.matches__versus,
+.matches__unknown {
+  color: var(--color-text-muted);
+}
+
+.matches__gaps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.matches__gap {
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width) solid var(--color-border-accent);
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* Nobody can close this one from the panel, so it must not look like work. */
+.matches__gap--league {
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.matches__gap--done {
+  border-color: var(--color-positive-line);
+  color: var(--color-positive);
+}
+
+.matches__gap--wrong {
+  border-color: var(--color-negative);
+  color: var(--color-negative);
+}
+
+@media (min-width: 42.5em) {
+  .matches__link {
+    grid-template-columns: 14rem 1fr auto;
+    grid-template-areas:
+      'when teams stage'
+      'when gaps gaps';
+    align-items: baseline;
+    column-gap: var(--space-4);
+  }
+
+  .matches__when {
+    grid-area: when;
+  }
+  .matches__teams {
+    grid-area: teams;
+  }
+  .matches__stage {
+    grid-area: stage;
+  }
+  .matches__gaps {
+    grid-area: gaps;
+  }
+}

@@ -1,9 +1,5 @@
-import {
-  loadSeason,
-  matchFromRow,
-  supabaseConfig,
-  type MatchRow,
-} from './season-source'
+import { loadSeason, matchFromRow, type MatchRow } from './season-source'
+import { supabaseConfig } from './supabase-client'
 import { SEED_2026 } from './seed-2026'
 
 const row = (overrides: Partial<MatchRow> = {}): MatchRow => ({
