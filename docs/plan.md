@@ -98,18 +98,48 @@ gaps until the organisation answers.
 14. Organised by match, the same shape as the CFM panel already proven with real
     operators: a list of matches each stating what it still needs; opening one
     gives the result, who played, goals and assists, and the goalkeeper line.
-15. Create and edit seasons, competitions, teams, rosters, the fixture (with
-    venue), sponsors and the gallery (Supabase Storage, 1 GB free).
-16. Administrator management inside the panel: add a Gmail address, pick a role,
+15. Create and edit seasons, competitions, teams, rosters and the fixture (with
+    venue).
+16. **Sponsors and photos are loaded from the panel, never from the code.** This
+    is the one part of the site whose content changes without a match being
+    played, and the organisation has to be able to do it alone: upload a sponsor
+    logo, write the name and the link, reorder them, retire one that has not
+    renewed; upload photos to a season's gallery, caption them, delete one,
+    choose which appear first. Nothing here is a deploy, and nothing here is a
+    file in this repository.
+
+    What it needs, none of which exists yet:
+
+    - Tables `sponsors` and `photos`, per season, with their display order, and
+      row level security in the same shape as the sporting tables: public read,
+      writes restricted to administrators.
+    - A Supabase Storage bucket for the images (1 GB free), public read, writes
+      restricted the same way, with the panel resizing before upload so a phone
+      photograph does not spend the whole quota.
+    - The **communications** role finally getting something to write. Today
+      `private.can_manage_sport()` and `private.can_manage_league()` cover the
+      sporting and structural tables and communications can write nothing at
+      all, which matches the functional document's role table (news, photos and
+      sponsors) only because none of its tables have been built. These two
+      tables get their own helper, and it is the first time that role means
+      anything.
+    - The gaps stay visible here too: a sponsor with no logo yet is published as
+      a name, not hidden, and the gallery says it is empty rather than rendering
+      six dashed placeholders for ever.
+
+17. Administrator management inside the panel: add a Gmail address, pick a role,
     done.
 
 ## Phase 5 — Closing out (1 day)
 
-17. Playoffs: the bracket fills itself from results (semifinals on 8 August into
+18. Playoffs: the bracket fills itself from results (semifinals on 8 August into
     the finals on 15 August), champion recorded per competition.
-18. Row-level-security tests against the real database, the full validation run
-    (lint, typecheck, tests, build), the real history and sponsor content loaded,
-    and a two-page `ADMIN.md` so the organisation can operate without help.
+19. Row-level-security tests against the real database, the full validation run
+    (lint, typecheck, tests, build), and a two-page `ADMIN.md` so the
+    organisation can operate without help, including how to load a sponsor and a
+    photo. The sponsors and the photographs themselves are loaded by the
+    organisation through the panel, which is also how that part of `ADMIN.md`
+    gets tested.
 
 ## Out of scope for this version
 
