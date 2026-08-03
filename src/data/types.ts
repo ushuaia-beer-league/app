@@ -20,6 +20,12 @@ export type Venue = 'bahia' | 'poli'
 export type MatchStage =
   | 'regular'
   | 'playin'
+  /**
+   * Six teams reach the 2026 bracket, so the two 21:30 matches of 8 August are
+   * quarterfinals: their winners meet the first and the second seed in the
+   * semifinals the sheet labels as such, later the same night.
+   */
+  | 'quarterfinal'
   | 'semifinal'
   | 'final'
   | 'third-place'
@@ -52,7 +58,11 @@ export interface Match {
   date: string
   /** Local start time, `HH:MM`. */
   time: string
-  venue: Venue
+  /**
+   * Null while the cabecera is still unassigned, which is how the 2026 sheet
+   * leaves the semifinals, the finals and the all-star game.
+   */
+  venue: Venue | null
   homeTeamId: string | null
   awayTeamId: string | null
   score: MatchScore | null
