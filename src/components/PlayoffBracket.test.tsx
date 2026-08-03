@@ -4,6 +4,15 @@ import { TEAMS_2026 } from '../data/teams-2026'
 import type { Match } from '../data/types'
 import { PlayoffBracket } from './PlayoffBracket'
 
+/**
+ * The marks on the slots, and not the same words inside the legend that explains
+ * them: the legend quotes the mark, so a plain text query finds both.
+ */
+const derivedMarks = () =>
+  screen.getAllByText('por posición', {
+    selector: 'span.playoff-bracket__derived',
+  })
+
 /** The lookup the site passes in: a team id printed as the fixture names it. */
 const teamName = (teamId: string) =>
   TEAMS_2026.find((team) => team.slug === teamId)?.shortName ?? teamId
@@ -44,20 +53,42 @@ describe('PlayoffBracket', () => {
         .getAllByRole('heading', { level: 3 })
         .map((heading) => heading.textContent),
     ).toEqual(['Semifinales', 'Tercer puesto', 'Final'])
-    expect(screen.getByText('1o Lugar Mujeres (sucucho)')).toBeVisible()
+
+    // The sheet prints these sides as "1o Lugar Mujeres (sucucho)" and friends.
+    // The site works out who that is from the women's own table and says it did.
+    expect(screen.getByText(/Sucucho/)).toBeVisible()
+    expect(screen.getByText(/Zhockey/)).toBeVisible()
+    expect(derivedMarks()).toHaveLength(4)
+
     // Both women's semifinals start at 22:30, one per cabecera.
     expect(screen.getAllByText('8 ago · 22:30')).toHaveLength(2)
   })
 
-  it('shows a slot with no team as the sheet printed it', () => {
+  it('works out the sides the sheet prints as positions, and marks them as worked out', () => {
     renderBracket('beer')
 
-    expect(screen.getByText('3er Lugar (hanta)')).toBeVisible()
-    expect(screen.getByText('Ganador 6to 7to (t9)')).toBeVisible()
-    expect(screen.getByText('4to Lugar (vitox)')).toBeVisible()
-    expect(screen.getByText('Semifinal 1 (verde)')).toBeVisible()
-    expect(screen.getByText('Semifinal 2 (azul)')).toBeVisible()
-    // The two semifinals and the third-place match all wait on "Por determinar".
+    // "3er Lugar (hanta)" against "Ganador 6to 7to (t9)": the third seed against
+    // the play-in winner, both derived from the table and from a played match.
+    const quarterfinals = screen.getAllByText(/Rock Choppers|Tipo Nine/)
+    expect(quarterfinals.length).toBeGreaterThan(0)
+
+    // Six slots can be worked out: the two play-in sides, the four quarterfinal
+    // sides minus none, and the two semifinal seeds. Each says so.
+    expect(derivedMarks().length).toBeGreaterThanOrEqual(6)
+    expect(screen.getByText(/lo deduce el sitio/)).toBeVisible()
+  })
+
+  it('shows a slot nothing can decide yet as the sheet printed it', () => {
+    renderBracket('beer')
+
+    // Everything on 15 August waits on a match nobody has played, so nothing
+    // about it can be worked out and the sheet's own wording stands.
+    expect(screen.getByText('Partido 3er Lugar')).toBeVisible()
+    expect(screen.getByText('Partido 5to Lugar')).toBeVisible()
+    expect(screen.getByText('Final — 1er Lugar')).toBeVisible()
+
+    // The two semifinals wait on a pairing the sheet never published, and the
+    // third-place match on a semifinal nobody has played.
     expect(screen.getAllByText('Por determinar')).toHaveLength(3)
   })
 
@@ -77,25 +108,28 @@ describe('PlayoffBracket', () => {
   it('dates and times each match, two at once where two rinks run at once', () => {
     renderBracket('beer')
 
-    const playIn = screen.getByText('6to Lugar').closest('li')
-    expect(playIn).toHaveTextContent('4 jul · 23:30')
+    expect(screen.getByText('4 jul · 23:30')).toBeVisible()
 
     // The two quarterfinals start together, one per cabecera.
     expect(screen.getAllByText('8 ago · 21:30')).toHaveLength(2)
   })
 
-  it('shows the play-in score and leaves its winner unnamed', () => {
+  it('shows the play-in score, and never the winner the sheet gets wrong', () => {
     renderBracket('beer')
 
-    const playIn = screen.getByText('6to Lugar').closest('li')
+    const playIn = screen.getByText('4 jul · 23:30').closest('li')
     expect(playIn).toHaveTextContent('10')
     expect(playIn).toHaveTextContent('7')
 
-    // The sheet's Ganador column names Short Shift Soft Sticks on a row whose
-    // sides are printed as positions, and the winner of the play-in is not
-    // written into the quarterfinal it feeds. Neither guess reaches the screen.
-    expect(screen.queryByText('Short Shift Soft Sticks')).toBeNull()
-    expect(screen.queryByText('Tipo Nine')).toBeNull()
+    // Sixth against seventh, worked out from the table: Tipo Nine and Zhockey.
+    expect(playIn).toHaveTextContent('Tipo Nine')
+    expect(playIn).toHaveTextContent('Zhockey')
+
+    // The sheet's own Ganador column names Short Shift Soft Sticks on this row,
+    // a team that did not play it. That is a known error in the source and it
+    // never reaches this row. The same team does appear elsewhere in the
+    // bracket, legitimately, as the second seed waiting in a semifinal.
+    expect(playIn).not.toHaveTextContent('Short Shift Soft Sticks')
   })
 
   it('names both teams and marks a shootout once a match is recorded', () => {

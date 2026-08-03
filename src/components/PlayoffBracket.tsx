@@ -1,5 +1,9 @@
 import type { CompetitionKey, Match, MatchResolution } from '../data/types'
-import { bracketRounds, type BracketRound } from '../utils/fixture'
+import type { BracketRound } from '../utils/fixture'
+import {
+  resolveBracket,
+  type BracketSide as ResolvedSide,
+} from '../utils/playoffs'
 import { formatShortDate } from './dates'
 import './PlayoffBracket.css'
 
@@ -76,6 +80,8 @@ function printedSide(match: Match, side: SideKey): string | null {
 type BracketSideProps = {
   match: Match
   side: SideKey
+  /** What `resolveBracket` worked out about this slot. */
+  resolved: ResolvedSide
   teamName: (teamId: string) => string
 }
 
@@ -88,12 +94,17 @@ type BracketSideProps = {
  * the matches played is step 18 of `docs/plan.md`, and guessing now would
  * publish a fixture the league has not played.
  */
-function BracketSide({ match, side, teamName }: BracketSideProps) {
-  const teamId = side === 'home' ? match.homeTeamId : match.awayTeamId
+function BracketSide({ match, side, resolved, teamName }: BracketSideProps) {
+  const teamId = resolved.teamId
   const label =
     teamId === null
       ? (printedSide(match, side) ?? UNDECIDED_LABEL)
       : teamName(teamId)
+
+  // A team the record names is a fact. A team this site worked out from the
+  // table — the sixth seed in the play-in, the winner of a quarterfinal — is an
+  // inference, and it says so, because the league has not written it down.
+  const derived = teamId !== null && resolved.origin.kind !== 'recorded'
 
   const goals =
     match.score === null
@@ -110,11 +121,20 @@ function BracketSide({ match, side, teamName }: BracketSideProps) {
 
   const classes = ['playoff-bracket__side']
   if (teamId === null) classes.push('playoff-bracket__side--open')
+  if (derived) classes.push('playoff-bracket__side--derived')
   if (won) classes.push('playoff-bracket__side--winner')
 
   return (
     <p className={classes.join(' ')}>
-      <span className="playoff-bracket__team">{label}</span>
+      <span className="playoff-bracket__team">
+        {label}
+        {derived && (
+          <>
+            <span aria-hidden="true"> ·</span>
+            <span className="playoff-bracket__derived">por posición</span>
+          </>
+        )}
+      </span>
       {goals !== null && (
         <span className="playoff-bracket__goals">{goals}</span>
       )}
@@ -144,7 +164,7 @@ export function PlayoffBracket({
   competition,
   teamName,
 }: PlayoffBracketProps) {
-  const rounds = bracketRounds(matches, { competition })
+  const rounds = resolveBracket(matches, { competition })
 
   if (rounds.length === 0) {
     return (
@@ -156,6 +176,13 @@ export function PlayoffBracket({
 
   return (
     <div className="playoff-bracket">
+      <p className="playoff-bracket__legend">
+        Donde dice <b>por posición</b>, el equipo no está escrito en la
+        planilla: lo deduce el sitio de la tabla de posiciones o del resultado
+        de un partido anterior. Un cruce que todavía no se puede deducir queda
+        en blanco.
+      </p>
+
       {rounds.map((round) => (
         <div className="playoff-bracket__round" key={round.stage}>
           <h3 className="playoff-bracket__round-title">
@@ -163,7 +190,7 @@ export function PlayoffBracket({
           </h3>
 
           <ol className="playoff-bracket__matches">
-            {round.matches.map((match) => {
+            {round.matches.map(({ match, home, away }) => {
               const resolution =
                 match.score === null
                   ? null
@@ -187,6 +214,7 @@ export function PlayoffBracket({
                       key={side}
                       match={match}
                       side={side}
+                      resolved={side === 'home' ? home : away}
                       teamName={teamName}
                     />
                   ))}
