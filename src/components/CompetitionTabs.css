@@ -1,0 +1,53 @@
+/*
+ * `.comp-switcher` and `.cs-btn` in the reference, whose pressed state is a
+ * class per competition (`.active-beer`, `.active-wbeer`). Here the hue comes
+ * from the competition tokens and the pressed state from `aria-pressed`, so the
+ * attribute a screen reader reads and the colour a visitor sees can never
+ * disagree.
+ */
+
+.competition-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+
+.competition-tabs__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--layout-tap-min);
+  padding-inline: var(--space-4);
+  background: transparent;
+  border: var(--border-width-hairline) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    color var(--duration-base) var(--ease-default),
+    border-color var(--duration-base) var(--ease-default),
+    background-color var(--duration-base) var(--ease-default);
+}
+
+.competition-tabs__pill:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-strong);
+}
+
+.competition-tabs__pill--beer[aria-pressed='true'] {
+  color: var(--color-comp-beer-ink);
+  border-color: var(--color-comp-beer-line);
+  background: var(--color-comp-beer-fill);
+}
+
+.competition-tabs__pill--wubl[aria-pressed='true'] {
+  color: var(--color-comp-wubl-ink);
+  border-color: var(--color-comp-wubl-line);
+  background: var(--color-comp-wubl-fill);
+}

@@ -1,0 +1,51 @@
+/*
+ * What is particular to the standings: the team column that stays put while the
+ * other nine scroll under it, and the sign on the goal difference.
+ *
+ * The reference has neither. Its `.data-table` is ten columns wide at every
+ * size, so below 680px the table simply overflows the page and the columns on
+ * the right are unreachable. Here the overflow is owned by the wrapper in
+ * `data-table.css` and the team column is anchored, which is what makes a
+ * ten-column table usable on a phone without hiding a single column.
+ */
+
+.standings__hint {
+  font-family: var(--font-condensed);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+/* The anchored column. `--color-bg` is the one opaque surface in the palette, so
+ * nothing scrolls through it; against the card it reads as a frozen column. */
+.standings__team {
+  position: sticky;
+  left: 0;
+  background: var(--color-bg);
+}
+
+.standings__difference--positive {
+  color: var(--color-positive);
+}
+
+.standings__difference--negative {
+  color: var(--color-negative);
+}
+
+/*
+ * From here the ten columns fit the content column, so there is nothing to
+ * scroll, nothing to anchor and nothing to explain.
+ */
+@media (min-width: 42.5em) {
+  .standings__hint {
+    display: none;
+  }
+
+  .standings__team {
+    position: static;
+    background: none;
+  }
+}

@@ -1,0 +1,169 @@
+/*
+ * `.fecha-group-label`, `.match-list` and `.match-row` in the reference,
+ * inverted to mobile first: the reference stacks a match row below 680px, so the
+ * stacked, centred row is the default here and the three-column row is the
+ * enhancement.
+ *
+ * The slot is new. The reference draws one flat list of matches, which cannot
+ * show that two of them start at the same time in different cabeceras; here the
+ * time is a heading over both of them.
+ */
+
+.fixture,
+.fixture__slots,
+.fixture__venues {
+  list-style: none;
+}
+
+.fixture {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.fixture__date {
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-widest);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  padding-bottom: var(--space-2);
+  border-bottom: var(--border-width-hairline) solid var(--color-border);
+  margin-bottom: var(--space-3);
+}
+
+.fixture__slots {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.fixture__time {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.fixture__venues {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.fixture__match {
+  background: var(--card-bg);
+  border: var(--card-border);
+  padding: var(--card-padding-y) var(--card-padding-x);
+  text-align: center;
+}
+
+.fixture__venue {
+  font-family: var(--font-condensed);
+  font-size: var(--text-3xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.fixture__teams {
+  display: grid;
+  gap: var(--space-1);
+  align-items: center;
+}
+
+.fixture__team {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+  color: var(--color-text-strong);
+}
+
+/* A side the sheet printed as a position rather than as a team. It reads as the
+ * unresolved thing it is, not as a team called "3er Lugar". */
+.fixture__team--printed {
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.fixture__score {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-display);
+  color: var(--color-text-bright);
+}
+
+/* No score on the sheet: the row shows when the match starts instead. */
+.fixture__score--pending {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+.fixture__pending-note,
+.fixture__resolution {
+  display: block;
+  font-family: var(--font-condensed);
+  font-size: var(--text-3xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.fixture__resolution {
+  color: var(--color-accent);
+}
+
+/*
+ * The importer's record of what the sheet does not say, verbatim. Muted and
+ * small, because it is provenance rather than a result, but never hidden.
+ */
+.fixture__note {
+  font-size: var(--text-xs);
+  line-height: var(--leading-display);
+  text-align: start;
+  color: var(--color-text-muted);
+  padding-top: var(--space-2);
+  border-top: var(--border-width-hairline) solid var(--color-border-subtle);
+  margin-top: var(--space-3);
+}
+
+.fixture__note-label {
+  font-family: var(--font-condensed);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+@media (min-width: 42.5em) {
+  /* Both cabeceras of one slot, side by side, which is how they are played. */
+  .fixture__venues {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fixture__teams {
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-3);
+  }
+
+  .fixture__team--home {
+    text-align: right;
+  }
+
+  .fixture__teams > .fixture__team:last-child {
+    text-align: left;
+  }
+}

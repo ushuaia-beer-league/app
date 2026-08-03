@@ -1,0 +1,160 @@
+/*
+ * `.bracket-wrap`, `.bracket`, `.bracket-col`, `.br-label`, `.bm`, `.bm-row`,
+ * `.bm-team`, `.bm-team.tbd` and `.bm-sc` in the reference.
+ *
+ * The reference's bracket is `min-width: 860px` inside an `overflow-x: auto`
+ * wrapper, so on a phone it becomes a sideways scroll that hides half the
+ * rounds off the right edge. `docs/design-tokens.md` flags that as a decision to
+ * revisit here, and this is the revision: the phone layout is a vertical list of
+ * rounds, which is a perfectly legible bracket, and from `42.5em` the rounds
+ * become columns of an auto-fitting grid that always fits the content column.
+ * Nothing scrolls sideways at any width.
+ *
+ * There are no connector lines between the columns either. A connector claims
+ * that one match feeds another, and until step 18 of `docs/plan.md` fills the
+ * bracket from results this component knows the rounds, not the progression.
+ */
+
+.playoff-bracket {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.playoff-bracket__round-title {
+  font-family: var(--font-condensed);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  padding-bottom: var(--space-2);
+  border-bottom: var(--border-width-hairline) solid var(--color-border);
+  margin-bottom: var(--space-3);
+}
+
+.playoff-bracket__matches {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.playoff-bracket__match {
+  background: var(--card-bg);
+  border: var(--card-border);
+  padding: var(--space-2) var(--space-3);
+}
+
+.playoff-bracket__when {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-condensed);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  padding-bottom: var(--space-2);
+}
+
+.playoff-bracket__resolution {
+  padding-inline: var(--space-1);
+  background: var(--color-accent-soft);
+  border: var(--border-width-hairline) solid var(--color-border-accent);
+  font-size: var(--text-3xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-accent);
+}
+
+.playoff-bracket__side {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding-block: var(--space-1);
+}
+
+.playoff-bracket__side + .playoff-bracket__side {
+  border-top: var(--border-width-hairline) solid var(--color-border-subtle);
+}
+
+.playoff-bracket__team {
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+/*
+ * A slot with no team. The label is the sheet's own wording ("3er Lugar
+ * (hanta)", "Por determinar"), so it keeps the sheet's capitalisation instead of
+ * being shouted in the uppercase chrome treatment a real team gets: the
+ * difference between a team and a slot still waiting for one is visible without
+ * reading the words.
+ */
+.playoff-bracket__side--open .playoff-bracket__team {
+  font-family: var(--font-body);
+  font-weight: var(--weight-regular);
+  font-style: italic;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--color-text-muted);
+}
+
+.playoff-bracket__goals {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  line-height: var(--leading-display);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-bright);
+}
+
+.playoff-bracket__side--winner {
+  background: var(--color-wash);
+}
+
+.playoff-bracket__side--winner .playoff-bracket__goals {
+  color: var(--color-accent);
+}
+
+.playoff-bracket__empty {
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+}
+
+/*
+ * Wide screens: one column per round, in playing order, left to right. The
+ * columns auto-fit, so a competition with three rounds spreads and one with six
+ * still fits; a round with fewer matches than its neighbour sits centred against
+ * it, which is what makes the columns read as a bracket rather than as a table.
+ */
+@media (min-width: 42.5em) {
+  .playoff-bracket {
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-card-min), 1fr));
+    gap: var(--space-4);
+    align-items: stretch;
+  }
+
+  .playoff-bracket__round {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .playoff-bracket__round-title {
+    text-align: center;
+  }
+
+  .playoff-bracket__matches {
+    flex: 1;
+    justify-content: center;
+  }
+}

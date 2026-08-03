@@ -1,0 +1,16 @@
+/*
+ * The reference has no goalkeeping table at all: its `#tab-goalies` markup asks
+ * for wins, losses, overtime losses, goals-against average and shutouts, none of
+ * which this league records. What it does record is four columns, so the shared
+ * `.data-table` treatment carries them and only the two text columns differ.
+ */
+
+/* The name is the row's subject, so it is the only cell allowed to wrap. */
+.goalkeeping__player {
+  white-space: normal;
+}
+
+.goalkeeping__team {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}

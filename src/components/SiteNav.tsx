@@ -9,14 +9,17 @@ import './SiteNav.css'
  * 3 of `docs/plan.md`, and linking to an anchor that is not on the page yet
  * would strand a visitor at the bottom of the document.
  *
- * TODO phase 3, tables slice: add `{ href: '#ligas', label: 'Ligas' }` and
- * `{ href: '#playoffs', label: 'Playoffs' }` once those sections render.
+ * The playoff bracket is a tab inside the Ligas section rather than a section of
+ * its own, so the competition selector governs it too and there is only one
+ * place to choose Beer League or WUBL.
+ *
  * TODO phase 4: the reference's `⚙ Admin` button, which opened an in-page
  * panel guarded by a password in the browser. It becomes a link to `/admin/`
  * behind Google sign-in.
  */
 const NAV_ITEMS = [
   { href: '#historia', label: 'Historia' },
+  { href: '#ligas', label: 'Ligas' },
   { href: '#galeria', label: 'Fotos' },
   { href: '#sponsors', label: 'Sponsors' },
   { href: '#contacto', label: 'Contacto' },

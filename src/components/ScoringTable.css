@@ -1,0 +1,16 @@
+/*
+ * `.scorer-row` in the reference, which draws its leaders as cards rather than as
+ * a table. A table is what the league publishes and what a reader compares, so
+ * the shared `.data-table` treatment carries it; only the two text columns need
+ * anything of their own.
+ */
+
+/* The name is the row's subject, so it is the only cell allowed to wrap. */
+.scoring__player {
+  white-space: normal;
+}
+
+.scoring__team {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}

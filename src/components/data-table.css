@@ -1,0 +1,161 @@
+/*
+ * `.data-table` in the reference, plus the horizontal scroller it never had.
+ *
+ * Not a component: it is the one table treatment the reference paints for every
+ * table on the site, so the three tables of this section share it instead of
+ * repeating it three times. Each of them keeps its own file beside it for what
+ * is genuinely its own.
+ *
+ * The scroller exists because the standings are ten columns wide and a phone is
+ * not. The table keeps its intrinsic width and the wrapper scrolls, so no column
+ * is ever hidden from a reader on a small screen; the wrapper is focusable and
+ * labelled because a region that scrolls has to be reachable from a keyboard.
+ */
+
+.data-table-scroll {
+  overflow-x: auto;
+  background: var(--card-bg);
+  border: var(--card-border);
+}
+
+.data-table {
+  width: 100%;
+
+  /* Intrinsic width rather than a breakpoint: the table asks for the room its
+   * columns need and the wrapper above scrolls when the screen cannot give it. */
+  min-width: max-content;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--space-3);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.data-table thead th {
+  font-family: var(--font-condensed);
+  font-size: var(--text-3xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border-bottom: var(--border-width-hairline) solid var(--color-border);
+}
+
+.data-table td,
+.data-table tbody th {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  border-bottom: var(--border-width-hairline) solid var(--color-border-subtle);
+}
+
+.data-table tbody th {
+  font-family: var(--font-condensed);
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-display);
+  color: var(--color-text-strong);
+}
+
+.data-table tbody tr:last-child th,
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Numbers align right and read as numbers. */
+.data-table__number {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The one number a row is really about: points, or a save percentage. */
+.data-table__lead {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  line-height: var(--leading-display);
+  color: var(--color-text-bright);
+}
+
+/* A cell the sources leave empty. Shown as a gap, never as a zero. */
+.data-table__gap {
+  color: var(--color-text-muted);
+}
+
+/*
+ * The marks that keep an incomplete fact visible: an unconfirmed name and a
+ * substitute. Both are explained under every table that can carry them.
+ */
+.data-table__mark {
+  font-family: var(--font-condensed);
+  color: var(--color-accent);
+  margin-inline-start: var(--space-1);
+}
+
+.data-table__badge {
+  display: inline-block;
+  font-family: var(--font-condensed);
+  font-size: var(--text-3xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  padding: 0 var(--space-1);
+  margin-inline-start: var(--space-2);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border: var(--border-width-hairline) solid var(--color-border-accent);
+}
+
+/* What the columns and the marks mean. */
+.data-table__legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: none;
+  font-size: var(--text-xs);
+  line-height: var(--leading-display);
+  color: var(--color-text-muted);
+  margin-top: var(--space-3);
+}
+
+.data-table__legend b {
+  font-family: var(--font-condensed);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+/* Where a table says who published its numbers and when. */
+.data-table__published {
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.data-table__empty {
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+}
+
+/*
+ * Text that only a screen reader needs: what a mark means, where the page shows
+ * it as a glyph. The reference has no such utility because it never marked
+ * anything.
+ */
+.data-table__reader-only {
+  position: absolute;
+  width: var(--border-width-hairline);
+  height: var(--border-width-hairline);
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
