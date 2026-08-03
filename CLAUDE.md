@@ -22,9 +22,15 @@ logic yet: `src/` holds a placeholder shell that Phase 3 replaces.
 ## Language
 
 Everything in this repository is written in **English**: code, comments, file
-names, documentation and commit messages. The two exceptions are user-facing UI
-strings, which are Spanish because the league is Argentine, and verbatim quotes
-of the league's rulebook, which must never be translated.
+names, documentation and commit messages. Three exceptions: user-facing UI
+strings, which are Spanish because the league is Argentine; verbatim quotes of
+the league's rulebook, which must never be translated; and `docs/ADMIN.md`, which
+is Spanish because the people who operate the panel read Spanish, and a manual
+its reader cannot read is not a manual.
+
+The importer's `matches.notes` are English, like the rest of the data, and are
+deliberately **not** rendered on the public site: what a visitor needs from a gap
+is shown in Spanish beside it.
 
 ## Commands
 
