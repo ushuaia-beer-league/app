@@ -1,0 +1,99 @@
+/*
+ * Equipos. The reference site has no such section, so nothing here is quoted
+ * from it: the grid is the sponsors wall's `repeat(auto-fill, minmax())` applied
+ * to a card that is much wider, and the notes borrow the voice of the seed
+ * notice in `LeaguesSection.css`.
+ *
+ * Mobile first. One column is the base, because a roster card is a column of
+ * "28 Contignola Flor" lines and two of them side by side on a phone would wrap
+ * every name; the single `min-width: 42.5em` block lets the grid fill.
+ */
+
+/*
+ * What the sources do not say, said once for the whole section. The gold rule is
+ * the same one the seed notice uses: this is information, not a failure.
+ */
+.teams__note {
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  color: var(--color-text-muted);
+  background: var(--color-wash);
+  border-inline-start: var(--border-width-accent) solid var(--color-accent);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+}
+
+/* The missing crest and colour: a standing gap rather than something the league
+ * is expected to answer, so it is stated in the quieter voice. */
+.teams__note--quiet {
+  border-inline-start-color: var(--color-border-strong);
+  margin-bottom: var(--space-5);
+}
+
+.teams__competition + .teams__competition {
+  margin-top: var(--space-6);
+}
+
+.teams__competition-title {
+  font-family: var(--font-condensed);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-widest);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+
+/* The same hue the competition pills carry, so the two read as one system. It
+ * is the competition's colour, never a team's: no team has one. */
+.teams__competition-title--beer {
+  color: var(--color-comp-beer-ink);
+}
+
+.teams__competition-title--wubl {
+  color: var(--color-comp-wubl-ink);
+}
+
+/* A whole competition whose rosters nobody published. */
+.teams__unpublished {
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  color: var(--color-text-muted);
+  border-inline-start: var(--border-width-hairline) solid
+    var(--color-border-strong);
+  padding-inline-start: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.teams__empty {
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+}
+
+.teams__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  list-style: none;
+}
+
+/*
+ * From here the cards fill the content column. `--grid-roster-min` is wider than
+ * the `--grid-card-min` the sponsors wall uses because these cards carry ten
+ * lines of names rather than one.
+ */
+@media (min-width: 42.5em) {
+  .teams__grid {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(var(--grid-roster-min), 1fr)
+    );
+    gap: var(--space-4);
+  }
+}

@@ -1,0 +1,157 @@
+/*
+ * A team card. The reference site has no teams section at all, so this is the
+ * `.card` treatment from `docs/design-tokens.md` (translucent panel, hairline
+ * border, no radius, no shadow) applied to content the reference never drew.
+ *
+ * There is no hover state on purpose. A card is content here, not a target: the
+ * sponsors wall lifts its cards because they can be links, and a roster that
+ * moves under the pointer would only be noise.
+ */
+
+.team-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--card-padding-y) var(--card-padding-x);
+  background: var(--card-bg);
+  border: var(--card-border);
+}
+
+.team-card__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/*
+ * Where the crest goes.
+ *
+ * ASSET NEEDED: one crest per team, as a transparent SVG or PNG under
+ * `public/images/teams/`, plus the column on `teams` that names it. No source
+ * handed over carries a team crest or a team colour, so this is the same dashed
+ * frame over the ice wash that `Crest.css` uses for the league's own missing
+ * logo: it has to read as an asset that has not arrived, not as a logo.
+ *
+ * Without `--glow-gold`, which `Crest.css` does apply. The gold halo is the
+ * league's identity and a crest nobody has uploaded should not borrow it.
+ */
+.team-card__crest {
+  flex-shrink: 0;
+  width: var(--crest-sm);
+  aspect-ratio: 1;
+  border: var(--border-width-hairline) dashed var(--color-border-strong);
+  background: var(--color-wash);
+}
+
+.team-card__name {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-regular);
+  letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
+  color: var(--color-text-heading);
+}
+
+/* The sponsored name, which is the roster sheet's and is still unconfirmed. */
+.team-card__sponsored {
+  font-family: var(--font-condensed);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.team-card__count {
+  font-family: var(--font-condensed);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  line-height: var(--leading-display);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.team-card__roster {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: none;
+}
+
+.team-card__line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+/*
+ * The jersey number. `min-width` is what aligns every name in the card, since a
+ * one-digit and a two-digit number would otherwise start the names in different
+ * places; the transparent border keeps that alignment when the shared-number
+ * variant below draws a real one.
+ */
+.team-card__number {
+  flex-shrink: 0;
+  min-width: var(--space-5);
+  padding-inline: var(--space-1);
+  border: var(--border-width-hairline) solid transparent;
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  line-height: var(--leading-display);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--color-text-bright);
+}
+
+/*
+ * A number two players share. Boxed as well as tinted, because colour alone is
+ * not a way of saying something; the note under the roster names the number in
+ * words, which is what a reader who sees neither the tint nor the box gets.
+ */
+.team-card__number--shared {
+  background: var(--color-accent-soft);
+  border-color: var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+/* No number on the sheet. Set in the chrome face so it reads as a label rather
+ * than as a number the league assigned. */
+.team-card__number--missing {
+  font-family: var(--font-condensed);
+  font-size: var(--text-2xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+}
+
+.team-card__player {
+  font-size: var(--text-sm);
+  line-height: var(--leading-display);
+  color: var(--color-text);
+}
+
+/* A roster no source publishes. Marked with a rule so it reads as a gap rather
+ * than as a sentence someone forgot to finish. */
+.team-card__unpublished {
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-display);
+  color: var(--color-text-muted);
+  border-inline-start: var(--border-width-hairline) solid
+    var(--color-border-strong);
+  padding-inline-start: var(--space-3);
+}
+
+/* What the marks in the roster mean, in the same voice as a table legend. */
+.team-card__notes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  list-style: none;
+  font-size: var(--text-2xs);
+  line-height: var(--leading-display);
+  color: var(--color-text-muted);
+}

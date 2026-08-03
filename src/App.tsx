@@ -6,6 +6,7 @@ import { LeaguesSection } from './components/LeaguesSection'
 import { SiteFooter } from './components/SiteFooter'
 import { SiteNav } from './components/SiteNav'
 import { SponsorsSection } from './components/SponsorsSection'
+import { TeamsSection } from './components/TeamsSection'
 import { useSeason } from './hooks/useSeason'
 
 /**
@@ -42,6 +43,8 @@ export function App() {
             {loading ? 'Cargando la temporada…' : ''}
           </p>
         )}
+
+        {season && <TeamsSection season={season} />}
 
         <GallerySection />
         <SponsorsSection />

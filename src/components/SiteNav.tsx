@@ -20,6 +20,7 @@ import './SiteNav.css'
 const NAV_ITEMS = [
   { href: '#historia', label: 'Historia' },
   { href: '#ligas', label: 'Ligas' },
+  { href: '#equipos', label: 'Equipos' },
   { href: '#galeria', label: 'Fotos' },
   { href: '#sponsors', label: 'Sponsors' },
   { href: '#contacto', label: 'Contacto' },

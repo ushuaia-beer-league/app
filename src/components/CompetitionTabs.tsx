@@ -1,27 +1,14 @@
 import type { CompetitionKey } from '../data/types'
+import { COMPETITION_LABELS } from './competitions'
 import './CompetitionTabs.css'
 
 /**
- * The two competitions that have a fixture, named as the league names them.
- *
- * "Beer League" and "Women's Beer League" are the organisation's own words, from
- * the competitions row of `docs/sources/ubl-functional-doc.md`. They are proper
- * names and stay in English for the same reason the ten commandments stay in
- * Spanish. The reference site shortens the second one to "Women's BL" to save
- * room in a desktop row; nothing here needs that saving.
- *
  * MilkShake and All-Stars are on the reference's switcher and have no fixture,
  * no roster and no table. They are left out until the league runs them, because
- * a pill that leads to an empty table is worse than no pill.
+ * a pill that leads to an empty table is worse than no pill. The names
+ * themselves, and the reason they stay in English, live in `./competitions`.
  */
-const COMPETITIONS: readonly {
-  key: CompetitionKey
-  label: string
-  glyph: string
-}[] = [
-  { key: 'beer', label: 'Beer League', glyph: '🏒' },
-  { key: 'wubl', label: "Women's Beer League", glyph: '⚡' },
-]
+const COMPETITIONS = COMPETITION_LABELS
 
 type CompetitionTabsProps = {
   /** The competition currently on screen. */

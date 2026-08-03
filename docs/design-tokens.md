@@ -234,6 +234,11 @@ within a pixel or two.
   (`repeat(auto-fill,minmax(155px,1fr))`). The narrowest column an auto-filled
   card grid may collapse to. Shared by the sponsors wall and the contact
   channels.
+- `--grid-roster-min` `250px` — **not in the reference**, which has no teams
+  section. The same floor for the team grid, whose cards carry ten roster lines
+  each: at `--grid-card-min` a name like "Encinas Camacho Valen" wraps onto
+  three lines. Used by `.teams__grid` above `42.5em` only; below it the grid is
+  a single column.
 - `--layout-section-y` `3rem` → `5rem` — `padding:5rem 2rem` on five
   sections. Section vertical rhythm.
 - `--layout-section-x` `1rem` → `2rem` — same rule. Section gutter.

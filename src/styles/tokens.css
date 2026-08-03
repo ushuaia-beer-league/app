@@ -273,6 +273,11 @@
   /* Narrowest column an auto-filled card grid may collapse to. */
   --grid-card-min: 155px;
 
+  /* The same floor for a card that carries a roster. A team card holds ten lines
+   * of "28 Encinas Camacho Valen", and at `--grid-card-min` every one of those
+   * names wraps onto three lines. */
+  --grid-roster-min: 250px;
+
   /* `svh` rather than the reference's `vh`: on a phone the address bar makes
    * `100vh` taller than the viewport and the hero jumps as it retracts. */
   --layout-hero-min-height: 100svh;
