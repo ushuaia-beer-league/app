@@ -134,6 +134,22 @@ describe('findByTruncatedName', () => {
     )
   })
 
+  it('refuses an initial as evidence of a given name', () => {
+    // The real pair from the 2026 sheets: "Tibaudin Ana J" is not Tibaudin José,
+    // and "jose" starting with "j" must not be enough to put her goals on his
+    // line.
+    expect(
+      findByTruncatedName([{ name: 'Tibaudin Jose' }], 'Tibaudin Ana J'),
+    ).toBeNull()
+
+    // Not the same thing: "Molinolo O" is what a truncated "Molinolo Osvaldo"
+    // looks like, and the whole string is a prefix of the whole name. The
+    // dangerous shape is a complete given name followed by an unrelated initial.
+    expect(
+      findByTruncatedName([{ name: 'Molinolo Osvaldo' }], 'Molinolo O')?.name,
+    ).toBe('Molinolo Osvaldo')
+  })
+
   it('refuses a surname spelled differently, however obvious the person is', () => {
     expect(
       findByTruncatedName([{ name: 'Velazquez Luciano' }], 'Velasquez Lucia'),

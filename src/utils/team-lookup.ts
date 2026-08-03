@@ -99,6 +99,13 @@ export function findByTruncatedName<Person extends { name: string }>(
       if (candidate.tokens.length < 2 || candidate.tokens[0] !== surname)
         return false
       const candidateGiven = candidate.tokens[candidate.tokens.length - 1]!
+
+      // Both given names have to be long enough to mean something. Without this,
+      // "Tibaudin Ana J" matches "Tibaudin Jose", because "jose" does start with
+      // "j", and a woman's goals end up on a man's line. An initial is not
+      // evidence of identity.
+      if (Math.min(candidateGiven.length, given!.length) < 3) return false
+
       return (
         candidateGiven.startsWith(given!) || given!.startsWith(candidateGiven)
       )
