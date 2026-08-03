@@ -1,0 +1,3289 @@
+{
+  "season": 2026,
+  "publishedOn": "2026-07-04",
+  "sources": [
+    "fixture-2026-calendar.csv",
+    "spreadsheet-export/teams.html",
+    "spreadsheet-export/standings.html",
+    "spreadsheet-export/player-stats.html",
+    "spreadsheet-export/goalie-stats.html",
+    "spreadsheet-export/wubl-player-stats.html",
+    "spreadsheet-export/wubl-goalie-stats.html"
+  ],
+  "teams": [
+    {
+      "slug": "birra-del-fuego",
+      "competition": "beer",
+      "shortName": "Birra del Fuego",
+      "fullName": "Green Seven Birra del fuego",
+      "nickname": "verde",
+      "aliases": ["bdf"],
+      "mappingInferred": true
+    },
+    {
+      "slug": "short-shift-soft-sticks",
+      "competition": "beer",
+      "shortName": "Short Shift Soft Sticks",
+      "fullName": "Beerros Azulvetrados",
+      "nickname": "azul",
+      "aliases": ["SSSS"],
+      "mappingInferred": true
+    },
+    {
+      "slug": "rock-choppers",
+      "competition": "beer",
+      "shortName": "Rock Choppers",
+      "fullName": "Hantachoppers",
+      "nickname": "hanta",
+      "aliases": [],
+      "mappingInferred": true
+    },
+    {
+      "slug": "blanco",
+      "competition": "beer",
+      "shortName": "Blanco",
+      "fullName": "Blancaspuma y las 7 pintas",
+      "nickname": "vitox",
+      "aliases": ["Blancaspuma"],
+      "mappingInferred": true
+    },
+    {
+      "slug": "sucucho",
+      "competition": "beer",
+      "shortName": "Sucucho",
+      "fullName": "Frozen Sucucho",
+      "nickname": "suc",
+      "aliases": [],
+      "mappingInferred": true
+    },
+    {
+      "slug": "tipo-nine",
+      "competition": "beer",
+      "shortName": "Tipo Nine",
+      "fullName": "Beerizar Rompehielos T9",
+      "nickname": "t9",
+      "aliases": ["T9"],
+      "mappingInferred": true
+    },
+    {
+      "slug": "zhockey",
+      "competition": "beer",
+      "shortName": "Zhockey",
+      "fullName": "Castores Zhockey",
+      "nickname": "z hockey",
+      "aliases": [],
+      "mappingInferred": true
+    },
+    {
+      "slug": "wubl-sucucho",
+      "competition": "wubl",
+      "shortName": "Sucucho",
+      "fullName": null,
+      "nickname": "sucucho",
+      "aliases": ["Frozen Queens"],
+      "mappingInferred": true
+    },
+    {
+      "slug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "shortName": "Birra del Fuego",
+      "fullName": null,
+      "nickname": "bdf",
+      "aliases": [],
+      "mappingInferred": true
+    },
+    {
+      "slug": "wubl-tipo-nine",
+      "competition": "wubl",
+      "shortName": "Tipo Nine",
+      "fullName": null,
+      "nickname": "t9",
+      "aliases": [],
+      "mappingInferred": true
+    },
+    {
+      "slug": "wubl-zhockey",
+      "competition": "wubl",
+      "shortName": "Zhockey",
+      "fullName": null,
+      "nickname": "z hockey",
+      "aliases": [],
+      "mappingInferred": true
+    }
+  ],
+  "players": [
+    {
+      "slug": "bernales-joaquin",
+      "name": "Bernales Joaquin",
+      "printedName": "Bernales joaquin"
+    },
+    {
+      "slug": "guete-nadin",
+      "name": "Guete Nadin",
+      "printedName": "guete nadin"
+    },
+    {
+      "slug": "aguado-barbara",
+      "name": "Aguado Barbara",
+      "printedName": "aguado barbara"
+    },
+    {
+      "slug": "gowland-guillermina",
+      "name": "Gowland Guillermina",
+      "printedName": "gowland guillermina"
+    },
+    {
+      "slug": "molinolo-osvaldo",
+      "name": "Molinolo Osvaldo",
+      "printedName": "molinolo osvaldo"
+    },
+    {
+      "slug": "molinolo-santi",
+      "name": "Molinolo Santi",
+      "printedName": "molinolo santi"
+    },
+    {
+      "slug": "quiroga-agustin",
+      "name": "Quiroga Agustin",
+      "printedName": "quiroga agustin"
+    },
+    {
+      "slug": "avila-chori-leandro",
+      "name": "Avila Chori Leandro",
+      "printedName": "Avila Chori Leandro"
+    },
+    {
+      "slug": "baeza-pedro-tincho",
+      "name": "Baeza Pedro/Tincho",
+      "printedName": "Baeza Pedro/Tincho"
+    },
+    {
+      "slug": "leuenberger-colo-federico",
+      "name": "Leuenberger Colo Federico",
+      "printedName": "Leuenberger colo Federico"
+    },
+    {
+      "slug": "zayas-maitena",
+      "name": "Zayas Maitena",
+      "printedName": "zayas maitena"
+    },
+    {
+      "slug": "alarcon-gonza",
+      "name": "Alarcon Gonza",
+      "printedName": "alarcon gonza"
+    },
+    {
+      "slug": "seru-campos-victoria",
+      "name": "Seru Campos Victoria",
+      "printedName": "seru campos victoria"
+    },
+    {
+      "slug": "diaz-ofelia",
+      "name": "Diaz Ofelia",
+      "printedName": "diaz ofelia"
+    },
+    {
+      "slug": "longart-reyner",
+      "name": "Longart Reyner",
+      "printedName": "longart reyner"
+    },
+    {
+      "slug": "atristain-juan",
+      "name": "Atristain Juan",
+      "printedName": "atristain juan"
+    },
+    {
+      "slug": "cosentino-martin",
+      "name": "Cosentino Martin",
+      "printedName": "cosentino martin"
+    },
+    {
+      "slug": "lopez-mieres-martin",
+      "name": "Lopez Mieres Martin",
+      "printedName": "lopez mieres martin"
+    },
+    {
+      "slug": "piccone-nicolas",
+      "name": "Piccone Nicolas",
+      "printedName": "Piccone Nicolas"
+    },
+    {
+      "slug": "beltrami-ramiro",
+      "name": "Beltrami Ramiro",
+      "printedName": "Beltrami Ramiro"
+    },
+    {
+      "slug": "amaolo-lanata-eugenia",
+      "name": "Amaolo Lanata Eugenia",
+      "printedName": "Amaolo lanata eugenia"
+    },
+    {
+      "slug": "avila-ariadna",
+      "name": "Avila Ariadna",
+      "printedName": "avila ariadna"
+    },
+    {
+      "slug": "aquino-ailin",
+      "name": "Aquino Ailin",
+      "printedName": "aquino ailin"
+    },
+    {
+      "slug": "legal-cristian",
+      "name": "Legal Cristian",
+      "printedName": "Legal Cristian"
+    },
+    {
+      "slug": "romero-emir",
+      "name": "Romero Emir",
+      "printedName": "romero emir"
+    },
+    {
+      "slug": "vaca-marcelo",
+      "name": "Vaca Marcelo",
+      "printedName": "vaca marcelo"
+    },
+    {
+      "slug": "sobral-lucas",
+      "name": "Sobral Lucas",
+      "printedName": "sobral lucas"
+    },
+    {
+      "slug": "tabarez-ian",
+      "name": "Tabarez Ian",
+      "printedName": "Tabarez Ian"
+    },
+    {
+      "slug": "galar-ezequiel",
+      "name": "Galar Ezequiel",
+      "printedName": "Galar Ezequiel"
+    },
+    {
+      "slug": "lapertosa-facundo",
+      "name": "Lapertosa Facundo",
+      "printedName": "Lapertosa Facundo"
+    },
+    {
+      "slug": "zunino-francisco",
+      "name": "Zunino Francisco",
+      "printedName": "zunino francisco"
+    },
+    {
+      "slug": "cicka-ariel",
+      "name": "Cicka Ariel",
+      "printedName": "cicka ariel"
+    },
+    {
+      "slug": "sigel-carol",
+      "name": "Sigel Carol",
+      "printedName": "sigel carol"
+    },
+    {
+      "slug": "zayas-santiago",
+      "name": "Zayas Santiago",
+      "printedName": "zayas santiago"
+    },
+    {
+      "slug": "ceravolo-agus",
+      "name": "Ceravolo Agus",
+      "printedName": "ceravolo agus"
+    },
+    {
+      "slug": "brito-esteban",
+      "name": "Brito Esteban",
+      "printedName": "brito esteban"
+    },
+    {
+      "slug": "jofre-matias",
+      "name": "Jofre Matias",
+      "printedName": "Jofre Matias"
+    },
+    {
+      "slug": "sueldo-fito",
+      "name": "Sueldo Fito",
+      "printedName": "Sueldo Fito"
+    },
+    {
+      "slug": "velazquez-luciano",
+      "name": "Velazquez Luciano",
+      "printedName": "Velazquez Luciano"
+    },
+    {
+      "slug": "valdez-gustavo",
+      "name": "Valdez Gustavo",
+      "printedName": "valdez gustavo"
+    },
+    {
+      "slug": "echague-guillermo",
+      "name": "Echague Guillermo",
+      "printedName": "echague guillermo"
+    },
+    {
+      "slug": "carbone-anita",
+      "name": "Carbone Anita",
+      "printedName": "carbone anita"
+    },
+    {
+      "slug": "contignola-flor",
+      "name": "Contignola Flor",
+      "printedName": "contignola flor"
+    },
+    {
+      "slug": "rodriguez-puma-luciano",
+      "name": "Rodriguez Puma Luciano",
+      "printedName": "rodriguez puma Luciano"
+    },
+    {
+      "slug": "vittori-juan",
+      "name": "Vittori Juan",
+      "printedName": "vittori juan"
+    },
+    {
+      "slug": "encimas-camacho-valen",
+      "name": "Encimas Camacho Valen",
+      "printedName": "encimas camacho valen"
+    },
+    {
+      "slug": "carrion-francisco",
+      "name": "Carrion Francisco",
+      "printedName": "Carrion Francisco"
+    },
+    {
+      "slug": "ruggirello-matt",
+      "name": "Ruggirello Matt",
+      "printedName": "Ruggirello Matt"
+    },
+    {
+      "slug": "piccolini-alejo",
+      "name": "Piccolini Alejo",
+      "printedName": "Piccolini Alejo"
+    },
+    {
+      "slug": "bergeonneau-mauri",
+      "name": "Bergeonneau, Mauri",
+      "printedName": "Bergeonneau, Mauri"
+    },
+    {
+      "slug": "badaracco-nico",
+      "name": "Badaracco Nico",
+      "printedName": "badaracco nico"
+    },
+    {
+      "slug": "ureta-facundo",
+      "name": "Ureta Facundo",
+      "printedName": "ureta facundo"
+    },
+    {
+      "slug": "mosqueira-vicktoria",
+      "name": "Mosqueira Vicktoria",
+      "printedName": "mosqueira vicktoria"
+    },
+    {
+      "slug": "flecha-yesicca",
+      "name": "Flecha Yesicca",
+      "printedName": "flecha yesicca"
+    },
+    {
+      "slug": "ercole-maxi",
+      "name": "Ercole Maxi",
+      "printedName": "ercole maxi"
+    },
+    {
+      "slug": "zayas-matias",
+      "name": "Zayas Matias",
+      "printedName": "zayas matias"
+    },
+    {
+      "slug": "munoz-lauti",
+      "name": "Muñoz Lauti",
+      "printedName": "muñoz lauti"
+    },
+    {
+      "slug": "magnelli-francisco",
+      "name": "Magnelli Francisco",
+      "printedName": "Magnelli Francisco"
+    },
+    {
+      "slug": "bianciotto-cata",
+      "name": "Bianciotto Cata",
+      "printedName": "bianciotto cata"
+    },
+    {
+      "slug": "firmapaz-martin",
+      "name": "Firmapaz Martin",
+      "printedName": "Firmapaz Martin"
+    },
+    {
+      "slug": "zayas-marcelo",
+      "name": "Zayas Marcelo",
+      "printedName": "zayas marcelo"
+    },
+    {
+      "slug": "coria-omar",
+      "name": "Coria Omar",
+      "printedName": "coria omar"
+    },
+    {
+      "slug": "dumais-virginia",
+      "name": "Dumais Virginia",
+      "printedName": "dumais virginia"
+    },
+    {
+      "slug": "nardi-christina",
+      "name": "Nardi Christina",
+      "printedName": "nardi christina"
+    },
+    {
+      "slug": "guillamet-cecilia",
+      "name": "Guillamet Cecilia",
+      "printedName": "Guillamet cecilia"
+    },
+    {
+      "slug": "tibaudin-jose",
+      "name": "Tibaudin Jose",
+      "printedName": "tibaudin jose"
+    },
+    {
+      "slug": "veron-nico",
+      "name": "Veron Nico",
+      "printedName": "veron nico"
+    },
+    {
+      "slug": "brallard-ivan",
+      "name": "Brallard Ivan",
+      "printedName": "brallard ivan"
+    },
+    {
+      "slug": "val-francisco",
+      "name": "Val Francisco",
+      "printedName": "Val Francisco"
+    },
+    {
+      "slug": "zahr-turco-leandro",
+      "name": "Zahr Turco Leandro",
+      "printedName": "Zahr Turco Leandro"
+    }
+  ],
+  "rosters": [
+    {
+      "playerSlug": "bernales-joaquin",
+      "teamSlug": "birra-del-fuego",
+      "competition": "beer",
+      "jerseyNumber": 30,
+      "printedTeam": "Green Seven Birra del fuego"
+    },
+    {
+      "playerSlug": "guete-nadin",
+      "teamSlug": "birra-del-fuego",
+      "competition": "beer",
+      "jerseyNumber": 20,
+      "printedTeam": "Green Seven Birra del fuego"
+    },
+    {
+      "playerSlug": "aguado-barbara",
+      "teamSlug": "birra-del-fuego",
+      "competition": "beer",
+      "jerseyNumber": 26,
+      "printedTeam": "Green Seven Birra del fuego"
+    },
+    {
+      "playerSlug": "gowland-guillermina",
+      "teamSlug": "birra-del-fuego",
+      "competition": "beer",
+      "jerseyNumber": 21,
+      "printedTeam": "Green Seven Birra del fuego"
+    },
+    {
+      "playerSlug": "molinolo-osvaldo",
+      "teamSlug": "birra-del-fuego",
+      "competition": "beer",
+      "jerseyNumber": 23,
+      "printedTeam": "Green Seven Birra del fuego"
+    },
+    {
+      "playerSlug": "molinolo-santi",
+      "teamSlug": "birra-del-fuego",
+      "competition": "beer",
+      "jerseyNumber": 25,
+      "printedTeam": "Green Seven Birra del fuego"
+    },
+    {
+      "playerSlug": "quiroga-agustin",
+      "teamSlug": "birra-del-fuego",
+      "competition": "beer",
+      "jerseyNumber": 29,
+      "printedTeam": "Green Seven Birra del fuego"
+    },
+    {
+      "playerSlug": "avila-chori-leandro",
+      "teamSlug": "birra-del-fuego",
+      "competition": "beer",
+      "jerseyNumber": 24,
+      "printedTeam": "Green Seven Birra del fuego"
+    },
+    {
+      "playerSlug": "baeza-pedro-tincho",
+      "teamSlug": "birra-del-fuego",
+      "competition": "beer",
+      "jerseyNumber": 28,
+      "printedTeam": "Green Seven Birra del fuego"
+    },
+    {
+      "playerSlug": "leuenberger-colo-federico",
+      "teamSlug": "birra-del-fuego",
+      "competition": "beer",
+      "jerseyNumber": 27,
+      "printedTeam": "Green Seven Birra del fuego"
+    },
+    {
+      "playerSlug": "zayas-maitena",
+      "teamSlug": "tipo-nine",
+      "competition": "beer",
+      "jerseyNumber": 36,
+      "printedTeam": "Beerizar Rompehielos T9"
+    },
+    {
+      "playerSlug": "alarcon-gonza",
+      "teamSlug": "tipo-nine",
+      "competition": "beer",
+      "jerseyNumber": 63,
+      "printedTeam": "Beerizar Rompehielos T9"
+    },
+    {
+      "playerSlug": "seru-campos-victoria",
+      "teamSlug": "tipo-nine",
+      "competition": "beer",
+      "jerseyNumber": 90,
+      "printedTeam": "Beerizar Rompehielos T9"
+    },
+    {
+      "playerSlug": "diaz-ofelia",
+      "teamSlug": "tipo-nine",
+      "competition": "beer",
+      "jerseyNumber": 81,
+      "printedTeam": "Beerizar Rompehielos T9"
+    },
+    {
+      "playerSlug": "longart-reyner",
+      "teamSlug": "tipo-nine",
+      "competition": "beer",
+      "jerseyNumber": 25,
+      "printedTeam": "Beerizar Rompehielos T9"
+    },
+    {
+      "playerSlug": "atristain-juan",
+      "teamSlug": "tipo-nine",
+      "competition": "beer",
+      "jerseyNumber": 18,
+      "printedTeam": "Beerizar Rompehielos T9"
+    },
+    {
+      "playerSlug": "cosentino-martin",
+      "teamSlug": "tipo-nine",
+      "competition": "beer",
+      "jerseyNumber": 54,
+      "printedTeam": "Beerizar Rompehielos T9"
+    },
+    {
+      "playerSlug": "lopez-mieres-martin",
+      "teamSlug": "tipo-nine",
+      "competition": "beer",
+      "jerseyNumber": 27,
+      "printedTeam": "Beerizar Rompehielos T9"
+    },
+    {
+      "playerSlug": "piccone-nicolas",
+      "teamSlug": "tipo-nine",
+      "competition": "beer",
+      "jerseyNumber": 72,
+      "printedTeam": "Beerizar Rompehielos T9"
+    },
+    {
+      "playerSlug": "beltrami-ramiro",
+      "teamSlug": "tipo-nine",
+      "competition": "beer",
+      "jerseyNumber": 9,
+      "printedTeam": "Beerizar Rompehielos T9"
+    },
+    {
+      "playerSlug": "amaolo-lanata-eugenia",
+      "teamSlug": "zhockey",
+      "competition": "beer",
+      "jerseyNumber": 1,
+      "printedTeam": "Castores Zhockey"
+    },
+    {
+      "playerSlug": "avila-ariadna",
+      "teamSlug": "zhockey",
+      "competition": "beer",
+      "jerseyNumber": 9,
+      "printedTeam": "Castores Zhockey"
+    },
+    {
+      "playerSlug": "aquino-ailin",
+      "teamSlug": "zhockey",
+      "competition": "beer",
+      "jerseyNumber": 7,
+      "printedTeam": "Castores Zhockey"
+    },
+    {
+      "playerSlug": "legal-cristian",
+      "teamSlug": "zhockey",
+      "competition": "beer",
+      "jerseyNumber": 2,
+      "printedTeam": "Castores Zhockey"
+    },
+    {
+      "playerSlug": "romero-emir",
+      "teamSlug": "zhockey",
+      "competition": "beer",
+      "jerseyNumber": 3,
+      "printedTeam": "Castores Zhockey"
+    },
+    {
+      "playerSlug": "vaca-marcelo",
+      "teamSlug": "zhockey",
+      "competition": "beer",
+      "jerseyNumber": 6,
+      "printedTeam": "Castores Zhockey"
+    },
+    {
+      "playerSlug": "sobral-lucas",
+      "teamSlug": "zhockey",
+      "competition": "beer",
+      "jerseyNumber": 8,
+      "printedTeam": "Castores Zhockey"
+    },
+    {
+      "playerSlug": "tabarez-ian",
+      "teamSlug": "zhockey",
+      "competition": "beer",
+      "jerseyNumber": 4,
+      "printedTeam": "Castores Zhockey"
+    },
+    {
+      "playerSlug": "galar-ezequiel",
+      "teamSlug": "zhockey",
+      "competition": "beer",
+      "jerseyNumber": 5,
+      "printedTeam": "Castores Zhockey"
+    },
+    {
+      "playerSlug": "lapertosa-facundo",
+      "teamSlug": "zhockey",
+      "competition": "beer",
+      "jerseyNumber": 10,
+      "printedTeam": "Castores Zhockey"
+    },
+    {
+      "playerSlug": "zunino-francisco",
+      "teamSlug": "short-shift-soft-sticks",
+      "competition": "beer",
+      "jerseyNumber": 1,
+      "printedTeam": "Beerros Azulvetrados"
+    },
+    {
+      "playerSlug": "cicka-ariel",
+      "teamSlug": "short-shift-soft-sticks",
+      "competition": "beer",
+      "jerseyNumber": 11,
+      "printedTeam": "Beerros Azulvetrados"
+    },
+    {
+      "playerSlug": "sigel-carol",
+      "teamSlug": "short-shift-soft-sticks",
+      "competition": "beer",
+      "jerseyNumber": 15,
+      "printedTeam": "Beerros Azulvetrados"
+    },
+    {
+      "playerSlug": "zayas-santiago",
+      "teamSlug": "short-shift-soft-sticks",
+      "competition": "beer",
+      "jerseyNumber": 19,
+      "printedTeam": "Beerros Azulvetrados"
+    },
+    {
+      "playerSlug": "ceravolo-agus",
+      "teamSlug": "short-shift-soft-sticks",
+      "competition": "beer",
+      "jerseyNumber": 13,
+      "printedTeam": "Beerros Azulvetrados"
+    },
+    {
+      "playerSlug": "brito-esteban",
+      "teamSlug": "short-shift-soft-sticks",
+      "competition": "beer",
+      "jerseyNumber": 16,
+      "printedTeam": "Beerros Azulvetrados"
+    },
+    {
+      "playerSlug": "jofre-matias",
+      "teamSlug": "short-shift-soft-sticks",
+      "competition": "beer",
+      "jerseyNumber": 12,
+      "printedTeam": "Beerros Azulvetrados"
+    },
+    {
+      "playerSlug": "sueldo-fito",
+      "teamSlug": "short-shift-soft-sticks",
+      "competition": "beer",
+      "jerseyNumber": 10,
+      "printedTeam": "Beerros Azulvetrados"
+    },
+    {
+      "playerSlug": "velazquez-luciano",
+      "teamSlug": "short-shift-soft-sticks",
+      "competition": "beer",
+      "jerseyNumber": 14,
+      "printedTeam": "Beerros Azulvetrados"
+    },
+    {
+      "playerSlug": "valdez-gustavo",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 30,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "echague-guillermo",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 29,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "carbone-anita",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 26,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "contignola-flor",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 28,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "rodriguez-puma-luciano",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 21,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "vittori-juan",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 24,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "encimas-camacho-valen",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 25,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "carrion-francisco",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 27,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "ruggirello-matt",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 22,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "piccolini-alejo",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 23,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "bergeonneau-mauri",
+      "teamSlug": "rock-choppers",
+      "competition": "beer",
+      "jerseyNumber": 28,
+      "printedTeam": "Hantachoppers"
+    },
+    {
+      "playerSlug": "badaracco-nico",
+      "teamSlug": "sucucho",
+      "competition": "beer",
+      "jerseyNumber": 1,
+      "printedTeam": "Frozen Sucucho"
+    },
+    {
+      "playerSlug": "ureta-facundo",
+      "teamSlug": "sucucho",
+      "competition": "beer",
+      "jerseyNumber": 21,
+      "printedTeam": "Frozen Sucucho"
+    },
+    {
+      "playerSlug": "mosqueira-vicktoria",
+      "teamSlug": "sucucho",
+      "competition": "beer",
+      "jerseyNumber": 23,
+      "printedTeam": "Frozen Sucucho"
+    },
+    {
+      "playerSlug": "flecha-yesicca",
+      "teamSlug": "sucucho",
+      "competition": "beer",
+      "jerseyNumber": 24,
+      "printedTeam": "Frozen Sucucho"
+    },
+    {
+      "playerSlug": "ercole-maxi",
+      "teamSlug": "sucucho",
+      "competition": "beer",
+      "jerseyNumber": 20,
+      "printedTeam": "Frozen Sucucho"
+    },
+    {
+      "playerSlug": "zayas-matias",
+      "teamSlug": "sucucho",
+      "competition": "beer",
+      "jerseyNumber": 26,
+      "printedTeam": "Frozen Sucucho"
+    },
+    {
+      "playerSlug": "munoz-lauti",
+      "teamSlug": "sucucho",
+      "competition": "beer",
+      "jerseyNumber": 28,
+      "printedTeam": "Frozen Sucucho"
+    },
+    {
+      "playerSlug": "magnelli-francisco",
+      "teamSlug": "sucucho",
+      "competition": "beer",
+      "jerseyNumber": 22,
+      "printedTeam": "Frozen Sucucho"
+    },
+    {
+      "playerSlug": "bianciotto-cata",
+      "teamSlug": "sucucho",
+      "competition": "beer",
+      "jerseyNumber": 25,
+      "printedTeam": "Frozen Sucucho"
+    },
+    {
+      "playerSlug": "firmapaz-martin",
+      "teamSlug": "sucucho",
+      "competition": "beer",
+      "jerseyNumber": 27,
+      "printedTeam": "Frozen Sucucho"
+    },
+    {
+      "playerSlug": "zayas-marcelo",
+      "teamSlug": "blanco",
+      "competition": "beer",
+      "jerseyNumber": 1,
+      "printedTeam": "Blancaspuma y las 7 pintas"
+    },
+    {
+      "playerSlug": "coria-omar",
+      "teamSlug": "blanco",
+      "competition": "beer",
+      "jerseyNumber": null,
+      "printedTeam": "Blancaspuma y las 7 pintas"
+    },
+    {
+      "playerSlug": "dumais-virginia",
+      "teamSlug": "blanco",
+      "competition": "beer",
+      "jerseyNumber": 74,
+      "printedTeam": "Blancaspuma y las 7 pintas"
+    },
+    {
+      "playerSlug": "nardi-christina",
+      "teamSlug": "blanco",
+      "competition": "beer",
+      "jerseyNumber": 77,
+      "printedTeam": "Blancaspuma y las 7 pintas"
+    },
+    {
+      "playerSlug": "guillamet-cecilia",
+      "teamSlug": "blanco",
+      "competition": "beer",
+      "jerseyNumber": 88,
+      "printedTeam": "Blancaspuma y las 7 pintas"
+    },
+    {
+      "playerSlug": "tibaudin-jose",
+      "teamSlug": "blanco",
+      "competition": "beer",
+      "jerseyNumber": 5,
+      "printedTeam": "Blancaspuma y las 7 pintas"
+    },
+    {
+      "playerSlug": "veron-nico",
+      "teamSlug": "blanco",
+      "competition": "beer",
+      "jerseyNumber": 9,
+      "printedTeam": "Blancaspuma y las 7 pintas"
+    },
+    {
+      "playerSlug": "brallard-ivan",
+      "teamSlug": "blanco",
+      "competition": "beer",
+      "jerseyNumber": 11,
+      "printedTeam": "Blancaspuma y las 7 pintas"
+    },
+    {
+      "playerSlug": "val-francisco",
+      "teamSlug": "blanco",
+      "competition": "beer",
+      "jerseyNumber": 31,
+      "printedTeam": "Blancaspuma y las 7 pintas"
+    },
+    {
+      "playerSlug": "zahr-turco-leandro",
+      "teamSlug": "blanco",
+      "competition": "beer",
+      "jerseyNumber": 26,
+      "printedTeam": "Blancaspuma y las 7 pintas"
+    }
+  ],
+  "matches": [
+    {
+      "id": "2026-001",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-23",
+      "time": "21:30",
+      "venue": "bahia",
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": null,
+      "printedAway": null,
+      "notes": [
+        "The sheet gives this slot a time and a cabecera and names no teams at all. Published as the gap it is.",
+        "The row names no team and no competition; filed under the Beer League, which is the only competition playing on this date."
+      ]
+    },
+    {
+      "id": "2026-002",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-23",
+      "time": "21:30",
+      "venue": "poli",
+      "homeTeamSlug": "rock-choppers",
+      "awayTeamSlug": "sucucho",
+      "homeGoals": 9,
+      "awayGoals": 6,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-003",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-23",
+      "time": "22:30",
+      "venue": "bahia",
+      "homeTeamSlug": "short-shift-soft-sticks",
+      "awayTeamSlug": "blanco",
+      "homeGoals": 5,
+      "awayGoals": 4,
+      "resolution": "shootout",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-004",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-23",
+      "time": "22:30",
+      "venue": "poli",
+      "homeTeamSlug": "zhockey",
+      "awayTeamSlug": "birra-del-fuego",
+      "homeGoals": 6,
+      "awayGoals": 14,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-005",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-23",
+      "time": "23:30",
+      "venue": "bahia",
+      "homeTeamSlug": "rock-choppers",
+      "awayTeamSlug": "birra-del-fuego",
+      "homeGoals": 8,
+      "awayGoals": 11,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-006",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-23",
+      "time": "23:30",
+      "venue": "poli",
+      "homeTeamSlug": "zhockey",
+      "awayTeamSlug": "sucucho",
+      "homeGoals": 6,
+      "awayGoals": 3,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-007",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-30",
+      "time": "21:30",
+      "venue": "bahia",
+      "homeTeamSlug": "sucucho",
+      "awayTeamSlug": "tipo-nine",
+      "homeGoals": 10,
+      "awayGoals": 3,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-008",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-30",
+      "time": "21:30",
+      "venue": "poli",
+      "homeTeamSlug": "blanco",
+      "awayTeamSlug": "birra-del-fuego",
+      "homeGoals": 7,
+      "awayGoals": 8,
+      "resolution": "shootout",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-009",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-30",
+      "time": "22:30",
+      "venue": "bahia",
+      "homeTeamSlug": "short-shift-soft-sticks",
+      "awayTeamSlug": "rock-choppers",
+      "homeGoals": 9,
+      "awayGoals": 6,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-010",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-30",
+      "time": "22:30",
+      "venue": "poli",
+      "homeTeamSlug": "sucucho",
+      "awayTeamSlug": "blanco",
+      "homeGoals": 4,
+      "awayGoals": 3,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-011",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-30",
+      "time": "23:30",
+      "venue": "bahia",
+      "homeTeamSlug": "zhockey",
+      "awayTeamSlug": "tipo-nine",
+      "homeGoals": 6,
+      "awayGoals": 8,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-012",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-05-30",
+      "time": "23:30",
+      "venue": "poli",
+      "homeTeamSlug": "short-shift-soft-sticks",
+      "awayTeamSlug": "birra-del-fuego",
+      "homeGoals": 2,
+      "awayGoals": 5,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-013",
+      "competition": "wubl",
+      "stage": "regular",
+      "date": "2026-06-06",
+      "time": "21:30",
+      "venue": "bahia",
+      "homeTeamSlug": "wubl-zhockey",
+      "awayTeamSlug": "wubl-tipo-nine",
+      "homeGoals": 3,
+      "awayGoals": 5,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-014",
+      "competition": "wubl",
+      "stage": "regular",
+      "date": "2026-06-06",
+      "time": "21:30",
+      "venue": "poli",
+      "homeTeamSlug": "wubl-birra-del-fuego",
+      "awayTeamSlug": "wubl-sucucho",
+      "homeGoals": 2,
+      "awayGoals": 3,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-015",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-06-06",
+      "time": "22:30",
+      "venue": "bahia",
+      "homeTeamSlug": "zhockey",
+      "awayTeamSlug": "short-shift-soft-sticks",
+      "homeGoals": 5,
+      "awayGoals": 9,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-016",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-06-06",
+      "time": "22:30",
+      "venue": "poli",
+      "homeTeamSlug": "rock-choppers",
+      "awayTeamSlug": "tipo-nine",
+      "homeGoals": 4,
+      "awayGoals": 10,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-017",
+      "competition": "wubl",
+      "stage": "regular",
+      "date": "2026-06-06",
+      "time": "23:30",
+      "venue": "bahia",
+      "homeTeamSlug": "wubl-zhockey",
+      "awayTeamSlug": "wubl-birra-del-fuego",
+      "homeGoals": 6,
+      "awayGoals": 7,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-018",
+      "competition": "wubl",
+      "stage": "regular",
+      "date": "2026-06-06",
+      "time": "23:30",
+      "venue": "poli",
+      "homeTeamSlug": "wubl-sucucho",
+      "awayTeamSlug": "wubl-tipo-nine",
+      "homeGoals": 4,
+      "awayGoals": 1,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-019",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-06-28",
+      "time": "21:30",
+      "venue": "bahia",
+      "homeTeamSlug": "zhockey",
+      "awayTeamSlug": "rock-choppers",
+      "homeGoals": 7,
+      "awayGoals": 9,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-020",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-06-28",
+      "time": "21:30",
+      "venue": "poli",
+      "homeTeamSlug": "tipo-nine",
+      "awayTeamSlug": "birra-del-fuego",
+      "homeGoals": 6,
+      "awayGoals": 7,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-021",
+      "competition": "wubl",
+      "stage": "regular",
+      "date": "2026-06-28",
+      "time": "22:30",
+      "venue": "bahia",
+      "homeTeamSlug": "wubl-birra-del-fuego",
+      "awayTeamSlug": "wubl-tipo-nine",
+      "homeGoals": 4,
+      "awayGoals": 4,
+      "resolution": "draw",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": [
+        "The sheet carries the goals and leaves the Resultado and Ganador columns empty; the goals are the reliable part and the result was read from them."
+      ]
+    },
+    {
+      "id": "2026-022",
+      "competition": "wubl",
+      "stage": "regular",
+      "date": "2026-06-28",
+      "time": "22:30",
+      "venue": "poli",
+      "homeTeamSlug": "wubl-sucucho",
+      "awayTeamSlug": "wubl-zhockey",
+      "homeGoals": 4,
+      "awayGoals": 2,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-023",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-06-28",
+      "time": "23:30",
+      "venue": "bahia",
+      "homeTeamSlug": "sucucho",
+      "awayTeamSlug": "short-shift-soft-sticks",
+      "homeGoals": 4,
+      "awayGoals": 9,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-024",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-06-28",
+      "time": "23:30",
+      "venue": "poli",
+      "homeTeamSlug": "blanco",
+      "awayTeamSlug": "tipo-nine",
+      "homeGoals": 10,
+      "awayGoals": 7,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-025",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-07-04",
+      "time": "21:30",
+      "venue": "bahia",
+      "homeTeamSlug": "rock-choppers",
+      "awayTeamSlug": "blanco",
+      "homeGoals": 8,
+      "awayGoals": 5,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-026",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-07-04",
+      "time": "21:30",
+      "venue": "poli",
+      "homeTeamSlug": "sucucho",
+      "awayTeamSlug": "birra-del-fuego",
+      "homeGoals": 3,
+      "awayGoals": 4,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": []
+    },
+    {
+      "id": "2026-027",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-07-04",
+      "time": "22:30",
+      "venue": "bahia",
+      "homeTeamSlug": "short-shift-soft-sticks",
+      "awayTeamSlug": "tipo-nine",
+      "homeGoals": 6,
+      "awayGoals": 4,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": [
+        "The sheet carries the goals and leaves the Resultado and Ganador columns empty; the goals are the reliable part and the result was read from them."
+      ]
+    },
+    {
+      "id": "2026-028",
+      "competition": "beer",
+      "stage": "regular",
+      "date": "2026-07-04",
+      "time": "22:30",
+      "venue": "poli",
+      "homeTeamSlug": "zhockey",
+      "awayTeamSlug": "blanco",
+      "homeGoals": 1,
+      "awayGoals": 8,
+      "resolution": "regulation",
+      "printedHome": null,
+      "printedAway": null,
+      "notes": [
+        "The sheet carries the goals and leaves the Resultado and Ganador columns empty; the goals are the reliable part and the result was read from them."
+      ]
+    },
+    {
+      "id": "2026-029",
+      "competition": "beer",
+      "stage": "playin",
+      "date": "2026-07-04",
+      "time": "23:30",
+      "venue": "bahia",
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": 10,
+      "awayGoals": 7,
+      "resolution": "regulation",
+      "printedHome": "6to Lugar",
+      "printedAway": "7to Lugar",
+      "notes": [
+        "The row names no team and no competition; filed under the Beer League, which is the only competition playing on this date.",
+        "Home side printed as \"6to Lugar\".",
+        "Away side printed as \"7to Lugar\".",
+        "The sheet's Ganador column reads \"Short Shift Soft Sticks\" while the sides are printed as positions. Recorded as a gap rather than resolved."
+      ]
+    },
+    {
+      "id": "2026-030",
+      "competition": "beer",
+      "stage": "quarterfinal",
+      "date": "2026-08-08",
+      "time": "21:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "3er Lugar (hanta)",
+      "printedAway": "Ganador 6to 7to (t9)",
+      "notes": [
+        "The row names no team and no competition; filed under the Beer League, which is the only competition playing on this date.",
+        "Home side printed as \"3er Lugar (hanta)\".",
+        "Away side printed as \"Ganador 6to 7to (t9)\"."
+      ]
+    },
+    {
+      "id": "2026-031",
+      "competition": "beer",
+      "stage": "quarterfinal",
+      "date": "2026-08-08",
+      "time": "21:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "4to Lugar (vitox)",
+      "printedAway": "5to Lugar (suc)",
+      "notes": [
+        "The row names no team and no competition; filed under the Beer League, which is the only competition playing on this date.",
+        "Home side printed as \"4to Lugar (vitox)\".",
+        "Away side printed as \"5to Lugar (suc)\"."
+      ]
+    },
+    {
+      "id": "2026-032",
+      "competition": "wubl",
+      "stage": "semifinal",
+      "date": "2026-08-08",
+      "time": "22:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "1o Lugar Mujeres (sucucho)",
+      "printedAway": "4to Lugar Mujeres (z hockey)",
+      "notes": [
+        "Home side printed as \"1o Lugar Mujeres (sucucho)\".",
+        "Away side printed as \"4to Lugar Mujeres (z hockey)\"."
+      ]
+    },
+    {
+      "id": "2026-033",
+      "competition": "wubl",
+      "stage": "semifinal",
+      "date": "2026-08-08",
+      "time": "22:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "2o Lugar Mujeres (bdf)",
+      "printedAway": "3o Lugar Mujeres (t9)",
+      "notes": [
+        "Home side printed as \"2o Lugar Mujeres (bdf)\".",
+        "Away side printed as \"3o Lugar Mujeres (t9)\"."
+      ]
+    },
+    {
+      "id": "2026-034",
+      "competition": "beer",
+      "stage": "semifinal",
+      "date": "2026-08-08",
+      "time": "23:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "Semifinal 1 (verde)",
+      "printedAway": "Por determinar",
+      "notes": [
+        "The row names no team and no competition; filed under the Beer League, which is the only competition playing on this date.",
+        "Home side printed as \"Semifinal 1 (verde)\".",
+        "Away side printed as \"Por determinar\"."
+      ]
+    },
+    {
+      "id": "2026-035",
+      "competition": "beer",
+      "stage": "semifinal",
+      "date": "2026-08-08",
+      "time": "23:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "Semifinal 2 (azul)",
+      "printedAway": "Por determinar",
+      "notes": [
+        "The row names no team and no competition; filed under the Beer League, which is the only competition playing on this date.",
+        "Home side printed as \"Semifinal 2 (azul)\".",
+        "Away side printed as \"Por determinar\"."
+      ]
+    },
+    {
+      "id": "2026-036",
+      "competition": "beer",
+      "stage": "third-place",
+      "date": "2026-08-15",
+      "time": "20:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "Partido 3er Lugar",
+      "printedAway": "Por determinar",
+      "notes": [
+        "The row names no team and no competition; filed under the Beer League, which is the only competition playing on this date.",
+        "Home side printed as \"Partido 3er Lugar\".",
+        "Away side printed as \"Por determinar\"."
+      ]
+    },
+    {
+      "id": "2026-037",
+      "competition": "wubl",
+      "stage": "third-place",
+      "date": "2026-08-15",
+      "time": "20:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "Partido 3er Lugar Mujeres",
+      "printedAway": "Por determinar",
+      "notes": [
+        "Home side printed as \"Partido 3er Lugar Mujeres\".",
+        "Away side printed as \"Por determinar\"."
+      ]
+    },
+    {
+      "id": "2026-038",
+      "competition": "wubl",
+      "stage": "final",
+      "date": "2026-08-15",
+      "time": "21:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "Final — 1er Lugar Mujeres",
+      "printedAway": "Por determinar",
+      "notes": [
+        "Home side printed as \"Final — 1er Lugar Mujeres\".",
+        "Away side printed as \"Por determinar\"."
+      ]
+    },
+    {
+      "id": "2026-039",
+      "competition": "beer",
+      "stage": "fifth-place",
+      "date": "2026-08-15",
+      "time": "21:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "Partido 5to Lugar",
+      "printedAway": null,
+      "notes": [
+        "The row names no team and no competition; filed under the Beer League, which is the only competition playing on this date.",
+        "Home side printed as \"Partido 5to Lugar\"."
+      ]
+    },
+    {
+      "id": "2026-040",
+      "competition": "beer",
+      "stage": "final",
+      "date": "2026-08-15",
+      "time": "22:30",
+      "venue": null,
+      "homeTeamSlug": null,
+      "awayTeamSlug": null,
+      "homeGoals": null,
+      "awayGoals": null,
+      "resolution": null,
+      "printedHome": "Final — 1er Lugar",
+      "printedAway": null,
+      "notes": [
+        "The row names no team and no competition; filed under the Beer League, which is the only competition playing on this date.",
+        "Home side printed as \"Final — 1er Lugar\"."
+      ]
+    }
+  ],
+  "calendarNotes": [
+    {
+      "date": "2026-07-04",
+      "time": "23:30",
+      "printed": "Libre / Libre",
+      "reason": "A bye or a free rink, which is not a match."
+    },
+    {
+      "date": "2026-07-18",
+      "time": "20:30",
+      "printed": "juego de estrellas / juego de estrellas",
+      "reason": "An all-star slot: the sheet names no teams and no competition, so it is not stored as a match."
+    },
+    {
+      "date": "2026-07-18",
+      "time": "21:30",
+      "printed": "juego de estrellas / juego de estrellas",
+      "reason": "An all-star slot: the sheet names no teams and no competition, so it is not stored as a match."
+    },
+    {
+      "date": "2026-07-18",
+      "time": "22:30",
+      "printed": "juego de estrellas / juego de estrellas",
+      "reason": "An all-star slot: the sheet names no teams and no competition, so it is not stored as a match."
+    },
+    {
+      "date": "2026-07-18",
+      "time": "21:30",
+      "printed": "juego de estrellas / juego de estrellas",
+      "reason": "An all-star slot: the sheet names no teams and no competition, so it is not stored as a match."
+    },
+    {
+      "date": "2026-07-18",
+      "time": "22:30",
+      "printed": "juego de estrellas / juego de estrellas",
+      "reason": "An all-star slot: the sheet names no teams and no competition, so it is not stored as a match."
+    },
+    {
+      "date": "2026-08-15",
+      "time": "22:30",
+      "printed": "Cabecera libre /",
+      "reason": "A bye or a free rink, which is not a match."
+    },
+    {
+      "date": null,
+      "time": null,
+      "printed": "22/08/2026 — ⚠️ FECHA DE EMERGENCIA (Reservada en caso de cancelación)",
+      "reason": "A date the sheet reserves in prose rather than as a fixture row."
+    }
+  ],
+  "publishedStandings": [
+    {
+      "competition": "beer",
+      "printedTeam": "Birra del Fuego",
+      "teamSlug": "birra-del-fuego",
+      "points": 12,
+      "wins": 6,
+      "losses": 0,
+      "shootoutLosses": 0,
+      "draws": 0,
+      "regulationWins": 5,
+      "goalsFor": 49,
+      "goalsAgainst": 32,
+      "goalDifference": 17,
+      "played": 6
+    },
+    {
+      "competition": "beer",
+      "printedTeam": "Short Shift Soft Sticks",
+      "teamSlug": "short-shift-soft-sticks",
+      "points": 10,
+      "wins": 5,
+      "losses": 1,
+      "shootoutLosses": 0,
+      "draws": 0,
+      "regulationWins": 4,
+      "goalsFor": 40,
+      "goalsAgainst": 28,
+      "goalDifference": 12,
+      "played": 6
+    },
+    {
+      "competition": "beer",
+      "printedTeam": "Sucucho",
+      "teamSlug": "sucucho",
+      "points": 4,
+      "wins": 2,
+      "losses": 4,
+      "shootoutLosses": 0,
+      "draws": 0,
+      "regulationWins": 2,
+      "goalsFor": 30,
+      "goalsAgainst": 34,
+      "goalDifference": -4,
+      "played": 6
+    },
+    {
+      "competition": "beer",
+      "printedTeam": "Tipo Nine",
+      "teamSlug": "tipo-nine",
+      "points": 4,
+      "wins": 2,
+      "losses": 4,
+      "shootoutLosses": 0,
+      "draws": 0,
+      "regulationWins": 2,
+      "goalsFor": 38,
+      "goalsAgainst": 43,
+      "goalDifference": -5,
+      "played": 6
+    },
+    {
+      "competition": "beer",
+      "printedTeam": "Rock Choppers",
+      "teamSlug": "rock-choppers",
+      "points": 6,
+      "wins": 3,
+      "losses": 3,
+      "shootoutLosses": 0,
+      "draws": 0,
+      "regulationWins": 3,
+      "goalsFor": 44,
+      "goalsAgainst": 48,
+      "goalDifference": -4,
+      "played": 6
+    },
+    {
+      "competition": "beer",
+      "printedTeam": "Blanco",
+      "teamSlug": "blanco",
+      "points": 6,
+      "wins": 2,
+      "losses": 1,
+      "shootoutLosses": 2,
+      "draws": 0,
+      "regulationWins": 2,
+      "goalsFor": 37,
+      "goalsAgainst": 33,
+      "goalDifference": 4,
+      "played": 6
+    },
+    {
+      "competition": "beer",
+      "printedTeam": "Zhockey",
+      "teamSlug": "zhockey",
+      "points": 2,
+      "wins": 1,
+      "losses": 5,
+      "shootoutLosses": 0,
+      "draws": 0,
+      "regulationWins": 1,
+      "goalsFor": 31,
+      "goalsAgainst": 51,
+      "goalDifference": -20,
+      "played": 6
+    },
+    {
+      "competition": "wubl",
+      "printedTeam": "Sucucho",
+      "teamSlug": "wubl-sucucho",
+      "points": 6,
+      "wins": 3,
+      "losses": 0,
+      "shootoutLosses": 0,
+      "draws": 0,
+      "regulationWins": 3,
+      "goalsFor": 11,
+      "goalsAgainst": 5,
+      "goalDifference": 6,
+      "played": 3
+    },
+    {
+      "competition": "wubl",
+      "printedTeam": "Birra del Fuego",
+      "teamSlug": "wubl-birra-del-fuego",
+      "points": 3,
+      "wins": 1,
+      "losses": 1,
+      "shootoutLosses": 0,
+      "draws": 1,
+      "regulationWins": 1,
+      "goalsFor": 13,
+      "goalsAgainst": 13,
+      "goalDifference": 0,
+      "played": 3
+    },
+    {
+      "competition": "wubl",
+      "printedTeam": "Tipo Nine",
+      "teamSlug": "wubl-tipo-nine",
+      "points": 3,
+      "wins": 1,
+      "losses": 1,
+      "shootoutLosses": 0,
+      "draws": 1,
+      "regulationWins": 1,
+      "goalsFor": 10,
+      "goalsAgainst": 11,
+      "goalDifference": -1,
+      "played": 3
+    },
+    {
+      "competition": "wubl",
+      "printedTeam": "Zhockey",
+      "teamSlug": "wubl-zhockey",
+      "points": 0,
+      "wins": 0,
+      "losses": 3,
+      "shootoutLosses": 0,
+      "draws": 0,
+      "regulationWins": 0,
+      "goalsFor": 11,
+      "goalsAgainst": 16,
+      "goalDifference": -5,
+      "played": 3
+    }
+  ],
+  "publishedPlayerStats": [
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Beltrami Ramir",
+      "printedTeam": "Beerizar Rompehielos T9",
+      "playerSlug": "beltrami-ramiro",
+      "teamSlug": "tipo-nine",
+      "assists": 6,
+      "goals": 23,
+      "points": 29
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Baeza Pedro",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": "baeza-pedro-tincho",
+      "teamSlug": "birra-del-fuego",
+      "assists": 6,
+      "goals": 17,
+      "points": 23
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Ruggirello Matt",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": "ruggirello-matt",
+      "teamSlug": "rock-choppers",
+      "assists": 6,
+      "goals": 17,
+      "points": 23
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "velasquez lucia",
+      "printedTeam": "Beerros Azulvetrados",
+      "playerSlug": null,
+      "teamSlug": "short-shift-soft-sticks",
+      "assists": 5,
+      "goals": 11,
+      "points": 16
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Carrion Jaureguiberry Franc",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": "carrion-francisco",
+      "teamSlug": "rock-choppers",
+      "assists": 11,
+      "goals": 5,
+      "points": 16
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Zahr Leand",
+      "printedTeam": "Blancaspuma y las 7 pintas",
+      "playerSlug": "zahr-turco-leandro",
+      "teamSlug": "blanco",
+      "assists": 3,
+      "goals": 11,
+      "points": 14
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Leuenberger Feder",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": "leuenberger-colo-federico",
+      "teamSlug": "birra-del-fuego",
+      "assists": 1,
+      "goals": 12,
+      "points": 13
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Avila Leand",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": "avila-chori-leandro",
+      "teamSlug": "birra-del-fuego",
+      "assists": 3,
+      "goals": 10,
+      "points": 13
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Sueldo Adolf",
+      "printedTeam": "Beerros Azulvetrados",
+      "playerSlug": null,
+      "teamSlug": "short-shift-soft-sticks",
+      "assists": 1,
+      "goals": 11,
+      "points": 12
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Seru Campos Victo",
+      "printedTeam": "Beerizar Rompehielos T9",
+      "playerSlug": "seru-campos-victoria",
+      "teamSlug": "tipo-nine",
+      "assists": 3,
+      "goals": 9,
+      "points": 12
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Firmapaz Marti",
+      "printedTeam": "Frozen Sucucho",
+      "playerSlug": "firmapaz-martin",
+      "teamSlug": "sucucho",
+      "assists": 0,
+      "goals": 11,
+      "points": 11
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "jofrè matia",
+      "printedTeam": "Beerros Azulvetrados",
+      "playerSlug": "jofre-matias",
+      "teamSlug": "short-shift-soft-sticks",
+      "assists": 1,
+      "goals": 9,
+      "points": 10
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Val Franc",
+      "printedTeam": "Blancaspuma y las 7 pintas",
+      "playerSlug": "val-francisco",
+      "teamSlug": "blanco",
+      "assists": 2,
+      "goals": 8,
+      "points": 10
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Piccolini Alejo",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": "piccolini-alejo",
+      "teamSlug": "rock-choppers",
+      "assists": 2,
+      "goals": 8,
+      "points": 10
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Lapertosa, Facu",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": "lapertosa-facundo",
+      "teamSlug": "zhockey",
+      "assists": 2,
+      "goals": 8,
+      "points": 10
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Ceravolo Agust",
+      "printedTeam": "Beerros Azulvetrados",
+      "playerSlug": "ceravolo-agus",
+      "teamSlug": "short-shift-soft-sticks",
+      "assists": 3,
+      "goals": 5,
+      "points": 8
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Muñoz Lauta",
+      "printedTeam": "Frozen Sucucho",
+      "playerSlug": null,
+      "teamSlug": "sucucho",
+      "assists": 3,
+      "goals": 5,
+      "points": 8
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "López Mieres Marti",
+      "printedTeam": "Beerizar Rompehielos T9",
+      "playerSlug": "lopez-mieres-martin",
+      "teamSlug": "tipo-nine",
+      "assists": 0,
+      "goals": 6,
+      "points": 6
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Encinas Camacho Valen",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": null,
+      "teamSlug": "rock-choppers",
+      "assists": 1,
+      "goals": 5,
+      "points": 6
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Tabares Ian",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": null,
+      "teamSlug": "zhockey",
+      "assists": 1,
+      "goals": 5,
+      "points": 6
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Fermin Lopez Silva",
+      "printedTeam": "Blancaspuma y las 7 pintas (sup)",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 2,
+      "goals": 4,
+      "points": 6
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Baeza Juan",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": null,
+      "teamSlug": "zhockey",
+      "assists": 0,
+      "goals": 5,
+      "points": 5
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Bianciotto Catal",
+      "printedTeam": "Frozen Sucucho",
+      "playerSlug": "bianciotto-cata",
+      "teamSlug": "sucucho",
+      "assists": 0,
+      "goals": 5,
+      "points": 5
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Guillamet Chargue Cecil",
+      "printedTeam": "Blancaspuma y las 7 pintas",
+      "playerSlug": "guillamet-cecilia",
+      "teamSlug": "blanco",
+      "assists": 0,
+      "goals": 5,
+      "points": 5
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Aquíno Ailin",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": "aquino-ailin",
+      "teamSlug": "zhockey",
+      "assists": 0,
+      "goals": 5,
+      "points": 5
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Piccone Nicol",
+      "printedTeam": "Beerizar Rompehielos T9",
+      "playerSlug": "piccone-nicolas",
+      "teamSlug": "tipo-nine",
+      "assists": 1,
+      "goals": 4,
+      "points": 5
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "brallard ivan",
+      "printedTeam": "Blancaspuma y las 7 pintas",
+      "playerSlug": "brallard-ivan",
+      "teamSlug": "blanco",
+      "assists": 2,
+      "goals": 3,
+      "points": 5
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Romero José",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": null,
+      "teamSlug": "zhockey",
+      "assists": 0,
+      "goals": 4,
+      "points": 4
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Gowland Guill",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": "gowland-guillermina",
+      "teamSlug": "birra-del-fuego",
+      "assists": 1,
+      "goals": 3,
+      "points": 4
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Ariadna, Avila",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": "avila-ariadna",
+      "teamSlug": "zhockey",
+      "assists": 1,
+      "goals": 3,
+      "points": 4
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Aguado Barba",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": "aguado-barbara",
+      "teamSlug": "birra-del-fuego",
+      "assists": 2,
+      "goals": 2,
+      "points": 4
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Carbone Ana",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": null,
+      "teamSlug": "rock-choppers",
+      "assists": 2,
+      "goals": 2,
+      "points": 4
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Quiroga Agust",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": "quiroga-agustin",
+      "teamSlug": "birra-del-fuego",
+      "assists": 2,
+      "goals": 2,
+      "points": 4
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Molinolo Osval",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": "molinolo-osvaldo",
+      "teamSlug": "birra-del-fuego",
+      "assists": 0,
+      "goals": 3,
+      "points": 3
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Legal Crist",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": "legal-cristian",
+      "teamSlug": "zhockey",
+      "assists": 0,
+      "goals": 3,
+      "points": 3
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Magnelli Franc",
+      "printedTeam": "Frozen Sucucho",
+      "playerSlug": "magnelli-francisco",
+      "teamSlug": "sucucho",
+      "assists": 1,
+      "goals": 2,
+      "points": 3
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Galar Ezequ",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": "galar-ezequiel",
+      "teamSlug": "zhockey",
+      "assists": 1,
+      "goals": 2,
+      "points": 3
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Atristain Juan",
+      "printedTeam": "Beerizar Rompehielos T9",
+      "playerSlug": "atristain-juan",
+      "teamSlug": "tipo-nine",
+      "assists": 1,
+      "goals": 2,
+      "points": 3
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Echague Guill",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": "echague-guillermo",
+      "teamSlug": "rock-choppers",
+      "assists": 1,
+      "goals": 2,
+      "points": 3
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Vaca Marce",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": "vaca-marcelo",
+      "teamSlug": "zhockey",
+      "assists": 1,
+      "goals": 2,
+      "points": 3
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Sobral, Lucas",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": "sobral-lucas",
+      "teamSlug": "zhockey",
+      "assists": 2,
+      "goals": 1,
+      "points": 3
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Zayas Diaz Matia",
+      "printedTeam": "Frozen Sucucho",
+      "playerSlug": "zayas-matias",
+      "teamSlug": "sucucho",
+      "assists": 0,
+      "goals": 2,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Sueldo Kevin",
+      "printedTeam": "Suplente (castores)",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 2,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Molinolo santi",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": "molinolo-santi",
+      "teamSlug": "birra-del-fuego",
+      "assists": 0,
+      "goals": 2,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Cuitiño Joaqu",
+      "printedTeam": "Suplente (Sucucho)",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 2,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Cotignola Flore",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": null,
+      "teamSlug": "rock-choppers",
+      "assists": 0,
+      "goals": 2,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Guete Nadin",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": "guete-nadin",
+      "teamSlug": "birra-del-fuego",
+      "assists": 1,
+      "goals": 1,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Bergeonneau, Mauri",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": "bergeonneau-mauri",
+      "teamSlug": "rock-choppers",
+      "assists": 1,
+      "goals": 1,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Cicka Ariel",
+      "printedTeam": "Beerros Azulvetrados",
+      "playerSlug": "cicka-ariel",
+      "teamSlug": "short-shift-soft-sticks",
+      "assists": 1,
+      "goals": 1,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Rodríguez Luciano",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": "rodriguez-puma-luciano",
+      "teamSlug": "rock-choppers",
+      "assists": 1,
+      "goals": 1,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "NARDI CRIST",
+      "printedTeam": "Blancaspuma y las 7 pintas",
+      "playerSlug": null,
+      "teamSlug": "blanco",
+      "assists": 1,
+      "goals": 1,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Zayas Diaz Santi",
+      "printedTeam": "Beerros Azulvetrados",
+      "playerSlug": "zayas-santiago",
+      "teamSlug": "short-shift-soft-sticks",
+      "assists": 1,
+      "goals": 1,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Romano Salinas Felip",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": null,
+      "teamSlug": "birra-del-fuego",
+      "assists": 2,
+      "goals": 0,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Alarcon Gonza",
+      "printedTeam": "Beerizar Rompehielos T9",
+      "playerSlug": "alarcon-gonza",
+      "teamSlug": "tipo-nine",
+      "assists": 2,
+      "goals": 0,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Diaz Ofeli",
+      "printedTeam": "Beerizar Rompehielos T9",
+      "playerSlug": "diaz-ofelia",
+      "teamSlug": "tipo-nine",
+      "assists": 2,
+      "goals": 0,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Vittori Juan",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": "vittori-juan",
+      "teamSlug": "rock-choppers",
+      "assists": 2,
+      "goals": 0,
+      "points": 2
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "ureta facun",
+      "printedTeam": "Frozen Sucucho",
+      "playerSlug": "ureta-facundo",
+      "teamSlug": "sucucho",
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Ercole Maxim",
+      "printedTeam": "Frozen Sucucho",
+      "playerSlug": "ercole-maxi",
+      "teamSlug": "sucucho",
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Dumais Virgi",
+      "printedTeam": "Blancaspuma y las 7 pintas",
+      "playerSlug": "dumais-virginia",
+      "teamSlug": "blanco",
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Flecha Yesic",
+      "printedTeam": "Frozen Sucucho",
+      "playerSlug": "flecha-yesicca",
+      "teamSlug": "sucucho",
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Coria Omar",
+      "printedTeam": "Blancaspuma y las 7 pintas",
+      "playerSlug": "coria-omar",
+      "teamSlug": "blanco",
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "veron Nicol",
+      "printedTeam": "Blancaspuma y las 7 pintas",
+      "playerSlug": "veron-nico",
+      "teamSlug": "blanco",
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Simari Birkner Crist",
+      "printedTeam": "Frozen Sucucho (sup)",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Mosqueira victoria",
+      "printedTeam": "Frozen Sucucho",
+      "playerSlug": null,
+      "teamSlug": "sucucho",
+      "assists": 1,
+      "goals": 0,
+      "points": 1
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Brito Esteb",
+      "printedTeam": "Beerros Azulvetrados",
+      "playerSlug": "brito-esteban",
+      "teamSlug": "short-shift-soft-sticks",
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Tibaudin José",
+      "printedTeam": "Blancaspuma y las 7 pintas",
+      "playerSlug": "tibaudin-jose",
+      "teamSlug": "blanco",
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Sigel Carol",
+      "printedTeam": "Beerros Azulvetrados",
+      "playerSlug": "sigel-carol",
+      "teamSlug": "short-shift-soft-sticks",
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Longart Reyne",
+      "printedTeam": "Beerizar Rompehielos T9",
+      "playerSlug": "longart-reyner",
+      "teamSlug": "tipo-nine",
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Cosentino Marti",
+      "printedTeam": "Beerizar Rompehielos T9",
+      "playerSlug": "cosentino-martin",
+      "teamSlug": "tipo-nine",
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Durrieu Felix",
+      "printedTeam": null,
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Tibaudin Ana J",
+      "printedTeam": null,
+      "playerSlug": "tibaudin-jose",
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Schiavini Marga",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": null,
+      "teamSlug": "zhockey",
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/player-stats.html",
+      "printedPlayerName": "Corales Jonat",
+      "printedTeam": null,
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Seru Campos Victo",
+      "printedTeam": "Turbeerras",
+      "playerSlug": "seru-campos-victoria",
+      "teamSlug": null,
+      "assists": 3,
+      "goals": 5,
+      "points": 8
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Carbone Ana",
+      "printedTeam": "Sup (Zambirreras)",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 1,
+      "goals": 4,
+      "points": 5
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Bianciotto Catal",
+      "printedTeam": "Frozen Queens",
+      "playerSlug": "bianciotto-cata",
+      "teamSlug": "wubl-sucucho",
+      "assists": 1,
+      "goals": 4,
+      "points": 5
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Aquino Ailin",
+      "printedTeam": "Turbeerras",
+      "playerSlug": "aquino-ailin",
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 4,
+      "points": 4
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Nardi Crist",
+      "printedTeam": "Zambirreras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 1,
+      "goals": 3,
+      "points": 4
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Tibaudin Ana J",
+      "printedTeam": "Zambirreras",
+      "playerSlug": "tibaudin-jose",
+      "teamSlug": null,
+      "assists": 1,
+      "goals": 3,
+      "points": 4
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Alvarado Danie",
+      "printedTeam": "Moby Drink",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 3,
+      "points": 3
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Dumais Virgi",
+      "printedTeam": "Frozen Queens",
+      "playerSlug": "dumais-virginia",
+      "teamSlug": "wubl-sucucho",
+      "assists": 1,
+      "goals": 2,
+      "points": 3
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Denti Silva",
+      "printedTeam": "Frozen Queens",
+      "playerSlug": null,
+      "teamSlug": "wubl-sucucho",
+      "assists": 1,
+      "goals": 2,
+      "points": 3
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Guillamet Chargue Cecil",
+      "printedTeam": "Frozen Queens",
+      "playerSlug": "guillamet-cecilia",
+      "teamSlug": "wubl-sucucho",
+      "assists": 1,
+      "goals": 2,
+      "points": 3
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Abrahan Maura",
+      "printedTeam": "Moby Drink",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 2,
+      "goals": 1,
+      "points": 3
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Paz Luciana",
+      "printedTeam": "Moby Drink",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 3,
+      "goals": 0,
+      "points": 3
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Mosqueira Victo",
+      "printedTeam": "Moby Drink",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 2,
+      "points": 2
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Sigel Carol",
+      "printedTeam": "Moby Drink",
+      "playerSlug": "sigel-carol",
+      "teamSlug": null,
+      "assists": 1,
+      "goals": 1,
+      "points": 2
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Guerra Marin",
+      "printedTeam": "Zambirreras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 2,
+      "goals": 0,
+      "points": 2
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Ferreyra, Marina",
+      "printedTeam": "Turbeerras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Aguado Barba",
+      "printedTeam": "Turbeerras",
+      "playerSlug": "aguado-barbara",
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "AVILA ARIAD",
+      "printedTeam": "Turbeerras",
+      "playerSlug": "avila-ariadna",
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Oviedo nieto Jessi",
+      "printedTeam": "Moby Drink",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Garro Maria",
+      "printedTeam": "Turbeerras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Guete Nadin",
+      "printedTeam": "Frozen Queens",
+      "playerSlug": "guete-nadin",
+      "teamSlug": "wubl-sucucho",
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Dana Gonzales",
+      "printedTeam": null,
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 1,
+      "points": 1
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Varaona Agust",
+      "printedTeam": "Turbeerras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 1,
+      "goals": 0,
+      "points": 1
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Ferrari Veron",
+      "printedTeam": "Moby Drink",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 1,
+      "goals": 0,
+      "points": 1
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Alegre Flor",
+      "printedTeam": "Zambirreras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 1,
+      "goals": 0,
+      "points": 1
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Amaolo Lanata Euge",
+      "printedTeam": "Turbeerras",
+      "playerSlug": "amaolo-lanata-eugenia",
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Echazu Euge",
+      "printedTeam": "Turbeerras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Barrios Bentancor Velri",
+      "printedTeam": "Turbeerras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Alvarez de Oro Aleja",
+      "printedTeam": "Moby Drink",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Cavalleri Milag",
+      "printedTeam": "Zambirreras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Espindola Ayele",
+      "printedTeam": "Zambirreras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "DIAZ Ofeli",
+      "printedTeam": "Zambirreras",
+      "playerSlug": "diaz-ofelia",
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Jozami Loren",
+      "printedTeam": "Zambirreras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Luna Dapozo Ema",
+      "printedTeam": "Zambirreras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Zayas Diaz Maite",
+      "printedTeam": "Frozen Queens",
+      "playerSlug": "zayas-maitena",
+      "teamSlug": "wubl-sucucho",
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Rodriguez Bruna",
+      "printedTeam": "Frozen Queens",
+      "playerSlug": null,
+      "teamSlug": "wubl-sucucho",
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Flecha Yesic",
+      "printedTeam": "Frozen Queens",
+      "playerSlug": "flecha-yesicca",
+      "teamSlug": "wubl-sucucho",
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-player-stats.html",
+      "printedPlayerName": "Cotignola Maria",
+      "printedTeam": "Frozen Queens",
+      "playerSlug": null,
+      "teamSlug": "wubl-sucucho",
+      "assists": 0,
+      "goals": 0,
+      "points": 0
+    }
+  ],
+  "publishedGoalieStats": [
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/goalie-stats.html",
+      "printedPlayerName": "Zayas Marce",
+      "printedTeam": "Blancaspuma y las 7 pintas",
+      "playerSlug": "zayas-marcelo",
+      "teamSlug": "blanco",
+      "gamesPlayed": 6,
+      "shotsFaced": 156,
+      "goalsAgainst": 32,
+      "printedSavePercentage": "79%"
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/goalie-stats.html",
+      "printedPlayerName": "bernales joaqu",
+      "printedTeam": "Green Seven Birra del fuego",
+      "playerSlug": "bernales-joaquin",
+      "teamSlug": "birra-del-fuego",
+      "gamesPlayed": 6,
+      "shotsFaced": 151,
+      "goalsAgainst": 32,
+      "printedSavePercentage": "79%"
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/goalie-stats.html",
+      "printedPlayerName": "Zunino franc",
+      "printedTeam": "Beerros Azulvetrados",
+      "playerSlug": "zunino-francisco",
+      "teamSlug": "short-shift-soft-sticks",
+      "gamesPlayed": 6,
+      "shotsFaced": 121,
+      "goalsAgainst": 35,
+      "printedSavePercentage": "71%"
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/goalie-stats.html",
+      "printedPlayerName": "Valdez Gusta",
+      "printedTeam": "Hantachoppers",
+      "playerSlug": "valdez-gustavo",
+      "teamSlug": "rock-choppers",
+      "gamesPlayed": 6,
+      "shotsFaced": 185,
+      "goalsAgainst": 57,
+      "printedSavePercentage": "69%"
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/goalie-stats.html",
+      "printedPlayerName": "Amaolo Lanata, Euge",
+      "printedTeam": "Castores Zhockey",
+      "playerSlug": "amaolo-lanata-eugenia",
+      "teamSlug": "zhockey",
+      "gamesPlayed": 6,
+      "shotsFaced": 134,
+      "goalsAgainst": 52,
+      "printedSavePercentage": "61%"
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/goalie-stats.html",
+      "printedPlayerName": "Badaraco Nico",
+      "printedTeam": "Frozen Sucucho",
+      "playerSlug": null,
+      "teamSlug": "sucucho",
+      "gamesPlayed": 5,
+      "shotsFaced": 173,
+      "goalsAgainst": 25,
+      "printedSavePercentage": "86%"
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/goalie-stats.html",
+      "printedPlayerName": "Martin lopez mieres",
+      "printedTeam": "Beerizar Rompehielos T9 (sup)",
+      "playerSlug": "lopez-mieres-martin",
+      "teamSlug": null,
+      "gamesPlayed": 3,
+      "shotsFaced": 84,
+      "goalsAgainst": 23,
+      "printedSavePercentage": "73%"
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/goalie-stats.html",
+      "printedPlayerName": "Amaolo Lanata, Gonza",
+      "printedTeam": "Suplente ( Beerizar)",
+      "playerSlug": null,
+      "teamSlug": null,
+      "gamesPlayed": 2,
+      "shotsFaced": 84,
+      "goalsAgainst": 10,
+      "printedSavePercentage": "88%"
+    },
+    {
+      "competition": "beer",
+      "sourceFile": "spreadsheet-export/goalie-stats.html",
+      "printedPlayerName": "Lautaro Jofre",
+      "printedTeam": "Suplente ( Sucucho)",
+      "playerSlug": null,
+      "teamSlug": null,
+      "gamesPlayed": 2,
+      "shotsFaced": 46,
+      "goalsAgainst": 19,
+      "printedSavePercentage": "59%"
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-goalie-stats.html",
+      "printedPlayerName": "Cavaliere Milag",
+      "printedTeam": "Zambirreras",
+      "playerSlug": null,
+      "teamSlug": null,
+      "gamesPlayed": 3,
+      "shotsFaced": 54,
+      "goalsAgainst": 16,
+      "printedSavePercentage": "70%"
+    },
+    {
+      "competition": "wubl",
+      "sourceFile": "spreadsheet-export/wubl-goalie-stats.html",
+      "printedPlayerName": "Amaolo Lanata Euge",
+      "printedTeam": "Turbeerras",
+      "playerSlug": "amaolo-lanata-eugenia",
+      "teamSlug": null,
+      "gamesPlayed": 2,
+      "shotsFaced": 39,
+      "goalsAgainst": 8,
+      "printedSavePercentage": "79%"
+    }
+  ],
+  "findings": [
+    "coria omar (Blanco) has no jersey number on the sheet.",
+    "Jersey 28 is worn by contignola-flor and bergeonneau-mauri in rock-choppers.",
+    "2026-07-04 23:30: the Ganador column names \"Short Shift Soft Sticks\" on a row whose sides are printed as positions, so the two cannot be cross-checked.",
+    "Published beer line \"velasquez lucia\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Sueldo Adolf\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Muñoz Lauta\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Encinas Camacho Valen\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Tabares Ian\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Fermin Lopez Silva\" is not linked to a player: marked as a substitute, so no roster row is expected.",
+    "Published beer line \"Baeza Juan\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Romero José\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Carbone Ana\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Sueldo Kevin\" is not linked to a player: marked as a substitute, so no roster row is expected.",
+    "Published beer line \"Cuitiño Joaqu\" is not linked to a player: marked as a substitute, so no roster row is expected.",
+    "Published beer line \"Cotignola Flore\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"NARDI CRIST\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Romano Salinas Felip\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Simari Birkner Crist\" is not linked to a player: marked as a substitute, so no roster row is expected.",
+    "Published beer line \"Mosqueira victoria\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Durrieu Felix\" is not linked to a player: the sheet gives no team either.",
+    "Published beer line \"Schiavini Marga\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Corales Jonat\" is not linked to a player: the sheet gives no team either.",
+    "Published wubl line \"Carbone Ana\" is not linked to a player: marked as a substitute, so no roster row is expected.",
+    "Published wubl line \"Nardi Crist\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Alvarado Danie\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Denti Silva\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Abrahan Maura\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Paz Luciana\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Mosqueira Victo\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Guerra Marin\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Ferreyra, Marina\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Oviedo nieto Jessi\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Garro Maria\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Dana Gonzales\" is not linked to a player: the sheet gives no team either.",
+    "Published wubl line \"Varaona Agust\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Ferrari Veron\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Alegre Flor\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Echazu Euge\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Barrios Bentancor Velri\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Alvarez de Oro Aleja\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Cavalleri Milag\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Espindola Ayele\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Jozami Loren\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Luna Dapozo Ema\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Rodriguez Bruna\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published wubl line \"Cotignola Maria\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published beer line \"Badaraco Nico\" is not linked to a player: no roster player matches this spelling.",
+    "Published beer line \"Amaolo Lanata, Gonza\" is not linked to a player: marked as a substitute, so no roster row is expected.",
+    "Published beer line \"Lautaro Jofre\" is not linked to a player: marked as a substitute, so no roster row is expected.",
+    "Published wubl line \"Cavaliere Milag\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
+    "Published statistics carry \"Blancaspuma y las 7 pintas (sup)\" where a team goes: a substitute marker, kept as printed.",
+    "Published statistics carry \"Suplente (castores)\" where a team goes: a substitute marker, kept as printed.",
+    "Published statistics carry \"Suplente (Sucucho)\" where a team goes: a substitute marker, kept as printed.",
+    "Published statistics carry \"Frozen Sucucho (sup)\" where a team goes: a substitute marker, kept as printed.",
+    "Published statistics name the team \"Turbeerras\", which maps to no known team.",
+    "Published statistics carry \"Sup (Zambirreras)\" where a team goes: a substitute marker, kept as printed.",
+    "Published statistics name the team \"Zambirreras\", which maps to no known team.",
+    "Published statistics name the team \"Moby Drink\", which maps to no known team.",
+    "Published statistics carry \"Beerizar Rompehielos T9 (sup)\" where a team goes: a substitute marker, kept as printed.",
+    "Published statistics carry \"Suplente ( Beerizar)\" where a team goes: a substitute marker, kept as printed.",
+    "Published statistics carry \"Suplente ( Sucucho)\" where a team goes: a substitute marker, kept as printed."
+  ]
+}

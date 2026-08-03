@@ -19,7 +19,8 @@
     "lint": "eslint .",
     "typecheck": "tsc -b --noEmit",
     "test": "vitest",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "parse:sources": "tsx scripts/parse-sources.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.109.0",
@@ -41,6 +42,7 @@
     "jsdom": "29.1.1",
     "prettier": "3.9.6",
     "supabase": "2.111.0",
+    "tsx": "4.23.5",
     "typescript": "6.0.3",
     "typescript-eslint": "8.66.0",
     "vite": "8.2.0",
