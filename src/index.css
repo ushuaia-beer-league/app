@@ -124,3 +124,15 @@ img {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* While the season is on its way. One line, centred, in the muted voice the
+ * rest of the page uses for anything that is not a fact yet. */
+.page-loading {
+  padding: var(--space-8) var(--space-4);
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-align: center;
+  text-transform: uppercase;
+}
