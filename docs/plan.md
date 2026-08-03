@@ -56,6 +56,13 @@ GitHub organisation rather than a guest.
    `(shots - goals) / shots`, checked against the nine real rows in the
    spreadsheet.
 
+Step 6 is done. `src/utils` derives the three tables from match records, and the
+tests reproduce what the league published on 4 July 2026: all eleven standings
+rows in order, Rock Choppers above Blanco on PGR with the worse goal difference,
+the women's draw, and all eleven goalkeeper percentages. One published cell does
+not reconcile and is documented rather than smoothed over: Blanco is listed with
+one regulation loss where the results give two, which its own PJ of 6 confirms.
+
 ## Phase 2 — 2026 fixture loaded (1 day)
 
 7. **Import script** reading `docs/sources/`: seven Beer League teams plus four
