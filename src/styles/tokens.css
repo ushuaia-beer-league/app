@@ -1,0 +1,354 @@
+/*
+ * Ushuaia Beer League design tokens.
+ *
+ * Extracted from `docs/sources/reference-site.html`, which carries the whole
+ * visual specification in a single inline `<style>` block. Its own `:root`
+ * declares eighteen colour variables; the rest of the identity (type scale,
+ * spacing, tracking, the hero gradient, the card treatment) is spread across
+ * 425 literal rules. This file is that identity named once.
+ *
+ * Every value here is a value the reference actually paints. Where it used
+ * several near-identical shades or sizes for the same job they are collapsed
+ * into one token; `docs/design-tokens.md` records what was collapsed and why.
+ *
+ * Mobile first. The small-screen values are the defaults and the one
+ * `min-width` block at the end restates the reference's wider-screen values as
+ * the enhancement. The reference itself is desktop first (a single
+ * `max-width: 680px` override), so that inversion is deliberate.
+ *
+ * Fonts are declared, never fetched. No `@import` and no `<link>` belong in
+ * this file: a later phase decides how Bebas Neue, Barlow Condensed and Barlow
+ * are self-hosted, and until then the fallbacks carry the layout.
+ */
+
+:root {
+  /* The palette is dark only, so tell the browser before it styles a
+   * scrollbar or a select. */
+  color-scheme: dark;
+
+  /* ==========================================================================
+   * Brand hues
+   *
+   * The seven raw colours the identity is built from. Nothing should reach for
+   * these directly except the semantic tokens below; components use the
+   * semantic name so a hue can be retuned in one place.
+   * ======================================================================== */
+
+  --brand-night: #0a0e14;
+  --brand-ice: #7ab8d4;
+  --brand-ice-light: #c8e8f5;
+  --brand-gold: #e8a820;
+  --brand-blue: #1a4fa3;
+  --brand-red: #cc3333;
+  --brand-green: #2a7a3a;
+
+  /* ==========================================================================
+   * Surfaces
+   *
+   * Sections alternate between `--color-bg` and the translucent
+   * `--color-bg-alt`, which lets the fixed rink photograph behind the page
+   * show through. Cards and rows sit on `--color-surface`; inputs, the admin
+   * sidebar and its top bar sit on the deeper `--color-surface-sunken`.
+   * ======================================================================== */
+
+  --color-bg: #0a0e14;
+  --color-bg-alt: #0f152099;
+  --color-surface: rgba(17, 27, 38, 0.92);
+  --color-surface-sunken: rgba(13, 21, 32, 0.95);
+
+  /* Fixed navigation bar, which blurs whatever passes under it. */
+  --color-scrim: rgba(10, 14, 20, 0.93);
+
+  /* Full-screen backdrop behind a modal. */
+  --color-overlay: rgba(5, 9, 14, 0.88);
+
+  /* The photographic wash the reference fixes behind every section. The image
+   * is content, not a token; only its strength belongs here. */
+  --photo-overlay-opacity: 0.18;
+
+  /* ==========================================================================
+   * Text
+   *
+   * Four steps of emphasis over the dark palette, plus the ice tint used for
+   * anything that reads as a live number: points, scores, goal counts.
+   * ======================================================================== */
+
+  --color-text: #ccdde8;
+  --color-text-strong: #f0f6fa;
+  --color-text-heading: #ffffff;
+  --color-text-muted: #5a7a8f;
+  --color-text-bright: var(--brand-ice-light);
+
+  /* ==========================================================================
+   * Borders and washes
+   *
+   * The reference has no box shadow anywhere. Depth comes entirely from
+   * hairline borders and a barely-there ice wash, and hover states work by
+   * raising the border rather than by casting a shadow. Keep it that way.
+   * ======================================================================== */
+
+  --color-border: rgba(120, 180, 210, 0.12);
+  --color-border-strong: rgba(200, 232, 245, 0.28);
+  --color-border-subtle: rgba(120, 180, 210, 0.06);
+  --color-border-accent: rgba(232, 168, 32, 0.32);
+
+  --color-wash: rgba(200, 232, 245, 0.04);
+  --color-wash-strong: rgba(200, 232, 245, 0.06);
+
+  --border-width-hairline: 1px;
+  --border-width-emphasis: 2px;
+  --border-width-accent: 3px;
+
+  /* ==========================================================================
+   * Accent and status
+   *
+   * Gold is the league's accent: eyebrows, section labels, the leader of a
+   * table, the active tab underline, the champion's frame.
+   * ======================================================================== */
+
+  --color-accent: var(--brand-gold);
+  --color-accent-hover: #f0b830;
+  --color-accent-soft: rgba(232, 168, 32, 0.15);
+
+  --color-positive: #4caf70;
+  --color-positive-fill: color-mix(
+    in srgb,
+    var(--brand-green) 14%,
+    transparent
+  );
+  --color-positive-line: color-mix(
+    in srgb,
+    var(--brand-green) 30%,
+    transparent
+  );
+  --color-negative: #e05050;
+
+  /* ==========================================================================
+   * Competitions
+   *
+   * One hue per competition, each with an `-ink` that is legible on the dark
+   * palette and a `-fill` and `-line` for the selector pills and the active
+   * tab. Milkshake and all-stars have no fixture yet; the schema and the
+   * reference both leave room for them, so the tokens exist.
+   * ======================================================================== */
+
+  --color-comp-beer: var(--brand-blue);
+  --color-comp-beer-ink: #7aaad8;
+  --color-comp-beer-fill: color-mix(
+    in srgb,
+    var(--color-comp-beer) 14%,
+    transparent
+  );
+  --color-comp-beer-line: color-mix(
+    in srgb,
+    var(--color-comp-beer) 38%,
+    transparent
+  );
+
+  --color-comp-wubl: var(--brand-red);
+  --color-comp-wubl-ink: #e07070;
+  --color-comp-wubl-fill: color-mix(
+    in srgb,
+    var(--color-comp-wubl) 14%,
+    transparent
+  );
+  --color-comp-wubl-line: color-mix(
+    in srgb,
+    var(--color-comp-wubl) 38%,
+    transparent
+  );
+
+  --color-comp-milkshake: var(--brand-gold);
+  --color-comp-milkshake-ink: var(--brand-gold);
+  --color-comp-milkshake-fill: color-mix(
+    in srgb,
+    var(--color-comp-milkshake) 14%,
+    transparent
+  );
+  --color-comp-milkshake-line: color-mix(
+    in srgb,
+    var(--color-comp-milkshake) 38%,
+    transparent
+  );
+
+  --color-comp-stars: var(--brand-green);
+  --color-comp-stars-ink: #70c080;
+  --color-comp-stars-fill: color-mix(
+    in srgb,
+    var(--color-comp-stars) 14%,
+    transparent
+  );
+  --color-comp-stars-line: color-mix(
+    in srgb,
+    var(--color-comp-stars) 38%,
+    transparent
+  );
+
+  /* ==========================================================================
+   * Typography
+   *
+   * Three families, each with a job. Bebas Neue is the display face: numbers,
+   * scores, wordmarks, headings. Barlow Condensed is the workhorse of the
+   * chrome, always uppercase and always tracked out: navigation, buttons,
+   * tabs, table headers, labels. Barlow is the only face that carries running
+   * prose. The reference loads them from Google Fonts; this project will
+   * self-host them, so the fallbacks matter and are condensed on purpose.
+   * ======================================================================== */
+
+  --font-display: 'Bebas Neue', 'Oswald', 'Arial Narrow', system-ui, sans-serif;
+  --font-condensed:
+    'Barlow Condensed', 'Roboto Condensed', 'Arial Narrow', system-ui,
+    sans-serif;
+  --font-body: 'Barlow', 'Inter', system-ui, -apple-system, sans-serif;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Type scale. `--text-md` is the reference's 15px body size expressed in
+   * rem so a reader's own font size still scales the page. */
+  --text-3xs: 0.625rem;
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-md: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.3125rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.5rem;
+
+  /* The two fluid sizes, taken verbatim. They are the reference's only
+   * genuinely responsive typography and they need no breakpoint. */
+  --text-hero: clamp(3rem, 11vw, 8.5rem);
+  --text-section: clamp(1.8rem, 4vw, 3rem);
+
+  --leading-hero: 0.92;
+  --leading-display: 1;
+  --leading-body: 1.7;
+
+  /* Tracking is not decoration here: the uppercase condensed labels are
+   * unreadable without it, and the eyebrow's extreme value is the single most
+   * recognisable thing about the design. */
+  --tracking-display: 0.04em;
+  --tracking-wide: 0.1em;
+  --tracking-wider: 0.15em;
+  --tracking-widest: 0.22em;
+  --tracking-eyebrow: 0.35em;
+
+  /* ==========================================================================
+   * Spacing
+   *
+   * A four-pixel grid. The reference used thirty-odd ad-hoc values; these ten
+   * cover every one of them within a pixel or two.
+   * ======================================================================== */
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 5rem;
+
+  /* ==========================================================================
+   * Layout
+   *
+   * Mobile values. The `min-width` block below widens the section rhythm.
+   * ======================================================================== */
+
+  --layout-max-width: 1100px;
+  --layout-section-y: var(--space-7);
+  --layout-section-x: var(--space-4);
+  --layout-nav-height: 56px;
+
+  /* `svh` rather than the reference's `vh`: on a phone the address bar makes
+   * `100vh` taller than the viewport and the hero jumps as it retracts. */
+  --layout-hero-min-height: 100svh;
+
+  /* The reference's one breakpoint, 680px, in em so it follows the reader's
+   * font size. Recorded for documentation only: a custom property cannot be
+   * used inside a media query condition, so the value below is literal. */
+  --breakpoint-sm: 42.5em;
+
+  /* ==========================================================================
+   * Radii
+   *
+   * The design is square on purpose. Only the competition pills are softened,
+   * and only by two pixels. Resist rounding anything else.
+   * ======================================================================== */
+
+  --radius-none: 0;
+  --radius-pill: 2px;
+  --radius-full: 50%;
+
+  /* ==========================================================================
+   * Effects
+   *
+   * No shadows, by design. What the reference does have is a gold glow behind
+   * the crest and a blur under the fixed navigation.
+   * ======================================================================== */
+
+  --glow-gold: 0 0 30px rgba(232, 168, 32, 0.18);
+  --blur-chrome: blur(16px);
+
+  /* ==========================================================================
+   * Motion
+   *
+   * Short, uniform, and always on a property rather than on `all` where the
+   * component can say which. Hover raises an element by two pixels instead of
+   * casting a shadow.
+   * ======================================================================== */
+
+  --duration-fast: 0.15s;
+  --duration-base: 0.2s;
+  --duration-slow: 0.55s;
+  --ease-default: ease;
+  --lift-hover: -2px;
+
+  /* ==========================================================================
+   * Identity treatments
+   *
+   * Composites that appear often enough that restating them in a component
+   * would be a copy. The hero background is three stacked gradients and is
+   * quoted exactly.
+   * ======================================================================== */
+
+  --gradient-hero:
+    radial-gradient(
+      ellipse 80% 60% at 50% 75%,
+      rgba(26, 79, 163, 0.2) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 30% at 20% 10%,
+      rgba(200, 232, 245, 0.04) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, #0a0e14 0%, #0d1825 50%, #0a0e14 100%);
+
+  /* Card: a translucent panel, a hairline border, nothing else. */
+  --card-bg: var(--color-surface);
+  --card-border: var(--border-width-hairline) solid var(--color-border);
+  --card-padding-y: var(--space-4);
+  --card-padding-x: var(--space-4);
+
+  /* The gold rule under a section title. */
+  --rule-accent-width: 38px;
+  --rule-accent-height: 3px;
+}
+
+/*
+ * Wider screens. The reference paints these values at every size; giving the
+ * small screen a tighter rhythm is the mobile-first correction the functional
+ * document asks for.
+ */
+@media (min-width: 42.5em) {
+  :root {
+    --layout-section-y: var(--space-8);
+    --layout-section-x: var(--space-6);
+    --card-padding-x: var(--space-5);
+  }
+}
