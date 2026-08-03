@@ -1,0 +1,80 @@
+---
+name: supabase-schema
+description: Use when adding or changing a Supabase table, column, row level security policy or migration for the UBL. Triggers on "migration", "RLS", "policy", "add a table", "schema change", "permissions", "admin role", "supabase db push".
+---
+
+# Supabase schema and permissions
+
+Everything about the database lives in the repository. A change that exists only
+in the Supabase dashboard is a change nobody can review and nobody can restore.
+
+## When to use
+
+Adding or altering a table, a column, an index or a policy; changing who may read
+or write anything.
+
+## When NOT to use
+
+Reading or writing rows from application code. That is a client call, not a
+schema change.
+
+## Rules
+
+- Every change is a numbered file under `supabase/migrations/`, applied with the
+  CLI. Never edit the schema by hand in the dashboard.
+- Row level security is enabled on every table, granted per table. A new table is
+  private until a policy says otherwise. Never write a catch-all policy.
+- Public read is granted only to sporting data: seasons, competitions, teams,
+  players, rosters, matches, goals and goalkeeper lines.
+- `admins` is never publicly readable. It holds personal email addresses. A
+  signed-in person may read their own row; administrators may read the table.
+- Writes are restricted to emails present in `admins`, checked in the policy.
+  The three roles from the functional document are general administrator,
+  sporting management, and communications. Sporting management may not touch
+  news, gallery or sponsors, and communications may not touch results.
+- `ushuaiabl@gmail.com` stays hardcoded as founding owner in the policies, so
+  the league cannot be locked out and the first administrator can be added to an
+  empty table.
+- Hiding a button in the panel is not enforcement. If the panel forbids
+  something, a policy must refuse it too.
+- Never put a service-role key in the client, in the repository, or in a CI
+  variable used by the front end build. Only the project URL and the anon key
+  belong there.
+
+## Steps
+
+1. Write the migration:
+
+   ```bash
+   supabase migration new <short_snake_case_name>
+   ```
+
+2. Put the table, its indexes, `alter table ... enable row level security`, and
+   its policies in that one file. A table and its policies never ship apart.
+3. Apply locally and check the policy from both sides, signed in and anonymous:
+
+   ```bash
+   supabase db reset      # local, rebuilds from every migration
+   ```
+
+4. Push once it passes:
+
+   ```bash
+   supabase db push
+   ```
+
+5. Update `docs/knowledge-base.md` if the change alters a domain rule, and
+   `CLAUDE.md` if it alters a permission.
+
+## Schema conventions
+
+- `snake_case` table and column names, plural tables.
+- A player is a global entity, not a per-season one. Season membership lives in
+  the roster table, with the jersey number, because a number belongs to a roster
+  entry and not to a person.
+- A match carries its venue (`bahia` or `poli`) because two matches run at once.
+- A match carries its resolution: regulation, shootout or draw. Draws are legal.
+- Never add a column for a national ID, a birth date, a phone number, an address
+  or payment status.
+- Deactivate rather than delete. A removed player keeps the events that reference
+  them, so use an `active` flag.
