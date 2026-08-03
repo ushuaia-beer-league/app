@@ -36,11 +36,10 @@ jobs:
       - run: npm test -- --run
       - run: npm run build
 
-      # `enablement` creates the Pages site on the first run, so publishing does
-      # not depend on anyone holding admin rights on the repository.
+      # The Pages site is created once by hand, by an administrator of the
+      # repository, with "GitHub Actions" as the source. The workflow token
+      # cannot create it: the API answers "not accessible by integration".
       - uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
