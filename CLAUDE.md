@@ -15,9 +15,9 @@ the open questions. `docs/plan.md` holds the delivery plan and its current phase
 
 ## Status
 
-Phase 0. The repository holds documentation and the agent kit; the application
-does not exist yet. Every command below lands as its phase is implemented, so
-check `package.json` before assuming a script exists.
+Phase 0. The scaffold, the four validations and the Pages pipeline are in place;
+the Supabase project and the Google OAuth client are not. There is no domain
+logic yet: `src/` holds a placeholder shell that Phase 3 replaces.
 
 ## Language
 

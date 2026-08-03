@@ -1,6 +1,6 @@
 # UBL delivery plan: from zero to production
 
-Status: **awaiting approval**. Written 3 August 2026.
+Status: **approved**, Phase 0 under way. Written 3 August 2026.
 
 ## Target
 
@@ -26,6 +26,10 @@ open questions.
 3. **Google OAuth**: create an OAuth client in Google Cloud (same account) and
    paste it into Supabase Auth so sign-in works with Gmail. The only piece of
    paperwork in the whole plan.
+
+Step 1 is done: the scaffold, ESLint, Vitest, the pull-request pipeline and the
+Pages deploy are in the repository, and the site builds under `/app/` with a
+`404.html` fallback. Steps 2 and 3 wait on the account.
 
 **Needed from Braian**: access to `ushuaiabl@gmail.com` when the Supabase
 project and the OAuth client are created, and that account as an owner of the

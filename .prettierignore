@@ -1,0 +1,6 @@
+dist
+node_modules
+package-lock.json
+
+# Original league material, kept exactly as it was handed over.
+docs/sources
