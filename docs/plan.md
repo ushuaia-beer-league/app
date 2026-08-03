@@ -1,6 +1,28 @@
 # UBL delivery plan: from zero to production
 
-Status: **approved**, Phase 0 under way. Written 3 August 2026.
+Status: **approved**. Written 3 August 2026, and the state below is where it got
+to on the same day.
+
+Done: phases 0 (except the Google OAuth client), 1, 2 and 3. The public site is
+live and shows the whole 2026 season; the schema, the row level security and the
+season are applied to Supabase; the playoff bracket fills itself from the
+results. Phase 4 has its shell, its sign-in, the matches list and the match
+sheet; the season, sponsor, photo and administrator forms are not built. Phase 5
+has the bracket progression and `ADMIN.md`; the row-level-security checks were
+run by hand against the real database and are not automated.
+
+Three things block the rest, and none of them is code:
+
+1. **The Google OAuth client** does not exist, so nobody can sign in to the back
+   office. It needs the league's own Google account and a passkey on the device.
+2. **`SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` are not set** as repository
+   variables, so every build ships without a database connection: the public site
+   serves the versioned seed and the panel says there is nothing to sign in to.
+   Setting them needs the account that owns the repository, because a personal
+   repository has no admin role to delegate.
+3. **The league's own material** — a transparent crest, a photograph of the rink,
+   sponsor logos, gallery photographs — and the answers to the open questions in
+   `knowledge-base.md` section 9.
 
 ## Target
 

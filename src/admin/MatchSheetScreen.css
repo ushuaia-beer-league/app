@@ -1,0 +1,350 @@
+/*
+ * The match sheet. A form somebody fills standing at the rink, on a phone, with
+ * a paper sheet in their other hand and cold fingers, so every control is at
+ * least one tap target tall and the two sides stack until there is room for
+ * them side by side.
+ *
+ * It borrows the panel's language and adds nothing: hairline borders, no
+ * shadow, uppercase condensed labels, gold only where something needs to be
+ * noticed. The one colour decision of its own is that a gap is gold and a
+ * contradiction is red, the same as in the matches list, because they mean the
+ * same thing there.
+ */
+
+.sheet__header {
+  margin-bottom: var(--space-4);
+}
+
+.sheet__back {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--layout-tap-min);
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.sheet__back:hover {
+  color: var(--color-accent);
+}
+
+.sheet__title {
+  color: var(--color-text-heading);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-wide);
+}
+
+.sheet__when {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.sheet__note,
+.sheet__blocked,
+.sheet__hint,
+.sheet__empty,
+.sheet__pending {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.sheet__note {
+  margin-top: var(--space-2);
+}
+
+.sheet__hint {
+  margin: var(--space-2) 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * What is missing, in the same shape the matches list uses
+ * ------------------------------------------------------------------------ */
+
+.sheet__gaps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  list-style: none;
+}
+
+.sheet__gap {
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border-accent);
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* Nobody can close this one from the panel, so it must not look like work. */
+.sheet__gap--league {
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+}
+
+.sheet__gap--done {
+  border-color: var(--color-positive-line);
+  color: var(--color-positive);
+}
+
+.sheet__gap--wrong {
+  border-color: var(--color-negative);
+  color: var(--color-negative);
+}
+
+/* ---------------------------------------------------------------------------
+ * The four blocks
+ * ------------------------------------------------------------------------ */
+
+.sheet__form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.sheet__block {
+  padding: var(--card-padding-y) var(--card-padding-x);
+  border: var(--card-border);
+  background: var(--card-bg);
+}
+
+.sheet__block-title,
+.sheet__resolutions legend {
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+/* Flex rather than grid: a legend is laid out by rules of its own inside a
+ * fieldset and browsers disagree about whether it is a grid item, so the row
+ * that must never break is the one holding the choices. */
+.sheet__resolutions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  margin-top: var(--space-3);
+  padding: 0;
+  border: 0;
+}
+
+.sheet__resolutions legend,
+.sheet__resolutions .sheet__hint {
+  flex: 1 0 100%;
+  color: var(--color-text-muted);
+}
+
+.sheet__score {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+/* ---------------------------------------------------------------------------
+ * Fields
+ * ------------------------------------------------------------------------ */
+
+.sheet__field {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.sheet__field label {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.sheet__field input,
+.sheet__field select {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: var(--color-surface-sunken);
+  color: var(--color-text-strong);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+}
+
+.sheet__field input:focus-visible,
+.sheet__field select:focus-visible {
+  border-color: var(--color-border-accent);
+  outline: var(--border-width-emphasis) solid var(--color-accent-soft);
+}
+
+.sheet__choice,
+.sheet__flag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--layout-tap-min);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+/* ---------------------------------------------------------------------------
+ * The two sides, and the rows inside them
+ * ------------------------------------------------------------------------ */
+
+.sheet__sides {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-3);
+}
+
+.sheet__side-title {
+  padding-bottom: var(--space-1);
+  border-bottom: var(--border-width-hairline) solid var(--color-border);
+  color: var(--color-text-strong);
+  font-family: var(--font-condensed);
+  font-size: var(--text-lg);
+}
+
+.sheet__rows {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+  list-style: none;
+}
+
+.sheet__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border-subtle);
+}
+
+.sheet__person {
+  flex: 1 1 8rem;
+  color: var(--color-text-strong);
+  font-family: var(--font-condensed);
+  font-size: var(--text-md);
+}
+
+.sheet__computed {
+  color: var(--color-text-bright);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.sheet__remove,
+.sheet__add,
+.sheet__save {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.sheet__remove:hover,
+.sheet__add:hover {
+  border-color: var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+.sheet__add {
+  margin-top: var(--space-2);
+}
+
+.sheet__adders {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ---------------------------------------------------------------------------
+ * Saving, and being refused
+ * ------------------------------------------------------------------------ */
+
+.sheet__actions {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.sheet__save {
+  padding: 0 var(--space-5);
+  border: var(--border-width-emphasis) solid var(--color-accent);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+}
+
+.sheet__save:hover:enabled {
+  background: var(--color-accent-soft);
+}
+
+.sheet__save:disabled {
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.sheet__problems,
+.sheet__refused {
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-negative);
+  color: var(--color-negative);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.sheet__problems ul,
+.sheet__refused p {
+  margin-left: var(--space-4);
+}
+
+.sheet__problems-title {
+  margin-bottom: var(--space-1);
+  font-weight: var(--weight-bold);
+}
+
+/* A contradiction is worth saying out loud and is not a reason to refuse a
+ * save, so it is not painted like one. */
+.sheet__warning {
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border-accent);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.sheet__saved {
+  color: var(--color-positive);
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 42.5em) {
+  .sheet__score {
+    grid-template-columns: 8rem 8rem;
+    gap: var(--space-4);
+  }
+
+  .sheet__sides {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5) var(--space-6);
+  }
+}

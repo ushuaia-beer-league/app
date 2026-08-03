@@ -3,6 +3,7 @@ import { NavLink, Route, Routes } from 'react-router-dom'
 import { SEED_2026 } from '../data/seed-2026'
 import { AdminGate } from './AdminGate'
 import { MatchesScreen } from './MatchesScreen'
+import { MatchSheetRoute } from './MatchSheetRoute'
 import { loadAdminMatches, type AdminMatch } from './adminQueries'
 import { can, useAdminSession } from './useAdminSession'
 import './AdminApp.css'
@@ -15,10 +16,10 @@ import './AdminApp.css'
  * database refuses what a role cannot write. If the two ever disagree, the
  * database is right.
  *
- * TODO phase 4: the match sheet (result, who played, goals and assists, the
- * goalkeeper line), the season and fixture forms, sponsors and photographs, and
- * the administrator list. The screens are stubbed below so the routes, the
- * permissions and the shape of the panel are real while they land.
+ * The matches list and the match sheet are built. TODO phase 4: the season and
+ * fixture forms, sponsors and photographs, and the administrator list. Those
+ * screens are stubbed below so the routes, the permissions and the shape of the
+ * panel are real while they land.
  */
 export function AdminApp() {
   const { status, signIn, signOut, error } = useAdminSession()
@@ -72,7 +73,7 @@ export function AdminApp() {
               <Route path="/admin" element={<MatchesRoute />} />
               <Route
                 path="/admin/partidos/:matchId"
-                element={<Pending name="la planilla del partido" />}
+                element={<MatchSheetRoute />}
               />
               <Route
                 path="/admin/equipos"

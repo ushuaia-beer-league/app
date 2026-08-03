@@ -1,21 +1,9 @@
 import { Link } from 'react-router-dom'
 import { formatWeekdayDate } from '../components/dates'
 import { goalsExceedScore, matchGaps } from '../utils/match-completeness'
+import { STAGE_NAMES, VENUE_NAMES } from './adminLabels'
 import type { AdminMatch } from './adminQueries'
 import './MatchesScreen.css'
-
-const VENUES = { bahia: 'Bahía', poli: 'Poli' } as const
-
-const STAGES: Record<string, string> = {
-  regular: 'Fase regular',
-  playin: 'Repechaje',
-  quarterfinal: 'Cuartos',
-  semifinal: 'Semifinal',
-  final: 'Final',
-  'third-place': 'Tercer puesto',
-  'fifth-place': 'Quinto puesto',
-  'all-star': 'Juego de estrellas',
-}
 
 interface MatchesScreenProps {
   matches: readonly AdminMatch[]
@@ -94,7 +82,7 @@ export function MatchesScreen({ matches, teamName }: MatchesScreenProps) {
               >
                 <span className="matches__when">
                   {formatWeekdayDate(match.date)} · {match.time}
-                  {match.venue === null ? '' : ` · ${VENUES[match.venue]}`}
+                  {match.venue === null ? '' : ` · ${VENUE_NAMES[match.venue]}`}
                 </span>
 
                 <span className="matches__teams">
@@ -119,7 +107,7 @@ export function MatchesScreen({ matches, teamName }: MatchesScreenProps) {
                 </span>
 
                 <span className="matches__stage">
-                  {STAGES[match.stage] ?? match.stage}
+                  {STAGE_NAMES[match.stage]}
                 </span>
 
                 <span className="matches__gaps">

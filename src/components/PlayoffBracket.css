@@ -175,6 +175,9 @@
 }
 
 .playoff-bracket__legend {
+  /* The container is the grid of rounds, so without this the legend takes a
+   * column of its own and pushes the last round onto a second row. */
+  grid-column: 1 / -1;
   margin-bottom: var(--space-4);
   color: var(--color-text-muted);
   font-size: var(--text-sm);
