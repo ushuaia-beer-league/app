@@ -3,23 +3,35 @@
 Status: **approved**. Written 3 August 2026, and the state below is where it got
 to on the same day.
 
-Done: phases 0 (except the Google OAuth client), 1, 2 and 3. The public site is
-live and shows the whole 2026 season; the schema, the row level security and the
-season are applied to Supabase; the playoff bracket fills itself from the
-results. Phase 4 has its shell, its sign-in, the matches list and the match
-sheet; the season, sponsor, photo and administrator forms are not built. Phase 5
-has the bracket progression and `ADMIN.md`; the row-level-security checks were
-run by hand against the real database and are not automated.
+Done: every phase, 0 to 5. The public site is live and shows the whole 2026
+season; the schema, the row level security and the season are applied to
+Supabase; the playoff bracket fills itself from the results. The back office has
+its sign-in, the matches list, the match sheet, and the forms for seasons, teams,
+rosters, fixture, sponsors, photographs and administrators. The
+row-level-security checks are a re-runnable file, `supabase/tests/row-level-security.sql`,
+asserted against the real database but not in CI, because that needs a database
+connection this repository must not carry.
 
 Three things block the rest, and none of them is code:
 
-1. **The Google OAuth client** does not exist, so nobody can sign in to the back
-   office. It needs the league's own Google account and a passkey on the device.
+1. **Google sign-in is half configured.** The OAuth client exists: project
+   `beer-league-504419` under `ushuaiabl@gmail.com`, consent screen published in
+   production with only the three basic scopes, client `UBL back office` with the
+   redirect `https://wqgmdjmdobgcrioxlhkl.supabase.co/auth/v1/callback` verified
+   against the saved client. What is missing is the Supabase half, which needs
+   somebody signed in to the dashboard: paste the client id and secret into
+   Authentication > Providers > Google, and set the site URL and the two redirect
+   URLs under URL Configuration. The client secret was created in a session that
+   recorded it, so generate a fresh one from that client rather than reusing it.
 2. **`SUPABASE_URL` and `SUPABASE_PUBLISHABLE_KEY` are not set** as repository
    variables, so every build ships without a database connection: the public site
    serves the versioned seed and the panel says there is nothing to sign in to.
-   Setting them needs the account that owns the repository, because a personal
-   repository has no admin role to delegate.
+   Setting them needs the account that owns the repository, because a collaborator
+   on a personal repository has no admin role to delegate. Committing
+   `.env.production` is the route that needs only push, and it works: until
+   3 August 2026 the deploy passed both values as environment variables even when
+   the repository variables were empty, and Vite lets the environment win over an
+   env file, so a committed file was silently ignored.
 3. **The league's own material** — a transparent crest, a photograph of the rink,
    sponsor logos, gallery photographs — and the answers to the open questions in
    `knowledge-base.md` section 9.
