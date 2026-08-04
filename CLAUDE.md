@@ -15,9 +15,17 @@ the open questions. `docs/plan.md` holds the delivery plan and its current phase
 
 ## Status
 
-Phase 0. The scaffold, the four validations and the Pages pipeline are in place;
-the Supabase project and the Google OAuth client are not. There is no domain
-logic yet: `src/` holds a placeholder shell that Phase 3 replaces.
+Every phase of `docs/plan.md` is implemented: the public site, the back office
+with its match sheet and its forms for seasons, teams, rosters, fixture,
+sponsors, photographs and administrators, the playoff bracket, the row-level
+security checks and `ADMIN.md`. The schema and the 2026 season are applied to
+Supabase and mirrored in the versioned seed, so every command below exists and
+all four validations pass.
+
+What is left is not code. `docs/plan.md` keeps that list current: the Google
+OAuth client, the two repository variables that give a build its database
+connection, the league's own images, and the open questions in
+`knowledge-base.md` section 9.
 
 ## Language
 
