@@ -9,6 +9,32 @@
       name="description"
       content="Liga recreativa de hockey sobre hielo de Ushuaia, Tierra del Fuego."
     />
+
+    <!--
+      The card that shows when somebody drops the link into a WhatsApp group,
+      which is how this site will actually be shared.
+
+      There is no `og:image` yet, and that is deliberate rather than forgotten: a
+      preview image has to be a real file, and the league's crest is a JPEG on a
+      light background that the reference site forces white with a CSS filter.
+      Pointing at it would publish a white square. When a transparent crest
+      arrives, the image belongs here as an absolute URL, 1200 by 630, because a
+      relative one is ignored by every scraper.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ushuaia Beer League" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content="Ushuaia Beer League" />
+    <meta
+      property="og:description"
+      content="Fixture, posiciones, goleadores y playoffs de la liga recreativa de hockey sobre hielo de Ushuaia."
+    />
+    <meta
+      property="og:url"
+      content="https://ushuaia-beer-league.github.io/app/"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#0a0e14" />
   </head>
   <body>
     <div id="root"></div>
