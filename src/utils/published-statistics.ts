@@ -14,6 +14,7 @@ import type {
   SeedPublishedPlayerLine,
 } from '../data/seed'
 import type { CompetitionKey } from '../data/types'
+import { confirmedSpelling } from './confirmed-names'
 import { savePercentage } from './goalkeeping'
 import { isSubstituteLine } from './source-notation'
 
@@ -50,9 +51,16 @@ function base(line: {
   printedPlayerName: string
   printedTeam: string | null
 }): PublishedRowBase {
+  // A line that reaches nobody can still have a name the league confirmed, and
+  // one woman needs it: the women's rosters are not published, so her scoring
+  // line and her goalkeeping line match no player and the two sheets spell her
+  // surname differently. Showing the confirmed spelling puts one person in both
+  // tables, and it is not marked as unconfirmed, because somebody confirmed it.
+  const confirmed = confirmedSpelling(line.printedPlayerName)
+
   return {
-    name: line.resolvedName ?? line.printedPlayerName,
-    nameIsPrinted: line.resolvedName === null,
+    name: line.resolvedName ?? confirmed ?? line.printedPlayerName,
+    nameIsPrinted: line.resolvedName === null && confirmed === null,
     team: line.printedTeam,
     isSubstitute:
       line.printedTeam !== null && isSubstituteLine(line.printedTeam),

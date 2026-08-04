@@ -20,6 +20,22 @@
  * Idempotency. Every statement is an upsert. The league corrects its sheet and
  * re-exports, so an import has to be repeatable without doubling anything, and
  * `on conflict do nothing` would silently keep the stale row instead.
+ *
+ * What an upsert cannot do is notice a **renamed** person. A slug is hashed into
+ * the row's id, so correcting a spelling produces a new id: the load inserts the
+ * corrected person and their roster row, and the old pair survives untouched.
+ * That happened on 4 August 2026, when the league confirmed nine spellings and
+ * five people changed name, and it was finished by hand:
+ *
+ *   delete from public.team_players tp using public.players p
+ *   where p.id = tp.player_id and p.full_name in (<the old spellings>);
+ *   delete from public.players where full_name in (<the old spellings>);
+ *
+ * Children first, because every reference to a player is `on delete restrict`.
+ * This file deliberately does not emit those deletes: a general "remove every
+ * player this season does not name" would also remove the people an
+ * administrator entered through the panel, which is a worse failure than a
+ * leftover row. So a rename is a two-step job, and this is the note that says so.
  */
 
 import { createHash } from 'node:crypto'

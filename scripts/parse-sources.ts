@@ -34,6 +34,7 @@ import {
   parseVenue,
   resolutionFor,
 } from '../src/utils/source-notation'
+import { confirmedName } from '../src/utils/confirmed-names'
 import { findByTruncatedName, findTeam } from '../src/utils/team-lookup'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
@@ -238,14 +239,19 @@ function parseRosters(): {
       continue
     }
 
-    const slug = matchKey(printedName).replace(/ /g, '-')
+    const confirmed = confirmedName(printedName)
+    const slug = matchKey(confirmed).replace(/ /g, '-')
     const existing = players.get(slug)
     if (existing) {
       note(
         `Roster names ${printedName} twice; kept one player and both roster rows.`,
       )
     } else {
-      players.set(slug, { slug, name: displayName(printedName), printedName })
+      players.set(slug, {
+        slug,
+        name: displayName(confirmed),
+        printedName,
+      })
     }
 
     // The roster sheet is the Beer League's: every team on it is a men's-league
@@ -543,7 +549,10 @@ function parsePublishedPlayerStats(
       if (printedPlayerName === '') continue
 
       const printedTeam = cellAt(row, 1).trim()
-      const player = findByTruncatedName(players, printedPlayerName)
+      const player = findByTruncatedName(
+        players,
+        confirmedName(printedPlayerName),
+      )
       const team =
         printedTeam === ''
           ? null
@@ -582,7 +591,10 @@ function parsePublishedGoalieStats(
       if (printedPlayerName === '') continue
 
       const printedTeam = cellAt(row, 1).trim()
-      const player = findByTruncatedName(players, printedPlayerName)
+      const player = findByTruncatedName(
+        players,
+        confirmedName(printedPlayerName),
+      )
       const team =
         printedTeam === ''
           ? null

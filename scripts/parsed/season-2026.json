@@ -248,8 +248,8 @@
       "printedName": "sobral lucas"
     },
     {
-      "slug": "tabarez-ian",
-      "name": "Tabarez Ian",
+      "slug": "tabares-ian",
+      "name": "Tabares Ian",
       "printedName": "Tabarez Ian"
     },
     {
@@ -318,13 +318,13 @@
       "printedName": "echague guillermo"
     },
     {
-      "slug": "carbone-anita",
-      "name": "Carbone Anita",
+      "slug": "carbone-ana",
+      "name": "Carbone Ana",
       "printedName": "carbone anita"
     },
     {
-      "slug": "contignola-flor",
-      "name": "Contignola Flor",
+      "slug": "cotignola-flor",
+      "name": "Cotignola Flor",
       "printedName": "contignola flor"
     },
     {
@@ -393,8 +393,8 @@
       "printedName": "zayas matias"
     },
     {
-      "slug": "munoz-lauti",
-      "name": "Muñoz Lauti",
+      "slug": "munoz-lauta",
+      "name": "Muñoz Lauta",
       "printedName": "muñoz lauti"
     },
     {
@@ -428,8 +428,8 @@
       "printedName": "dumais virginia"
     },
     {
-      "slug": "nardi-christina",
-      "name": "Nardi Christina",
+      "slug": "nardi-cristina",
+      "name": "Nardi Cristina",
       "printedName": "nardi christina"
     },
     {
@@ -654,7 +654,7 @@
       "printedTeam": "Castores Zhockey"
     },
     {
-      "playerSlug": "tabarez-ian",
+      "playerSlug": "tabares-ian",
       "teamSlug": "zhockey",
       "competition": "beer",
       "jerseyNumber": 4,
@@ -752,14 +752,14 @@
       "printedTeam": "Hantachoppers"
     },
     {
-      "playerSlug": "carbone-anita",
+      "playerSlug": "carbone-ana",
       "teamSlug": "rock-choppers",
       "competition": "beer",
       "jerseyNumber": 26,
       "printedTeam": "Hantachoppers"
     },
     {
-      "playerSlug": "contignola-flor",
+      "playerSlug": "cotignola-flor",
       "teamSlug": "rock-choppers",
       "competition": "beer",
       "jerseyNumber": 28,
@@ -857,7 +857,7 @@
       "printedTeam": "Frozen Sucucho"
     },
     {
-      "playerSlug": "munoz-lauti",
+      "playerSlug": "munoz-lauta",
       "teamSlug": "sucucho",
       "competition": "beer",
       "jerseyNumber": 28,
@@ -906,7 +906,7 @@
       "printedTeam": "Blancaspuma y las 7 pintas"
     },
     {
-      "playerSlug": "nardi-christina",
+      "playerSlug": "nardi-cristina",
       "teamSlug": "blanco",
       "competition": "beer",
       "jerseyNumber": 77,
@@ -1905,7 +1905,7 @@
       "sourceFile": "spreadsheet-export/player-stats.html",
       "printedPlayerName": "velasquez lucia",
       "printedTeam": "Beerros Azulvetrados",
-      "playerSlug": null,
+      "playerSlug": "velazquez-luciano",
       "teamSlug": "short-shift-soft-sticks",
       "assists": 5,
       "goals": 11,
@@ -1960,7 +1960,7 @@
       "sourceFile": "spreadsheet-export/player-stats.html",
       "printedPlayerName": "Sueldo Adolf",
       "printedTeam": "Beerros Azulvetrados",
-      "playerSlug": null,
+      "playerSlug": "sueldo-fito",
       "teamSlug": "short-shift-soft-sticks",
       "assists": 1,
       "goals": 11,
@@ -2048,7 +2048,7 @@
       "sourceFile": "spreadsheet-export/player-stats.html",
       "printedPlayerName": "Muñoz Lauta",
       "printedTeam": "Frozen Sucucho",
-      "playerSlug": null,
+      "playerSlug": "munoz-lauta",
       "teamSlug": "sucucho",
       "assists": 3,
       "goals": 5,
@@ -2081,7 +2081,7 @@
       "sourceFile": "spreadsheet-export/player-stats.html",
       "printedPlayerName": "Tabares Ian",
       "printedTeam": "Castores Zhockey",
-      "playerSlug": null,
+      "playerSlug": "tabares-ian",
       "teamSlug": "zhockey",
       "assists": 1,
       "goals": 5,
@@ -2213,7 +2213,7 @@
       "sourceFile": "spreadsheet-export/player-stats.html",
       "printedPlayerName": "Carbone Ana",
       "printedTeam": "Hantachoppers",
-      "playerSlug": null,
+      "playerSlug": "carbone-ana",
       "teamSlug": "rock-choppers",
       "assists": 2,
       "goals": 2,
@@ -2367,7 +2367,7 @@
       "sourceFile": "spreadsheet-export/player-stats.html",
       "printedPlayerName": "Cotignola Flore",
       "printedTeam": "Hantachoppers",
-      "playerSlug": null,
+      "playerSlug": "cotignola-flor",
       "teamSlug": "rock-choppers",
       "assists": 0,
       "goals": 2,
@@ -2422,7 +2422,7 @@
       "sourceFile": "spreadsheet-export/player-stats.html",
       "printedPlayerName": "NARDI CRIST",
       "printedTeam": "Blancaspuma y las 7 pintas",
-      "playerSlug": null,
+      "playerSlug": "nardi-cristina",
       "teamSlug": "blanco",
       "assists": 1,
       "goals": 1,
@@ -2686,7 +2686,7 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Carbone Ana",
       "printedTeam": "Sup (Zambirreras)",
-      "playerSlug": null,
+      "playerSlug": "carbone-ana",
       "teamSlug": null,
       "assists": 1,
       "goals": 4,
@@ -2719,7 +2719,7 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Nardi Crist",
       "printedTeam": "Zambirreras",
-      "playerSlug": null,
+      "playerSlug": "nardi-cristina",
       "teamSlug": null,
       "assists": 1,
       "goals": 3,
@@ -3155,7 +3155,7 @@
       "sourceFile": "spreadsheet-export/goalie-stats.html",
       "printedPlayerName": "Badaraco Nico",
       "printedTeam": "Frozen Sucucho",
-      "playerSlug": null,
+      "playerSlug": "badaracco-nico",
       "teamSlug": "sucucho",
       "gamesPlayed": 5,
       "shotsFaced": 173,
@@ -3225,21 +3225,14 @@
   ],
   "findings": [
     "coria omar (Blanco) has no jersey number on the sheet.",
-    "Jersey 28 is worn by contignola-flor and bergeonneau-mauri in rock-choppers.",
+    "Jersey 28 is worn by cotignola-flor and bergeonneau-mauri in rock-choppers.",
     "2026-07-04 23:30: the Ganador column names \"Short Shift Soft Sticks\" on a row whose sides are printed as positions, so the two cannot be cross-checked.",
-    "Published beer line \"velasquez lucia\" is not linked to a player: no roster player matches this spelling.",
-    "Published beer line \"Sueldo Adolf\" is not linked to a player: no roster player matches this spelling.",
-    "Published beer line \"Muñoz Lauta\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Encinas Camacho Valen\" is not linked to a player: no roster player matches this spelling.",
-    "Published beer line \"Tabares Ian\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Fermin Lopez Silva\" is not linked to a player: marked as a substitute, so no roster row is expected.",
     "Published beer line \"Baeza Juan\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Romero José\" is not linked to a player: no roster player matches this spelling.",
-    "Published beer line \"Carbone Ana\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Sueldo Kevin\" is not linked to a player: marked as a substitute, so no roster row is expected.",
     "Published beer line \"Cuitiño Joaqu\" is not linked to a player: marked as a substitute, so no roster row is expected.",
-    "Published beer line \"Cotignola Flore\" is not linked to a player: no roster player matches this spelling.",
-    "Published beer line \"NARDI CRIST\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Romano Salinas Felip\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Simari Birkner Crist\" is not linked to a player: marked as a substitute, so no roster row is expected.",
     "Published beer line \"Mosqueira victoria\" is not linked to a player: no roster player matches this spelling.",
@@ -3247,8 +3240,6 @@
     "Published beer line \"Tibaudin Ana J\" is not linked to a player: the sheet gives no team either.",
     "Published beer line \"Schiavini Marga\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Corales Jonat\" is not linked to a player: the sheet gives no team either.",
-    "Published wubl line \"Carbone Ana\" is not linked to a player: marked as a substitute, so no roster row is expected.",
-    "Published wubl line \"Nardi Crist\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
     "Published wubl line \"Tibaudin Ana J\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
     "Published wubl line \"Alvarado Danie\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
     "Published wubl line \"Denti Silva\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
@@ -3272,7 +3263,6 @@
     "Published wubl line \"Luna Dapozo Ema\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
     "Published wubl line \"Rodriguez Bruna\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
     "Published wubl line \"Cotignola Maria\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published beer line \"Badaraco Nico\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Amaolo Lanata, Gonza\" is not linked to a player: marked as a substitute, so no roster row is expected.",
     "Published beer line \"Lautaro Jofre\" is not linked to a player: marked as a substitute, so no roster row is expected.",
     "Published wubl line \"Cavaliere Milag\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",

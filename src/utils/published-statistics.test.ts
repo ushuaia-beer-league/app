@@ -49,14 +49,29 @@ describe('publishedScoringTable', () => {
           printedPlayerName: 'Beltrami Ramir',
           resolvedName: 'Beltrami Ramiro',
         }),
-        skater({ printedPlayerName: 'velasquez lucia' }),
+        skater({ printedPlayerName: 'Nobody Unconfirme' }),
       ],
       { competition: 'beer' },
     )
 
     expect(rows.map((row) => [row.name, row.nameIsPrinted])).toEqual([
       ['Beltrami Ramiro', false],
-      ['velasquez lucia', true],
+      ['Nobody Unconfirme', true],
+    ])
+  })
+
+  it('shows the confirmed spelling of a line that matches nobody, unmarked', () => {
+    // Her scoring line and her goalkeeping line spell the surname differently and
+    // neither reaches a player, because the women's rosters are not published.
+    // The league said which spelling is hers, so both tables print that one and
+    // neither marks it as unconfirmed.
+    const rows = publishedScoringTable(
+      [skater({ printedPlayerName: 'Cavaliere Milag' })],
+      { competition: 'beer' },
+    )
+
+    expect(rows.map((row) => [row.name, row.nameIsPrinted])).toEqual([
+      ['Cavalleri Milag', false],
     ])
   })
 

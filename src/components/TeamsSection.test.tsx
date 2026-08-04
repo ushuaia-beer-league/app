@@ -153,7 +153,7 @@ describe('TeamsSection', () => {
 
     expect(within(card).getByText('11 jugadores en el plantel')).toBeVisible()
     expect(within(card).getAllByText('28')).toHaveLength(2)
-    expect(within(card).getByText('Contignola Flor')).toBeVisible()
+    expect(within(card).getByText('Cotignola Flor')).toBeVisible()
     expect(within(card).getByText('Bergeonneau, Mauri')).toBeVisible()
     expect(
       within(card).getByText(/El número 28 aparece más de una vez/),

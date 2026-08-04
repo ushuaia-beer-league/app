@@ -481,7 +481,10 @@ María (Frozen Queens).
 | Cavaliere Milagros    | Zambirreras | 3   | 54          | 16            | 70%    |
 
 The surname reads "Cavalleri" on the player sheet and "Cavaliere" on the
-goalkeeper sheet. To be unified.
+goalkeeper sheet. The league confirmed **Cavalleri** on 4 August 2026, and that
+is the spelling both tables show: `src/utils/confirmed-names.ts`. Neither line
+reaches a player row, because the women's rosters are not published, so without
+that answer she appeared as two different people, one scoring and one in goal.
 
 ---
 
@@ -688,7 +691,12 @@ only the matchups. Use the calendar CSV for results.
 6. What exactly is recorded for sanctions: the commandments mention a penalty
    shot and leaving the game, not minutes.
 7. The duplicated number 28 in the Hantachoppers roster.
-8. Unify Cavalleri and Cavaliere.
+8. ~~Unify Cavalleri and Cavaliere.~~ **Answered 4 August 2026: Cavalleri.**
+   Along with the eight other people the sheets spell two ways, all of them now
+   recorded in `src/utils/confirmed-names.ts`: Velazquez, Cotignola, Tabares,
+   Badaracco, Cavalleri, Nardi Cristina, Muñoz Lauta, Carbone Ana and Sueldo
+   Fito. Ten published statistics lines reach the person they were always about
+   as a result, and five people are now stored under the name that is theirs.
 9. Each player's level and position: the functional document lists them as
    minimum data and the current spreadsheet does not have them.
 10. What a franchise player is and how it is flagged.

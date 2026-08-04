@@ -110,22 +110,31 @@ cargar.
 Estas son preguntas abiertas, no errores del sistema. Cada una está marcada en
 los datos y se resuelve contestándola:
 
-1. **Nombres escritos de dos formas**, que por eso quedan sin vincular:
-   Velasquez / Velazquez, Cotignola / Contignola, Tabares / Tabarez, Badaraco /
-   Badaracco, Cavalleri / Cavaliere, Cristina / Christina, Muñoz Lauta / Lauti,
-   Carbone Ana / Anita, y Sueldo Adolf / Sueldo Fito.
-2. **Romero José** y **Baeza Juan** figuran como goleadores y no están en ningún
+1. **Romero José** y **Baeza Juan** figuran como goleadores y no están en ningún
    plantel: o son otras personas, o faltan cargarlos.
-3. **Los cuatro equipos del femenino** (Turbeerras, Zambirreras, Frozen Queens,
+2. **Los cuatro equipos del femenino** (Turbeerras, Zambirreras, Frozen Queens,
    Moby Drink) no sabemos con qué equipos de la Beer League se corresponden. El
    único con evidencia es Frozen Queens con Frozen Sucucho.
-4. **El partido del 23 de mayo a las 21:30 en Bahía** no tiene equipos en la
+3. **El partido del 23 de mayo a las 21:30 en Bahía** no tiene equipos en la
    planilla. ¿Se jugó? ¿Quiénes?
-5. **La fila de Blanco en la tabla publicada dice 1 derrota** y los resultados
+4. **La fila de Blanco en la tabla publicada dice 1 derrota** y los resultados
    dan 2. Los puntos y los goles cierran, así que parece un error de tipeo en la
    planilla; el sistema usa lo que dan los resultados.
-6. **El número 28 lo usan dos jugadores** en Hantachoppers, y una persona no
-   tiene número.
+5. **El número 28 lo usan dos jugadores** en Hantachoppers, y una persona no
+   tiene número. El sistema lo guarda igual y solo lo avisa, porque un número
+   repetido puede ser real; lo que falta es que la liga diga si en este caso lo
+   es o si es un error de carga.
+
+Ya contestado, el 4 de agosto de 2026: **las nueve personas que la planilla
+escribía de dos formas**. Quedaron Velazquez, Cotignola, Tabares, Badaracco,
+Cavalleri, Nardi Cristina, Muñoz Lauta, Carbone Ana y Sueldo Fito. Cinco de ellas
+figuran ahora con el nombre que es suyo, y diez líneas de las tablas publicadas
+dejaron de estar sueltas y quedaron pegadas a su persona.
+
+Una aclaración por si aparece la duda: en las tablas de goleadores y arqueros
+sigue figurando el nombre **como lo imprimió la planilla**, aunque esté cortado
+("Beltrami Ramir"). Eso es a propósito, es la prueba de lo que decía la fuente. El
+asterisco es lo que avisa que ese nombre no está confirmado.
 
 ## A quién pedirle qué
 

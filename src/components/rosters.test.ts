@@ -127,12 +127,13 @@ describe('teamRoster', () => {
 
     expect(roster.lines).toHaveLength(11)
     expect(roster.sharedNumbers).toEqual([28])
-    // Both spellings are the roster sheet's own, comma and all.
+    // The first is the spelling the league confirmed, over the roster sheet's own
+    // "Contignola"; the second is the sheet's, comma and all.
     expect(
       roster.lines
         .filter((line) => line.jerseyNumber === 28)
         .map((line) => line.name),
-    ).toEqual(['Contignola Flor', 'Bergeonneau, Mauri'])
+    ).toEqual(['Cotignola Flor', 'Bergeonneau, Mauri'])
   })
 
   it('keeps the Blanco player the sheet gives no number to', () => {

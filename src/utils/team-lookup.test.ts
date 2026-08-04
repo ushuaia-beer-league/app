@@ -150,6 +150,10 @@ describe('findByTruncatedName', () => {
     ).toBe('Molinolo Osvaldo')
   })
 
+  // These three pairs are resolved, but not here: the league confirmed which
+  // spelling is whose, and `confirmed-names.ts` applies that before the matcher
+  // ever sees the name. This function stays as conservative as it was, because
+  // the next pair nobody has confirmed has to keep failing.
   it('refuses a surname spelled differently, however obvious the person is', () => {
     expect(
       findByTruncatedName([{ name: 'Velazquez Luciano' }], 'Velasquez Lucia'),
