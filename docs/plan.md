@@ -10,7 +10,11 @@ its sign-in, the matches list, the match sheet, and the forms for seasons, teams
 rosters, fixture, sponsors, photographs and administrators. The
 row-level-security checks are a re-runnable file, `supabase/tests/row-level-security.sql`,
 asserted against the real database but not in CI, because that needs a database
-connection this repository must not carry.
+connection this repository must not carry. Beside it,
+`supabase/tests/query-columns.sql` asserts that every column and every embed the
+code asks for is present, which is the one class of failure the unit tests cannot
+catch: they mock the client, so a renamed column passes every check in the
+repository and breaks the panel in the browser.
 
 Three things block the rest, and none of them is code:
 
