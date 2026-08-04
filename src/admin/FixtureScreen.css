@@ -1,0 +1,295 @@
+/*
+ * The fixture. Grouped by day, and inside a day by hour, so the two cabeceras of
+ * one hour sit next to each other: two matches at once is the shape of a round in
+ * this league, and a list that hid it would invite exactly the mistake this screen
+ * exists to prevent.
+ *
+ * Gold is for what is legal and worth noticing: a slot with no cabecera, a slot
+ * with no teams, an instance that does not feed the standings. Red is only for
+ * what the database would refuse.
+ */
+
+.fixture__header {
+  margin-bottom: var(--space-5);
+}
+
+.fixture__title {
+  color: var(--color-text-heading);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-wide);
+}
+
+.fixture__subtitle {
+  margin: var(--space-6) 0 var(--space-3);
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.fixture__lead,
+.fixture__hint,
+.fixture__empty,
+.fixture__blocked,
+.fixture__waiting {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.fixture__hint a {
+  color: var(--color-accent);
+}
+
+/* ---------------------------------------------------------------------------
+ * The list
+ * ------------------------------------------------------------------------ */
+
+.fixture__day {
+  margin-bottom: var(--space-5);
+}
+
+.fixture__date {
+  margin-bottom: var(--space-2);
+  color: var(--color-text-strong);
+  font-family: var(--font-condensed);
+  font-size: var(--text-md);
+  letter-spacing: var(--tracking-wide);
+}
+
+.fixture__list {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.fixture__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.fixture__time {
+  color: var(--color-text-strong);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-wide);
+}
+
+.fixture__venue {
+  min-width: 6rem;
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.fixture__teams {
+  flex: 1 1 16rem;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+.fixture__versus {
+  color: var(--color-text-muted);
+}
+
+.fixture__unknown {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.fixture__stage,
+.fixture__how {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.fixture__score {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 7rem;
+  color: var(--color-text-strong);
+  font-size: var(--text-sm);
+}
+
+.fixture__note {
+  flex: 1 1 100%;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--leading-body);
+}
+
+.fixture__sheet {
+  min-height: var(--layout-tap-min);
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------------
+ * The form
+ * ------------------------------------------------------------------------ */
+
+.fixture__form {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  margin-top: var(--space-6);
+  padding: var(--card-padding-y) var(--card-padding-x);
+  border: var(--card-border);
+  background: var(--card-bg);
+}
+
+.fixture__field {
+  display: grid;
+  gap: var(--space-1);
+  width: 100%;
+  max-width: 18rem;
+}
+
+.fixture__field label {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.fixture__field input,
+.fixture__field select {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: var(--color-surface-sunken);
+  color: var(--color-text-strong);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+}
+
+.fixture__field input:focus-visible,
+.fixture__field select:focus-visible {
+  border-color: var(--color-border-accent);
+  outline: var(--border-width-emphasis) solid var(--color-accent-soft);
+}
+
+.fixture__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  padding: 0;
+  border: 0;
+}
+
+.fixture__choices legend {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.fixture__choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--layout-tap-min);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+.fixture__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.fixture__edit,
+.fixture__cancel,
+.fixture__save {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.fixture__edit:hover:enabled,
+.fixture__cancel:hover:enabled {
+  border-color: var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+.fixture__save {
+  padding: 0 var(--space-5);
+  border: var(--border-width-emphasis) solid var(--color-accent);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+}
+
+.fixture__save:hover:enabled {
+  background: var(--color-accent-soft);
+}
+
+.fixture__save:disabled,
+.fixture__edit:disabled,
+.fixture__cancel:disabled {
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------------
+ * Warnings, problems and refusals
+ * ------------------------------------------------------------------------ */
+
+.fixture__warning {
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border-accent);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.fixture__problems,
+.fixture__refused,
+.fixture__error {
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-negative);
+  color: var(--color-negative);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.fixture__warning ul,
+.fixture__problems ul {
+  margin-left: var(--space-4);
+}
+
+.fixture__saved {
+  margin-top: var(--space-3);
+  color: var(--color-positive);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}

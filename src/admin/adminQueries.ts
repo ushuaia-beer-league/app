@@ -46,6 +46,21 @@ import {
   type SeasonSaveReport,
   type SeasonStatus,
 } from './seasonsDraft'
+import type {
+  RosterPart,
+  RosterRecord,
+  RosterSaveReport,
+  RosterWrites,
+  TeamRecord,
+  TeamSavePlan,
+  TeamsPage,
+} from './teamsDraft'
+import type {
+  FixtureMatch,
+  FixturePage,
+  FixtureTeam,
+  MatchSavePlan,
+} from './fixtureDraft'
 import type { AdminRole } from './useAdminSession'
 
 export interface AdminMatch {
@@ -1195,4 +1210,432 @@ export async function uploadMedia(
 
   if (error) return { ok: false, because: becauseOfUpload(error) }
   return { ok: true, data: path }
+}
+
+// ---------------------------------------------------------------------------
+// Teams, rosters and the fixture
+// ---------------------------------------------------------------------------
+
+/**
+ * The refusal these three screens exist to explain properly.
+ *
+ * `private.can_manage_sport()` admits the general administrator and the sporting
+ * management and excludes communications from every sporting write, exactly as the
+ * functional document's role table says. Somebody from communications opening the
+ * teams screen and being told no is a normal afternoon, not a bug.
+ */
+const SPORT_REFUSED =
+  'La base rechazó el cambio: tu rol no tiene permiso para editar equipos, planteles ni fixture. La gestión deportiva y la administración general pueden; comunicación, no.'
+
+/** The same silent refusal the match sheet watches for, worded for here. */
+const SPORT_CHANGED_NOTHING =
+  'La base no aplicó el cambio. Puede que tu rol no tenga permiso para editarlo, o que otra persona lo haya cambiado antes.'
+
+/**
+ * Why the database said no about a team.
+ *
+ * Two unique constraints can collide and the answer differs, so the constraint's
+ * own name decides the sentence: the slug is unique across the whole league and
+ * the short name is unique inside one competition.
+ */
+function becauseOfTeams(error: { code?: string; message: string }): string {
+  if (error.code === '42501') return SPORT_REFUSED
+  if (error.code === '23505') {
+    if (error.message.includes('teams_slug_unique')) {
+      return 'Ese identificador ya es el de otro equipo. Es único en toda la liga, así que este necesita otro.'
+    }
+    if (error.message.includes('teams_short_name_unique')) {
+      return 'Ya hay un equipo con ese nombre corto en esta competencia. Dentro de una competencia no puede repetirse; en la otra sí.'
+    }
+    return 'La base rechazó el equipo porque duplicaría una fila: revisá el identificador y el nombre corto.'
+  }
+  if (error.code === '23503') {
+    return 'La base rechazó el equipo porque nombra una competencia que no existe.'
+  }
+  if (error.code === '23514') {
+    return `La base rechazó los datos porque no cumplen una regla (${error.message}).`
+  }
+  return error.message
+}
+
+/**
+ * Why the database said no about a roster row.
+ *
+ * The one worth naming is `team_players_one_team_per_competition_unique`: one team
+ * per person per competition per season. The form catches it first with the list it
+ * already has, and this is what answers when two people press save at once.
+ */
+function becauseOfRoster(error: { code?: string; message: string }): string {
+  if (error.code === '42501') return SPORT_REFUSED
+  if (error.code === '23505') {
+    if (error.message.includes('team_players_one_team_per_competition')) {
+      return 'Esa persona ya está en el plantel de otro equipo de esta competencia en esta temporada. La base admite un solo equipo por persona, por competencia y por temporada.'
+    }
+    if (error.message.includes('team_players_roster_unique')) {
+      return 'Esa persona ya está en este plantel.'
+    }
+    return 'La base rechazó el plantel porque duplicaría una fila.'
+  }
+  if (error.code === '23514') {
+    return `La base rechazó los datos porque no cumplen una regla de la liga (${error.message}). El número de camiseta va entre 0 y 99, o vacío.`
+  }
+  if (error.code === '23503') {
+    return 'La base rechazó la fila porque nombra a un equipo, una persona o una temporada que ya no existe. Un equipo de una competencia no puede figurar en un plantel de la otra.'
+  }
+  return error.message
+}
+
+/**
+ * Why the database said no about a fixture row.
+ *
+ * `matches_slot_unique` keys a slot by season, date, time and cabecera, so the
+ * refusal is about the cabecera and never about the hour: two matches at the same
+ * hour in the two cabeceras are the normal shape of a round.
+ */
+function becauseOfFixture(error: { code?: string; message: string }): string {
+  if (error.code === '42501') return SPORT_REFUSED
+  if (error.code === '23505') {
+    return error.message.includes('matches_slot_unique')
+      ? 'Ya hay un partido a esa hora en esa cabecera. Cambiá la hora, o poné este partido en la otra cabecera.'
+      : 'La base rechazó el partido porque duplicaría una fila.'
+  }
+  if (error.code === '23503') {
+    return 'La base rechazó el partido porque uno de los equipos no es de esta competencia, o porque nombra algo que ya no existe.'
+  }
+  if (error.code === '23514') {
+    return `La base rechazó los datos porque no cumplen una regla (${error.message}).`
+  }
+  return error.message
+}
+
+/** `HH:MM`, from the `HH:MM:SS` Postgres hands back for a time column. */
+function withoutSeconds(time: string): string {
+  return time.slice(0, 5)
+}
+
+/**
+ * The teams, the people and the season's rosters, in one read.
+ *
+ * Three requests and no more: the free tier is the whole budget and a request per
+ * team would spend it on a list. Retired teams and deactivated people come back
+ * too, because retiring is reversible and a screen that hides what it deactivated
+ * cannot undo it; the public site is what filters on `active`.
+ *
+ * Both competitions' rosters are read, not only the one on screen, because the
+ * rule the form has to enforce before the unique key does is about a competition:
+ * one team per person per competition per season.
+ */
+export async function loadTeamsPage(year: number): Promise<Result<TeamsPage>> {
+  const client = await getSupabaseClient()
+  if (!client) return { ok: false, because: NO_CONNECTION }
+
+  const season = await seasonIdForYear(client, year)
+  if (!season.ok) return season
+
+  const [teams, people, roster] = await Promise.all([
+    client
+      .from('teams')
+      .select(
+        'id, competition_key, slug, short_name, full_name, nickname, colour, logo_url, active',
+      )
+      .order('short_name'),
+    client.from('players').select('id, full_name, active').order('full_name'),
+    client
+      .from('team_players')
+      .select('id, competition_key, team_id, player_id, jersey_number, active')
+      .eq('season_id', season.data),
+  ])
+
+  if (teams.error) return { ok: false, because: becauseOfTeams(teams.error) }
+  if (people.error) return { ok: false, because: people.error.message }
+  if (roster.error) return { ok: false, because: becauseOfRoster(roster.error) }
+
+  const teamRows = (teams.data ?? []) as {
+    id: string
+    competition_key: string
+    slug: string
+    short_name: string
+    full_name: string | null
+    nickname: string | null
+    colour: string | null
+    logo_url: string | null
+    active: boolean
+  }[]
+
+  const peopleRows = (people.data ?? []) as {
+    id: string
+    full_name: string
+    active: boolean
+  }[]
+
+  const rosterRows = (roster.data ?? []) as {
+    id: string
+    competition_key: string
+    team_id: string
+    player_id: string
+    jersey_number: number | null
+    active: boolean
+  }[]
+
+  return {
+    ok: true,
+    data: {
+      seasonId: season.data,
+      year,
+      teams: teamRows.map((row): TeamRecord => ({
+        id: row.id,
+        competition: row.competition_key as TeamRecord['competition'],
+        slug: row.slug,
+        shortName: row.short_name,
+        fullName: row.full_name,
+        nickname: row.nickname,
+        colour: row.colour,
+        logoUrl: row.logo_url,
+        active: row.active,
+      })),
+      people: peopleRows.map((row) => ({
+        id: row.id,
+        fullName: row.full_name,
+        active: row.active,
+      })),
+      roster: rosterRows.map((row): RosterRecord => ({
+        id: row.id,
+        competition: row.competition_key as RosterRecord['competition'],
+        teamId: row.team_id,
+        playerId: row.player_id,
+        jerseyNumber: row.jersey_number,
+        active: row.active,
+      })),
+    },
+  }
+}
+
+/**
+ * A team, created or edited.
+ *
+ * An INSERT for a new team and an UPDATE for an existing one, rather than one
+ * upsert, because the update carries no `competition_key`: the rosters and the
+ * fixture reference `(id, competition_key)`, so a team that changed competition
+ * would orphan every row naming it. The column is not in `TeamEdit` at all, so
+ * there is nothing here that could move it.
+ *
+ * There is no delete. A team is retired by clearing `active`, because `players`
+ * and `team_players` reference it with `on delete restrict` and a season that
+ * already happened has to keep showing who played in it.
+ */
+export async function saveTeam(plan: TeamSavePlan): Promise<Result<null>> {
+  const client = await getSupabaseClient()
+  if (!client) return { ok: false, because: NO_CONNECTION }
+
+  const written =
+    plan.teamId === null
+      ? await client.from('teams').insert(plan.row).select('id')
+      : await client
+          .from('teams')
+          .update(plan.row)
+          .eq('id', plan.teamId)
+          .select('id')
+
+  if (written.error) {
+    return { ok: false, because: becauseOfTeams(written.error) }
+  }
+  if ((written.data ?? []).length === 0) {
+    return { ok: false, because: SPORT_CHANGED_NOTHING }
+  }
+
+  return { ok: true, data: null }
+}
+
+/**
+ * The roster, written.
+ *
+ * Two groups, saved and reported separately because they are refused separately,
+ * and in this order for a reason: a roster row references a player, so the people
+ * the operator invented have to exist before the rows that name them. If the
+ * people are refused, the roster is not attempted: the same policy governs both,
+ * so the second write would be refused too, and it would leave rows pointing at
+ * nobody if it were not.
+ *
+ * Both are upserts on the primary key, and both ids were generated in the panel, so
+ * pressing save twice writes the same rows twice and doubles nobody. There is no
+ * delete: taking somebody off a roster clears `active` on their row.
+ *
+ * `players` is written with a name and nothing else. The table has no national ID,
+ * date of birth, phone number, home address or payment column, and this is the
+ * write that would have carried one.
+ */
+export async function saveRoster(
+  writes: RosterWrites,
+): Promise<RosterSaveReport> {
+  const report: RosterSaveReport = { saved: [], failed: [] }
+  if (writes.people.length === 0 && writes.roster.length === 0) return report
+
+  const client = await getSupabaseClient()
+  if (!client) {
+    const parts: RosterPart[] = []
+    if (writes.people.length > 0) parts.push('people')
+    if (writes.roster.length > 0) parts.push('roster')
+    return {
+      saved: [],
+      failed: parts.map((part) => ({ part, because: NO_CONNECTION })),
+    }
+  }
+
+  if (writes.people.length > 0) {
+    const { data, error } = await client
+      .from('players')
+      .upsert(writes.people, { onConflict: 'id' })
+      .select('id')
+
+    if (error) {
+      report.failed.push({ part: 'people', because: becauseOfRoster(error) })
+      return report
+    }
+    if ((data ?? []).length < writes.people.length) {
+      report.failed.push({ part: 'people', because: SPORT_CHANGED_NOTHING })
+      return report
+    }
+
+    report.saved.push('people')
+  }
+
+  if (writes.roster.length > 0) {
+    const { data, error } = await client
+      .from('team_players')
+      .upsert(writes.roster, { onConflict: 'id' })
+      .select('id')
+
+    if (error) {
+      report.failed.push({ part: 'roster', because: becauseOfRoster(error) })
+      return report
+    }
+    if ((data ?? []).length < writes.roster.length) {
+      report.failed.push({ part: 'roster', because: SPORT_CHANGED_NOTHING })
+      return report
+    }
+
+    report.saved.push('roster')
+  }
+
+  return report
+}
+
+/**
+ * The season's fixture and the teams it may name, in one read.
+ *
+ * The team ids come back raw rather than as slugs: this screen writes
+ * `home_team_id` and `away_team_id`, so it needs the uuid the column holds. The
+ * score comes back too, to be shown and linked to, never to be edited here.
+ */
+export async function loadFixture(year: number): Promise<Result<FixturePage>> {
+  const client = await getSupabaseClient()
+  if (!client) return { ok: false, because: NO_CONNECTION }
+
+  const season = await seasonIdForYear(client, year)
+  if (!season.ok) return season
+
+  const [teams, matches] = await Promise.all([
+    client
+      .from('teams')
+      .select('id, competition_key, short_name, active')
+      .order('short_name'),
+    client
+      .from('matches')
+      .select(
+        'id, competition_key, stage, match_date, start_time, venue, home_team_id, away_team_id, home_goals, away_goals, resolution, notes',
+      )
+      .eq('season_id', season.data)
+      .order('match_date')
+      .order('start_time'),
+  ])
+
+  if (teams.error) return { ok: false, because: becauseOfTeams(teams.error) }
+  if (matches.error) {
+    return { ok: false, because: becauseOfFixture(matches.error) }
+  }
+
+  const teamRows = (teams.data ?? []) as {
+    id: string
+    competition_key: string
+    short_name: string
+    active: boolean
+  }[]
+
+  const matchRows = (matches.data ?? []) as {
+    id: string
+    competition_key: string
+    stage: string
+    match_date: string
+    start_time: string
+    venue: string | null
+    home_team_id: string | null
+    away_team_id: string | null
+    home_goals: number | null
+    away_goals: number | null
+    resolution: string | null
+    notes: string | null
+  }[]
+
+  return {
+    ok: true,
+    data: {
+      seasonId: season.data,
+      year,
+      teams: teamRows.map((row): FixtureTeam => ({
+        id: row.id,
+        competition: row.competition_key as FixtureTeam['competition'],
+        shortName: row.short_name,
+        active: row.active,
+      })),
+      matches: matchRows.map((row): FixtureMatch => ({
+        id: row.id,
+        competition: row.competition_key as FixtureMatch['competition'],
+        stage: row.stage as FixtureMatch['stage'],
+        date: row.match_date,
+        time: withoutSeconds(row.start_time),
+        venue: row.venue as FixtureMatch['venue'],
+        homeTeamId: row.home_team_id,
+        awayTeamId: row.away_team_id,
+        homeGoals: row.home_goals,
+        awayGoals: row.away_goals,
+        resolution: row.resolution as FixtureMatch['resolution'],
+        notes: row.notes,
+      })),
+    },
+  }
+}
+
+/**
+ * A fixture row, created or edited.
+ *
+ * An INSERT for a new match and an UPDATE for an existing one, and neither of them
+ * touches `home_goals`, `away_goals`, `resolution` or `notes`. The score belongs to
+ * the match sheet and there is deliberately no second way to write it.
+ *
+ * The refusal worth reading is `matches_slot_unique`, which keys a slot by season,
+ * date, time and cabecera. `becauseOfFixture` says so in those words, because the
+ * hour is not the problem: two matches at the same hour in the two cabeceras are
+ * the normal shape of a round in this league.
+ */
+export async function saveMatch(plan: MatchSavePlan): Promise<Result<null>> {
+  const client = await getSupabaseClient()
+  if (!client) return { ok: false, because: NO_CONNECTION }
+
+  const written =
+    plan.matchId === null
+      ? await client.from('matches').insert(plan.row).select('id')
+      : await client
+          .from('matches')
+          .update(plan.row)
+          .eq('id', plan.matchId)
+          .select('id')
+
+  if (written.error) {
+    return { ok: false, because: becauseOfFixture(written.error) }
+  }
+  if ((written.data ?? []).length === 0) {
+    return { ok: false, because: SPORT_CHANGED_NOTHING }
+  }
+
+  return { ok: true, data: null }
 }

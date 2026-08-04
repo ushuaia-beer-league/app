@@ -1,0 +1,339 @@
+/*
+ * Teams and rosters. The same plain language as the rest of the panel: hairline
+ * borders, no shadow, uppercase condensed labels, gold where something has to be
+ * noticed. Two things are painted differently on purpose. The sentence saying why
+ * a team's competition cannot be changed reads as a locked fact rather than as an
+ * error, because it is neither a mistake nor something to fix. And a repeated
+ * jersey number or a person with no number is gold rather than red: the league's
+ * own sheets do both, so they are warnings and the save goes through.
+ */
+
+.teams__header {
+  margin-bottom: var(--space-5);
+}
+
+.teams__title {
+  color: var(--color-text-heading);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-wide);
+}
+
+.teams__subtitle {
+  margin: var(--space-6) 0 var(--space-3);
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.teams__lead,
+.teams__hint,
+.teams__empty,
+.teams__blocked,
+.teams__waiting,
+.teams__pending-note {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+/* ---------------------------------------------------------------------------
+ * The teams
+ * ------------------------------------------------------------------------ */
+
+.teams__list {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.teams__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.teams__name {
+  display: grid;
+  flex: 1 1 12rem;
+  gap: var(--space-1);
+  color: var(--color-text-strong);
+  font-family: var(--font-condensed);
+  font-size: var(--text-md);
+}
+
+.teams__full {
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+}
+
+.teams__slug,
+.teams__count {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.teams__state {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------------
+ * The forms
+ * ------------------------------------------------------------------------ */
+
+.teams__form,
+.teams__add {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  margin-top: var(--space-5);
+  padding: var(--card-padding-y) var(--card-padding-x);
+  border: var(--card-border);
+  background: var(--card-bg);
+}
+
+.teams__field {
+  display: grid;
+  gap: var(--space-1);
+  width: 100%;
+  max-width: 20rem;
+}
+
+.teams__field--wide {
+  max-width: 34rem;
+}
+
+.teams__field label {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.teams__field input,
+.teams__field select {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: var(--color-surface-sunken);
+  color: var(--color-text-strong);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+}
+
+.teams__field input:focus-visible,
+.teams__field select:focus-visible {
+  border-color: var(--color-border-accent);
+  outline: var(--border-width-emphasis) solid var(--color-accent-soft);
+}
+
+.teams__field input:disabled,
+.teams__field select:disabled {
+  color: var(--color-text-muted);
+}
+
+.teams__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  padding: 0;
+  border: 0;
+}
+
+.teams__choices legend {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.teams__choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--layout-tap-min);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+/* The competition of an existing team: a fact, not a field and not a failure. */
+.teams__locked {
+  padding: var(--space-3);
+  border-left: var(--border-width-accent) solid var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.teams__locked b {
+  color: var(--color-text-strong);
+}
+
+.teams__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.teams__edit,
+.teams__cancel,
+.teams__toggle,
+.teams__save {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.teams__edit:hover:enabled,
+.teams__cancel:hover:enabled,
+.teams__toggle:hover:enabled {
+  border-color: var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+.teams__save {
+  padding: 0 var(--space-5);
+  border: var(--border-width-emphasis) solid var(--color-accent);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+}
+
+.teams__save:hover:enabled {
+  background: var(--color-accent-soft);
+}
+
+.teams__save:disabled,
+.teams__edit:disabled,
+.teams__cancel:disabled,
+.teams__toggle:disabled {
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------------
+ * The roster
+ * ------------------------------------------------------------------------ */
+
+.teams__roster {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: var(--border-width-emphasis) solid var(--color-border);
+}
+
+.teams__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.teams__table caption {
+  margin-bottom: var(--space-2);
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.teams__table th,
+.teams__table td {
+  padding: var(--space-2);
+  border-bottom: var(--border-width-hairline) solid var(--color-border);
+  text-align: left;
+}
+
+.teams__table thead th {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.teams__table tbody th {
+  color: var(--color-text-strong);
+  font-weight: var(--weight-medium);
+}
+
+.teams__number {
+  width: 5rem;
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: var(--color-surface-sunken);
+  color: var(--color-text-strong);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+}
+
+.teams__number:focus-visible {
+  border-color: var(--color-border-accent);
+  outline: var(--border-width-emphasis) solid var(--color-accent-soft);
+}
+
+/* ---------------------------------------------------------------------------
+ * Warnings, problems and refusals
+ * ------------------------------------------------------------------------ */
+
+.teams__warning {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border-accent);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.teams__problems,
+.teams__refused,
+.teams__error {
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-negative);
+  color: var(--color-negative);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.teams__warning ul,
+.teams__problems ul {
+  margin-left: var(--space-4);
+}
+
+.teams__refused p + p {
+  margin-top: var(--space-2);
+}
+
+.teams__saved {
+  margin-top: var(--space-3);
+  color: var(--color-positive);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
