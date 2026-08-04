@@ -16,6 +16,13 @@ code asks for is present, which is the one class of failure the unit tests canno
 catch: they mock the client, so a renamed column passes every check in the
 repository and breaks the panel in the browser.
 
+On 4 August 2026 the versioned seed and the database agreed on all forty fixture
+rows: date, time, cabecera, competition, stage, both teams, score and resolution.
+That is worth knowing because the site serves whichever of the two it can reach,
+and it is deliberately not a check in CI: the moment the league records a result
+in the panel the database moves ahead of the snapshot, so divergence becomes the
+normal state rather than a fault.
+
 Three things block the rest, and none of them is code:
 
 1. **Google sign-in is half configured.** The OAuth client exists: project
