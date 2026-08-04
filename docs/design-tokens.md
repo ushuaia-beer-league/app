@@ -78,8 +78,12 @@ semantic token, not these.
 - `--color-text-heading` `#ffffff` — the `#fff` literal. Section titles, hero
   line two, champion name, admin panel titles. Pure white, deliberately
   distinct from `--color-text-strong`.
-- `--color-text-muted` `#5a7a8f` — `--muted`. Labels, meta, inactive tabs,
-  table headers, unresolved fixtures. 29 uses, the most of any token.
+- `--color-text-muted` `#6b8a9e` — `--muted`, **lifted**. Labels, meta, inactive
+  tabs, table headers, unresolved fixtures. 29 uses, the most of any token. The
+  reference's own `#5a7a8f` fails contrast at this text size (4.25 against the
+  page, 3.96 against the lightest surface, against a 4.5 minimum), and Lighthouse
+  flagged it on the live site. `#6b8a9e` is the nearest value that clears every
+  background in this palette: 5.30, 5.14 and 4.93.
 - `--color-text-bright` `#c8e8f5` — `--ice-light`. Anything that reads as a
   live number: points, scores, goal counts, wordmarks, the active tab.
 

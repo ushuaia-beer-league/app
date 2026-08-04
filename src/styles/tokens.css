@@ -76,7 +76,11 @@
   --color-text: #ccdde8;
   --color-text-strong: #f0f6fa;
   --color-text-heading: #ffffff;
-  --color-text-muted: #5a7a8f;
+  /* The reference site uses #5a7a8f here, its most-used colour by far. It fails
+   * contrast: 4.25 against the page and 3.96 against the lightest surface, where
+   * small text needs 4.5. Lifted to the nearest value that clears it on every
+   * background this palette has (5.30 / 5.14 / 4.93) and still reads as muted. */
+  --color-text-muted: #6b8a9e;
   --color-text-bright: var(--brand-ice-light);
 
   /* ==========================================================================
