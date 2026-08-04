@@ -265,6 +265,53 @@ begin
     'The media bucket takes images and nothing else';
 end $$;
 
+-- Who may hear what is in the bucket.
+--
+-- The site never asks: an image is read from the public object address, which a
+-- public bucket serves without consulting any of this. What the file list would
+-- give away is everything not published yet and everything whose row was deleted
+-- while its object stayed, so it is closed to everybody but the role that
+-- uploads and deletes.
+--
+-- The object below has no file behind it and does not need one. Only the row is
+-- being looked at.
+
+insert into storage.objects (bucket_id, name)
+values ('media', 'photos/2026/probe.jpg');
+
+set local role anon;
+do $$
+begin
+  assert (select count(*) from storage.objects where bucket_id = 'media') = 0,
+    'A visitor reads an image by its public address and must not be able to list the bucket';
+end $$;
+
+reset role;
+set local role authenticated;
+
+set local request.jwt.claims = '{"email":"nadie@example.com","role":"authenticated"}';
+do $$
+begin
+  assert (select count(*) from storage.objects where bucket_id = 'media') = 0,
+    'Signing in does not hand over the file list either';
+end $$;
+
+set local request.jwt.claims = '{"email":"sport@example.com","role":"authenticated"}';
+do $$
+begin
+  assert (select count(*) from storage.objects where bucket_id = 'media') = 0,
+    'Sporting management has no business in the media bucket, reads included';
+end $$;
+
+set local request.jwt.claims = '{"email":"comms@example.com","role":"authenticated"}';
+do $$
+begin
+  assert (select count(*) from storage.objects where bucket_id = 'media') = 1,
+    'Communications uploads and deletes, and storage refuses a delete to somebody who cannot read the object first';
+end $$;
+
+reset role;
+
 -- ---------------------------------------------------------------------------
 -- Every table is covered
 -- ---------------------------------------------------------------------------

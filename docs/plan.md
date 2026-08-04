@@ -206,6 +206,17 @@ multi-season entity) but they are not built now.
 - **Final URL**: with the repository named `app` the site lives under `/app/`.
   Whenever the organisation wants, the custom domain is attached with a CNAME
   and no code changes.
+- **Should the database linter's performance advice be applied?** Not as it
+  stands, and this is a decision rather than an oversight. It reports six foreign
+  keys on `(team_id, competition_key)` pairs with no covering composite index, and
+  twenty-four indexes it calls unused. The second group is an artefact of a
+  database nobody has queried yet: unused means unused so far, and dropping the
+  index the fixture screen is about to need would be the wrong reading. The first
+  group is real and does not matter at this size, where a season is on the order
+  of a hundred matches and Postgres scans the table faster than it walks an index.
+  Both are worth revisiting if a table ever reaches a scale where a plan changes;
+  adding indexes now would only slow every write the panel makes. The security
+  advisor is a different matter and is expected to stay empty.
 
 ## Estimate and release order
 
