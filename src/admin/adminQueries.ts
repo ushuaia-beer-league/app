@@ -6,9 +6,9 @@
  * file cannot grant anybody anything: at most it can ask, and be told no.
  */
 
-import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Match } from '../data/types'
-import { getSupabaseClient } from '../data/supabase-client'
+import type { Database } from '../data/database.types'
+import { getSupabaseClient, type LeagueClient } from '../data/supabase-client'
 import { matchFromRow, type MatchRow } from '../data/season-source'
 import type { MatchRecordCounts } from '../utils/match-completeness'
 import type { AdminRecord, AdminRow } from './adminsDraft'
@@ -411,7 +411,7 @@ const CHANGED_NOTHING =
 type PartFailure = string | null
 
 async function saveResult(
-  client: SupabaseClient,
+  client: LeagueClient,
   writes: MatchSheetWrites,
 ): Promise<PartFailure> {
   if (writes.result === null) return null
@@ -426,10 +426,32 @@ async function saveResult(
   return (data ?? []).length === 0 ? CHANGED_NOTHING : null
 }
 
-async function upsertRows(
-  client: SupabaseClient,
-  table: string,
-  rows: readonly Record<string, unknown>[],
+/** A table of this database, so a typo in a name is a build failure. */
+type TableName = keyof Database['public']['Tables']
+
+/** What that table accepts on insert, so no caller can hand it another's row. */
+type InsertRow<T extends TableName> = Database['public']['Tables'][T]['Insert']
+
+/** A column that table actually has. */
+type ColumnOf<T extends TableName> = string &
+  keyof Database['public']['Tables'][T]['Row']
+
+/**
+ * The two helpers below are generic over the table on purpose. Their callers name
+ * a table and hand over rows, and the generic is what makes the pair agree: a
+ * goal row cannot be written to `goalie_lines` and a misspelt column cannot be
+ * filtered on.
+ *
+ * Inside, the table is a variable rather than a literal, and the library cannot
+ * narrow the union of every table's row that produces, so the value is handed
+ * over uncheckable. That cast is safe precisely because the signature already
+ * checked it, and it is the reason the checking lives in the signature rather
+ * than in the body.
+ */
+async function upsertRows<T extends TableName>(
+  client: LeagueClient,
+  table: T,
+  rows: readonly InsertRow<T>[],
   onConflict: string,
   returning: string,
 ): Promise<PartFailure> {
@@ -437,18 +459,18 @@ async function upsertRows(
 
   const { data, error } = await client
     .from(table)
-    .upsert(rows, { onConflict })
+    .upsert(rows as never, { onConflict })
     .select(returning)
 
   if (error) return becauseOf(error)
   return (data ?? []).length < rows.length ? CHANGED_NOTHING : null
 }
 
-async function deleteRows(
-  client: SupabaseClient,
-  table: string,
+async function deleteRows<T extends TableName>(
+  client: LeagueClient,
+  table: T,
   matchId: string,
-  column: string,
+  column: ColumnOf<T>,
   values: readonly string[],
 ): Promise<PartFailure> {
   if (values.length === 0) return null
@@ -456,8 +478,8 @@ async function deleteRows(
   const { data, error } = await client
     .from(table)
     .delete()
-    .eq('match_id', matchId)
-    .in(column, values)
+    .eq('match_id' as never, matchId)
+    .in(column as never, values as never)
     .select(column)
 
   if (error) return becauseOf(error)
@@ -465,7 +487,7 @@ async function deleteRows(
 }
 
 async function savePlayers(
-  client: SupabaseClient,
+  client: LeagueClient,
   writes: MatchSheetWrites,
 ): Promise<PartFailure> {
   return (
@@ -489,7 +511,7 @@ async function savePlayers(
 }
 
 async function saveGoals(
-  client: SupabaseClient,
+  client: LeagueClient,
   writes: MatchSheetWrites,
 ): Promise<PartFailure> {
   return (
@@ -513,7 +535,7 @@ async function saveGoals(
 }
 
 async function saveGoalkeepers(
-  client: SupabaseClient,
+  client: LeagueClient,
   writes: MatchSheetWrites,
 ): Promise<PartFailure> {
   return (
@@ -560,7 +582,7 @@ export async function saveMatchSheet(
 
   const save: Record<
     MatchSheetPart,
-    (client: SupabaseClient, writes: MatchSheetWrites) => Promise<PartFailure>
+    (client: LeagueClient, writes: MatchSheetWrites) => Promise<PartFailure>
   > = {
     result: saveResult,
     players: savePlayers,
@@ -940,7 +962,7 @@ const CONTENT_CHANGED_NOTHING =
  * the panel knows the year it is working on, and the uuid is the database's.
  */
 async function seasonIdForYear(
-  client: SupabaseClient,
+  client: LeagueClient,
   year: number,
 ): Promise<Result<string>> {
   const { data, error } = await client

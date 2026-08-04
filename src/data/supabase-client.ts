@@ -12,6 +12,26 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import type { Database } from './database.types'
+
+/**
+ * The client, carrying the schema it talks to.
+ *
+ * This is what makes a wrong column name a build failure instead of a blank
+ * screen: the library reads the select string at the type level, so
+ * `select('short_nme')` stops `npm run typecheck`. The tests mock the client, so
+ * without this nothing in the repository would notice.
+ *
+ * `src/data/database.types.ts` is generated from the live database and is a
+ * snapshot, exactly like the seed. Regenerate it after every migration, or it
+ * starts vouching for a schema that has moved:
+ * `supabase gen types typescript --project-id wqgmdjmdobgcrioxlhkl`, or the MCP's
+ * `generate_typescript_types`, then `npx prettier --write` on it.
+ * `supabase/tests/query-columns.sql` is the check that does not rely on anybody
+ * remembering, because it reads the catalogue itself.
+ */
+export type LeagueClient = SupabaseClient<Database>
+
 export interface SupabaseConfig {
   url: string
   key: string
@@ -31,7 +51,7 @@ export function supabaseConfig(
   return url && key ? { url, key } : null
 }
 
-let client: SupabaseClient | null = null
+let client: LeagueClient | null = null
 
 /**
  * The client, or null when Supabase is not configured.
@@ -42,12 +62,12 @@ let client: SupabaseClient | null = null
  */
 export async function getSupabaseClient(
   config: SupabaseConfig | null = supabaseConfig(),
-): Promise<SupabaseClient | null> {
+): Promise<LeagueClient | null> {
   if (!config) return null
   if (client) return client
 
   const { createClient } = await import('@supabase/supabase-js')
-  client = createClient(config.url, config.key, {
+  client = createClient<Database>(config.url, config.key, {
     auth: {
       // Sign-in comes back from Google as a fragment on the panel's own URL, so
       // the client has to read it once and then keep the session.

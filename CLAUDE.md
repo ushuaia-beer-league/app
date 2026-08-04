@@ -133,6 +133,11 @@ security.
 - Migrations are versioned under `supabase/migrations/` and applied through the
   CLI. A permission change is not done until the policy changes; hiding a button
   in the panel is not enforcement.
+- A migration is not finished until `src/data/database.types.ts` is regenerated
+  from it. That file is what makes `npm run typecheck` reject a column the
+  database does not have, and a stale one vouches for a schema that has moved.
+  `supabase/tests/query-columns.sql` is the check that does not depend on anybody
+  remembering, because it reads the live catalogue; run it after a schema change.
 
 ## Git
 
