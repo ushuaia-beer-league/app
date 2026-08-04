@@ -1,0 +1,70 @@
+/*
+ * The league's three faces, served from this site.
+ *
+ * The reference HTML loads them from Google's CDN and so did this project until
+ * now. Self-hosting them costs 92 KB in the repository and buys three things
+ * that matter more: nobody's IP address is handed to a third party for a font,
+ * the page stops depending on another domain being up, and there is no second
+ * connection to open on a phone in Ushuaia.
+ *
+ * Only the `latin` subset and only the weights the stylesheets use. Spanish needs
+ * nothing beyond latin: the accented vowels and ñ are all in it. Barlow
+ * Condensed 900 is requested by the reference and used by no rule, so it is not
+ * here.
+ *
+ * The files are under `src/assets` rather than `public` on purpose: Vite hashes
+ * them and rewrites these URLs with the base path, which is `/app/` on Pages. An
+ * absolute `/fonts/...` would resolve to the domain root and 404 there.
+ *
+ * `font-display: swap` for the reason the reference used it: the fallback shows
+ * immediately and the real face replaces it, which on a slow connection is a
+ * page you can read rather than a blank one.
+ */
+
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/bebas-neue-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/barlow-condensed-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/barlow-condensed-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/barlow-condensed-700.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/barlow-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/barlow-500.woff2') format('woff2');
+}
