@@ -40,10 +40,31 @@ jobs:
       # working site rather than a broken one. Both are repository variables and
       # not secrets: the project URL and the publishable key ship inside the
       # bundle by design, and security rests on row level security.
-      - run: npm run build
+      #
+      # They are written to a file instead of being passed as `env:`, and the step
+      # is skipped when they are empty, because Vite lets a variable already in
+      # the environment win over the one in an env file. Passing them
+      # unconditionally set both to the empty string whenever the repository
+      # variables were unset, which silently overrode a committed
+      # `.env.production` and left the deployed site on the seed no matter what
+      # the file said. `.env.production.local` outranks `.env.production`, so the
+      # repository variables still win when they exist, and `.env.*.local` is
+      # ignored by git, so nothing is left behind in a commit.
+      # The two values reach the shell as environment variables rather than as
+      # `${{ }}` inside the script, so a value carrying a quote or a `$(` is
+      # written as text instead of being run.
+      - name: Point the build at Supabase
+        if: vars.SUPABASE_URL != '' && vars.SUPABASE_PUBLISHABLE_KEY != ''
         env:
-          VITE_SUPABASE_URL: ${{ vars.SUPABASE_URL }}
-          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+          URL: ${{ vars.SUPABASE_URL }}
+          KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          {
+            printf 'VITE_SUPABASE_URL=%s\n' "$URL"
+            printf 'VITE_SUPABASE_PUBLISHABLE_KEY=%s\n' "$KEY"
+          } > .env.production.local
+
+      - run: npm run build
 
       # The Pages site is created once by hand, by an administrator of the
       # repository, with "GitHub Actions" as the source. The workflow token
