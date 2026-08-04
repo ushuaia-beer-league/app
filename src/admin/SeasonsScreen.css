@@ -1,0 +1,260 @@
+/*
+ * Seasons and competitions. The same plain language as the rest of the panel:
+ * hairline borders, no shadow, uppercase condensed labels, gold where something
+ * has to be noticed. The one thing painted like a warning is the sentence saying
+ * which season is about to stop being the current one, because that is a change
+ * to a row nobody asked to edit.
+ */
+
+.seasons__header {
+  margin-bottom: var(--space-5);
+}
+
+.seasons__title {
+  color: var(--color-text-heading);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-wide);
+}
+
+.seasons__subtitle {
+  margin: var(--space-6) 0 var(--space-3);
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.seasons__lead,
+.seasons__hint,
+.seasons__empty,
+.seasons__blocked,
+.seasons__waiting {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.seasons__hint code {
+  color: var(--color-text-bright);
+  font-size: var(--text-xs);
+}
+
+/* ---------------------------------------------------------------------------
+ * The seasons
+ * ------------------------------------------------------------------------ */
+
+.seasons__list,
+.seasons__competitions {
+  display: grid;
+  gap: var(--space-2);
+  list-style: none;
+}
+
+.seasons__row,
+.seasons__competition {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.seasons__year {
+  color: var(--color-text-strong);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: var(--tracking-wide);
+}
+
+.seasons__when {
+  flex: 1 1 12rem;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+.seasons__state {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* The current season is the one the public site opens on, so it is the one
+ * fact on this list worth finding without reading. */
+.seasons__state--active {
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+.seasons__competition-name {
+  color: var(--color-text-strong);
+  font-family: var(--font-condensed);
+  font-size: var(--text-md);
+}
+
+.seasons__competition-note {
+  flex: 1 1 14rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* ---------------------------------------------------------------------------
+ * The form
+ * ------------------------------------------------------------------------ */
+
+.seasons__form {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+  margin-top: var(--space-6);
+  padding: var(--card-padding-y) var(--card-padding-x);
+  border: var(--card-border);
+  background: var(--card-bg);
+}
+
+.seasons__field {
+  display: grid;
+  gap: var(--space-1);
+  width: 100%;
+  max-width: 14rem;
+}
+
+.seasons__field label {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.seasons__field input {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: var(--color-surface-sunken);
+  color: var(--color-text-strong);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+}
+
+.seasons__field input:focus-visible {
+  border-color: var(--color-border-accent);
+  outline: var(--border-width-emphasis) solid var(--color-accent-soft);
+}
+
+.seasons__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-4);
+  padding: 0;
+  border: 0;
+}
+
+.seasons__choices legend {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.seasons__choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--layout-tap-min);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+.seasons__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.seasons__edit,
+.seasons__cancel,
+.seasons__save {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.seasons__edit:hover:enabled,
+.seasons__cancel:hover:enabled {
+  border-color: var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+.seasons__save {
+  padding: 0 var(--space-5);
+  border: var(--border-width-emphasis) solid var(--color-accent);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+}
+
+.seasons__save:hover:enabled {
+  background: var(--color-accent-soft);
+}
+
+.seasons__save:disabled,
+.seasons__edit:disabled,
+.seasons__cancel:disabled {
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------------
+ * Warnings, problems and refusals
+ * ------------------------------------------------------------------------ */
+
+.seasons__warning {
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border-accent);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.seasons__problems,
+.seasons__refused,
+.seasons__error {
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-negative);
+  color: var(--color-negative);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.seasons__problems ul {
+  margin-left: var(--space-4);
+}
+
+.seasons__refused p + p {
+  margin-top: var(--space-2);
+}
+
+.seasons__saved {
+  color: var(--color-positive);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}

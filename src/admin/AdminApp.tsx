@@ -2,8 +2,12 @@ import { useEffect, useState } from 'react'
 import { NavLink, Route, Routes } from 'react-router-dom'
 import { SEED_2026 } from '../data/seed-2026'
 import { AdminGate } from './AdminGate'
+import { AdminsScreen } from './AdminsScreen'
 import { MatchesScreen } from './MatchesScreen'
 import { MatchSheetRoute } from './MatchSheetRoute'
+import { PhotosScreen } from './PhotosScreen'
+import { SeasonsScreen } from './SeasonsScreen'
+import { SponsorsScreen } from './SponsorsScreen'
 import { loadAdminMatches, type AdminMatch } from './adminQueries'
 import { can, useAdminSession } from './useAdminSession'
 import './AdminApp.css'
@@ -16,10 +20,10 @@ import './AdminApp.css'
  * database refuses what a role cannot write. If the two ever disagree, the
  * database is right.
  *
- * The matches list and the match sheet are built. TODO phase 4: the season and
- * fixture forms, sponsors and photographs, and the administrator list. Those
- * screens are stubbed below so the routes, the permissions and the shape of the
- * panel are real while they land.
+ * The matches list, the match sheet, the seasons, the administrator list, the
+ * sponsors and the gallery are built. TODO phase 4: the team, roster and fixture
+ * forms. That screen is stubbed below so the route, the permissions and the shape
+ * of the panel are real while it lands.
  */
 export function AdminApp() {
   const { status, signIn, signOut, error } = useAdminSession()
@@ -52,6 +56,9 @@ export function AdminApp() {
                 <NavLink to="/admin/fotos">Fotos</NavLink>
               )}
               {can(status.role, 'league') && (
+                <NavLink to="/admin/temporadas">Temporadas</NavLink>
+              )}
+              {can(status.role, 'league') && (
                 <NavLink to="/admin/administradores">Administradores</NavLink>
               )}
             </nav>
@@ -79,14 +86,17 @@ export function AdminApp() {
                 path="/admin/equipos"
                 element={<Pending name="equipos y planteles" />}
               />
+              <Route path="/admin/sponsors" element={<SponsorsScreen />} />
+              <Route path="/admin/fotos" element={<PhotosScreen />} />
               <Route
-                path="/admin/sponsors"
-                element={<Pending name="sponsors" />}
+                path="/admin/temporadas"
+                element={<SeasonsScreen role={status.role} />}
               />
-              <Route path="/admin/fotos" element={<Pending name="fotos" />} />
               <Route
                 path="/admin/administradores"
-                element={<Pending name="administradores" />}
+                element={
+                  <AdminsScreen email={status.email} role={status.role} />
+                }
               />
               <Route path="*" element={<Pending name="esta pantalla" />} />
             </Routes>

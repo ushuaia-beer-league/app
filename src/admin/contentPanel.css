@@ -1,0 +1,264 @@
+/*
+ * The vocabulary the two content screens share, the way `data-table.css` is
+ * shared by the four public tables: sponsors and photographs are the same shape
+ * of work — a list somebody reorders, a field somebody types into, an image
+ * somebody uploads, one save that either lands or is refused — so they are one
+ * stylesheet rather than two copies of one.
+ *
+ * It borrows the panel's language and adds nothing of its own: hairline borders,
+ * no shadow, uppercase condensed labels, gold only where something has to be
+ * noticed, and every control at least one tap target tall because this is filled
+ * on a phone.
+ */
+
+.editor__header {
+  margin-bottom: var(--space-4);
+}
+
+.editor__title {
+  color: var(--color-text-heading);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-wide);
+}
+
+.editor__count,
+.editor__hint,
+.editor__pending,
+.editor__waiting {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.editor__hint {
+  margin: var(--space-3) 0;
+}
+
+.editor__form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.editor__block {
+  padding: var(--card-padding-y) var(--card-padding-x);
+  border: var(--card-border);
+  background: var(--card-bg);
+}
+
+.editor__block-title {
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------------
+ * Fields
+ * ------------------------------------------------------------------------ */
+
+.editor__field {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-3);
+}
+
+.editor__field label {
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.editor__field input {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: var(--color-surface-sunken);
+  color: var(--color-text-strong);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+}
+
+.editor__field input:focus-visible {
+  border-color: var(--color-border-accent);
+  outline: var(--border-width-emphasis) solid var(--color-accent-soft);
+}
+
+/* A file input paints its own button, which no browser lets a stylesheet
+ * replace, so it only gets the hairline and the height. */
+.editor__field input[type='file'] {
+  padding: var(--space-2);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+}
+
+/* ---------------------------------------------------------------------------
+ * The list of rows
+ * ------------------------------------------------------------------------ */
+
+.editor__rows {
+  display: grid;
+  gap: var(--space-3);
+  list-style: none;
+}
+
+.editor__row {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: var(--card-bg);
+}
+
+.editor__row-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.editor__row-title {
+  color: var(--color-text-strong);
+  font-family: var(--font-condensed);
+  font-size: var(--text-lg);
+}
+
+/* A retired sponsor. Deliberately quiet: it is a state, not a warning. */
+.editor__chip {
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border);
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.editor__media {
+  display: flex;
+  align-items: center;
+  min-height: var(--layout-tap-min);
+}
+
+/* What is not there yet, said out loud rather than hidden: a sponsor with no
+ * logo is published as a name, and a photograph with no address to read from is
+ * named by its path. */
+.editor__gap {
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width-hairline) solid var(--color-border-accent);
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+
+  /* An object path is long and has no spaces, so it has to be allowed to break
+   * or it widens the whole row on a phone. */
+  overflow-wrap: anywhere;
+}
+
+.editor__row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+/* ---------------------------------------------------------------------------
+ * Buttons
+ * ------------------------------------------------------------------------ */
+
+.editor__add,
+.editor__move,
+.editor__retire,
+.editor__remove,
+.editor__save {
+  min-height: var(--layout-tap-min);
+  padding: 0 var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.editor__add {
+  margin-top: var(--space-3);
+}
+
+.editor__add:hover,
+.editor__move:hover:enabled,
+.editor__retire:hover,
+.editor__remove:hover {
+  border-color: var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+.editor__move:disabled {
+  color: var(--color-border);
+  cursor: not-allowed;
+}
+
+/* ---------------------------------------------------------------------------
+ * Saving, and being refused
+ * ------------------------------------------------------------------------ */
+
+.editor__actions {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.editor__save {
+  padding: 0 var(--space-5);
+  border: var(--border-width-emphasis) solid var(--color-accent);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+}
+
+.editor__save:hover:enabled {
+  background: var(--color-accent-soft);
+}
+
+.editor__save:disabled {
+  border-color: var(--color-border);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.editor__problems,
+.editor__refused {
+  padding: var(--space-3);
+  border: var(--border-width-hairline) solid var(--color-negative);
+  color: var(--color-negative);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+.editor__problems ul {
+  margin-left: var(--space-4);
+}
+
+.editor__problems-title {
+  margin-bottom: var(--space-1);
+  font-weight: var(--weight-bold);
+}
+
+.editor__saved {
+  color: var(--color-positive);
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 42.5em) {
+  .editor__rows {
+    gap: var(--space-4);
+  }
+}

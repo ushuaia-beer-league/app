@@ -1,0 +1,35 @@
+/*
+ * What is particular to the sponsors, on top of the shared `contentPanel.css`.
+ *
+ * Which is almost only the logo. It arrives in whatever shape the sponsor's
+ * designer felt like: a wide wordmark, a square badge, a PNG with transparency
+ * drawn for a white page. So the box is bounded and the image is contained
+ * inside it rather than cropped — cropping somebody's trademark is not a
+ * decision this panel gets to make — and it sits on a pale wash so a logo drawn
+ * in dark ink on transparency is still visible on a dark panel.
+ */
+
+.sponsor-panel__logo {
+  max-width: 12rem;
+  max-height: 4rem;
+  padding: var(--space-2);
+  background: var(--color-wash-strong);
+  object-fit: contain;
+}
+
+@media (min-width: 42.5em) {
+  /* Room for the name and the link beside each other. Everything that is about
+   * the whole sponsor rather than one field keeps the full width. */
+  .sponsor-panel .editor__row {
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    column-gap: var(--space-4);
+  }
+
+  .sponsor-panel .editor__row-head,
+  .sponsor-panel .editor__media,
+  .sponsor-panel .editor__row-actions,
+  .sponsor-panel .editor__waiting {
+    grid-column: 1 / -1;
+  }
+}

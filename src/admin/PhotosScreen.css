@@ -1,0 +1,32 @@
+/*
+ * What is particular to the gallery, on top of the shared `contentPanel.css`.
+ *
+ * A photograph is cropped and a logo is not, which is the one real difference
+ * between these two screens: the thumbnail is a fixed 4:3 window with the image
+ * covering it, so a column of twenty photographs reads as a column instead of as
+ * twenty different heights. The public gallery crops the same way, so what the
+ * operator orders here is what a visitor will see.
+ */
+
+.photo-panel__image {
+  width: 100%;
+  max-width: 16rem;
+  aspect-ratio: 4 / 3;
+  background: var(--color-surface-sunken);
+  object-fit: cover;
+}
+
+@media (min-width: 42.5em) {
+  /* The caption and the date beside each other, with the photograph and the
+   * order buttons across the full width. */
+  .photo-panel .editor__row {
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    column-gap: var(--space-4);
+  }
+
+  .photo-panel .editor__media,
+  .photo-panel .editor__row-actions {
+    grid-column: 1 / -1;
+  }
+}
