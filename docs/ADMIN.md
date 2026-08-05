@@ -112,9 +112,13 @@ los datos y se resuelve contestándola:
 
 1. **Romero José** y **Baeza Juan** figuran como goleadores y no están en ningún
    plantel: o son otras personas, o faltan cargarlos.
-2. **Los cuatro equipos del femenino** (Turbeerras, Zambirreras, Frozen Queens,
-   Moby Drink) no sabemos con qué equipos de la Beer League se corresponden. El
-   único con evidencia es Frozen Queens con Frozen Sucucho.
+2. **Los cuatro equipos del femenino.** Dedujimos el mapeo por los goles y
+   necesitamos que lo confirmen, no que lo inventen: Turbeerras es Birra del
+   Fuego, Frozen Queens es Sucucho, Zambirreras es Tipo Nine y Moby Drink es
+   Zhockey. Sobre eso armamos los cuatro planteles con las líneas de las tablas
+   publicadas, así que si el mapeo está mal, los planteles están cruzados.
+   También falta el nombre real de cada equipo: hoy figuran con el nombre del
+   equipo masculino, que es lo único que decía el fixture.
 3. **El partido del 23 de mayo a las 21:30 en Bahía** no tiene equipos en la
    planilla. ¿Se jugó? ¿Quiénes?
 4. **La fila de Blanco en la tabla publicada dice 1 derrota** y los resultados

@@ -45,10 +45,25 @@ describe('findTeam', () => {
     )
   })
 
-  it('returns nothing for the women’s statistics names that have none', () => {
-    for (const name of ['Turbeerras', 'Zambirreras', 'Moby Drink']) {
-      expect(findTeam(TEAMS_2026, 'wubl', name)).toBeNull()
+  it('reaches the women’s teams through the names their statistics use', () => {
+    // These four pairings are inferred from the goals, not confirmed by the
+    // league, and the reasoning is written out in `teams-2026.ts`. What matters
+    // here is that the statistics names resolve at all: while they did not, every
+    // woman's line was imported with no team and the four rosters were empty.
+    const pairs: [string, string][] = [
+      ['Turbeerras', 'wubl-birra-del-fuego'],
+      ['Zambirreras', 'wubl-tipo-nine'],
+      ['Moby Drink', 'wubl-zhockey'],
+      ['Frozen Queens', 'wubl-sucucho'],
+    ]
+
+    for (const [printed, slug] of pairs) {
+      expect(findTeam(TEAMS_2026, 'wubl', printed)?.slug).toBe(slug)
     }
+  })
+
+  it('still returns nothing for a women’s name nobody has mapped', () => {
+    expect(findTeam(TEAMS_2026, 'wubl', 'Las Focas')).toBeNull()
   })
 
   it('returns nothing rather than a near miss', () => {

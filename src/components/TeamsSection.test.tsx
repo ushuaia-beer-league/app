@@ -176,25 +176,24 @@ describe('TeamsSection', () => {
     ).toBeVisible()
   })
 
-  it('shows the four women teams and says their rosters are unpublished', () => {
+  it('shows the four women teams with the roster taken from the statistics', () => {
     render(<TeamsSection season={SEASON} />)
 
     const block = wublBlock()
 
+    // The four rosters exist now, and where they come from is said out loud:
+    // statistics lines, so no numbers, and some names cut off as printed.
     expect(
-      block.getByText(
-        /Ninguna planilla de la liga publica los planteles de la Women's Beer League/,
-      ),
+      block.getByText(/Ninguna planilla publica estos planteles/),
     ).toBeVisible()
+    expect(block.getByText(/no tienen números de camiseta/)).toBeVisible()
+
+    expect(block.queryAllByRole('list', { name: 'Plantel' })).toHaveLength(4)
     expect(
-      block.getByText(/Cada equipo toma jugadoras de varios equipos/),
-    ).toBeVisible()
-    expect(
-      block.getAllByText(
+      block.queryAllByText(
         'El plantel de este equipo no está publicado en las planillas de la liga.',
       ),
-    ).toHaveLength(4)
-    expect(block.queryAllByRole('list', { name: 'Plantel' })).toHaveLength(0)
+    ).toHaveLength(0)
   })
 
   it('says nothing of the kind about the Beer League, whose rosters exist', () => {
@@ -208,16 +207,15 @@ describe('TeamsSection', () => {
   it('reads the roster of the competition each team plays in', () => {
     render(<TeamsSection season={SEASON} />)
 
-    // "Birra del Fuego" is a team in both competitions and only the Beer League
-    // one has a published roster. Selecting by team alone would hand the Beer
-    // League players to the women's team that shares its name.
+    // "Birra del Fuego" is a team in both competitions, and now both have a
+    // roster, which makes this stricter than it was: selecting by team name alone
+    // would hand the Beer League's players to the women's team that shares it.
     const women = wublCard('Birra del Fuego')
 
-    expect(
-      within(women).getByText(
-        'El plantel de este equipo no está publicado en las planillas de la liga.',
-      ),
-    ).toBeVisible()
+    // Hers comes from the women's statistics, under the printed name Turbeerras.
+    expect(within(women).getByText('Garro Maria')).toBeVisible()
+
+    // His is the men's Birra del Fuego and must not appear here.
     expect(
       within(women).queryByText('Bernales Joaquin'),
     ).not.toBeInTheDocument()

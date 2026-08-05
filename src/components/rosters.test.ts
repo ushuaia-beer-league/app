@@ -151,13 +151,19 @@ describe('teamRoster', () => {
     })
   })
 
-  it('answers with nothing for a women team, because nothing is published', () => {
+  it('answers with the women’s roster derived from the statistics', () => {
     const roster = teamRoster(SEED_2026, {
       slug: 'wubl-sucucho',
       competition: 'wubl',
     })
 
-    expect(roster.lines).toEqual([])
+    // No sheet publishes this roster. It exists because every one of these women
+    // has a published statistics line naming this team, which is thinner evidence
+    // than a roster sheet and is still evidence.
+    expect(roster.lines.length).toBeGreaterThan(0)
+    expect(roster.lines.every((line) => line.jerseyNumber === null)).toBe(true)
+
+    // No numbers means no number can be shared, however the count is written.
     expect(roster.sharedNumbers).toEqual([])
   })
 })

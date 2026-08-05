@@ -60,6 +60,8 @@ export function TeamsSection({ season }: TeamsSectionProps) {
           .filter((team) => team.competition === competition.key)
           .map((team) => ({ team, roster: teamRoster(season, team) }))
 
+        const withRoster = teams.filter(({ roster }) => roster.lines.length > 0)
+
         return {
           ...competition,
           teams,
@@ -71,6 +73,21 @@ export function TeamsSection({ season }: TeamsSectionProps) {
           noRosterPublished:
             teams.length > 0 &&
             teams.every(({ roster }) => roster.lines.length === 0),
+          /**
+           * True when the competition has rosters and not one number among them.
+           *
+           * That is what a roster taken from the statistics looks like: the league
+           * publishes a roster sheet only for the Beer League, so the women's
+           * rosters were assembled from the lines of the published tables, which
+           * name a player and her team and never a number. Derived from the data
+           * rather than declared, so it stops being said the day a real roster
+           * sheet arrives with numbers on it.
+           */
+          rosterFromStatistics:
+            withRoster.length > 0 &&
+            withRoster.every(({ roster }) =>
+              roster.lines.every((line) => line.jerseyNumber === null),
+            ),
         }
       }),
     [season],
@@ -116,6 +133,16 @@ export function TeamsSection({ season }: TeamsSectionProps) {
               {`Ninguna planilla de la liga publica los planteles de la ${block.label}.`}
               {block.key === 'wubl' &&
                 ' Cada equipo toma jugadoras de varios equipos de la Beer League, así que tampoco se pueden deducir de los planteles de arriba.'}
+            </p>
+          )}
+
+          {block.rosterFromStatistics && (
+            <p className="teams__unpublished">
+              Ninguna planilla publica estos planteles: están armados con las
+              líneas de las tablas de goleadoras y arqueras, que nombran a cada
+              jugadora y a su equipo. Por eso no tienen números de camiseta, y
+              algunos nombres aparecen cortados como los cortó la planilla.
+              Falta quien no haya sumado ningún punto.
             </p>
           )}
 

@@ -98,13 +98,31 @@ export const BEER_TEAMS_2026: readonly TeamSeed[] = [
 /**
  * The women's competition names its teams after the men's ones in the fixture
  * and the standings, and after something else entirely in the statistics sheets:
- * Turbeerras, Zambirreras, Frozen Queens and Moby Drink. The rosters do not
- * mirror the men's, so the two sets cannot be matched by inference.
+ * Turbeerras, Zambirreras, Frozen Queens and Moby Drink.
  *
- * Only one pairing has evidence, Frozen Queens with Frozen Sucucho, and it is
- * the only one recorded here. A statistics line for a team with no pairing is
- * imported with the printed text and no team, which is the visible gap the
- * organisation has to close (open question 2).
+ * The four pairings below are **inferred from the goals**, and the arithmetic is
+ * the whole argument, so here it is. The fixture gives each team's goals for over
+ * the three regular-season rounds; the statistics sheets give each woman's goals
+ * beside the name of her team. Summed per printed team, they line up:
+ *
+ * | Fixture              | Statistics                                    |
+ * | -------------------- | --------------------------------------------- |
+ * | Birra del Fuego 13   | Turbeerras 13                                 |
+ * | Sucucho 11           | Frozen Queens 11                              |
+ * | Tipo Nine 10         | Zambirreras 10 (6, plus 4 on its substitute)  |
+ * | Zhockey 11           | Moby Drink 8                                  |
+ *
+ * Three are exact. Frozen Queens has its own independent evidence, the sponsored
+ * name "Frozen Sucucho", and it agrees with the arithmetic; with it fixed, the
+ * eleven of Zhockey cannot be Frozen Queens, so Moby Drink is the only pairing
+ * left. Its three missing goals are consistent with what the sheet already fails
+ * to attribute elsewhere: two goals appear on no line at all and one line names
+ * no team.
+ *
+ * So the system has exactly one solution, and it is still an inference rather
+ * than an answer: `mappingInferred` says so on every row, and open question 2 in
+ * `knowledge-base.md` now asks the organisation to confirm this table rather than
+ * to supply it from nothing.
  */
 export const WUBL_TEAMS_2026: readonly TeamSeed[] = [
   {
@@ -122,7 +140,7 @@ export const WUBL_TEAMS_2026: readonly TeamSeed[] = [
     shortName: 'Birra del Fuego',
     fullName: null,
     nickname: 'bdf',
-    aliases: [],
+    aliases: ['Turbeerras'],
     mappingInferred: true,
   },
   {
@@ -131,7 +149,7 @@ export const WUBL_TEAMS_2026: readonly TeamSeed[] = [
     shortName: 'Tipo Nine',
     fullName: null,
     nickname: 't9',
-    aliases: [],
+    aliases: ['Zambirreras'],
     mappingInferred: true,
   },
   {
@@ -140,7 +158,7 @@ export const WUBL_TEAMS_2026: readonly TeamSeed[] = [
     shortName: 'Zhockey',
     fullName: null,
     nickname: 'z hockey',
-    aliases: [],
+    aliases: ['Moby Drink'],
     mappingInferred: true,
   },
 ]

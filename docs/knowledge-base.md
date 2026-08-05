@@ -683,8 +683,14 @@ only the matchups. Use the calendar CSV for results.
 ## 9. Open questions for the organisation
 
 1. Confirm the short-name to full-name mapping for the seven teams.
-2. Confirm how the four women's teams (Turbeerras, Zambirreras, Frozen Queens,
-   Moby Drink) map to the names used in the standings.
+2. Confirm, rather than supply, how the four women's teams map to the names the
+   fixture and the standings use. Inferred from the goals on 5 August 2026 and
+   recorded in `src/data/teams-2026.ts` with the arithmetic: Turbeerras is Birra
+   del Fuego, Frozen Queens is Sucucho, Zambirreras is Tipo Nine, Moby Drink is
+   Zhockey. The four women's rosters were then derived from the published
+   statistics on top of that mapping, so a wrong pairing puts a whole roster on
+   the wrong team. Their real names are still missing too: the four teams carry
+   the men's names because the fixture carried nothing else.
 3. The missing round-1 match (21:30 at Bahía, no teams).
 4. The empty or misaligned "Resultado" and "Ganador" columns in round 5.
 5. Whether draws are valid only in the women's competition or in both.

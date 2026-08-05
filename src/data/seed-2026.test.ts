@@ -111,11 +111,60 @@ describe('the 2026 seed', () => {
   })
 
   it('holds the roster the sheet publishes, gaps included', () => {
-    expect(SEED_2026.players).toHaveLength(70)
-    expect(SEED_2026.rosters).toHaveLength(70)
-    expect(
-      SEED_2026.rosters.filter((entry) => entry.jerseyNumber === null),
-    ).toHaveLength(1)
+    const beer = SEED_2026.rosters.filter(
+      (entry) => entry.competition === 'beer',
+    )
+
+    // The roster sheet is the Beer League's, and this is it: seventy people, one
+    // of whom the sheet gives no number.
+    expect(beer).toHaveLength(70)
+    expect(beer.filter((entry) => entry.jerseyNumber === null)).toHaveLength(1)
+  })
+
+  it('holds the women’s roster derived from the statistics, with no numbers', () => {
+    const wubl = SEED_2026.rosters.filter(
+      (entry) => entry.competition === 'wubl',
+    )
+
+    // No sheet publishes these. Every row comes from a published statistics line
+    // naming a woman and her team, which is why not one of them has a number: the
+    // statistics never carry one, and inventing one would be inventing a fact.
+    expect(wubl).toHaveLength(36)
+    expect(wubl.every((entry) => entry.jerseyNumber === null)).toBe(true)
+
+    // Four teams, and each of them has a roster now.
+    expect(new Set(wubl.map((entry) => entry.teamSlug)).size).toBe(4)
+
+    expect(SEED_2026.players).toHaveLength(92)
+  })
+
+  it('gives a woman who plays in both competitions one identity and two rosters', () => {
+    // Fourteen women are on a Beer League roster and on a women's statistics
+    // line. Each is one person with two roster rows, never two people, which is
+    // the rule the league actually plays by.
+    const byPlayer = new Map<string, Set<string>>()
+    for (const entry of SEED_2026.rosters) {
+      const seen = byPlayer.get(entry.playerSlug) ?? new Set<string>()
+      seen.add(entry.competition)
+      byPlayer.set(entry.playerSlug, seen)
+    }
+
+    const inBoth = [...byPlayer]
+      .filter(([, competitions]) => competitions.size === 2)
+      .map(([slug]) => slug)
+
+    expect(inBoth).toHaveLength(14)
+    expect(inBoth).toContain('guete-nadin')
+
+    // Carbone Ana is deliberately not among them: her only women's line is marked
+    // as a substitute, and a substitute is not a roster player in this league.
+    expect(inBoth).not.toContain('carbone-ana')
+
+    for (const slug of inBoth) {
+      expect(
+        SEED_2026.players.filter((player) => player.slug === slug),
+      ).toHaveLength(1)
+    }
   })
 
   it('carries the published totals as transcribed lines, with no percentage', () => {

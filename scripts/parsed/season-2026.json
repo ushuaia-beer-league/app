@@ -89,7 +89,7 @@
       "shortName": "Birra del Fuego",
       "fullName": null,
       "nickname": "bdf",
-      "aliases": [],
+      "aliases": ["Turbeerras"],
       "mappingInferred": true
     },
     {
@@ -98,7 +98,7 @@
       "shortName": "Tipo Nine",
       "fullName": null,
       "nickname": "t9",
-      "aliases": [],
+      "aliases": ["Zambirreras"],
       "mappingInferred": true
     },
     {
@@ -107,7 +107,7 @@
       "shortName": "Zhockey",
       "fullName": null,
       "nickname": "z hockey",
-      "aliases": [],
+      "aliases": ["Moby Drink"],
       "mappingInferred": true
     }
   ],
@@ -461,6 +461,116 @@
       "slug": "zahr-turco-leandro",
       "name": "Zahr Turco Leandro",
       "printedName": "Zahr Turco Leandro"
+    },
+    {
+      "slug": "tibaudin-ana-j",
+      "name": "Tibaudin Ana J",
+      "printedName": "Tibaudin Ana J"
+    },
+    {
+      "slug": "alvarado-danie",
+      "name": "Alvarado Danie",
+      "printedName": "Alvarado Danie"
+    },
+    {
+      "slug": "denti-silva",
+      "name": "Denti Silva",
+      "printedName": "Denti Silva"
+    },
+    {
+      "slug": "abrahan-maura",
+      "name": "Abrahan Maura",
+      "printedName": "Abrahan Maura"
+    },
+    {
+      "slug": "paz-luciana",
+      "name": "Paz Luciana",
+      "printedName": "Paz Luciana"
+    },
+    {
+      "slug": "mosqueira-victo",
+      "name": "Mosqueira Victo",
+      "printedName": "Mosqueira Victo"
+    },
+    {
+      "slug": "guerra-marin",
+      "name": "Guerra Marin",
+      "printedName": "Guerra Marin"
+    },
+    {
+      "slug": "ferreyra-marina",
+      "name": "Ferreyra, Marina",
+      "printedName": "Ferreyra, Marina"
+    },
+    {
+      "slug": "oviedo-nieto-jessi",
+      "name": "Oviedo Nieto Jessi",
+      "printedName": "Oviedo nieto Jessi"
+    },
+    {
+      "slug": "garro-maria",
+      "name": "Garro Maria",
+      "printedName": "Garro Maria"
+    },
+    {
+      "slug": "varaona-agust",
+      "name": "Varaona Agust",
+      "printedName": "Varaona Agust"
+    },
+    {
+      "slug": "ferrari-veron",
+      "name": "Ferrari Veron",
+      "printedName": "Ferrari Veron"
+    },
+    {
+      "slug": "alegre-flor",
+      "name": "Alegre Flor",
+      "printedName": "Alegre Flor"
+    },
+    {
+      "slug": "echazu-euge",
+      "name": "Echazu Euge",
+      "printedName": "Echazu Euge"
+    },
+    {
+      "slug": "barrios-bentancor-velri",
+      "name": "Barrios Bentancor Velri",
+      "printedName": "Barrios Bentancor Velri"
+    },
+    {
+      "slug": "alvarez-de-oro-aleja",
+      "name": "Alvarez De Oro Aleja",
+      "printedName": "Alvarez de Oro Aleja"
+    },
+    {
+      "slug": "cavalleri-milag",
+      "name": "Cavalleri Milag",
+      "printedName": "Cavalleri Milag"
+    },
+    {
+      "slug": "espindola-ayele",
+      "name": "Espindola Ayele",
+      "printedName": "Espindola Ayele"
+    },
+    {
+      "slug": "jozami-loren",
+      "name": "Jozami Loren",
+      "printedName": "Jozami Loren"
+    },
+    {
+      "slug": "luna-dapozo-ema",
+      "name": "Luna Dapozo Ema",
+      "printedName": "Luna Dapozo Ema"
+    },
+    {
+      "slug": "rodriguez-bruna",
+      "name": "Rodriguez Bruna",
+      "printedName": "Rodriguez Bruna"
+    },
+    {
+      "slug": "cotignola-maria",
+      "name": "Cotignola Maria",
+      "printedName": "Cotignola Maria"
     }
   ],
   "rosters": [
@@ -953,6 +1063,258 @@
       "competition": "beer",
       "jerseyNumber": 26,
       "printedTeam": "Blancaspuma y las 7 pintas"
+    },
+    {
+      "playerSlug": "seru-campos-victoria",
+      "teamSlug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Turbeerras"
+    },
+    {
+      "playerSlug": "bianciotto-cata",
+      "teamSlug": "wubl-sucucho",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Frozen Queens"
+    },
+    {
+      "playerSlug": "aquino-ailin",
+      "teamSlug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Turbeerras"
+    },
+    {
+      "playerSlug": "nardi-cristina",
+      "teamSlug": "wubl-tipo-nine",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Zambirreras"
+    },
+    {
+      "playerSlug": "tibaudin-ana-j",
+      "teamSlug": "wubl-tipo-nine",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Zambirreras"
+    },
+    {
+      "playerSlug": "alvarado-danie",
+      "teamSlug": "wubl-zhockey",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Moby Drink"
+    },
+    {
+      "playerSlug": "dumais-virginia",
+      "teamSlug": "wubl-sucucho",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Frozen Queens"
+    },
+    {
+      "playerSlug": "denti-silva",
+      "teamSlug": "wubl-sucucho",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Frozen Queens"
+    },
+    {
+      "playerSlug": "guillamet-cecilia",
+      "teamSlug": "wubl-sucucho",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Frozen Queens"
+    },
+    {
+      "playerSlug": "abrahan-maura",
+      "teamSlug": "wubl-zhockey",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Moby Drink"
+    },
+    {
+      "playerSlug": "paz-luciana",
+      "teamSlug": "wubl-zhockey",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Moby Drink"
+    },
+    {
+      "playerSlug": "mosqueira-victo",
+      "teamSlug": "wubl-zhockey",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Moby Drink"
+    },
+    {
+      "playerSlug": "sigel-carol",
+      "teamSlug": "wubl-zhockey",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Moby Drink"
+    },
+    {
+      "playerSlug": "guerra-marin",
+      "teamSlug": "wubl-tipo-nine",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Zambirreras"
+    },
+    {
+      "playerSlug": "ferreyra-marina",
+      "teamSlug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Turbeerras"
+    },
+    {
+      "playerSlug": "aguado-barbara",
+      "teamSlug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Turbeerras"
+    },
+    {
+      "playerSlug": "avila-ariadna",
+      "teamSlug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Turbeerras"
+    },
+    {
+      "playerSlug": "oviedo-nieto-jessi",
+      "teamSlug": "wubl-zhockey",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Moby Drink"
+    },
+    {
+      "playerSlug": "garro-maria",
+      "teamSlug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Turbeerras"
+    },
+    {
+      "playerSlug": "guete-nadin",
+      "teamSlug": "wubl-sucucho",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Frozen Queens"
+    },
+    {
+      "playerSlug": "varaona-agust",
+      "teamSlug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Turbeerras"
+    },
+    {
+      "playerSlug": "ferrari-veron",
+      "teamSlug": "wubl-zhockey",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Moby Drink"
+    },
+    {
+      "playerSlug": "alegre-flor",
+      "teamSlug": "wubl-tipo-nine",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Zambirreras"
+    },
+    {
+      "playerSlug": "amaolo-lanata-eugenia",
+      "teamSlug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Turbeerras"
+    },
+    {
+      "playerSlug": "echazu-euge",
+      "teamSlug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Turbeerras"
+    },
+    {
+      "playerSlug": "barrios-bentancor-velri",
+      "teamSlug": "wubl-birra-del-fuego",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Turbeerras"
+    },
+    {
+      "playerSlug": "alvarez-de-oro-aleja",
+      "teamSlug": "wubl-zhockey",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Moby Drink"
+    },
+    {
+      "playerSlug": "cavalleri-milag",
+      "teamSlug": "wubl-tipo-nine",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Zambirreras"
+    },
+    {
+      "playerSlug": "espindola-ayele",
+      "teamSlug": "wubl-tipo-nine",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Zambirreras"
+    },
+    {
+      "playerSlug": "diaz-ofelia",
+      "teamSlug": "wubl-tipo-nine",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Zambirreras"
+    },
+    {
+      "playerSlug": "jozami-loren",
+      "teamSlug": "wubl-tipo-nine",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Zambirreras"
+    },
+    {
+      "playerSlug": "luna-dapozo-ema",
+      "teamSlug": "wubl-tipo-nine",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Zambirreras"
+    },
+    {
+      "playerSlug": "zayas-maitena",
+      "teamSlug": "wubl-sucucho",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Frozen Queens"
+    },
+    {
+      "playerSlug": "rodriguez-bruna",
+      "teamSlug": "wubl-sucucho",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Frozen Queens"
+    },
+    {
+      "playerSlug": "flecha-yesicca",
+      "teamSlug": "wubl-sucucho",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Frozen Queens"
+    },
+    {
+      "playerSlug": "cotignola-maria",
+      "teamSlug": "wubl-sucucho",
+      "competition": "wubl",
+      "jerseyNumber": null,
+      "printedTeam": "Frozen Queens"
     }
   ],
   "matches": [
@@ -2565,7 +2927,7 @@
       "sourceFile": "spreadsheet-export/player-stats.html",
       "printedPlayerName": "Mosqueira victoria",
       "printedTeam": "Frozen Sucucho",
-      "playerSlug": null,
+      "playerSlug": "mosqueira-victo",
       "teamSlug": "sucucho",
       "assists": 1,
       "goals": 0,
@@ -2642,7 +3004,7 @@
       "sourceFile": "spreadsheet-export/player-stats.html",
       "printedPlayerName": "Tibaudin Ana J",
       "printedTeam": null,
-      "playerSlug": null,
+      "playerSlug": "tibaudin-ana-j",
       "teamSlug": null,
       "assists": 0,
       "goals": 0,
@@ -2676,7 +3038,7 @@
       "printedPlayerName": "Seru Campos Victo",
       "printedTeam": "Turbeerras",
       "playerSlug": "seru-campos-victoria",
-      "teamSlug": null,
+      "teamSlug": "wubl-birra-del-fuego",
       "assists": 3,
       "goals": 5,
       "points": 8
@@ -2709,7 +3071,7 @@
       "printedPlayerName": "Aquino Ailin",
       "printedTeam": "Turbeerras",
       "playerSlug": "aquino-ailin",
-      "teamSlug": null,
+      "teamSlug": "wubl-birra-del-fuego",
       "assists": 0,
       "goals": 4,
       "points": 4
@@ -2720,7 +3082,7 @@
       "printedPlayerName": "Nardi Crist",
       "printedTeam": "Zambirreras",
       "playerSlug": "nardi-cristina",
-      "teamSlug": null,
+      "teamSlug": "wubl-tipo-nine",
       "assists": 1,
       "goals": 3,
       "points": 4
@@ -2730,8 +3092,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Tibaudin Ana J",
       "printedTeam": "Zambirreras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "tibaudin-ana-j",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 1,
       "goals": 3,
       "points": 4
@@ -2741,8 +3103,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Alvarado Danie",
       "printedTeam": "Moby Drink",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "alvarado-danie",
+      "teamSlug": "wubl-zhockey",
       "assists": 0,
       "goals": 3,
       "points": 3
@@ -2763,7 +3125,7 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Denti Silva",
       "printedTeam": "Frozen Queens",
-      "playerSlug": null,
+      "playerSlug": "denti-silva",
       "teamSlug": "wubl-sucucho",
       "assists": 1,
       "goals": 2,
@@ -2785,8 +3147,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Abrahan Maura",
       "printedTeam": "Moby Drink",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "abrahan-maura",
+      "teamSlug": "wubl-zhockey",
       "assists": 2,
       "goals": 1,
       "points": 3
@@ -2796,8 +3158,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Paz Luciana",
       "printedTeam": "Moby Drink",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "paz-luciana",
+      "teamSlug": "wubl-zhockey",
       "assists": 3,
       "goals": 0,
       "points": 3
@@ -2807,8 +3169,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Mosqueira Victo",
       "printedTeam": "Moby Drink",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "mosqueira-victo",
+      "teamSlug": "wubl-zhockey",
       "assists": 0,
       "goals": 2,
       "points": 2
@@ -2819,7 +3181,7 @@
       "printedPlayerName": "Sigel Carol",
       "printedTeam": "Moby Drink",
       "playerSlug": "sigel-carol",
-      "teamSlug": null,
+      "teamSlug": "wubl-zhockey",
       "assists": 1,
       "goals": 1,
       "points": 2
@@ -2829,8 +3191,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Guerra Marin",
       "printedTeam": "Zambirreras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "guerra-marin",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 2,
       "goals": 0,
       "points": 2
@@ -2840,8 +3202,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Ferreyra, Marina",
       "printedTeam": "Turbeerras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "ferreyra-marina",
+      "teamSlug": "wubl-birra-del-fuego",
       "assists": 0,
       "goals": 1,
       "points": 1
@@ -2852,7 +3214,7 @@
       "printedPlayerName": "Aguado Barba",
       "printedTeam": "Turbeerras",
       "playerSlug": "aguado-barbara",
-      "teamSlug": null,
+      "teamSlug": "wubl-birra-del-fuego",
       "assists": 0,
       "goals": 1,
       "points": 1
@@ -2863,7 +3225,7 @@
       "printedPlayerName": "AVILA ARIAD",
       "printedTeam": "Turbeerras",
       "playerSlug": "avila-ariadna",
-      "teamSlug": null,
+      "teamSlug": "wubl-birra-del-fuego",
       "assists": 0,
       "goals": 1,
       "points": 1
@@ -2873,8 +3235,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Oviedo nieto Jessi",
       "printedTeam": "Moby Drink",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "oviedo-nieto-jessi",
+      "teamSlug": "wubl-zhockey",
       "assists": 0,
       "goals": 1,
       "points": 1
@@ -2884,8 +3246,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Garro Maria",
       "printedTeam": "Turbeerras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "garro-maria",
+      "teamSlug": "wubl-birra-del-fuego",
       "assists": 0,
       "goals": 1,
       "points": 1
@@ -2917,8 +3279,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Varaona Agust",
       "printedTeam": "Turbeerras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "varaona-agust",
+      "teamSlug": "wubl-birra-del-fuego",
       "assists": 1,
       "goals": 0,
       "points": 1
@@ -2928,8 +3290,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Ferrari Veron",
       "printedTeam": "Moby Drink",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "ferrari-veron",
+      "teamSlug": "wubl-zhockey",
       "assists": 1,
       "goals": 0,
       "points": 1
@@ -2939,8 +3301,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Alegre Flor",
       "printedTeam": "Zambirreras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "alegre-flor",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 1,
       "goals": 0,
       "points": 1
@@ -2951,7 +3313,7 @@
       "printedPlayerName": "Amaolo Lanata Euge",
       "printedTeam": "Turbeerras",
       "playerSlug": "amaolo-lanata-eugenia",
-      "teamSlug": null,
+      "teamSlug": "wubl-birra-del-fuego",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -2961,8 +3323,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Echazu Euge",
       "printedTeam": "Turbeerras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "echazu-euge",
+      "teamSlug": "wubl-birra-del-fuego",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -2972,8 +3334,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Barrios Bentancor Velri",
       "printedTeam": "Turbeerras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "barrios-bentancor-velri",
+      "teamSlug": "wubl-birra-del-fuego",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -2983,8 +3345,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Alvarez de Oro Aleja",
       "printedTeam": "Moby Drink",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "alvarez-de-oro-aleja",
+      "teamSlug": "wubl-zhockey",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -2994,8 +3356,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Cavalleri Milag",
       "printedTeam": "Zambirreras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "cavalleri-milag",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3005,8 +3367,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Espindola Ayele",
       "printedTeam": "Zambirreras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "espindola-ayele",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3017,7 +3379,7 @@
       "printedPlayerName": "DIAZ Ofeli",
       "printedTeam": "Zambirreras",
       "playerSlug": "diaz-ofelia",
-      "teamSlug": null,
+      "teamSlug": "wubl-tipo-nine",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3027,8 +3389,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Jozami Loren",
       "printedTeam": "Zambirreras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "jozami-loren",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3038,8 +3400,8 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Luna Dapozo Ema",
       "printedTeam": "Zambirreras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "luna-dapozo-ema",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3060,7 +3422,7 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Rodriguez Bruna",
       "printedTeam": "Frozen Queens",
-      "playerSlug": null,
+      "playerSlug": "rodriguez-bruna",
       "teamSlug": "wubl-sucucho",
       "assists": 0,
       "goals": 0,
@@ -3082,7 +3444,7 @@
       "sourceFile": "spreadsheet-export/wubl-player-stats.html",
       "printedPlayerName": "Cotignola Maria",
       "printedTeam": "Frozen Queens",
-      "playerSlug": null,
+      "playerSlug": "cotignola-maria",
       "teamSlug": "wubl-sucucho",
       "assists": 0,
       "goals": 0,
@@ -3203,8 +3565,8 @@
       "sourceFile": "spreadsheet-export/wubl-goalie-stats.html",
       "printedPlayerName": "Cavaliere Milag",
       "printedTeam": "Zambirreras",
-      "playerSlug": null,
-      "teamSlug": null,
+      "playerSlug": "cavalleri-milag",
+      "teamSlug": "wubl-tipo-nine",
       "gamesPlayed": 3,
       "shotsFaced": 54,
       "goalsAgainst": 16,
@@ -3216,7 +3578,7 @@
       "printedPlayerName": "Amaolo Lanata Euge",
       "printedTeam": "Turbeerras",
       "playerSlug": "amaolo-lanata-eugenia",
-      "teamSlug": null,
+      "teamSlug": "wubl-birra-del-fuego",
       "gamesPlayed": 2,
       "shotsFaced": 39,
       "goalsAgainst": 8,
@@ -3227,6 +3589,7 @@
     "coria omar (Blanco) has no jersey number on the sheet.",
     "Jersey 28 is worn by cotignola-flor and bergeonneau-mauri in rock-choppers.",
     "2026-07-04 23:30: the Ganador column names \"Short Shift Soft Sticks\" on a row whose sides are printed as positions, so the two cannot be cross-checked.",
+    "The women's rosters are not published: 36 roster rows were derived from the published statistics, 22 of them for people who appear nowhere else, none with a jersey number, and all of them resting on a team mapping that is inferred rather than confirmed.",
     "Published beer line \"Encinas Camacho Valen\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Fermin Lopez Silva\" is not linked to a player: marked as a substitute, so no roster row is expected.",
     "Published beer line \"Baeza Juan\" is not linked to a player: no roster player matches this spelling.",
@@ -3235,45 +3598,17 @@
     "Published beer line \"Cuitiño Joaqu\" is not linked to a player: marked as a substitute, so no roster row is expected.",
     "Published beer line \"Romano Salinas Felip\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Simari Birkner Crist\" is not linked to a player: marked as a substitute, so no roster row is expected.",
-    "Published beer line \"Mosqueira victoria\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Durrieu Felix\" is not linked to a player: the sheet gives no team either.",
-    "Published beer line \"Tibaudin Ana J\" is not linked to a player: the sheet gives no team either.",
     "Published beer line \"Schiavini Marga\" is not linked to a player: no roster player matches this spelling.",
     "Published beer line \"Corales Jonat\" is not linked to a player: the sheet gives no team either.",
-    "Published wubl line \"Tibaudin Ana J\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Alvarado Danie\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Denti Silva\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Abrahan Maura\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Paz Luciana\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Mosqueira Victo\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Guerra Marin\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Ferreyra, Marina\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Oviedo nieto Jessi\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Garro Maria\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
     "Published wubl line \"Dana Gonzales\" is not linked to a player: the sheet gives no team either.",
-    "Published wubl line \"Varaona Agust\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Ferrari Veron\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Alegre Flor\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Echazu Euge\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Barrios Bentancor Velri\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Alvarez de Oro Aleja\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Cavalleri Milag\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Espindola Ayele\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Jozami Loren\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Luna Dapozo Ema\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Rodriguez Bruna\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
-    "Published wubl line \"Cotignola Maria\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
     "Published beer line \"Amaolo Lanata, Gonza\" is not linked to a player: marked as a substitute, so no roster row is expected.",
     "Published beer line \"Lautaro Jofre\" is not linked to a player: marked as a substitute, so no roster row is expected.",
-    "Published wubl line \"Cavaliere Milag\" is not linked to a player: the women’s rosters are not published, so there is nothing to match against.",
     "Published statistics carry \"Blancaspuma y las 7 pintas (sup)\" where a team goes: a substitute marker, kept as printed.",
     "Published statistics carry \"Suplente (castores)\" where a team goes: a substitute marker, kept as printed.",
     "Published statistics carry \"Suplente (Sucucho)\" where a team goes: a substitute marker, kept as printed.",
     "Published statistics carry \"Frozen Sucucho (sup)\" where a team goes: a substitute marker, kept as printed.",
-    "Published statistics name the team \"Turbeerras\", which maps to no known team.",
     "Published statistics carry \"Sup (Zambirreras)\" where a team goes: a substitute marker, kept as printed.",
-    "Published statistics name the team \"Zambirreras\", which maps to no known team.",
-    "Published statistics name the team \"Moby Drink\", which maps to no known team.",
     "Published statistics carry \"Beerizar Rompehielos T9 (sup)\" where a team goes: a substitute marker, kept as printed.",
     "Published statistics carry \"Suplente ( Beerizar)\" where a team goes: a substitute marker, kept as printed.",
     "Published statistics carry \"Suplente ( Sucucho)\" where a team goes: a substitute marker, kept as printed."

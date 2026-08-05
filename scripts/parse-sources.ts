@@ -625,6 +625,77 @@ function parsePublishedGoalieStats(
   return out
 }
 
+/**
+ * The women's rosters, derived from the statistics because no sheet publishes
+ * them.
+ *
+ * The league exports one roster sheet and it is the Beer League's. For the
+ * women's competition all that exists is the statistics: a line per woman with
+ * her team printed beside her name. That is thinner evidence than a roster, and
+ * it is evidence: she is on that line because she played for that team.
+ *
+ * So a roster row is written for every published women's line whose team is
+ * known, and three things are deliberately not done. No jersey number is
+ * invented, because the statistics never carry one. A substitute line becomes no
+ * roster row, because a substitute is not a roster player in this league. And a
+ * name is never repaired: the sheets truncate ("Bianciotto Catal") and the
+ * truncation is kept, which is also why these people are the ones whose names
+ * the organisation still has to confirm.
+ *
+ * A woman who plays in both competitions already has a person here, matched
+ * through her Beer League roster row, and she gets a second roster row rather
+ * than a second identity: one person, two teams, one per competition.
+ */
+function deriveWublRosters(
+  lines: readonly {
+    competition: CompetitionKey
+    printedPlayerName: string
+    printedTeam: string | null
+    playerSlug: string | null
+    teamSlug: string | null
+  }[],
+  known: readonly ParsedPlayer[],
+): { players: ParsedPlayer[]; rosters: ParsedRosterEntry[] } {
+  const created = new Map<string, ParsedPlayer>()
+  const rosters: ParsedRosterEntry[] = []
+  const seen = new Set<string>()
+
+  for (const line of lines) {
+    if (line.competition !== 'wubl') continue
+    if (line.printedTeam === null || line.teamSlug === null) continue
+    if (isSubstituteLine(line.printedTeam)) continue
+
+    let slug = line.playerSlug
+    if (slug === null) {
+      const confirmed = confirmedName(line.printedPlayerName)
+      slug = matchKey(confirmed).replace(/ /g, '-')
+      if (!created.has(slug) && !known.some((player) => player.slug === slug)) {
+        created.set(slug, {
+          slug,
+          name: displayName(confirmed),
+          printedName: line.printedPlayerName,
+        })
+      }
+    }
+
+    // The same woman appears on the skater sheet and, if she kept goal, on the
+    // goalkeeper sheet. One roster row either way.
+    const key = `${line.teamSlug}#${slug}`
+    if (seen.has(key)) continue
+    seen.add(key)
+
+    rosters.push({
+      playerSlug: slug,
+      teamSlug: line.teamSlug,
+      competition: 'wubl',
+      jerseyNumber: null,
+      printedTeam: line.printedTeam,
+    })
+  }
+
+  return { players: [...created.values()], rosters }
+}
+
 // ---------------------------------------------------------------------------
 // Run
 // ---------------------------------------------------------------------------
@@ -632,6 +703,26 @@ function parsePublishedGoalieStats(
 const { players, rosters } = parseRosters()
 const { matches, calendarNotes } = parseFixture()
 const publishedStandings = parsePublishedStandings()
+
+// Two passes, and the second one is the point. The first reads the statistics
+// against the Beer League roster, which is the only roster published; that is
+// what tells us which women's lines name a team and which of them already belong
+// to somebody known. The women's rosters are then derived from those lines, and
+// the statistics are read again so the lines find the people they just created.
+const firstPassPlayerStats = parsePublishedPlayerStats(players)
+const firstPassGoalieStats = parsePublishedGoalieStats(players)
+
+const derived = deriveWublRosters(
+  [...firstPassPlayerStats, ...firstPassGoalieStats],
+  players,
+)
+players.push(...derived.players)
+rosters.push(...derived.rosters)
+
+note(
+  `The women's rosters are not published: ${derived.rosters.length} roster rows were derived from the published statistics, ${derived.players.length} of them for people who appear nowhere else, none with a jersey number, and all of them resting on a team mapping that is inferred rather than confirmed.`,
+)
+
 const publishedPlayerStats = parsePublishedPlayerStats(players)
 const publishedGoalieStats = parsePublishedGoalieStats(players)
 
