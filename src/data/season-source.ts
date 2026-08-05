@@ -17,6 +17,12 @@
  * source, which is a working site rather than a broken one.
  */
 
+import {
+  PUBLISHED_GOALIE_STATS_SELECT,
+  PUBLISHED_PLAYER_STATS_SELECT,
+  SEASON_MATCHES_SELECT,
+  TEAMS_SELECT,
+} from './queries'
 import { SEED_2026 } from './seed-2026'
 import {
   getSupabaseClient,
@@ -148,28 +154,29 @@ async function loadFromSupabase(
   const seasonId = (seasonRow.data as { id: string }).id
 
   const [teams, matches, playerStats, goalieStats] = await Promise.all([
-    client
-      .from('teams')
-      .select('slug, competition_key, short_name, full_name, nickname'),
+    client.from('teams').select(TEAMS_SELECT),
+    // The two teams are embedded by **foreign key name**, not by column. A match
+    // reaches `teams` twice, so the embed has to say which way, and the obvious
+    // spelling of that (`home_team:home_team_id`) is wrong here: the key is the
+    // pair `(home_team_id, competition_key)`, which is what keeps a Beer League
+    // match from naming a women's team, and PostgREST only accepts the column
+    // shorthand for a single-column key. It answers `PGRST200` otherwise, which
+    // fails the whole request: no fixture, no standings, no scorers. This is not
+    // catchable by the tests, which mock the client, so
+    // `npm run smoke:queries` runs it against the real API instead.
     client
       .from('matches')
-      .select(
-        'id, competition_key, stage, match_date, start_time, venue, home_goals, away_goals, resolution, notes, home_team:home_team_id (slug), away_team:away_team_id (slug)',
-      )
+      .select(SEASON_MATCHES_SELECT)
       .eq('season_id', seasonId)
       .order('match_date')
       .order('start_time'),
     client
       .from('published_player_stats')
-      .select(
-        'competition_key, source_file, printed_player_name, printed_team, assists, goals, points, player:player_id (full_name)',
-      )
+      .select(PUBLISHED_PLAYER_STATS_SELECT)
       .eq('season_id', seasonId),
     client
       .from('published_goalie_stats')
-      .select(
-        'competition_key, source_file, printed_player_name, printed_team, games_played, shots_faced, goals_against, player:player_id (full_name)',
-      )
+      .select(PUBLISHED_GOALIE_STATS_SELECT)
       .eq('season_id', seasonId),
   ])
 

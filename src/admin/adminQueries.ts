@@ -8,6 +8,7 @@
 
 import type { Match } from '../data/types'
 import type { Database } from '../data/database.types'
+import { ADMIN_MATCHES_SELECT, MATCH_SHEET_SELECT } from '../data/queries'
 import { getSupabaseClient, type LeagueClient } from '../data/supabase-client'
 import { matchFromRow, type MatchRow } from '../data/season-source'
 import type { MatchRecordCounts } from '../utils/match-completeness'
@@ -116,9 +117,7 @@ export async function loadAdminMatches(
 
   const { data, error } = await client
     .from('matches')
-    .select(
-      'id, competition_key, stage, match_date, start_time, venue, home_goals, away_goals, resolution, notes, home_team:home_team_id (slug), away_team:away_team_id (slug), match_players(count), match_goals(count), goalie_lines(count)',
-    )
+    .select(ADMIN_MATCHES_SELECT)
     .eq('season_id', (season.data as { id: string }).id)
     .order('match_date')
     .order('start_time')
@@ -205,16 +204,6 @@ interface MatchSheetQueryRow extends MatchRow {
     goals_against: number
   }[]
 }
-
-const MATCH_SHEET_SELECT = `
-  id, season_id, competition_key, stage, match_date, start_time, venue,
-  home_goals, away_goals, resolution, notes,
-  home_team:home_team_id (id, slug, short_name),
-  away_team:away_team_id (id, slug, short_name),
-  match_players (player_id, team_id, is_substitute, is_franchise),
-  match_goals (id, team_id, scorer_id, assist_id),
-  goalie_lines (player_id, team_id, shots_faced, goals_against)
-`
 
 const NO_SUCH_MATCH = 'Este partido no está en la base.'
 

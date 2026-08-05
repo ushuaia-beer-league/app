@@ -22,7 +22,8 @@
     "format": "prettier --write .",
     "parse:sources": "tsx scripts/parse-sources.ts",
     "build:seed": "tsx scripts/build-seed.ts",
-    "build:load": "tsx scripts/load-supabase.ts"
+    "build:load": "tsx scripts/load-supabase.ts",
+    "smoke:queries": "tsx scripts/smoke-queries.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.109.0",

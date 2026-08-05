@@ -66,6 +66,17 @@ jobs:
 
       - run: npm run build
 
+      # The one class of bug this repository cannot catch on its own: a select the
+      # library and the type checker both accept and the service refuses. It cost
+      # a published site with no fixture and no standings once. Runs only when the
+      # variables are set, and passes when the project is merely asleep.
+      - name: Check the site's queries against the real service
+        if: vars.SUPABASE_URL != '' && vars.SUPABASE_PUBLISHABLE_KEY != ''
+        env:
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: npm run smoke:queries
+
       # The Pages site is created once by hand, by an administrator of the
       # repository, with "GitHub Actions" as the source. The workflow token
       # cannot create it: the API answers "not accessible by integration".
