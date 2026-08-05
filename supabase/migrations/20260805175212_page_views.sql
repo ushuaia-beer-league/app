@@ -18,6 +18,16 @@
 -- to a counter, and can do nothing else. That is also its weakness and it is worth
 -- writing down: anybody may call it in a loop, so these numbers are indicative
 -- rather than audited, and they are not the place to look if precision matters.
+--
+-- Supabase's advisors flag this on purpose and will keep flagging it:
+-- `anon_security_definer_function_executable` and its signed-in twin, both saying
+-- that `record_view` can be called without being anybody. That is the requirement,
+-- not a mistake, and the two obvious ways to silence it are worse. Making the
+-- function `security invoker` would need an insert policy for `anon`, which hands
+-- a visitor the ability to write any row with any number. Moving it out of the
+-- exposed schema would put it where the site cannot call it. So it stays, and the
+-- protection is that this function is the entire attack surface: one argument, one
+-- shape it accepts, one row it may touch, and one thing it may do to it.
 
 create table public.page_views (
   path text not null,
