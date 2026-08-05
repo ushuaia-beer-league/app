@@ -24,4 +24,38 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test -- --run
-      - run: npm run build
+
+      # Built with the same two public values the deploy uses, so what a reviewer
+      # opens reads the real database instead of the saved snapshot. Skipped when
+      # the variables are absent, and the build then serves the seed, which is a
+      # working site rather than a failed job.
+      - name: Point the preview at Supabase
+        if: vars.SUPABASE_URL != '' && vars.SUPABASE_PUBLISHABLE_KEY != ''
+        env:
+          URL: ${{ vars.SUPABASE_URL }}
+          KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          {
+            printf 'VITE_SUPABASE_URL=%s\n' "$URL"
+            printf 'VITE_SUPABASE_PUBLISHABLE_KEY=%s\n' "$KEY"
+          } > .env.production.local
+
+      # The preview is built at the site root rather than under `/app/`, because
+      # nothing serves it from a subdirectory: it is opened locally, where the
+      # server is the root.
+      - run: npm run build -- --base=/
+      - run: npm run smoke:queries
+        if: vars.SUPABASE_URL != '' && vars.SUPABASE_PUBLISHABLE_KEY != ''
+        env:
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+
+      # What a reviewer downloads. GitHub Pages serves one site per repository and
+      # this one is production, so a change is looked at from here or from a local
+      # server, never by publishing it beside the live league.
+      - name: Upload the site so this change can be looked at before it is merged
+        uses: actions/upload-artifact@v4
+        with:
+          name: preview-${{ github.event.pull_request.number }}
+          path: dist
+          retention-days: 14
