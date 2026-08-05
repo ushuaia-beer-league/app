@@ -11,7 +11,16 @@ The repository is connected to a Vercel project on the free Hobby plan, owned by
 the league's own account. Every branch gets its own build and its own address, so
 a change can be handed to somebody as a link instead of as instructions.
 
-Two things about it are worth knowing before trusting what you see.
+Three things about it are worth knowing before trusting what you see.
+
+**Vercel's own "production" is not production.** It builds whatever is on `main`
+and serves it at the project's root address, while the league's site is on GitHub
+Pages under `/app/`. The two show the same thing and only one of them is the site
+anybody uses. Worse, until `vercel.json` reaches `main` that build is broken
+rather than merely redundant: the page is compiled expecting to live under
+`/app/` and served at the root, so it asks for assets that are not there and
+renders nothing. Branch previews are correct because the file travels with the
+branch.
 
 **It reads the production database.** There is one Supabase project and both the
 live site and the preview talk to it. Looking is harmless, and saving is not: a
