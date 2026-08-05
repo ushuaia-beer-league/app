@@ -323,6 +323,27 @@ export type Database = {
           },
         ]
       }
+      page_views: {
+        Row: {
+          day: string
+          path: string
+          updated_at: string
+          views: number
+        }
+        Insert: {
+          day?: string
+          path: string
+          updated_at?: string
+          views?: number
+        }
+        Update: {
+          day?: string
+          path?: string
+          updated_at?: string
+          views?: number
+        }
+        Relationships: []
+      }
       photos: {
         Row: {
           caption: string | null
@@ -771,6 +792,7 @@ export type Database = {
     }
     Functions: {
       my_admin_role: { Args: never; Returns: string }
+      record_view: { Args: { page: string }; Returns: undefined }
     }
     Enums: {
       [_ in never]: never

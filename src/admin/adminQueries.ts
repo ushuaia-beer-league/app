@@ -63,6 +63,7 @@ import type {
   MatchSavePlan,
 } from './fixtureDraft'
 import type { AdminRole } from './useAdminSession'
+import type { ViewCount } from './visitsSummary'
 
 export interface AdminMatch {
   /** The uuid, which the panel needs because it writes back to this row. */
@@ -1649,4 +1650,38 @@ export async function saveMatch(plan: MatchSavePlan): Promise<Result<null>> {
   }
 
   return { ok: true, data: null }
+}
+
+/**
+ * The visit counters, most recent first.
+ *
+ * Read directly rather than through a view because the table is already the
+ * summary: one row per path per day. Row level security decides who may see it,
+ * and the answer is any administrator; a visitor cannot read it at all, which is
+ * why this lives in the panel and nowhere else.
+ *
+ * The window is a plain number of days rather than a date range, because the only
+ * question anybody asks of this is "is the site being used lately".
+ */
+export async function loadVisits(days = 30): Promise<Result<ViewCount[]>> {
+  const client = await getSupabaseClient()
+  if (!client) return { ok: false, because: NO_CONNECTION }
+
+  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10)
+
+  const { data, error } = await client
+    .from('page_views')
+    .select('path, day, views')
+    .gte('day', since)
+    .order('day', { ascending: false })
+
+  if (error) {
+    // A role with no access reads nothing rather than an error, so an empty answer
+    // is not a failure; a real failure still says what it was.
+    return { ok: false, because: error.message }
+  }
+
+  return { ok: true, data: (data ?? []) as ViewCount[] }
 }

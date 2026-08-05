@@ -68,6 +68,7 @@ describe('the panel mounted the way production mounts it', () => {
     ['/admin/fotos', /fotos/i],
     ['/admin/temporadas', /temporadas/i],
     ['/admin/administradores', /administradores/i],
+    ['/admin/visitas', /visitas/i],
   ])('reaches a real screen at %s', (path) => {
     mountLikeProduction(path)
 

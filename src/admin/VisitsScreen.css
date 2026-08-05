@@ -1,0 +1,79 @@
+/*
+ * The visits table.
+ *
+ * A table of four columns and a handful of rows, so it needs almost nothing: the
+ * shared tokens carry the type and the spacing. What it does need is to survive a
+ * phone, which is where this panel is actually read, so the table scrolls inside
+ * its own box rather than making the page scroll sideways.
+ */
+
+.visits__title {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+
+.visits__note {
+  max-width: 60ch;
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+}
+
+.visits__note--quiet {
+  margin-top: var(--space-5);
+  margin-bottom: 0;
+  font-size: var(--text-xs);
+}
+
+.visits__total {
+  margin: 0 0 var(--space-3);
+  font-weight: 600;
+}
+
+.visits__empty {
+  max-width: 60ch;
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* The table keeps its own sideways scroll: the page must never get one. */
+.visits__scroll {
+  overflow-x: auto;
+}
+
+.visits__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.visits__table th,
+.visits__table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.visits__table thead th {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.visits__table tbody th {
+  font-weight: 500;
+  white-space: normal;
+}
+
+/* A path that was never opened says so in words rather than showing a dash that
+ * could be read as a zero. */
+.visits__gap {
+  color: var(--color-text-muted);
+  font-style: italic;
+}

@@ -140,6 +140,22 @@ sigue figurando el nombre **como lo imprimió la planilla**, aunque esté cortad
 ("Beltrami Ramir"). Eso es a propósito, es la prueba de lo que decía la fuente. El
 asterisco es lo que avisa que ese nombre no está confirmado.
 
+## Visitas
+
+`/app/admin/visitas` dice si alguien está usando el sitio, que es lo único que
+GitHub Pages no cuenta por su cuenta. Se guarda qué pantalla se abrió y en qué
+día, nada más: ninguna dirección, ningún navegador, nada atribuible a una
+persona. Por eso el sitio no le pide permiso a nadie ni muestra ningún cartel de
+cookies.
+
+Los números son indicativos, no auditados: el contador es una función que
+cualquiera puede llamar, a quien tenga el navegador bloqueando pedidos no se lo
+cuenta, y el panel se cuenta a sí mismo. Sirven para saber si la liga entra, no
+para medir con precisión.
+
+Las pueden ver los tres roles. Un visitante no, y no es que el panel se lo
+esconda: la base se lo niega.
+
 ## A quién pedirle qué
 
 - **Una cuenta nueva para administrar**: a quien tenga administración general.

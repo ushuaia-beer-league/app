@@ -10,6 +10,7 @@ import { PhotosScreen } from './PhotosScreen'
 import { SeasonsScreen } from './SeasonsScreen'
 import { SponsorsScreen } from './SponsorsScreen'
 import { TeamsAdminScreen } from './TeamsAdminScreen'
+import { VisitsScreen } from './VisitsScreen'
 import { loadAdminMatches, type AdminMatch } from './adminQueries'
 import { can, useAdminSession } from './useAdminSession'
 import './AdminApp.css'
@@ -68,6 +69,9 @@ export function AdminApp() {
               {can(status.role, 'league') && (
                 <NavLink to="/admin/administradores">Administradores</NavLink>
               )}
+              {/* Every role may look: whether the site is used is not a sporting
+               * decision and not a content one. */}
+              <NavLink to="/admin/visitas">Visitas</NavLink>
             </nav>
 
             <p className="admin__who">
@@ -124,6 +128,7 @@ export function AdminApp() {
                   <AdminsScreen email={status.email} role={status.role} />
                 }
               />
+              <Route path="visitas" element={<VisitsScreen />} />
               <Route path="*" element={<Pending name="esta pantalla" />} />
             </Routes>
           </main>
