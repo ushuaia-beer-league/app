@@ -91,18 +91,30 @@ const teamName = (teamId: string) => NAMES[teamId] ?? teamId
 
 describe('FixtureList', () => {
   it('heads each date the way somebody would say it', () => {
-    render(<FixtureList rounds={[ROUND_ONE]} teamName={teamName} />)
+    render(
+      <FixtureList
+        rounds={[ROUND_ONE]}
+        teamName={teamName}
+        today="2026-05-01"
+      />,
+    )
 
     expect(
       screen.getByRole('heading', {
-        level: 3,
+        level: 4,
         name: 'Sábado, 23 de mayo de 2026',
       }),
     ).toBeVisible()
   })
 
   it('shows both cabeceras of the same time slot', () => {
-    render(<FixtureList rounds={[ROUND_ONE]} teamName={teamName} />)
+    render(
+      <FixtureList
+        rounds={[ROUND_ONE]}
+        teamName={teamName}
+        today="2026-05-01"
+      />,
+    )
 
     expect(screen.getByText('Poli')).toBeVisible()
     expect(screen.getAllByText('Bahía')).toHaveLength(2)
@@ -110,7 +122,13 @@ describe('FixtureList', () => {
   })
 
   it('names the way a match was decided when it was not decided in time', () => {
-    render(<FixtureList rounds={[ROUND_ONE]} teamName={teamName} />)
+    render(
+      <FixtureList
+        rounds={[ROUND_ONE]}
+        teamName={teamName}
+        today="2026-05-01"
+      />,
+    )
 
     expect(screen.getByText('5 - 4')).toBeVisible()
     expect(screen.getByText('Penales')).toBeVisible()
@@ -140,6 +158,7 @@ describe('FixtureList', () => {
           },
         ]}
         teamName={teamName}
+        today="2026-05-01"
       />,
     )
 
@@ -149,7 +168,9 @@ describe('FixtureList', () => {
   })
 
   it('prints what the sheet printed where a side is a position', () => {
-    render(<FixtureList rounds={[BRACKET]} teamName={teamName} />)
+    render(
+      <FixtureList rounds={[BRACKET]} teamName={teamName} today="2026-05-01" />,
+    )
 
     expect(screen.getByText('3er Lugar (hanta)')).toBeVisible()
     expect(screen.getByText('Ganador 6to 7to (t9)')).toBeVisible()
@@ -157,14 +178,26 @@ describe('FixtureList', () => {
   })
 
   it('leaves no side blank when the sheet named nobody', () => {
-    render(<FixtureList rounds={[ROUND_ONE]} teamName={teamName} />)
+    render(
+      <FixtureList
+        rounds={[ROUND_ONE]}
+        teamName={teamName}
+        today="2026-05-01"
+      />,
+    )
 
     // Both sides of the 21:30 slot in the Bahía, which the sheet left empty.
     expect(screen.getAllByText('Sin registrar')).toHaveLength(2)
   })
 
   it('shows the gap in Spanish and keeps the importer’s English out of the page', () => {
-    render(<FixtureList rounds={[ROUND_ONE]} teamName={teamName} />)
+    render(
+      <FixtureList
+        rounds={[ROUND_ONE]}
+        teamName={teamName}
+        today="2026-05-01"
+      />,
+    )
 
     // The slot the sheet left blank says so, twice, one side each.
     expect(screen.getAllByText('Sin registrar')).toHaveLength(2)
@@ -176,10 +209,116 @@ describe('FixtureList', () => {
   })
 
   it('says so when the competition has no dates', () => {
-    render(<FixtureList rounds={[]} teamName={teamName} />)
+    render(<FixtureList rounds={[]} teamName={teamName} today="2026-05-01" />)
 
     expect(
       screen.getByText('Todavía no hay fechas cargadas para esta competencia.'),
     ).toBeVisible()
+  })
+})
+
+describe('FixtureList, split in two', () => {
+  const roundOn = (date: string, time: string) => ({
+    date,
+    slots: [
+      {
+        time,
+        matches: [
+          match({
+            id: `m-${date}`,
+            date,
+            time,
+            venue: 'bahia' as const,
+            homeTeamId: 'blanco',
+            awayTeamId: 'sucucho',
+          }),
+        ],
+      },
+    ],
+  })
+
+  const SEASON = [
+    roundOn('2026-05-23', '21:30'),
+    roundOn('2026-07-04', '21:30'),
+    roundOn('2026-08-08', '21:30'),
+    roundOn('2026-08-15', '20:30'),
+  ]
+
+  const dateHeadings = () =>
+    screen.getAllByRole('heading', { level: 4 }).map((h) => h.textContent)
+
+  it('leads with what is still to come, soonest first', () => {
+    render(
+      <FixtureList rounds={SEASON} teamName={teamName} today="2026-08-05" />,
+    )
+
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'Próximos partidos' }),
+    ).toBeVisible()
+
+    const headings = dateHeadings()
+
+    // The two playoff dates come first and in calendar order; the played rounds
+    // follow, and in the opposite order.
+    expect(headings.slice(0, 2)).toEqual([
+      'Sábado, 8 de agosto de 2026',
+      'Sábado, 15 de agosto de 2026',
+    ])
+    expect(headings.slice(2)).toEqual([
+      'Sábado, 4 de julio de 2026',
+      'Sábado, 23 de mayo de 2026',
+    ])
+  })
+
+  it('keeps what was played behind a disclosure that says how much there is', () => {
+    render(
+      <FixtureList rounds={SEASON} teamName={teamName} today="2026-08-05" />,
+    )
+
+    const summary = screen.getByText('Ver las 2 fechas ya jugadas')
+
+    expect(summary).toBeVisible()
+    // Closed, so somebody looking for the next match does not scroll a season.
+    expect(summary.closest('details')).not.toHaveAttribute('open')
+  })
+
+  it('says it in the singular when one date was played', () => {
+    render(
+      <FixtureList
+        rounds={[
+          roundOn('2026-05-23', '21:30'),
+          roundOn('2026-08-08', '21:30'),
+        ]}
+        teamName={teamName}
+        today="2026-08-05"
+      />,
+    )
+
+    expect(screen.getByText('Ver la fecha ya jugada')).toBeVisible()
+  })
+
+  it('says the season is over rather than showing an empty heading', () => {
+    render(
+      <FixtureList
+        rounds={[roundOn('2026-05-23', '21:30')]}
+        teamName={teamName}
+        today="2026-08-20"
+      />,
+    )
+
+    expect(screen.getByText(/No quedan partidos por jugar/)).toBeVisible()
+    expect(screen.getByText('Ver la fecha ya jugada')).toBeVisible()
+  })
+
+  it('offers no disclosure at all when nothing has been played yet', () => {
+    render(
+      <FixtureList
+        rounds={[roundOn('2026-08-08', '21:30')]}
+        teamName={teamName}
+        today="2026-08-05"
+      />,
+    )
+
+    expect(screen.queryByText(/fechas? ya jugada/)).not.toBeInTheDocument()
   })
 })

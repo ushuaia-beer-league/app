@@ -139,7 +139,22 @@ describe('LeaguesSection', () => {
       'aria-selected',
       'true',
     )
-    expect(screen.getByText('6 - 14')).toBeVisible()
+  })
+
+  it('opens the fixture on what is still to be played, with the rest folded away', () => {
+    // The day is pinned between this season's two dates. Without pinning it, the
+    // case would pass today and fail once both dates are in the past.
+    render(<LeaguesSection season={SEASON} today="2026-06-01" />)
+
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'Próximos partidos' }),
+    ).toBeVisible()
+
+    // May is behind the disclosure, and the disclosure is closed.
+    const summary = screen.getByText('Ver la fecha ya jugada')
+    expect(summary).toBeVisible()
+    expect(summary.closest('details')).not.toHaveAttribute('open')
+    expect(screen.getByText('Sábado, 23 de mayo de 2026')).not.toBeVisible()
   })
 
   it('names its five tables as tabs of one panel', () => {
