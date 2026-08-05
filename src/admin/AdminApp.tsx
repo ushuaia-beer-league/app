@@ -82,15 +82,23 @@ export function AdminApp() {
             </p>
           </header>
 
+          {/*
+            Relative paths, every one of them, and that is not a style choice.
+            `main.tsx` mounts this component under `/admin/*`, so this `Routes`
+            is a descendant and matches against what is left of the path after
+            the parent consumed `/admin`. An absolute `path="/admin/equipos"`
+            here can never match anything, and the whole panel answers with the
+            catch-all instead: every screen reads "todavía no construimos esta
+            pantalla" while being perfectly built. It shipped that way once.
+            The nav links stay absolute, because a link is resolved against the
+            router's basename rather than against this route.
+          */}
           <main className="admin__main">
             <Routes>
-              <Route path="/admin" element={<MatchesRoute />} />
+              <Route index element={<MatchesRoute />} />
+              <Route path="partidos/:matchId" element={<MatchSheetRoute />} />
               <Route
-                path="/admin/partidos/:matchId"
-                element={<MatchSheetRoute />}
-              />
-              <Route
-                path="/admin/equipos"
+                path="equipos"
                 element={
                   <TeamsAdminScreen
                     role={status.role}
@@ -99,19 +107,19 @@ export function AdminApp() {
                 }
               />
               <Route
-                path="/admin/fixture"
+                path="fixture"
                 element={
                   <FixtureScreen role={status.role} year={SEED_2026.season} />
                 }
               />
-              <Route path="/admin/sponsors" element={<SponsorsScreen />} />
-              <Route path="/admin/fotos" element={<PhotosScreen />} />
+              <Route path="sponsors" element={<SponsorsScreen />} />
+              <Route path="fotos" element={<PhotosScreen />} />
               <Route
-                path="/admin/temporadas"
+                path="temporadas"
                 element={<SeasonsScreen role={status.role} />}
               />
               <Route
-                path="/admin/administradores"
+                path="administradores"
                 element={
                   <AdminsScreen email={status.email} role={status.role} />
                 }
