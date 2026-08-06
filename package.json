@@ -23,7 +23,8 @@
     "parse:sources": "tsx scripts/parse-sources.ts",
     "build:seed": "tsx scripts/build-seed.ts",
     "build:load": "tsx scripts/load-supabase.ts",
-    "smoke:queries": "tsx scripts/smoke-queries.ts"
+    "smoke:queries": "tsx scripts/smoke-queries.ts",
+    "preview:local": "vite preview --port 5173 --strictPort"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.109.0",

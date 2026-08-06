@@ -8,6 +8,7 @@ import {
 } from '../utils/published-statistics'
 import { standings } from '../utils/standings'
 import { CompetitionTabs } from './CompetitionTabs'
+import { todayIso } from './dates'
 import { FixtureList } from './FixtureList'
 import { GoalkeepingTable } from './GoalkeepingTable'
 import { ScoringTable } from './ScoringTable'
@@ -41,6 +42,14 @@ const PANEL_ID = 'ligas-panel-'
 type LeaguesSectionProps = {
   /** The season, from Supabase or from the versioned seed. */
   season: SeasonData
+  /**
+   * Today, as `YYYY-MM-DD`, which decides where the fixture is cut in two.
+   *
+   * A parameter with a default rather than a reading of the clock inside, so a
+   * test can sit on a chosen day. Without it these cases would pass today and
+   * fail in a fortnight, when the playoffs stop being in the future.
+   */
+  today?: string
 }
 
 /**
@@ -56,7 +65,10 @@ type LeaguesSectionProps = {
  * tablist, with arrow keys, Home and End, and one stop in the tab order for the
  * whole set, which is what the pattern asks for.
  */
-export function LeaguesSection({ season }: LeaguesSectionProps) {
+export function LeaguesSection({
+  season,
+  today = todayIso(),
+}: LeaguesSectionProps) {
   const [competition, setCompetition] = useState<CompetitionKey>('beer')
   const [tab, setTab] = useState<TabKey>('fixture')
   const tabButtons = useRef<(HTMLButtonElement | null)[]>([])
@@ -177,7 +189,7 @@ export function LeaguesSection({ season }: LeaguesSectionProps) {
         tabIndex={0}
       >
         {tab === 'fixture' && (
-          <FixtureList rounds={rounds} teamName={teamName} />
+          <FixtureList rounds={rounds} teamName={teamName} today={today} />
         )}
 
         {tab === 'standings' && (

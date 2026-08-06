@@ -146,3 +146,49 @@
     text-align: left;
   }
 }
+
+/*
+ * The two halves of the fixture.
+ *
+ * What is still to come is open, because it is what the page is opened for. What
+ * has been played is behind a disclosure: a season is thirty dates and scrolling
+ * past all of them to find next Saturday is the problem this split exists to fix.
+ *
+ * The summary is styled as the control it is rather than left as the browser's
+ * default triangle, which on a phone is a target too small to hit.
+ */
+
+.fixture-split__title {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+.fixture-split__past {
+  margin-top: var(--space-6);
+  border-top: 1px solid var(--color-line);
+  padding-top: var(--space-4);
+}
+
+.fixture-split__summary {
+  cursor: pointer;
+  padding: var(--space-2) 0;
+  color: var(--color-text-bright);
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* The disclosure needs a visible focus ring: it is reachable by keyboard and it
+ * is the only control in this list. */
+.fixture-split__summary:focus-visible {
+  outline: 2px solid var(--color-text-bright);
+  outline-offset: 2px;
+}
+
+.fixture-split__past[open] .fixture-split__summary {
+  margin-bottom: var(--space-3);
+}

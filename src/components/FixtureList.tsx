@@ -1,5 +1,5 @@
 import type { Match, MatchResolution, Venue } from '../data/types'
-import type { FixtureRound } from '../utils/fixture'
+import { splitFixtureByDate, type FixtureRound } from '../utils/fixture'
 import { formatWeekdayDate } from './dates'
 import './data-table.css'
 import './FixtureList.css'
@@ -20,6 +20,12 @@ const RESOLUTIONS: Record<MatchResolution, string | null> = {
 type FixtureListProps = {
   rounds: readonly FixtureRound[]
   teamName: (teamId: string) => string
+  /**
+   * Today, as `YYYY-MM-DD`. A parameter rather than a reading of the clock, so a
+   * test can sit on a match day, and so the whole page agrees on what day it is
+   * instead of each component asking separately.
+   */
+  today: string
 }
 
 /**
@@ -69,7 +75,7 @@ function sideLabel(
  * what the source does not say and paraphrasing it would be inventing the
  * missing fact.
  */
-export function FixtureList({ rounds, teamName }: FixtureListProps) {
+export function FixtureList({ rounds, teamName, today }: FixtureListProps) {
   if (rounds.length === 0) {
     return (
       <p className="data-table__empty">
@@ -78,11 +84,57 @@ export function FixtureList({ rounds, teamName }: FixtureListProps) {
     )
   }
 
+  const { upcoming, past } = splitFixtureByDate(rounds, today)
+
+  return (
+    <div className="fixture-split">
+      <section aria-labelledby="fixture-proximos">
+        <h3 className="fixture-split__title" id="fixture-proximos">
+          Próximos partidos
+        </h3>
+
+        {upcoming.length === 0 ? (
+          <p className="data-table__empty">
+            No quedan partidos por jugar en esta competencia. Abajo está todo lo
+            que se jugó.
+          </p>
+        ) : (
+          <Rounds rounds={upcoming} teamName={teamName} />
+        )}
+      </section>
+
+      {past.length > 0 && (
+        <details className="fixture-split__past">
+          {/* Closed by default, and a count in the summary so it is obvious there
+           * is something behind it. Somebody looking for a result asks for it;
+           * somebody looking for the next match should not have to scroll past
+           * a season to find it. */}
+          <summary className="fixture-split__summary">
+            {past.length === 1
+              ? 'Ver la fecha ya jugada'
+              : `Ver las ${past.length} fechas ya jugadas`}
+          </summary>
+
+          <Rounds rounds={past} teamName={teamName} />
+        </details>
+      )}
+    </div>
+  )
+}
+
+/** One list of rounds, in whatever order it was handed. */
+function Rounds({
+  rounds,
+  teamName,
+}: {
+  rounds: readonly FixtureRound[]
+  teamName: (teamId: string) => string
+}) {
   return (
     <ol className="fixture">
       {rounds.map((round) => (
         <li className="fixture__round" key={round.date}>
-          <h3 className="fixture__date">{formatWeekdayDate(round.date)}</h3>
+          <h4 className="fixture__date">{formatWeekdayDate(round.date)}</h4>
 
           <ol className="fixture__slots">
             {round.slots.map((slot) => (

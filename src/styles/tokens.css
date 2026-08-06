@@ -78,9 +78,14 @@
   --color-text-heading: #ffffff;
   /* The reference site uses #5a7a8f here, its most-used colour by far. It fails
    * contrast: 4.25 against the page and 3.96 against the lightest surface, where
-   * small text needs 4.5. Lifted to the nearest value that clears it on every
-   * background this palette has (5.30 / 5.14 / 4.93) and still reads as muted. */
-  --color-text-muted: #6b8a9e;
+   * small text needs 4.5. It was first lifted to #6b8a9e, which clears the 4.5
+   * every background needs (5.30 / 5.14 / 4.93).
+   *
+   * Lifted again, because clearing the minimum is not the same as being easy to
+   * read: this is 7.38 against the page, which is the AAA threshold rather than
+   * the AA one, and it is the colour most of the site's words are printed in. It
+   * still reads as secondary next to `--color-text`. */
+  --color-text-muted: #86a4b8;
   --color-text-bright: var(--brand-ice-light);
 
   /* ==========================================================================
@@ -210,15 +215,28 @@
   --weight-semibold: 600;
   --weight-bold: 700;
 
-  /* Type scale. `--text-md` is the reference's 15px body size expressed in
-   * rem so a reader's own font size still scales the page. */
-  --text-3xs: 0.625rem;
-  --text-2xs: 0.6875rem;
-  --text-xs: 0.75rem;
-  --text-sm: 0.8125rem;
-  --text-md: 0.9375rem;
-  --text-lg: 1.0625rem;
-  --text-xl: 1.3125rem;
+  /* Type scale, one step larger than the reference at every size below a
+   * heading.
+   *
+   * The reference sets body text at 15px, and on a phone at arm's length that is
+   * asking the reader to lean in. Body is now 17px, and every smaller size moved
+   * up with it so the steps stay distinct rather than collapsing into each other:
+   * a scale where two names mean the same pixel size is a scale that has stopped
+   * saying anything.
+   *
+   * Headings are untouched. They were never the problem, and the design's
+   * proportions live there.
+   *
+   * Still in rem, which is the part that matters most: a reader who has set a
+   * larger font size in their phone gets a larger site, and none of this
+   * overrides that. */
+  --text-3xs: 0.6875rem;
+  --text-2xs: 0.75rem;
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.4375rem;
   --text-2xl: 1.5rem;
   --text-3xl: 1.875rem;
   --text-4xl: 2.5rem;

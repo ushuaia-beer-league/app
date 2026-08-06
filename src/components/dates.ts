@@ -73,3 +73,26 @@ export function formatShortDate(isoDate: string): string {
   const day = calendarDay(isoDate)
   return day === null ? isoDate : SHORT_DATE.format(day)
 }
+
+/**
+ * Today as `YYYY-MM-DD`, in the reader's own timezone.
+ *
+ * Not `toISOString().slice(0, 10)`, which is the obvious version and is wrong
+ * here: that answers in UTC, so from nine at night in Ushuaia onwards it would
+ * already say tomorrow, and a round would drop out of "próximos" while people
+ * were still on the ice.
+ *
+ * It reads the reader's clock rather than the league's, which is a choice: a
+ * visitor in another timezone sees their own day, and at worst that is a day out
+ * for a few hours. The alternative is telling somebody in Ushuaia that it is a
+ * different day than the one they are living in.
+ *
+ * `now` is a parameter so this can be tested at an hour that matters.
+ */
+export function todayIso(now: Date = new Date()): string {
+  const year = now.getFullYear()
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const day = String(now.getDate()).padStart(2, '0')
+
+  return `${year}-${month}-${day}`
+}
