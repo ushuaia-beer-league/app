@@ -175,7 +175,10 @@ function Rounds({
                         : RESOLUTIONS[match.score.resolution]
 
                     return (
-                      <li className="fixture__match" key={match.id}>
+                      <li
+                        className={`fixture__match fixture__match--${match.competition}`}
+                        key={match.id}
+                      >
                         <p className="fixture__venue">
                           {match.venue === null
                             ? 'Cabecera a definir'

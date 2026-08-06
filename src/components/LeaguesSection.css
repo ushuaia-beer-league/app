@@ -81,3 +81,13 @@
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
 }
+
+/* The stacked blocks carry their competition's colour too, so the name and the
+ * table under it read as one thing when both are on screen. */
+.leagues__block-title--beer {
+  color: var(--color-comp-beer-ink);
+}
+
+.leagues__block-title--wubl {
+  color: var(--color-comp-wubl-ink);
+}
