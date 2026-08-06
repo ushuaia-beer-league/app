@@ -17,7 +17,9 @@
       "shortName": "Birra del Fuego",
       "fullName": "Green Seven Birra del fuego",
       "nickname": "verde",
-      "aliases": ["bdf"],
+      "aliases": [
+        "bdf"
+      ],
       "mappingInferred": true
     },
     {
@@ -26,7 +28,9 @@
       "shortName": "Short Shift Soft Sticks",
       "fullName": "Beerros Azulvetrados",
       "nickname": "azul",
-      "aliases": ["SSSS"],
+      "aliases": [
+        "SSSS"
+      ],
       "mappingInferred": true
     },
     {
@@ -44,7 +48,9 @@
       "shortName": "Blanco",
       "fullName": "Blancaspuma y las 7 pintas",
       "nickname": "vitox",
-      "aliases": ["Blancaspuma"],
+      "aliases": [
+        "Blancaspuma"
+      ],
       "mappingInferred": true
     },
     {
@@ -62,7 +68,9 @@
       "shortName": "Tipo Nine",
       "fullName": "Beerizar Rompehielos T9",
       "nickname": "t9",
-      "aliases": ["T9"],
+      "aliases": [
+        "T9"
+      ],
       "mappingInferred": true
     },
     {
@@ -80,7 +88,9 @@
       "shortName": "Sucucho",
       "fullName": null,
       "nickname": "sucucho",
-      "aliases": ["Frozen Queens"],
+      "aliases": [
+        "Frozen Queens"
+      ],
       "mappingInferred": true
     },
     {
@@ -89,7 +99,9 @@
       "shortName": "Birra del Fuego",
       "fullName": null,
       "nickname": "bdf",
-      "aliases": ["Turbeerras"],
+      "aliases": [
+        "Turbeerras"
+      ],
       "mappingInferred": true
     },
     {
@@ -98,7 +110,9 @@
       "shortName": "Tipo Nine",
       "fullName": null,
       "nickname": "t9",
-      "aliases": ["Zambirreras"],
+      "aliases": [
+        "Moby Drink"
+      ],
       "mappingInferred": true
     },
     {
@@ -107,7 +121,9 @@
       "shortName": "Zhockey",
       "fullName": null,
       "nickname": "z hockey",
-      "aliases": ["Moby Drink"],
+      "aliases": [
+        "Zambirreras"
+      ],
       "mappingInferred": true
     }
   ],
@@ -1087,21 +1103,21 @@
     },
     {
       "playerSlug": "nardi-cristina",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Zambirreras"
     },
     {
       "playerSlug": "tibaudin-ana-j",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Zambirreras"
     },
     {
       "playerSlug": "alvarado-danie",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Moby Drink"
@@ -1129,35 +1145,35 @@
     },
     {
       "playerSlug": "abrahan-maura",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Moby Drink"
     },
     {
       "playerSlug": "paz-luciana",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Moby Drink"
     },
     {
       "playerSlug": "mosqueira-victo",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Moby Drink"
     },
     {
       "playerSlug": "sigel-carol",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Moby Drink"
     },
     {
       "playerSlug": "guerra-marin",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Zambirreras"
@@ -1185,7 +1201,7 @@
     },
     {
       "playerSlug": "oviedo-nieto-jessi",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Moby Drink"
@@ -1213,14 +1229,14 @@
     },
     {
       "playerSlug": "ferrari-veron",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Moby Drink"
     },
     {
       "playerSlug": "alegre-flor",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Zambirreras"
@@ -1248,42 +1264,42 @@
     },
     {
       "playerSlug": "alvarez-de-oro-aleja",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Moby Drink"
     },
     {
       "playerSlug": "cavalleri-milag",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Zambirreras"
     },
     {
       "playerSlug": "espindola-ayele",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Zambirreras"
     },
     {
       "playerSlug": "diaz-ofelia",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Zambirreras"
     },
     {
       "playerSlug": "jozami-loren",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Zambirreras"
     },
     {
       "playerSlug": "luna-dapozo-ema",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "competition": "wubl",
       "jerseyNumber": null,
       "printedTeam": "Zambirreras"
@@ -3082,7 +3098,7 @@
       "printedPlayerName": "Nardi Crist",
       "printedTeam": "Zambirreras",
       "playerSlug": "nardi-cristina",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "assists": 1,
       "goals": 3,
       "points": 4
@@ -3093,7 +3109,7 @@
       "printedPlayerName": "Tibaudin Ana J",
       "printedTeam": "Zambirreras",
       "playerSlug": "tibaudin-ana-j",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "assists": 1,
       "goals": 3,
       "points": 4
@@ -3104,7 +3120,7 @@
       "printedPlayerName": "Alvarado Danie",
       "printedTeam": "Moby Drink",
       "playerSlug": "alvarado-danie",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 0,
       "goals": 3,
       "points": 3
@@ -3148,7 +3164,7 @@
       "printedPlayerName": "Abrahan Maura",
       "printedTeam": "Moby Drink",
       "playerSlug": "abrahan-maura",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 2,
       "goals": 1,
       "points": 3
@@ -3159,7 +3175,7 @@
       "printedPlayerName": "Paz Luciana",
       "printedTeam": "Moby Drink",
       "playerSlug": "paz-luciana",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 3,
       "goals": 0,
       "points": 3
@@ -3170,7 +3186,7 @@
       "printedPlayerName": "Mosqueira Victo",
       "printedTeam": "Moby Drink",
       "playerSlug": "mosqueira-victo",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 0,
       "goals": 2,
       "points": 2
@@ -3181,7 +3197,7 @@
       "printedPlayerName": "Sigel Carol",
       "printedTeam": "Moby Drink",
       "playerSlug": "sigel-carol",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 1,
       "goals": 1,
       "points": 2
@@ -3192,7 +3208,7 @@
       "printedPlayerName": "Guerra Marin",
       "printedTeam": "Zambirreras",
       "playerSlug": "guerra-marin",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "assists": 2,
       "goals": 0,
       "points": 2
@@ -3236,7 +3252,7 @@
       "printedPlayerName": "Oviedo nieto Jessi",
       "printedTeam": "Moby Drink",
       "playerSlug": "oviedo-nieto-jessi",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 0,
       "goals": 1,
       "points": 1
@@ -3291,7 +3307,7 @@
       "printedPlayerName": "Ferrari Veron",
       "printedTeam": "Moby Drink",
       "playerSlug": "ferrari-veron",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 1,
       "goals": 0,
       "points": 1
@@ -3302,7 +3318,7 @@
       "printedPlayerName": "Alegre Flor",
       "printedTeam": "Zambirreras",
       "playerSlug": "alegre-flor",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "assists": 1,
       "goals": 0,
       "points": 1
@@ -3346,7 +3362,7 @@
       "printedPlayerName": "Alvarez de Oro Aleja",
       "printedTeam": "Moby Drink",
       "playerSlug": "alvarez-de-oro-aleja",
-      "teamSlug": "wubl-zhockey",
+      "teamSlug": "wubl-tipo-nine",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3357,7 +3373,7 @@
       "printedPlayerName": "Cavalleri Milag",
       "printedTeam": "Zambirreras",
       "playerSlug": "cavalleri-milag",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3368,7 +3384,7 @@
       "printedPlayerName": "Espindola Ayele",
       "printedTeam": "Zambirreras",
       "playerSlug": "espindola-ayele",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3379,7 +3395,7 @@
       "printedPlayerName": "DIAZ Ofeli",
       "printedTeam": "Zambirreras",
       "playerSlug": "diaz-ofelia",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3390,7 +3406,7 @@
       "printedPlayerName": "Jozami Loren",
       "printedTeam": "Zambirreras",
       "playerSlug": "jozami-loren",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3401,7 +3417,7 @@
       "printedPlayerName": "Luna Dapozo Ema",
       "printedTeam": "Zambirreras",
       "playerSlug": "luna-dapozo-ema",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "assists": 0,
       "goals": 0,
       "points": 0
@@ -3566,7 +3582,7 @@
       "printedPlayerName": "Cavaliere Milag",
       "printedTeam": "Zambirreras",
       "playerSlug": "cavalleri-milag",
-      "teamSlug": "wubl-tipo-nine",
+      "teamSlug": "wubl-zhockey",
       "gamesPlayed": 3,
       "shotsFaced": 54,
       "goalsAgainst": 16,
