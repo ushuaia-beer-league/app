@@ -8,8 +8,22 @@ looked at in one of the three places below.
 ## Vercel, for a link somebody can open
 
 The repository is connected to a Vercel project on the free Hobby plan, owned by
-the league's own account. Every branch gets its own build and its own address, so
-a change can be handed to somebody as a link instead of as instructions.
+the league's own account.
+
+**The test site is always at the same address:**
+
+    https://ushuaia-beer-league.vercel.app
+
+That address is assigned to the `test` branch, so it shows whatever was last
+pushed there and never changes. It exists because the alternative did not work in
+practice: every push also produces its own single-deployment URL, which means a
+different link each time, and a link somebody has to be handed again after every
+change is a link nobody opens. Those per-deployment URLs still exist and are still
+useful, for looking at two versions side by side.
+
+So showing something is: merge or push it to `test`, wait about fifteen seconds,
+and send that one address. `main` is untouched by any of it, and production stays
+on GitHub Pages.
 
 Three things about it are worth knowing before trusting what you see.
 
