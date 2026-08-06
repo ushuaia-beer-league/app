@@ -109,17 +109,30 @@ describe('TeamsSection', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('says there is no colour and no crest, and draws neither', () => {
+  it('draws the crests the league sent and says what is still missing', () => {
     render(<TeamsSection season={SEASON} />)
 
     expect(
+      screen.getByText(/Los siete escudos de la Beer League/),
+    ).toBeVisible()
+    expect(
       screen.getByText(
-        /Ninguna planilla registra el color ni el escudo de los equipos/,
+        /El color de cada equipo no lo registra ninguna planilla/,
       ),
     ).toBeVisible()
-    // The crest frame is decorative while no asset exists, so there is no image
-    // on the page and nothing for a screen reader to announce.
+
+    // Every crest is decorative: the team's name is right beside it, so a screen
+    // reader announcing the logo would only repeat it. Hence no image has a role.
     expect(screen.queryAllByRole('img')).toHaveLength(0)
+
+    // The Beer League team of this fixture has its crest; the women's team that
+    // shares its name has none, and shows the frame instead.
+    const beer = beerCard('Birra del Fuego')
+    expect(beer.querySelector('img.team-card__crest--real')).not.toBeNull()
+
+    const women = wublCard('Birra del Fuego')
+    expect(women.querySelector('img.team-card__crest--real')).toBeNull()
+    expect(women.querySelector('.team-card__crest')).not.toBeNull()
   })
 
   it('counts a roster and orders it by jersey number', () => {

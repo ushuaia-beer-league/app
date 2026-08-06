@@ -43,9 +43,9 @@ type TeamsSectionProps = {
  *   the standings and the playoff brackets, and the league has not confirmed one
  *   of them (open questions 1 and 2). Said once, here, instead of on seven
  *   cards;
- * - no source carries a team colour or a team crest, so there is no swatch
- *   anywhere on the page and each card leaves an empty frame where the crest
- *   goes;
+ * - the seven Beer League crests are the league's own artwork and are drawn; the
+ *   four women's teams have none, so those cards keep the empty frame. No source
+ *   carries a team colour at all, so there is no swatch anywhere on the page;
  * - the four women's rosters are published nowhere, which is why their cards say
  *   so and still show the team.
  *
@@ -111,8 +111,9 @@ export function TeamsSection({ season }: TeamsSectionProps) {
       )}
 
       <p className="teams__note teams__note--quiet">
-        Ninguna planilla registra el color ni el escudo de los equipos, así que
-        el recuadro de cada tarjeta queda vacío hasta que la liga los cargue.
+        Los siete escudos de la Beer League son los que mandó la liga. Los
+        cuatro del femenino todavía no llegaron, así que ese recuadro queda
+        vacío. El color de cada equipo no lo registra ninguna planilla.
       </p>
 
       {blocks.map((block) => (

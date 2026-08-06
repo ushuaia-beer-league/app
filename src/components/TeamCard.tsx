@@ -1,5 +1,6 @@
 import type { TeamSeed } from '../data/teams-2026'
 import type { TeamRoster } from './rosters'
+import { teamLogo } from './team-logos'
 import './TeamCard.css'
 
 /** "28" alone, "28 y 30" for two, "28, 30 y 7" for more. */
@@ -39,15 +40,30 @@ type TeamCardProps = {
  */
 export function TeamCard({ team, roster }: TeamCardProps) {
   const { lines, sharedNumbers } = roster
+  const logo = teamLogo(team.slug)
   const someNumberMissing = lines.some((line) => line.jerseyNumber === null)
 
   return (
     <li className="team-card">
       <div className="team-card__head">
-        {/* The crest that does not exist yet. Decorative, so it is hidden from
-         * the accessibility tree: an empty frame has nothing to announce, and
-         * the section says in words that no team has a crest on file. */}
-        <span className="team-card__crest" aria-hidden="true" />
+        {/* The team's own crest where the league sent one, and the empty frame
+         * where it did not, which is every women's team. Decorative either way:
+         * the name is right beside it, so announcing the logo would only repeat
+         * it, and an empty frame has nothing to announce at all. */}
+        {logo === null ? (
+          <span className="team-card__crest" aria-hidden="true" />
+        ) : (
+          <img
+            className="team-card__crest team-card__crest--real"
+            src={logo}
+            alt=""
+            aria-hidden="true"
+            width={256}
+            height={256}
+            loading="lazy"
+            decoding="async"
+          />
+        )}
 
         <div className="team-card__names">
           <h4 className="team-card__name">{team.shortName}</h4>
