@@ -17,9 +17,7 @@
       "shortName": "Birra del Fuego",
       "fullName": "Green Seven Birra del fuego",
       "nickname": "verde",
-      "aliases": [
-        "bdf"
-      ],
+      "aliases": ["bdf"],
       "mappingInferred": true
     },
     {
@@ -28,9 +26,7 @@
       "shortName": "Short Shift Soft Sticks",
       "fullName": "Beerros Azulvetrados",
       "nickname": "azul",
-      "aliases": [
-        "SSSS"
-      ],
+      "aliases": ["SSSS"],
       "mappingInferred": true
     },
     {
@@ -48,9 +44,7 @@
       "shortName": "Blanco",
       "fullName": "Blancaspuma y las 7 pintas",
       "nickname": "vitox",
-      "aliases": [
-        "Blancaspuma"
-      ],
+      "aliases": ["Blancaspuma"],
       "mappingInferred": true
     },
     {
@@ -68,9 +62,7 @@
       "shortName": "Tipo Nine",
       "fullName": "Beerizar Rompehielos T9",
       "nickname": "t9",
-      "aliases": [
-        "T9"
-      ],
+      "aliases": ["T9"],
       "mappingInferred": true
     },
     {
@@ -88,9 +80,7 @@
       "shortName": "Sucucho",
       "fullName": null,
       "nickname": "sucucho",
-      "aliases": [
-        "Frozen Queens"
-      ],
+      "aliases": ["Frozen Queens"],
       "mappingInferred": true
     },
     {
@@ -99,9 +89,7 @@
       "shortName": "Birra del Fuego",
       "fullName": null,
       "nickname": "bdf",
-      "aliases": [
-        "Turbeerras"
-      ],
+      "aliases": ["Turbeerras"],
       "mappingInferred": true
     },
     {
@@ -110,9 +98,7 @@
       "shortName": "Tipo Nine",
       "fullName": null,
       "nickname": "t9",
-      "aliases": [
-        "Moby Drink"
-      ],
+      "aliases": ["Moby Drink"],
       "mappingInferred": true
     },
     {
@@ -121,9 +107,7 @@
       "shortName": "Zhockey",
       "fullName": null,
       "nickname": "z hockey",
-      "aliases": [
-        "Zambirreras"
-      ],
+      "aliases": ["Zambirreras"],
       "mappingInferred": true
     }
   ],
