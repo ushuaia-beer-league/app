@@ -198,3 +198,76 @@ describe('TeamCard', () => {
     ).not.toBeInTheDocument()
   })
 })
+
+describe('the player badges', () => {
+  const TIPO_NINE: TeamSeed = {
+    slug: 'tipo-nine',
+    competition: 'beer',
+    shortName: 'Tipo Nine',
+    fullName: 'Almirante Beerizar',
+    nickname: 't9',
+    aliases: [],
+    mappingInferred: true,
+  }
+
+  const EMPTY: TeamRoster = { lines: [], sharedNumbers: [] }
+
+  it('shows the ten Beerizar badges on the team that has them', () => {
+    render(<TeamCard team={TIPO_NINE} roster={EMPTY} />)
+
+    const strip = screen.getByRole('list', { name: 'Escudos de jugadores' })
+    // Counted by element and not by role: like every crest on this card the
+    // badge images are decorative, because the nickname is printed underneath.
+    expect(strip.querySelectorAll('img')).toHaveLength(10)
+  })
+
+  it('names each badge with the league’s own nickname and nothing more', () => {
+    // The nickname is what the league wrote on the file. It is not a claim about
+    // which roster line the person is, because eight of the ten are first names
+    // only and matching them would be a guess.
+    render(<TeamCard team={TIPO_NINE} roster={EMPTY} />)
+
+    expect(screen.getByText('Maite')).toBeInTheDocument()
+    expect(screen.getByText('Tincho Cosentino')).toBeInTheDocument()
+    expect(screen.getByText('Tincho López')).toBeInTheDocument()
+  })
+
+  it('shows no strip at all on a team that has no badges', () => {
+    // Ten of the eleven teams. An empty heading with nothing under it would read
+    // as a loading failure.
+    render(<TeamCard team={ROCK_CHOPPERS} roster={EMPTY} />)
+
+    expect(
+      screen.queryByRole('list', { name: 'Escudos de jugadores' }),
+    ).not.toBeInTheDocument()
+    expect(
+      screen.queryByText(/Escudos que la liga hizo/),
+    ).not.toBeInTheDocument()
+  })
+
+  it('shows the badges beside a roster, not instead of one', () => {
+    render(
+      <TeamCard
+        team={TIPO_NINE}
+        roster={{
+          lines: [
+            {
+              playerSlug: 'someone',
+              name: 'Apellido Nombre',
+              jerseyNumber: 9,
+              numberShared: false,
+            },
+          ],
+          sharedNumbers: [],
+        }}
+      />,
+    )
+
+    expect(screen.getByText('Apellido Nombre')).toBeInTheDocument()
+    expect(
+      screen
+        .getByRole('list', { name: 'Escudos de jugadores' })
+        .querySelectorAll('img'),
+    ).toHaveLength(10)
+  })
+})

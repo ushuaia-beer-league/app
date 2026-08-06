@@ -167,3 +167,61 @@
   background: none;
   object-fit: contain;
 }
+
+/*
+ * The strip of player badges, which one team has.
+ *
+ * A wrapping row rather than a sideways scroller: ten of them at this size fit in
+ * two or three rows on a phone, and a horizontal scroller inside a card that is
+ * already inside a grid is one gesture too many.
+ */
+.team-card__badges {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-line);
+}
+
+.team-card__badges-title {
+  margin: 0 0 var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.team-card__badge-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.team-card__badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  width: 4.5rem;
+}
+
+/*
+ * `contain`, never `cover`: one of these badges is landscape and one is small, and
+ * cropping somebody's face to square it off is not a decision a stylesheet should
+ * take.
+ */
+.team-card__badge img {
+  width: 100%;
+  height: auto;
+  max-height: 4.5rem;
+  object-fit: contain;
+}
+
+.team-card__badge-name {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  line-height: var(--leading-body);
+  text-align: center;
+  overflow-wrap: anywhere;
+}

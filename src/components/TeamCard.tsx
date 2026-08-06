@@ -1,4 +1,5 @@
 import type { TeamSeed } from '../data/teams-2026'
+import { playerBadges } from './player-badges'
 import type { TeamRoster } from './rosters'
 import { teamLogo } from './team-logos'
 import './TeamCard.css'
@@ -42,6 +43,7 @@ export function TeamCard({ team, roster }: TeamCardProps) {
   const { lines, sharedNumbers } = roster
   const logo = teamLogo(team.slug)
   const someNumberMissing = lines.some((line) => line.jerseyNumber === null)
+  const badges = playerBadges(team.slug)
 
   return (
     <li className="team-card">
@@ -127,6 +129,40 @@ export function TeamCard({ team, roster }: TeamCardProps) {
             </ul>
           )}
         </>
+      )}
+
+      {/* The badges the league drew for individual players, where a team has them.
+       * Deliberately below the roster and not woven into it: the files carry
+       * nicknames, most of them first names only, and pairing them with roster
+       * lines would be a guess. `player-badges.ts` says why at length. */}
+      {badges.length > 0 && (
+        <div className="team-card__badges">
+          <p className="team-card__badges-title">
+            Escudos que la liga hizo para cada jugador
+          </p>
+          <ul
+            className="team-card__badge-strip"
+            aria-label="Escudos de jugadores"
+          >
+            {badges.map((badge) => (
+              <li className="team-card__badge" key={badge.nickname}>
+                {/* Decorative, for the same reason every crest on this card is:
+                 * the nickname is printed right underneath, so announcing the
+                 * image would say it twice. */}
+                <img
+                  src={badge.src}
+                  alt=""
+                  aria-hidden="true"
+                  width={128}
+                  height={128}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span className="team-card__badge-name">{badge.nickname}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </li>
   )
