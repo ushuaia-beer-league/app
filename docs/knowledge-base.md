@@ -749,6 +749,23 @@ only the matchups. Use the calendar CSV for results.
 - Single repository: `git@github.com:ushuaia-beer-league/app.git`, under the
   `ushuaia-beer-league` GitHub organisation, so access never depends on one
   person.
+- **Hosting moves to Cloudflare**, decided 6 August 2026 after GitHub Actions spent
+  a day in a major outage and the site could not be published at all. Pages depends
+  on GitHub having a runner free; Cloudflare Pages does not. It also brings the
+  custom domain the league already owns, `ubl.com.ar`, and it answers the country of
+  a visit from its own `cf-ipcountry` header, which is the metric the league asked
+  for and the only free way to get it without handing every visitor's address to a
+  third party.
+- **Debt, said out loud so it is not mistaken for a decision:** the Cloudflare
+  account is `braianj@gmail.com`, a personal account, and the domain is registered at
+  NIC.ar to a personal CUIT. That contradicts the rule directly above it, which is
+  the league's own: Supabase, Vercel and the GitHub organisation are all on
+  `ushuaiabl@gmail.com` precisely so access never depends on one person. It was taken
+  knowingly on 6 August 2026 to avoid losing a day, with "es deuda, no solución"
+  agreed in those words. Two things settle it: move the Cloudflare account to the
+  league's address, and transfer the domain to the league's CUIT once the
+  `personería jurídica` exists. Until both are done, one person leaving takes the
+  domain and the hosting with them at the same time.
 - One repo holding the public site, the panel, the database migrations and the
   import scripts. There is no separate backend to split out.
 - Stack: React + Vite + TypeScript, the same recipe as the CFM project, for

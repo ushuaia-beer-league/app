@@ -107,9 +107,23 @@ function previewIdentity(isPreview: boolean): Plugin {
   }
 }
 
+/**
+ * Where the site is mounted, which is not the same on every host.
+ *
+ * GitHub Pages serves the repository `ushuaia-beer-league/app` under `/app/`, so
+ * that is the default and every existing link keeps working. Cloudflare Pages and
+ * Vercel serve at the root, and both announce themselves in their own build
+ * environment, so neither needs a special build command and nobody has to remember
+ * to pass `--base`. Forgetting it produces a site whose every asset 404s, which is
+ * the kind of thing that looks like a broken deploy rather than a missing flag.
+ */
+const base =
+  process.env.CF_PAGES !== undefined || process.env.VERCEL !== undefined
+    ? '/'
+    : '/app/'
+
 export default defineConfig({
-  // The repository is `ushuaia-beer-league/app`, so Pages serves it under /app/.
-  base: '/app/',
+  base,
   plugins: [
     react(),
     spaFallback(),
