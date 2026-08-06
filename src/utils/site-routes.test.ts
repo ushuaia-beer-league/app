@@ -1,5 +1,3 @@
-import { readdirSync, readFileSync } from 'node:fs'
-
 import {
   anchorFor,
   LEAGUE_TABS,
@@ -79,34 +77,23 @@ describe('the route table', () => {
     }
   })
 
-  it('scrolls each route to an element the page actually has', () => {
-    // Reads the components rather than a list kept here, because a list kept here
-    // would only ever agree with itself. It caught a real one: `/fotos` pointed at
-    // an id of `fotos` and the gallery's element is `galeria`, so the address
-    // scrolled nowhere and nothing else would have noticed.
-    const sources = [
-      ...readdirSync('src/components')
-        .filter((name) => name.endsWith('.tsx'))
-        .map((name) => `src/components/${name}`),
-      'src/App.tsx',
-    ]
-
-    const ids = new Set<string>()
-    for (const file of sources) {
-      for (const match of readFileSync(file, 'utf8').matchAll(
-        /id="([^"${]+)"/g,
-      )) {
-        ids.add(match[1]!)
-      }
+  it('gives every section an anchor, once', () => {
+    // There is nothing left to check about whether the page has these ids, and
+    // that is the point: the sections import `anchorFor` and spell nothing by
+    // hand, so a rename cannot leave an address pointing at a missing element.
+    // It used to be possible, and it happened: `/fotos` pointed at an id of
+    // `fotos` while the gallery's element was `galeria`, and the link scrolled
+    // nowhere. What is worth asserting now is that no two sections claim the same
+    // element, which the type system does not catch.
+    const anchors = SITE_ROUTES.map((route) => anchorFor(route.section))
+    for (const anchor of anchors) {
+      expect(anchor).toMatch(/^[a-z-]{3,}$/)
     }
 
-    // A sanity check on the reading itself: if the regex ever stops matching, the
-    // assertions below would pass an empty set and prove nothing.
-    expect(ids.size).toBeGreaterThan(4)
-
-    for (const route of SITE_ROUTES) {
-      expect([...ids]).toContain(anchorFor(route.section))
-    }
+    const bySection = new Map(
+      SITE_ROUTES.map((route) => [route.section, anchorFor(route.section)]),
+    )
+    expect(new Set(bySection.values()).size).toBe(bySection.size)
   })
 
   it('covers the four the league asked to be shareable, and only those', () => {

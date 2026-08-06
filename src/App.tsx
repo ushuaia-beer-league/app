@@ -8,6 +8,7 @@ import { SiteNav } from './components/SiteNav'
 import { SponsorsSection } from './components/SponsorsSection'
 import { TeamsSection } from './components/TeamsSection'
 import { useSeason } from './hooks/useSeason'
+import { anchorFor } from './utils/site-routes'
 
 /**
  * The public page.
@@ -39,7 +40,11 @@ export function App() {
         {season ? (
           <LeaguesSection season={season} />
         ) : (
-          <p className="page-loading" id="ligas" aria-live="polite">
+          <p
+            className="page-loading"
+            id={anchorFor('ligas')}
+            aria-live="polite"
+          >
             {loading ? 'Cargando la temporada…' : ''}
           </p>
         )}
