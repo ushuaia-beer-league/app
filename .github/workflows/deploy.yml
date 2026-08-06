@@ -3,6 +3,11 @@ name: Deploy to Pages
 on:
   push:
     branches: [main]
+    # The weekly backup commits a copy of the league's data and nothing the site
+    # renders, so rebuilding and republishing for it would spend a deploy to
+    # produce a byte-identical site.
+    paths-ignore:
+      - 'backups/**'
   workflow_dispatch:
 
 # Read the repository, publish to Pages, and mint the token the deploy needs.

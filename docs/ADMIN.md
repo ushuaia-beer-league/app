@@ -112,22 +112,22 @@ los datos y se resuelve contestándola:
 
 1. **Romero José** y **Baeza Juan** figuran como goleadores y no están en ningún
    plantel: o son otras personas, o faltan cargarlos.
-2. **Los cuatro equipos del femenino.** Dedujimos el mapeo por los goles y
-   necesitamos que lo confirmen, no que lo inventen: Turbeerras es Birra del
-   Fuego, Frozen Queens es Sucucho, Zambirreras es Tipo Nine y Moby Drink es
-   Zhockey. Sobre eso armamos los cuatro planteles con las líneas de las tablas
-   publicadas, así que si el mapeo está mal, los planteles están cruzados.
-   También falta el nombre real de cada equipo: hoy figuran con el nombre del
-   equipo masculino, que es lo único que decía el fixture.
-3. **El partido del 23 de mayo a las 21:30 en Bahía** no tiene equipos en la
+2. **El partido del 23 de mayo a las 21:30 en Bahía** no tiene equipos en la
    planilla. ¿Se jugó? ¿Quiénes?
-4. **La fila de Blanco en la tabla publicada dice 1 derrota** y los resultados
+3. **La fila de Blanco en la tabla publicada dice 1 derrota** y los resultados
    dan 2. Los puntos y los goles cierran, así que parece un error de tipeo en la
    planilla; el sistema usa lo que dan los resultados.
-5. **El número 28 lo usan dos jugadores** en Hantachoppers, y una persona no
+4. **El número 28 lo usan dos jugadores** en Hantachoppers, y una persona no
    tiene número. El sistema lo guarda igual y solo lo avisa, porque un número
    repetido puede ser real; lo que falta es que la liga diga si en este caso lo
    es o si es un error de carga.
+
+Ya contestado, el 6 de agosto de 2026: **qué equipo del femenino jugó qué
+fixture**. Turbeerras es el que el fixture llamó Birra del Fuego, Frozen Queens el
+que llamó Sucucho, Zambirreras el que llamó Zhockey y Moby Drinks el que llamó Tipo
+Nine. Los dos últimos van al revés de lo que sugerían los goles, y manda la liga:
+los planteles quedaron corregidos. Los nombres reales, los sponsors nuevos (Brolas,
+Drake, Táun, Vertice) y el color de cada equipo también están cargados.
 
 Ya contestado, el 4 de agosto de 2026: **las nueve personas que la planilla
 escribía de dos formas**. Quedaron Velazquez, Cotignola, Tabares, Badaracco,

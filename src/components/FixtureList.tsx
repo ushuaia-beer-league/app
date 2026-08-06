@@ -1,5 +1,6 @@
 import type { Match, MatchResolution, Venue } from '../data/types'
 import { splitFixtureByDate, type FixtureRound } from '../utils/fixture'
+import { competitionLabel } from './competitions'
 import { formatWeekdayDate } from './dates'
 import './data-table.css'
 import './FixtureList.css'
@@ -26,6 +27,14 @@ type FixtureListProps = {
    * instead of each component asking separately.
    */
   today: string
+  /**
+   * Whether each match says which competition it belongs to.
+   *
+   * True only when both are listed together, which is the one place the fixture
+   * merges them. With a single competition chosen, repeating its name on all forty
+   * rows tells the reader nothing they did not already choose.
+   */
+  showCompetition?: boolean
 }
 
 /**
@@ -75,7 +84,12 @@ function sideLabel(
  * what the source does not say and paraphrasing it would be inventing the
  * missing fact.
  */
-export function FixtureList({ rounds, teamName, today }: FixtureListProps) {
+export function FixtureList({
+  rounds,
+  teamName,
+  today,
+  showCompetition = false,
+}: FixtureListProps) {
   if (rounds.length === 0) {
     return (
       <p className="data-table__empty">
@@ -99,7 +113,11 @@ export function FixtureList({ rounds, teamName, today }: FixtureListProps) {
             que se jugó.
           </p>
         ) : (
-          <Rounds rounds={upcoming} teamName={teamName} />
+          <Rounds
+            rounds={upcoming}
+            teamName={teamName}
+            showCompetition={showCompetition}
+          />
         )}
       </section>
 
@@ -115,7 +133,11 @@ export function FixtureList({ rounds, teamName, today }: FixtureListProps) {
               : `Ver las ${past.length} fechas ya jugadas`}
           </summary>
 
-          <Rounds rounds={past} teamName={teamName} />
+          <Rounds
+            rounds={past}
+            teamName={teamName}
+            showCompetition={showCompetition}
+          />
         </details>
       )}
     </div>
@@ -126,9 +148,11 @@ export function FixtureList({ rounds, teamName, today }: FixtureListProps) {
 function Rounds({
   rounds,
   teamName,
+  showCompetition,
 }: {
   rounds: readonly FixtureRound[]
   teamName: (teamId: string) => string
+  showCompetition: boolean
 }) {
   return (
     <ol className="fixture">
@@ -151,11 +175,19 @@ function Rounds({
                         : RESOLUTIONS[match.score.resolution]
 
                     return (
-                      <li className="fixture__match" key={match.id}>
+                      <li
+                        className={`fixture__match fixture__match--${match.competition}`}
+                        key={match.id}
+                      >
                         <p className="fixture__venue">
                           {match.venue === null
                             ? 'Cabecera a definir'
                             : VENUES[match.venue]}
+                          {showCompetition && (
+                            <span className="fixture__competition">
+                              {competitionLabel(match.competition)}
+                            </span>
+                          )}
                         </p>
 
                         <div className="fixture__teams">

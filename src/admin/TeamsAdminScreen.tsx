@@ -812,47 +812,71 @@ export function TeamsAdminScreen({
 
       <ul className="teams__list">
         {rows.map((team) => (
-          <li className="teams__row" key={team.id}>
-            <span className="teams__name">
-              {team.shortName}
-              {team.fullName !== null && (
-                <span className="teams__full">{team.fullName}</span>
-              )}
-            </span>
+          <li
+            className={`teams__row${editing === team.id ? ' teams__row--editing' : ''}`}
+            key={team.id}
+          >
+            <div className="teams__row-summary">
+              <span className="teams__name">
+                {team.shortName}
+                {team.fullName !== null && (
+                  <span className="teams__full">{team.fullName}</span>
+                )}
+              </span>
 
-            <span className="teams__slug">{team.slug}</span>
+              <span className="teams__slug">{team.slug}</span>
 
-            <span className="teams__count">
-              {countOf(team.id)} en el plantel {page.year}
-            </span>
+              <span className="teams__count">
+                {countOf(team.id)} en el plantel {page.year}
+              </span>
 
-            {!team.active && <span className="teams__state">De baja</span>}
+              {!team.active && <span className="teams__state">De baja</span>}
 
-            <button
-              aria-label={`Ver el plantel de ${team.shortName}`}
-              className="teams__edit"
-              disabled={busy}
-              onClick={() => openRosterOf(team)}
-              type="button"
-            >
-              Plantel
-            </button>
-
-            {canWrite && (
               <button
-                aria-label={`Editar ${team.shortName}`}
+                aria-label={`Ver el plantel de ${team.shortName}`}
                 className="teams__edit"
                 disabled={busy}
-                onClick={() => {
-                  setNotice(null)
-                  setEditing(team.id)
-                  setDraft(draftFromTeam(team))
-                  setSlugTouched(true)
-                }}
+                onClick={() => openRosterOf(team)}
                 type="button"
               >
-                Editar
+                Plantel
               </button>
+
+              {canWrite && (
+                <button
+                  aria-expanded={editing === team.id}
+                  aria-label={`Editar ${team.shortName}`}
+                  className="teams__edit"
+                  disabled={busy}
+                  onClick={() => {
+                    setNotice(null)
+
+                    // The same button closes it again, so a row that was opened
+                    // by mistake does not have to be saved or navigated away
+                    // from to get rid of.
+                    if (editing === team.id) {
+                      startNew(competition)
+                      return
+                    }
+
+                    setEditing(team.id)
+                    setDraft(draftFromTeam(team))
+                    setSlugTouched(true)
+                  }}
+                  type="button"
+                >
+                  {editing === team.id ? 'Cerrar' : 'Editar'}
+                </button>
+              )}
+            </div>
+
+            {/* The form opens inside the row it belongs to rather than at the
+                bottom of the page. Asked for by the people who use this: editing
+                three teams in a row meant scrolling down to the form, saving,
+                scrolling back up to find the next one, and losing your place
+                every time. */}
+            {canWrite && editing === team.id && (
+              <div className="teams__row-editor">{teamForm}</div>
             )}
           </li>
         ))}
@@ -867,7 +891,9 @@ export function TeamsAdminScreen({
         </p>
       )}
 
-      {canWrite && teamForm}
+      {/* Below the list, only for a team that does not exist yet: there is no
+          row to open for one. Every edit happens in its own row. */}
+      {canWrite && editing === null && teamForm}
 
       {notice !== null && (
         <p

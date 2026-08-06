@@ -109,17 +109,33 @@ describe('TeamsSection', () => {
     ).not.toBeInTheDocument()
   })
 
-  it('says there is no colour and no crest, and draws neither', () => {
+  it('draws every crest the league sent, in both competitions', () => {
     render(<TeamsSection season={SEASON} />)
 
     expect(
-      screen.getByText(
-        /Ninguna planilla registra el color ni el escudo de los equipos/,
-      ),
+      screen.getByText(/Los once escudos son los que mandó la liga/),
     ).toBeVisible()
-    // The crest frame is decorative while no asset exists, so there is no image
-    // on the page and nothing for a screen reader to announce.
+
+    // Every crest is decorative: the team's name is right beside it, so a screen
+    // reader announcing the logo would only repeat it. Hence no image has a role.
     expect(screen.queryAllByRole('img')).toHaveLength(0)
+
+    // Eleven teams, eleven badges, and not one empty frame left.
+    expect(
+      document.querySelectorAll('img.team-card__crest--real'),
+    ).toHaveLength(11)
+    expect(document.querySelectorAll('span.team-card__crest')).toHaveLength(0)
+
+    // The two teams called "Birra del Fuego" get their own badge each, which is
+    // the point of keying by slug rather than by name.
+    const beer = beerCard('Birra del Fuego')
+    const women = wublCard('Birra del Fuego')
+    const src = (card: HTMLElement) =>
+      card.querySelector('img.team-card__crest--real')?.getAttribute('src')
+
+    expect(src(beer)).not.toBeNull()
+    expect(src(women)).not.toBeNull()
+    expect(src(beer)).not.toBe(src(women))
   })
 
   it('counts a roster and orders it by jersey number', () => {

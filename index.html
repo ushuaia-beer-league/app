@@ -14,12 +14,16 @@
       The card that shows when somebody drops the link into a WhatsApp group,
       which is how this site will actually be shared.
 
-      There is no `og:image` yet, and that is deliberate rather than forgotten: a
-      preview image has to be a real file, and the league's crest is a JPEG on a
-      light background that the reference site forces white with a CSS filter.
-      Pointing at it would publish a white square. When a transparent crest
-      arrives, the image belongs here as an absolute URL, 1200 by 630, because a
-      relative one is ignored by every scraper.
+      The image is the league's crest, and it is absolute because a relative one
+      is ignored by every scraper. It is served from `public/` rather than
+      imported like the crest the page itself draws: an imported asset gets a
+      hash in its filename at build time, and a hash cannot be written into
+      static HTML.
+
+      It is the drawing's own portrait shape rather than the 1200 by 630 that a
+      wide card wants. That is why the card is declared as `summary`: a square-ish
+      image in a square-ish card, instead of the league's crest cropped to fit a
+      shape nobody drew it for.
     -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ushuaia Beer League" />
@@ -32,6 +36,16 @@
     <meta
       property="og:url"
       content="https://ushuaia-beer-league.github.io/app/"
+    />
+    <meta
+      property="og:image"
+      content="https://ushuaia-beer-league.github.io/app/ubl-crest.webp"
+    />
+    <meta property="og:image:width" content="700" />
+    <meta property="og:image:height" content="839" />
+    <meta
+      property="og:image:alt"
+      content="Escudo de la Ushuaia Beer League: un chopp de cerveza con patines de hockey."
     />
     <meta name="twitter:card" content="summary" />
     <meta name="theme-color" content="#0a0e14" />

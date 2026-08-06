@@ -96,33 +96,27 @@ export const BEER_TEAMS_2026: readonly TeamSeed[] = [
 ]
 
 /**
- * The women's competition names its teams after the men's ones in the fixture
- * and the standings, and after something else entirely in the statistics sheets:
- * Turbeerras, Zambirreras, Frozen Queens and Moby Drink.
+ * The women's competition names its teams after the men's ones in the fixture and
+ * the standings, and after itself in the statistics sheets: Turbeerras, Frozen
+ * Queens, Zambirreras and Moby Drink. Those four are the teams' real names; what
+ * the fixture wrote were the sponsors on the jerseys.
  *
- * The four pairings below are **inferred from the goals**, and the arithmetic is
- * the whole argument, so here it is. The fixture gives each team's goals for over
- * the three regular-season rounds; the statistics sheets give each woman's goals
- * beside the name of her team. Summed per printed team, they line up:
+ * All four pairings are the league's own answer, given on 6 August 2026, and two
+ * of them are confirmed a second time by the badges the league sent, which print
+ * both names: Turbeerras carries "Birra del Fuego" and Frozen Queens carries
+ * "Sucucho".
  *
- * | Fixture              | Statistics                                    |
- * | -------------------- | --------------------------------------------- |
- * | Birra del Fuego 13   | Turbeerras 13                                 |
- * | Sucucho 11           | Frozen Queens 11                              |
- * | Tipo Nine 10         | Zambirreras 10 (6, plus 4 on its substitute)  |
- * | Zhockey 11           | Moby Drink 8                                  |
+ * The other two are worth a paragraph, because arithmetic said otherwise and lost.
+ * The published statistics give each woman's goals beside her team, and summed per
+ * printed team they came to Zambirreras 10 and Moby Drink 8, against a fixture
+ * where Tipo Nine scored 10 and Zhockey 11. The exact match pointed at Zambirreras
+ * being Tipo Nine. The league says Zambirreras is Zhockey and Moby Drink is Tipo
+ * Nine, so that is what this table holds: eleven goals with three unattributed
+ * beats ten that lines up, when the people who played the games say so.
  *
- * Three are exact. Frozen Queens has its own independent evidence, the sponsored
- * name "Frozen Sucucho", and it agrees with the arithmetic; with it fixed, the
- * eleven of Zhockey cannot be Frozen Queens, so Moby Drink is the only pairing
- * left. Its three missing goals are consistent with what the sheet already fails
- * to attribute elsewhere: two goals appear on no line at all and one line names
- * no team.
- *
- * So the system has exactly one solution, and it is still an inference rather
- * than an answer: `mappingInferred` says so on every row, and open question 2 in
- * `knowledge-base.md` now asks the organisation to confirm this table rather than
- * to supply it from nothing.
+ * The lesson is worth keeping rather than tidying away. Two goals of slop in a
+ * sheet that already fails to attribute three of them is not evidence, and a
+ * derivation that fits is not the same as a derivation that is right.
  */
 export const WUBL_TEAMS_2026: readonly TeamSeed[] = [
   {
@@ -149,7 +143,7 @@ export const WUBL_TEAMS_2026: readonly TeamSeed[] = [
     shortName: 'Tipo Nine',
     fullName: null,
     nickname: 't9',
-    aliases: ['Zambirreras'],
+    aliases: ['Moby Drink'],
     mappingInferred: true,
   },
   {
@@ -158,7 +152,7 @@ export const WUBL_TEAMS_2026: readonly TeamSeed[] = [
     shortName: 'Zhockey',
     fullName: null,
     nickname: 'z hockey',
-    aliases: ['Moby Drink'],
+    aliases: ['Zambirreras'],
     mappingInferred: true,
   },
 ]

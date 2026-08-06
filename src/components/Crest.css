@@ -1,46 +1,31 @@
 /*
- * The crest placeholder. Dashed on purpose: it has to read as a gap waiting for
- * an asset, not as the league's logo.
+ * The league crest.
+ *
+ * The drawing is portrait, 700 by 839, so the box is not square and the height
+ * follows from the width. It was a dashed square while there was no asset; the
+ * dashes are gone because there is one now, and a dashed frame around a real logo
+ * would read as an error.
  */
 
 .crest {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
   flex-shrink: 0;
-  aspect-ratio: 1;
-  border: var(--border-width-hairline) dashed var(--color-border-strong);
-  background: var(--color-wash);
+  width: var(--crest-sm);
+  height: auto;
+  /* The artwork's own proportions, so nothing shifts while it loads. */
+  aspect-ratio: 700 / 839;
+  object-fit: contain;
   filter: drop-shadow(var(--glow-gold));
-}
-
-.crest__mark {
-  font-family: var(--font-display);
-  letter-spacing: var(--tracking-wide);
-  color: var(--color-text-bright);
-  line-height: var(--leading-display);
 }
 
 .crest--sm {
   width: var(--crest-sm);
 }
 
-.crest--sm .crest__mark {
-  font-size: var(--text-xs);
-}
-
 .crest--md {
   width: var(--crest-md);
 }
 
-.crest--md .crest__mark {
-  font-size: var(--text-2xl);
-}
-
 .crest--lg {
   width: min(var(--crest-lg), 100%);
-}
-
-.crest--lg .crest__mark {
-  font-size: var(--text-3xl);
 }

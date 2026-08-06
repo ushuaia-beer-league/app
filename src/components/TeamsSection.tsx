@@ -43,9 +43,11 @@ type TeamsSectionProps = {
  *   the standings and the playoff brackets, and the league has not confirmed one
  *   of them (open questions 1 and 2). Said once, here, instead of on seven
  *   cards;
- * - no source carries a team colour or a team crest, so there is no swatch
- *   anywhere on the page and each card leaves an empty frame where the crest
- *   goes;
+ * - every crest is the league's own artwork, eleven of them, so no card is left
+ *   with an empty frame. No sheet carries a team colour, so a colour is shown only
+ *   where somebody confirmed one and nothing is inferred from the artwork: the same
+ *   measurement that reads the women's badges correctly calls Blanco brown, because
+ *   its identity is the palest thing in it;
  * - the four women's rosters are published nowhere, which is why their cards say
  *   so and still show the team.
  *
@@ -111,8 +113,9 @@ export function TeamsSection({ season }: TeamsSectionProps) {
       )}
 
       <p className="teams__note teams__note--quiet">
-        Ninguna planilla registra el color ni el escudo de los equipos, así que
-        el recuadro de cada tarjeta queda vacío hasta que la liga los cargue.
+        Los once escudos son los que mandó la liga. El color de cada equipo no
+        lo registra ninguna planilla: está cargado donde alguien lo confirmó y
+        vacío donde no, y no lo deducimos del escudo.
       </p>
 
       {blocks.map((block) => (

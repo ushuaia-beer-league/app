@@ -46,14 +46,15 @@ describe('findTeam', () => {
   })
 
   it('reaches the women’s teams through the names their statistics use', () => {
-    // These four pairings are inferred from the goals, not confirmed by the
-    // league, and the reasoning is written out in `teams-2026.ts`. What matters
-    // here is that the statistics names resolve at all: while they did not, every
-    // woman's line was imported with no team and the four rosters were empty.
+    // The league's own answer, given on 6 August 2026, and two of the four are
+    // confirmed a second time by badges that print both names. The last two are the
+    // ones arithmetic got wrong: the goals pointed at Zambirreras being Tipo Nine
+    // and the people who played the games say otherwise. The reasoning, and the
+    // lesson, are written out in `teams-2026.ts`.
     const pairs: [string, string][] = [
       ['Turbeerras', 'wubl-birra-del-fuego'],
-      ['Zambirreras', 'wubl-tipo-nine'],
-      ['Moby Drink', 'wubl-zhockey'],
+      ['Zambirreras', 'wubl-zhockey'],
+      ['Moby Drink', 'wubl-tipo-nine'],
       ['Frozen Queens', 'wubl-sucucho'],
     ]
 

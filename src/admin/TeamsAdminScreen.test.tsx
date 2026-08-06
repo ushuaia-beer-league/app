@@ -684,3 +684,82 @@ describe('the roster', () => {
     expect(screen.getByLabelText('Número de Cotignola Flor')).toHaveValue(29)
   })
 })
+
+describe('the editor opens inside the row it belongs to', () => {
+  /** The list item a team's name sits in. */
+  const rowOf = async (name: string) => {
+    const heading = await screen.findByText(name)
+    const row = heading.closest('li')
+    if (row === null) throw new Error(`${name} is not inside a row`)
+
+    return row
+  }
+
+  const editButton = (row: HTMLElement, name: string) =>
+    within(row).getByRole('button', { name: `Editar ${name}` })
+
+  it('puts the form in the row, not at the bottom of the page', async () => {
+    show()
+
+    const row = await rowOf('Birra del Fuego')
+    expect(within(row).queryByLabelText('Nombre corto')).toBeNull()
+
+    fireEvent.click(editButton(row, 'Birra del Fuego'))
+
+    // The very field somebody is about to type in is inside the row they tapped:
+    // editing three teams in a row used to mean scrolling to the bottom, saving,
+    // and scrolling back up to find your place.
+    const field = within(row).getByLabelText('Nombre corto')
+    expect(field).toHaveValue('Birra del Fuego')
+  })
+
+  it('marks which row is open, and opens only one', async () => {
+    show()
+
+    const verde = await rowOf('Birra del Fuego')
+    const hanta = await rowOf('Rock Choppers')
+
+    fireEvent.click(editButton(verde, 'Birra del Fuego'))
+    expect(verde.className).toContain('teams__row--editing')
+    expect(hanta.className).not.toContain('teams__row--editing')
+
+    fireEvent.click(editButton(hanta, 'Rock Choppers'))
+    expect(hanta.className).toContain('teams__row--editing')
+    expect(verde.className).not.toContain('teams__row--editing')
+    expect(within(verde).queryByLabelText('Nombre corto')).toBeNull()
+  })
+
+  it('closes with the same button, so a row opened by mistake costs nothing', async () => {
+    show()
+
+    const row = await rowOf('Birra del Fuego')
+    const button = editButton(row, 'Birra del Fuego')
+
+    fireEvent.click(button)
+    expect(button).toHaveAttribute('aria-expanded', 'true')
+    expect(button).toHaveTextContent('Cerrar')
+
+    fireEvent.click(button)
+    expect(button).toHaveAttribute('aria-expanded', 'false')
+    expect(button).toHaveTextContent('Editar')
+    expect(within(row).queryByLabelText('Nombre corto')).toBeNull()
+  })
+
+  it('still offers the form below the list for a team that does not exist yet', async () => {
+    show()
+
+    // Nothing is being edited, so the form below is the new-team one: there is no
+    // row to open for a team that has no row.
+    expect(await screen.findByLabelText('Nombre corto')).toBeVisible()
+    expect(
+      screen.getByRole('button', { name: /Crear el equipo/ }),
+    ).toBeVisible()
+
+    const row = await rowOf('Birra del Fuego')
+    fireEvent.click(editButton(row, 'Birra del Fuego'))
+
+    // With a row open there is exactly one form on screen, and it is that row's.
+    expect(screen.getAllByLabelText('Nombre corto')).toHaveLength(1)
+    expect(within(row).getByLabelText('Nombre corto')).toBeVisible()
+  })
+})

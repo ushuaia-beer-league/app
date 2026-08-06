@@ -60,3 +60,34 @@
   padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-5);
 }
+
+/*
+ * One competition's tables, when both are stacked.
+ *
+ * The heading only appears when there is something to tell apart, so the spacing
+ * has to survive its absence: the gap belongs to the block that follows another,
+ * not to every block.
+ */
+.leagues__block + .leagues__block {
+  margin-top: var(--space-7);
+  border-top: 1px solid var(--color-line);
+  padding-top: var(--space-5);
+}
+
+.leagues__block-title {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/* The stacked blocks carry their competition's colour too, so the name and the
+ * table under it read as one thing when both are on screen. */
+.leagues__block-title--beer {
+  color: var(--color-comp-beer-ink);
+}
+
+.leagues__block-title--wubl {
+  color: var(--color-comp-wubl-ink);
+}

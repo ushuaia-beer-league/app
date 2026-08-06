@@ -192,3 +192,53 @@
 .fixture-split__past[open] .fixture-split__summary {
   margin-bottom: var(--space-3);
 }
+
+/*
+ * Which competition a row belongs to, shown only when both are listed together.
+ * Beside the cabecera because that is the line that already says where a match is,
+ * and this says which league is playing there.
+ */
+.fixture__competition {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}
+
+/*
+ * One colour per competition, on every match.
+ *
+ * Asked for so the two can be told apart at a glance in the merged fixture, where
+ * a Beer League match and a women's one sit side by side in the same time slot.
+ * The hues are the ones the selector's pills already use, so the same competition
+ * is the same colour everywhere on the site rather than a new palette per screen.
+ *
+ * A stripe rather than a tinted card: the cards sit on a photograph showing
+ * through the page, and two competing translucent fills over it turn to mud.
+ *
+ * Adding MilkShake or All-Stars is three edits and no new idea: a key in
+ * `CompetitionKey`, a trio of `--color-comp-*` tokens, and one rule here. The
+ * class name comes from the key, so nothing else has to learn about it.
+ */
+
+.fixture__match {
+  border-left: 3px solid transparent;
+  padding-left: var(--space-3);
+}
+
+.fixture__match--beer {
+  border-left-color: var(--color-comp-beer-line);
+}
+
+.fixture__match--wubl {
+  border-left-color: var(--color-comp-wubl-line);
+}
+
+.fixture__match--beer .fixture__competition {
+  color: var(--color-comp-beer-ink);
+}
+
+.fixture__match--wubl .fixture__competition {
+  color: var(--color-comp-wubl-ink);
+}

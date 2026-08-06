@@ -155,3 +155,15 @@
   line-height: var(--leading-display);
   color: var(--color-text-muted);
 }
+
+/*
+ * A real crest replaces the dashed frame: the dashes mean "waiting for an asset",
+ * and leaving them around a logo that arrived would read as an error. Contained
+ * rather than cropped, because cropping somebody's badge is not a decision this
+ * card gets to make.
+ */
+.team-card__crest--real {
+  border: 0;
+  background: none;
+  object-fit: contain;
+}

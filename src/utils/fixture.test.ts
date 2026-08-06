@@ -175,3 +175,62 @@ describe('splitFixtureByDate', () => {
     expect(past[0]?.date).toBe('2026-07-04')
   })
 })
+
+describe('fixtureRounds for all competitions at once', () => {
+  it('merges both into the calendar the league actually plays', () => {
+    // 6 June 2026 is a shared night: two women's matches and two Beer League ones,
+    // in the two cabeceras. Asking for one competition hides half of it.
+    const beer = fixtureRounds(SEED_2026.matches, { competition: 'beer' })
+    const wubl = fixtureRounds(SEED_2026.matches, { competition: 'wubl' })
+    const all = fixtureRounds(SEED_2026.matches, { competition: 'all' })
+
+    const shared = '2026-06-06'
+    const matchesOn = (rounds: ReturnType<typeof fixtureRounds>) =>
+      rounds
+        .filter((round) => round.date === shared)
+        .flatMap((round) => round.slots.flatMap((slot) => slot.matches)).length
+
+    expect(matchesOn(beer)).toBe(2)
+    expect(matchesOn(wubl)).toBe(4)
+    expect(matchesOn(all)).toBe(6)
+  })
+
+  it('loses no match and invents none', () => {
+    const beer = fixtureRounds(SEED_2026.matches, { competition: 'beer' })
+    const wubl = fixtureRounds(SEED_2026.matches, { competition: 'wubl' })
+    const all = fixtureRounds(SEED_2026.matches, { competition: 'all' })
+
+    const count = (rounds: ReturnType<typeof fixtureRounds>) =>
+      rounds.flatMap((round) => round.slots.flatMap((slot) => slot.matches))
+        .length
+
+    expect(count(all)).toBe(count(beer) + count(wubl))
+    expect(count(all)).toBe(SEED_2026.matches.length)
+  })
+
+  it('keeps the dates in calendar order and the slots in time order', () => {
+    const all = fixtureRounds(SEED_2026.matches, { competition: 'all' })
+
+    expect(all.map((round) => round.date)).toEqual(
+      [...all.map((round) => round.date)].sort(),
+    )
+    for (const round of all) {
+      expect(round.slots.map((slot) => slot.time)).toEqual(
+        [...round.slots.map((slot) => slot.time)].sort(),
+      )
+    }
+  })
+
+  it('orders a merged slot by cabecera, and by competition when that ties', () => {
+    const all = fixtureRounds(SEED_2026.matches, { competition: 'all' })
+
+    for (const round of all) {
+      for (const slot of round.slots) {
+        const keys = slot.matches.map(
+          (match) => `${match.venue ?? 'zzz'}|${match.competition}`,
+        )
+        expect(keys).toEqual([...keys].sort())
+      }
+    }
+  })
+})

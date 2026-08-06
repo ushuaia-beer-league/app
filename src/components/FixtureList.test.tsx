@@ -322,3 +322,52 @@ describe('FixtureList, split in two', () => {
     expect(screen.queryByText(/fechas? ya jugada/)).not.toBeInTheDocument()
   })
 })
+
+describe('FixtureList colours each match by its competition', () => {
+  it('marks the competition on the match itself, so a merged slot reads at a glance', () => {
+    render(
+      <FixtureList
+        rounds={[
+          {
+            date: '2026-06-06',
+            slots: [
+              {
+                time: '21:30',
+                matches: [
+                  match({
+                    id: 'beer',
+                    date: '2026-06-06',
+                    time: '21:30',
+                    venue: 'bahia',
+                    homeTeamId: 'blanco',
+                    awayTeamId: 'sucucho',
+                  }),
+                  {
+                    ...match({
+                      id: 'wubl',
+                      date: '2026-06-06',
+                      time: '21:30',
+                      venue: 'poli',
+                      homeTeamId: 'wubl-sucucho',
+                      awayTeamId: 'wubl-zhockey',
+                    }),
+                    competition: 'wubl' as const,
+                  },
+                ],
+              },
+            ],
+          },
+        ]}
+        teamName={teamName}
+        today="2026-06-01"
+        showCompetition
+      />,
+    )
+
+    const cards = document.querySelectorAll('.fixture__match')
+
+    expect(cards).toHaveLength(2)
+    expect(cards[0]?.className).toContain('fixture__match--beer')
+    expect(cards[1]?.className).toContain('fixture__match--wubl')
+  })
+})
