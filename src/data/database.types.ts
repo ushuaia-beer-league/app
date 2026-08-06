@@ -786,6 +786,30 @@ export type Database = {
           },
         ]
       }
+      visit_facts: {
+        Row: {
+          day: string
+          fact: string
+          updated_at: string
+          value: string
+          visits: number
+        }
+        Insert: {
+          day?: string
+          fact: string
+          updated_at?: string
+          value: string
+          visits?: number
+        }
+        Update: {
+          day?: string
+          fact?: string
+          updated_at?: string
+          value?: string
+          visits?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -793,6 +817,15 @@ export type Database = {
     Functions: {
       my_admin_role: { Args: never; Returns: string }
       record_view: { Args: { page: string }; Returns: undefined }
+      record_visit: {
+        Args: {
+          device?: string
+          entry?: string
+          referrer?: string
+          visitor?: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

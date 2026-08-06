@@ -18,6 +18,7 @@ import { PlayoffBracket } from './PlayoffBracket'
 import { Section } from './Section'
 import { StandingsTable } from './StandingsTable'
 import './LeaguesSection.css'
+import { anchorFor } from '../utils/site-routes'
 
 /**
  * The four tables the league keeps, in the order a visitor asks for them: what
@@ -166,7 +167,7 @@ export function LeaguesSection({
 
   return (
     <Section
-      id="ligas"
+      id={anchorFor('ligas')}
       eyebrow={`Temporada ${season.season}`}
       title="Ligas & Estadísticas"
     >

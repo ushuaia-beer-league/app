@@ -5,6 +5,7 @@ import { teamRoster } from './rosters'
 import { Section } from './Section'
 import { TeamCard } from './TeamCard'
 import './TeamsSection.css'
+import { anchorFor } from '../utils/site-routes'
 
 /**
  * The two competitions that have teams, in the order the league lists them.
@@ -99,7 +100,7 @@ export function TeamsSection({ season }: TeamsSectionProps) {
 
   return (
     <Section
-      id="equipos"
+      id={anchorFor('equipos')}
       eyebrow={`Temporada ${season.season}`}
       title="Equipos"
       tone="alt"

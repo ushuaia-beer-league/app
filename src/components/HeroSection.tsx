@@ -1,5 +1,6 @@
 import { Crest } from './Crest'
 import './HeroSection.css'
+import { anchorFor } from '../utils/site-routes'
 
 /** One of the four figures the reference prints under the title. */
 type HeroStat = {
@@ -49,7 +50,11 @@ export function HeroSection({
   competitions = [],
 }: HeroSectionProps) {
   return (
-    <section className="hero" id="hero" aria-labelledby="hero-title">
+    <section
+      className="hero"
+      id={anchorFor('inicio')}
+      aria-labelledby="hero-title"
+    >
       <div className="hero__backdrop" aria-hidden="true" />
       <div className="hero__ring hero__ring--outer" aria-hidden="true" />
       <div className="hero__ring hero__ring--inner" aria-hidden="true" />

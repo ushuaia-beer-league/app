@@ -1,5 +1,6 @@
 import { Section } from './Section'
 import './SponsorsSection.css'
+import { anchorFor } from '../utils/site-routes'
 
 type Sponsor = {
   name: string
@@ -29,7 +30,7 @@ type SponsorsSectionProps = {
 export function SponsorsSection({ sponsors = [] }: SponsorsSectionProps) {
   return (
     <Section
-      id="sponsors"
+      id={anchorFor('sponsors')}
       eyebrow="Gracias a ellos es posible"
       title="Sponsors"
       tone="alt"

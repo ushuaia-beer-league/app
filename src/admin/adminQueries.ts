@@ -63,7 +63,7 @@ import type {
   MatchSavePlan,
 } from './fixtureDraft'
 import type { AdminRole } from './useAdminSession'
-import type { ViewCount } from './visitsSummary'
+import type { ViewCount, VisitFactCount } from './visitsSummary'
 
 export interface AdminMatch {
   /** The uuid, which the panel needs because it writes back to this row. */
@@ -1684,4 +1684,35 @@ export async function loadVisits(days = 30): Promise<Result<ViewCount[]>> {
   }
 
   return { ok: true, data: (data ?? []) as ViewCount[] }
+}
+
+/**
+ * The four properties of a visit, counted per day.
+ *
+ * A second request rather than a join: `page_views` answers what is being opened
+ * and this answers who is opening it, in the loosest possible sense of who. They
+ * share a shape and nothing else, and the screen asks for both at once.
+ *
+ * The same access rule applies, and it is the database's: any administrator may
+ * read, a visitor may not, and the policy says so rather than the panel.
+ */
+export async function loadVisitFacts(
+  days = 30,
+): Promise<Result<VisitFactCount[]>> {
+  const client = await getSupabaseClient()
+  if (!client) return { ok: false, because: NO_CONNECTION }
+
+  const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10)
+
+  const { data, error } = await client
+    .from('visit_facts')
+    .select('day, fact, value, visits')
+    .gte('day', since)
+    .order('day', { ascending: false })
+
+  if (error) return { ok: false, because: error.message }
+
+  return { ok: true, data: (data ?? []) as VisitFactCount[] }
 }

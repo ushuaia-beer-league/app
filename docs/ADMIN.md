@@ -121,6 +121,13 @@ los datos y se resuelve contestándola:
    tiene número. El sistema lo guarda igual y solo lo avisa, porque un número
    repetido puede ser real; lo que falta es que la liga diga si en este caso lo
    es o si es un error de carga.
+5. **Los colores de las casacas nuevas del femenino.** En los playoffs se
+   estrenan las camisetas con sponsors propios. Los sponsors ya están resueltos y
+   lo resolvieron los escudos: la camiseta de Turbeerras dice **BROLAS** y la de
+   Moby Drink dice **VÉRTICE CONSTRUCCIONES**, que es exactamente lo que estaba
+   cargado, así que Frozen Queens es Drake y Zambirreras es Táun. Lo que falta es
+   **el color de cada casaca nueva y la fecha en que se estrenan**. Los colores no
+   se pueden sacar de los escudos, están todos dibujados sobre negro.
 
 Ya contestado, el 6 de agosto de 2026: **qué equipo del femenino jugó qué
 fixture**. Turbeerras es el que el fixture llamó Birra del Fuego, Frozen Queens el
@@ -143,15 +150,44 @@ asterisco es lo que avisa que ese nombre no está confirmado.
 ## Visitas
 
 `/app/admin/visitas` dice si alguien está usando el sitio, que es lo único que
-GitHub Pages no cuenta por su cuenta. Se guarda qué pantalla se abrió y en qué
-día, nada más: ninguna dirección, ningún navegador, nada atribuible a una
-persona. Por eso el sitio no le pide permiso a nadie ni muestra ningún cartel de
-cookies.
+GitHub Pages no cuenta por su cuenta. Contesta cinco cosas:
 
-Los números son indicativos, no auditados: el contador es una función que
+- **Qué pantalla se abrió y qué día**, que es el contador viejo.
+- **Cuántos navegadores entraron por primera vez.**
+- **Cuántas veces alguien que ya había entrado volvió otro día.**
+- **Desde qué aparato**, teléfono o computadora.
+- **Por dónde llegaron** (directo o WhatsApp, buscadores, redes, otro sitio) **y
+  en qué página entraron.**
+
+Lo que la base guarda son contadores: ninguna dirección, ningún navegador, nada
+que se pueda atribuir a una persona.
+
+Vale explicar cómo se sabe quién vuelve sin guardar nada de nadie, porque lo
+normal es lo contrario. Lo habitual es darle un número a cada navegador y
+guardarlo, y desde ese momento la tabla de estadísticas es una tabla de gente.
+Acá el que decide es el navegador de quien entra: guarda **una sola fecha** en su
+propio equipo, la compara con hoy y manda una palabra, «primera vez» o «volvió».
+Esa fecha no viaja a ninguna parte. Si alguien abre el almacenamiento de su
+navegador, lo que va a encontrar es una fecha, y una fecha no se puede cruzar con
+nada.
+
+Por eso sigue sin haber cartel de cookies, y también es una decisión: lo que se
+guarda no es un identificador y no sale del navegador. Si algún día el sitio
+apuntara a Europa, esto es lo primero que habría que revisar.
+
+**Cuidado con una lectura.** «Volvió» se cuenta una vez por día: alguien que entra
+cinco días distintos suma cinco. Dice cada cuánto vuelve la gente, no cuánta
+vuelve. La pantalla lo aclara al lado del número.
+
+No hay país ni ciudad, y también es a propósito: eso necesita un servicio que lea
+la dirección de cada visitante, que cuesta plata y cuesta privacidad. Se eligió
+mantenerlo gratis y sin datos de nadie.
+
+Los números son indicativos, no auditados: los contadores son funciones que
 cualquiera puede llamar, a quien tenga el navegador bloqueando pedidos no se lo
-cuenta, y el panel se cuenta a sí mismo. Sirven para saber si la liga entra, no
-para medir con precisión.
+cuenta, una persona con teléfono y computadora cuenta como dos, y el panel se
+cuenta a sí mismo. Sirven para saber si la liga entra, no para medir con
+precisión.
 
 Las pueden ver los tres roles. Un visitante no, y no es que el panel se lo
 esconda: la base se lo niega.

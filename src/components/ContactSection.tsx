@@ -1,5 +1,6 @@
 import { Section } from './Section'
 import './ContactSection.css'
+import { anchorFor } from '../utils/site-routes'
 
 type ContactChannel = {
   /** What the visitor reads, in Spanish: "Instagram", "Correo", and so on. */
@@ -28,7 +29,7 @@ type ContactSectionProps = {
  */
 export function ContactSection({ channels = [] }: ContactSectionProps) {
   return (
-    <Section id="contacto" eyebrow="Escribinos" title="Contacto">
+    <Section id={anchorFor('contacto')} eyebrow="Escribinos" title="Contacto">
       {channels.length === 0 ? (
         <p className="contact__empty">
           Todavía no hay canales de contacto publicados.

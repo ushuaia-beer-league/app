@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { labelFor, summariseVisits, type ViewCount } from './visitsSummary'
+import {
+  labelFor,
+  summariseVisitFacts,
+  summariseVisits,
+  type ViewCount,
+  type VisitFactCount,
+} from './visitsSummary'
 
 const count = (path: string, day: string, views: number): ViewCount => ({
   path,
@@ -83,5 +89,108 @@ describe('summariseVisits', () => {
     const summary = summariseVisits([count('admin/fotos', '2026-08-05', 0)])
 
     expect(summary.rows[0]).toMatchObject({ total: 0, lastSeen: null })
+  })
+})
+
+describe('summariseVisitFacts', () => {
+  const fact = (
+    fact: string,
+    value: string,
+    visits: number,
+    day = '2026-08-06',
+  ): VisitFactCount => ({ day, fact, value, visits })
+
+  it('keeps first-time browsers and returns as two different numbers', () => {
+    // They cannot be added. One counts browsers once each, the other counts
+    // occasions, and a single "visitors" number would be neither.
+    const summary = summariseVisitFacts([
+      fact('visitor', 'new', 12),
+      fact('visitor', 'returning', 4, '2026-08-05'),
+      fact('visitor', 'returning', 7),
+    ])
+
+    expect(summary.firstTime).toBe(12)
+    expect(summary.returns).toBe(11)
+  })
+
+  it('counts entries from the device split, because every entry answers that', () => {
+    const summary = summariseVisitFacts([
+      fact('device', 'phone', 30),
+      fact('device', 'computer', 10),
+      fact('referrer', 'direct', 40),
+    ])
+
+    expect(summary.entries).toBe(40)
+    expect(summary.devices).toEqual([
+      { value: 'phone', label: 'Teléfono', visits: 30, share: 75 },
+      { value: 'computer', label: 'Computadora', visits: 10, share: 25 },
+    ])
+  })
+
+  it('names the referrers in the words the league would use', () => {
+    const summary = summariseVisitFacts([
+      fact('device', 'phone', 10),
+      fact('referrer', 'direct', 6),
+      fact('referrer', 'social', 3),
+      fact('referrer', 'search', 1),
+    ])
+
+    expect(summary.referrers.map((row) => row.label)).toEqual([
+      'Directo o por WhatsApp',
+      'Redes sociales',
+      'Buscadores',
+    ])
+  })
+
+  it('names the landing pages the way the rest of the panel does', () => {
+    const summary = summariseVisitFacts([
+      fact('device', 'phone', 5),
+      fact('entry', '/', 4),
+      fact('entry', 'admin/equipos', 1),
+    ])
+
+    expect(summary.landings).toEqual([
+      { value: '/', label: 'Sitio público', visits: 4, share: 80 },
+      {
+        value: 'admin/equipos',
+        label: 'Panel: equipos y planteles',
+        visits: 1,
+        share: 20,
+      },
+    ])
+  })
+
+  it('lets the landings add up to less than the entries', () => {
+    // A path nobody can name is left uncounted rather than stored as junk, so this
+    // is the expected shape and not a lost row.
+    const summary = summariseVisitFacts([
+      fact('device', 'phone', 10),
+      fact('entry', '/', 8),
+    ])
+
+    expect(summary.entries).toBe(10)
+    expect(summary.landings[0]?.visits).toBe(8)
+  })
+
+  it('answers zeroes rather than dividing by nothing', () => {
+    expect(summariseVisitFacts([])).toEqual({
+      firstTime: 0,
+      returns: 0,
+      entries: 0,
+      devices: [],
+      referrers: [],
+      landings: [],
+    })
+  })
+
+  it('shows a value nobody named instead of hiding it', () => {
+    // Only the site writes here, so an unfamiliar value means the site changed and
+    // this file did not.
+    const summary = summariseVisitFacts([
+      fact('device', 'phone', 1),
+      fact('referrer', 'carrier-pigeon', 1),
+    ])
+
+    expect(summary.referrers[0]?.label).toBe('carrier-pigeon')
   })
 })
