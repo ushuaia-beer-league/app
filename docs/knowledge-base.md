@@ -683,14 +683,13 @@ only the matchups. Use the calendar CSV for results.
 ## 9. Open questions for the organisation
 
 1. Confirm the short-name to full-name mapping for the seven teams.
-2. Confirm, rather than supply, how the four women's teams map to the names the
-   fixture and the standings use. Inferred from the goals on 5 August 2026 and
-   recorded in `src/data/teams-2026.ts` with the arithmetic: Turbeerras is Birra
-   del Fuego, Frozen Queens is Sucucho, Zambirreras is Tipo Nine, Moby Drink is
-   Zhockey. The four women's rosters were then derived from the published
-   statistics on top of that mapping, so a wrong pairing puts a whole roster on
-   the wrong team. Their real names are still missing too: the four teams carry
-   the men's names because the fixture carried nothing else.
+2. ~~How the four women's teams map to the names the fixture uses.~~
+   **Answered 6 August 2026**, and the answer overruled the arithmetic:
+   Turbeerras is Birra del Fuego, Frozen Queens is Sucucho, Zambirreras is
+   **Zhockey** and Moby Drinks is **Tipo Nine**. The goals pointed at the last two
+   the other way round, the four rosters had been derived on top of that inference,
+   and all of it was corrected. The reasoning and the lesson are kept in
+   `src/data/teams-2026.ts` rather than tidied away.
 3. The missing round-1 match (21:30 at Bahía, no teams).
 4. The empty or misaligned "Resultado" and "Ganador" columns in round 5.
 5. Whether draws are valid only in the women's competition or in both.
@@ -707,9 +706,35 @@ only the matchups. Use the calendar CSV for results.
    minimum data and the current spreadsheet does not have them.
 10. What a franchise player is and how it is flagged.
 11. The substitute cost per round after June.
-12. The full playoff format: how many teams qualify, whether the first and
-    second seeds wait in the semifinals, whether the fifth-place game is played
-    every year.
+12. ~~The full playoff format.~~ **Answered 6 August 2026**: the first and
+    second seeds each wait in a semifinal, the third plays the winner of sixth
+    against seventh, and the fourth plays the fifth. Whether a fifth-place game is
+    played every year is still open.
+13. **The women's playoff shirts, and one contradiction inside them.** Told on
+    6 August 2026: the badges the league sent are the shirts they wear now, which
+    carry the men's teams' sponsors because the women's shirts had not arrived
+    yet. At the playoffs they debut their own sponsors, Brolas, Drake, Táun and
+    Vertice, and the colours change with them.
+
+    What was said matches what is loaded for two of the four: Zambirreras keeps
+    Táun and turns from red to blue, and the Vertice team turns from orange to
+    cream. The third does not match. Turbeerras was described as Drake, and what
+    is loaded, from the message of the same day, is Turbeerras with **Brolas** and
+    Frozen Queens with **Drake**. One of the two readings is wrong and they cannot
+    both stand, so nothing was written: either Turbeerras is Brolas, as loaded, or
+    Turbeerras and Frozen Queens swap sponsors.
+
+    Also missing: the new colour for Frozen Queens, and the date the shirts are
+    first worn.
+
+    Worth writing down alongside it, because it is a modelling problem and not a
+    data problem: the sponsor and the colour live on the team, and a team is not
+    scoped to a season. Changing them mid-season makes the site say the whole
+    season was played in the new shirts. For four teams and one change the cheap
+    answer is to change the values when the shirts are actually worn and accept
+    that the site shows who they are now, which is what a league site does. The
+    expensive answer, sponsors per season, is only worth building the year two
+    seasons have to be shown side by side.
 
 ---
 

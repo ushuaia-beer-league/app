@@ -86,7 +86,7 @@ out of an empty administrator table.
 
 ## 4. Where the data lives
 
-Fifteen tables. Row level security is per table, so a new one is private until a
+Sixteen tables. Row level security is per table, so a new one is private until a
 policy says otherwise.
 
 | Group              | Tables                                                                                        |
@@ -95,7 +95,7 @@ policy says otherwise.
 | Sport              | `teams`, `players`, `team_players`, `matches`, `match_players`, `match_goals`, `goalie_lines` |
 | Transcribed totals | `published_player_stats`, `published_goalie_stats`                                            |
 | Content            | `sponsors`, `photos`                                                                          |
-| Operation          | `admins`, `page_views`                                                                        |
+| Operation          | `admins`, `page_views`, `visit_facts`                                                         |
 
 **Nothing that can be added up is stored.** Standings, scoring, goalkeeping and
 playoff progression are computed from match records every time they are read. The
@@ -125,31 +125,55 @@ original material and nothing ever writes to it.
 The site is static, so there are no server logs anywhere. Everything below is a
 deliberate choice about what to count.
 
-### Today
+### What is counted
 
-`/admin/visitas` counts **which screen was opened, and on what day**. Nothing else:
-no address, no browser, no referrer, no session, no identifier. The day is the
-league's own day, Ushuaia time. Written only by `record_view`, a function that adds
-one to a counter and can do nothing else; visitors have no access to the table
-itself.
+Two tables, both holding counters and neither holding an identifier.
 
-The numbers are indicative rather than audited: anybody can call that function in a
-loop, a browser that blocks the request is never counted, and the panel counts
-itself.
+`page_views` counts **which screen was opened, and on what day**. Written only by
+`record_view`, a function that adds one to a counter and can do nothing else.
 
-### What cannot be measured from here, and why
+`visit_facts` counts **four properties of an arrival**, once per page load: whether
+the browser had been here before, phone or computer, which of four kinds of place
+sent them, and which page they landed on. Written only by `record_visit`, under the
+same rules.
 
-| Wanted                                | Status                                                                                                                                                                                                                       |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Phone or computer                     | Possible without identifying anybody.                                                                                                                                                                                        |
-| Direct entry, or which site sent them | Possible: the referrer's host, not the full address.                                                                                                                                                                         |
-| Every sign-in to the panel            | Possible: an administrator is authenticated already, so it is their own action being recorded.                                                                                                                               |
-| Country and city                      | **Not possible as things stand.** It needs the visitor's address, and no server of ours ever sees one. The only routes are a third party the browser asks, or moving the site behind something that resolves it at the edge. |
-| Whether a person came back            | **Possible only by giving each browser an identifier** and keeping it. That is the line where the site stops holding nothing about anybody, and where the sentence it prints on screen would have to change.                 |
+Both days are the league's own day, Ushuaia time. Visitors have no access to either
+table; any of the three administrator roles may read them, and the policy is what
+refuses, not the panel.
 
-The last two are decisions about what the league promises its players, not
-technical details, which is why they are written here rather than quietly
-implemented.
+The numbers are indicative rather than audited: anybody can call those functions in
+a loop, a browser that blocks the request is never counted, one person with a phone
+and a laptop is two browsers, and the panel counts itself.
+
+### The one that looked impossible, and was not
+
+This section used to say that recognising a returning visitor was **possible only
+by giving each browser an identifier**, and that doing it would end the promise
+that the site holds nothing about anybody. That was wrong, and the way it was wrong
+is worth keeping: it assumed the recognising had to happen on the server.
+
+It does not. The browser keeps one date — the league day it was last here — in its
+own storage, compares it to today, and sends one word, `new` or `returning`. No
+identifier is ever created, so none can be stored, leaked or handed over. What the
+database receives is indistinguishable from a counter, because that is all it is.
+
+Two consequences worth stating plainly:
+
+- `visitor=new` counts browsers that had never been here, so it is close to "people
+  who found the site". `visitor=returning` counts, once per day, a browser that had
+  been here on an earlier day: one person coming back on five days adds five. It
+  measures how often the league returns, not how many of them do, and the panel
+  says so beside the number.
+- A browser that refuses storage is counted as new every time. It cannot be
+  recognised, so it is not claimed to be.
+
+### What still cannot be measured, and why
+
+| Wanted                     | Status                                                                                                                                                                                                                                                          |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Country and city           | **Not possible as things stand, and declined.** It needs the visitor's address, and no server of ours ever sees one. The routes are a third party the browser asks or moving the site behind an edge that resolves it; the league chose to stay free and quiet. |
+| Every sign-in to the panel | Possible and not built. An administrator is authenticated already, so it would be their own action being recorded, and `page_views` already shows the panel being used.                                                                                         |
+| Which exact site sent them | Possible and declined. Only the class of the referrer travels, so a URL carrying somebody's search never reaches the database.                                                                                                                                  |
 
 ---
 
@@ -159,7 +183,7 @@ implemented.
 | --------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------- |
 | `npm run lint`                          | Style and dead code                                                                                  | Every PR and deploy                      |
 | `npm run typecheck`                     | Types, including a column the database does not have                                                 | Every PR and deploy                      |
-| `npm test -- --run`                     | 748 cases over the rules, the screens and the seed                                                   | Every PR and deploy                      |
+| `npm test -- --run`                     | 790 cases over the rules, the screens and the seed                                                   | Every PR and deploy                      |
 | `npm run build`                         | The stricter compile the app config applies                                                          | Every PR and deploy                      |
 | `npm run smoke:queries`                 | A select the library accepts and the service refuses. It cost a published site with no fixture once. | Every deploy, when the variables are set |
 | `supabase/tests/row-level-security.sql` | Who may read and write what, asserted against the real database                                      | By hand                                  |
@@ -181,7 +205,7 @@ right shape.
 It reads with the same public key the site uses, which is the property that
 matters: it can only copy what any visitor could already read. `admins` holds
 people's email addresses and the database refuses that key, so nothing personal can
-reach a public repository even by mistake. `page_views` is left out because it is a
+reach a public repository even by mistake. `page_views` and `visit_facts` are left out because they are a
 counter about the site rather than the league's record of itself.
 
 The rule that protects it: **a failed read never overwrites a good copy.** A paused

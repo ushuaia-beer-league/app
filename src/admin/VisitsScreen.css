@@ -20,7 +20,7 @@
   margin: 0 0 var(--space-4);
   color: var(--color-text-muted);
   font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
+  line-height: var(--leading-body);
 }
 
 .visits__note--quiet {
@@ -76,4 +76,108 @@
 .visits__gap {
   color: var(--color-text-muted);
   font-style: italic;
+}
+
+/*
+ * The three numbers at the top: first-time browsers, returns, entries.
+ *
+ * Cards rather than a table because they are three unrelated facts and a table
+ * would invite adding them up, which is exactly the wrong reading of the first two.
+ */
+.visits__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: var(--space-3);
+  margin: 0 0 var(--space-2);
+}
+
+.visits__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+}
+
+.visits__card-number {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.visits__card-label {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+
+/* Three breakdowns side by side on a screen wide enough, stacked on a phone. */
+.visits__splits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-5) 0 var(--space-5);
+}
+
+.visits__split-title {
+  margin: 0 0 var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.visits__split-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+ * A label, a bar and a count. The bar is a grid row of its own so the counts line
+ * up down the column whatever the labels do.
+ */
+.visits__split-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'label count'
+    'bar bar';
+  gap: var(--space-1) var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-line);
+  font-size: var(--text-sm);
+}
+
+.visits__split-label {
+  grid-area: label;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.visits__split-count {
+  grid-area: count;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.visits__split-share {
+  color: var(--color-text-muted);
+}
+
+/*
+ * The bar sits in its own row with a track behind it, so a share of 2% is still
+ * visibly a share rather than an invisible sliver. Decoration only: the number is
+ * beside it.
+ */
+.visits__split-bar {
+  grid-area: bar;
+  min-width: 2px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
 }
