@@ -318,3 +318,62 @@ describe('LeaguesSection', () => {
     ).toEqual(['6', '12', '6', '0', '0', '5', '49', '32', '+17'])
   })
 })
+
+describe('LeaguesSection showing every competition at once', () => {
+  const chooseAll = () => {
+    fireEvent.click(screen.getByRole('button', { name: 'Todas' }))
+  }
+
+  it('offers the option and marks it pressed once chosen', () => {
+    render(<LeaguesSection season={SEASON} today="2026-06-01" />)
+
+    const all = screen.getByRole('button', { name: 'Todas' })
+    expect(all).toHaveAttribute('aria-pressed', 'false')
+
+    chooseAll()
+
+    expect(all).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'Beer League' })).toHaveAttribute(
+      'aria-pressed',
+      'false',
+    )
+  })
+
+  it('merges the fixture and says which competition each match is', () => {
+    render(<LeaguesSection season={SEASON} today="2026-06-01" />)
+    chooseAll()
+
+    // Both competitions play on 28 June in this fixture, and now both are listed.
+    expect(screen.getAllByText('Beer League').length).toBeGreaterThan(0)
+    expect(screen.getAllByText("Women's Beer League").length).toBeGreaterThan(0)
+  })
+
+  it('never merges a table: two of them, each under its own name', () => {
+    render(<LeaguesSection season={SEASON} today="2026-06-01" />)
+    chooseAll()
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Posiciones' }))
+
+    // A point earned in one competition is not a point in the other, so there are
+    // two tables rather than one mixed one.
+    expect(screen.getAllByRole('table')).toHaveLength(2)
+    expect(
+      screen.getByRole('heading', { level: 3, name: 'Beer League' }),
+    ).toBeVisible()
+    expect(
+      screen.getByRole('heading', { level: 3, name: "Women's Beer League" }),
+    ).toBeVisible()
+  })
+
+  it('says the competition’s name only when there is something to tell apart', () => {
+    render(<LeaguesSection season={SEASON} today="2026-06-01" />)
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Posiciones' }))
+
+    // One competition chosen: one table, and no heading repeating the choice.
+    expect(screen.getAllByRole('table')).toHaveLength(1)
+    expect(
+      screen.queryByRole('heading', { level: 3, name: 'Beer League' }),
+    ).not.toBeInTheDocument()
+  })
+})

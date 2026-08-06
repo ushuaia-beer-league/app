@@ -192,3 +192,16 @@
 .fixture-split__past[open] .fixture-split__summary {
   margin-bottom: var(--space-3);
 }
+
+/*
+ * Which competition a row belongs to, shown only when both are listed together.
+ * Beside the cabecera because that is the line that already says where a match is,
+ * and this says which league is playing there.
+ */
+.fixture__competition {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--text-2xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}

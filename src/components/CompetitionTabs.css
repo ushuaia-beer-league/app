@@ -51,3 +51,12 @@
   border-color: var(--color-comp-wubl-line);
   background: var(--color-comp-wubl-fill);
 }
+
+/*
+ * "Todas" carries no colour of its own. The two competition pills are tinted
+ * because each one stands for a competition; this one stands for a way of looking,
+ * and giving it a third colour would suggest a third league that does not exist.
+ */
+.competition-tabs__pill--all {
+  font-style: normal;
+}

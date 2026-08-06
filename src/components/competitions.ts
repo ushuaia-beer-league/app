@@ -32,3 +32,23 @@ export const COMPETITION_LABELS: readonly CompetitionLabel[] = [
 export function competitionLabel(key: CompetitionKey): string {
   return COMPETITION_LABELS.find((entry) => entry.key === key)?.label ?? key
 }
+
+/**
+ * What the selector can be set to: one competition, or all of them at once.
+ *
+ * `all` is not a competition and never becomes one. It is a way of looking, and
+ * what it means changes per table, which is the whole reason it needs a name of
+ * its own rather than being a third key in `COMPETITION_LABELS`:
+ *
+ * - the fixture merges, because the league really does play both at once. Two
+ *   matches run at the same time in Bahía and Poli, and on a shared Saturday one
+ *   of them can be a women's match. Showing one competition hides half of that
+ *   night;
+ * - every table stays split, one per competition, stacked and labelled. Points,
+ *   goals and save percentages belong to the competition they were earned in, and
+ *   a single table mixing them would be a number nobody scored.
+ */
+export type CompetitionChoice = CompetitionKey | 'all'
+
+/** The label for the option that shows everything. */
+export const ALL_COMPETITIONS_LABEL = 'Todas'

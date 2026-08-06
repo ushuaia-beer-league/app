@@ -7,6 +7,8 @@ import {
   publishedScoringTable,
 } from '../utils/published-statistics'
 import { standings } from '../utils/standings'
+import { competitionLabel, COMPETITION_LABELS } from './competitions'
+import type { CompetitionChoice } from './competitions'
 import { CompetitionTabs } from './CompetitionTabs'
 import { todayIso } from './dates'
 import { FixtureList } from './FixtureList'
@@ -69,47 +71,72 @@ export function LeaguesSection({
   season,
   today = todayIso(),
 }: LeaguesSectionProps) {
-  const [competition, setCompetition] = useState<CompetitionKey>('beer')
+  const [choice, setChoice] = useState<CompetitionChoice>('beer')
   const [tab, setTab] = useState<TabKey>('fixture')
   const tabButtons = useRef<(HTMLButtonElement | null)[]>([])
 
-  const teams = useMemo(
-    () => season.teams.filter((team) => team.competition === competition),
-    [season.teams, competition],
+  /**
+   * Which competitions the tables show. One, or both when the selector says all.
+   *
+   * The tables are never merged, however the selector is set: a point, a goal and
+   * a save percentage belong to the competition they were earned in, and one table
+   * mixing two of them would print a number nobody scored. So "all" stacks them,
+   * each under its own name. The fixture is the exception and merges, because the
+   * league really does play both on the same night.
+   */
+  const shown = useMemo<CompetitionKey[]>(
+    () =>
+      choice === 'all'
+        ? COMPETITION_LABELS.map((competition) => competition.key)
+        : [choice],
+    [choice],
   )
 
   const teamName = useMemo(() => {
-    const names = new Map(teams.map((team) => [team.slug, team.shortName]))
+    // Every team of the season, not only the chosen competition's: a merged
+    // fixture names teams from both. Slugs are unique across competitions, so the
+    // two teams called "Birra del Fuego" stay apart.
+    const names = new Map(
+      season.teams.map((team) => [team.slug, team.shortName]),
+    )
 
     // A team id nothing answers for is a gap between two sources, so the id is
     // shown as it is. Inventing a name would hide the gap.
     return (teamId: string) => names.get(teamId) ?? teamId
-  }, [teams])
+  }, [season.teams])
 
   const rounds = useMemo(
-    () => fixtureRounds(season.matches, { competition }),
-    [season.matches, competition],
+    () => fixtureRounds(season.matches, { competition: choice }),
+    [season.matches, choice],
   )
 
-  const table = useMemo(
+  /** One competition's four tables, computed by the modules that own the rules. */
+  const blocks = useMemo(
     () =>
-      standings(season.matches, {
-        competition,
-        // Every team of the competition appears, even one that has not played.
-        teamIds: teams.map((team) => team.slug),
-      }),
-    [season.matches, competition, teams],
-  )
-
-  const scorers = useMemo(
-    () => publishedScoringTable(season.publishedPlayerStats, { competition }),
-    [season.publishedPlayerStats, competition],
-  )
-
-  const goalkeepers = useMemo(
-    () =>
-      publishedGoalkeepingTable(season.publishedGoalieStats, { competition }),
-    [season.publishedGoalieStats, competition],
+      shown.map((competition) => ({
+        key: competition,
+        label: competitionLabel(competition),
+        table: standings(season.matches, {
+          competition,
+          // Every team of the competition appears, even one that has not played.
+          teamIds: season.teams
+            .filter((team) => team.competition === competition)
+            .map((team) => team.slug),
+        }),
+        scorers: publishedScoringTable(season.publishedPlayerStats, {
+          competition,
+        }),
+        goalkeepers: publishedGoalkeepingTable(season.publishedGoalieStats, {
+          competition,
+        }),
+      })),
+    [
+      shown,
+      season.matches,
+      season.teams,
+      season.publishedPlayerStats,
+      season.publishedGoalieStats,
+    ],
   )
 
   function moveTab(event: KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -143,7 +170,7 @@ export function LeaguesSection({
       eyebrow={`Temporada ${season.season}`}
       title="Ligas & Estadísticas"
     >
-      <CompetitionTabs value={competition} onChange={setCompetition} />
+      <CompetitionTabs value={choice} onChange={setChoice} />
 
       {season.source === 'seed' && (
         <p className="leagues__snapshot">
@@ -189,37 +216,68 @@ export function LeaguesSection({
         tabIndex={0}
       >
         {tab === 'fixture' && (
-          <FixtureList rounds={rounds} teamName={teamName} today={today} />
-        )}
-
-        {tab === 'standings' && (
-          <StandingsTable
-            rows={table}
+          <FixtureList
+            rounds={rounds}
             teamName={teamName}
-            // The women's sheet counts draws where the Beer League sheet counts
-            // shootout losses. Two different columns, so the table is told which.
-            onePointColumn={competition === 'wubl' ? 'empate' : 'ppso'}
+            today={today}
+            // Only when both are on screen at once: with one competition chosen,
+            // saying which one on every single row is noise.
+            showCompetition={choice === 'all'}
           />
         )}
 
-        {tab === 'scoring' && (
-          <ScoringTable rows={scorers} publishedOn={season.publishedOn} />
-        )}
+        {tab !== 'fixture' &&
+          blocks.map((block) => (
+            <section
+              className="leagues__block"
+              key={block.key}
+              aria-labelledby={
+                shown.length > 1 ? `ligas-block-${block.key}` : undefined
+              }
+            >
+              {/* The name appears only when there is something to tell apart. */}
+              {shown.length > 1 && (
+                <h3
+                  className="leagues__block-title"
+                  id={`ligas-block-${block.key}`}
+                >
+                  {block.label}
+                </h3>
+              )}
 
-        {tab === 'goalkeeping' && (
-          <GoalkeepingTable
-            rows={goalkeepers}
-            publishedOn={season.publishedOn}
-          />
-        )}
+              {tab === 'standings' && (
+                <StandingsTable
+                  rows={block.table}
+                  teamName={teamName}
+                  // The women's sheet counts draws where the Beer League sheet
+                  // counts shootout losses. Two columns, so the table is told which.
+                  onePointColumn={block.key === 'wubl' ? 'empate' : 'ppso'}
+                />
+              )}
 
-        {tab === 'playoffs' && (
-          <PlayoffBracket
-            matches={season.matches}
-            competition={competition}
-            teamName={teamName}
-          />
-        )}
+              {tab === 'scoring' && (
+                <ScoringTable
+                  rows={block.scorers}
+                  publishedOn={season.publishedOn}
+                />
+              )}
+
+              {tab === 'goalkeeping' && (
+                <GoalkeepingTable
+                  rows={block.goalkeepers}
+                  publishedOn={season.publishedOn}
+                />
+              )}
+
+              {tab === 'playoffs' && (
+                <PlayoffBracket
+                  matches={season.matches}
+                  competition={block.key}
+                  teamName={teamName}
+                />
+              )}
+            </section>
+          ))}
       </div>
     </Section>
   )

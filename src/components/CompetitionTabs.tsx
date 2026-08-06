@@ -1,5 +1,5 @@
-import type { CompetitionKey } from '../data/types'
-import { COMPETITION_LABELS } from './competitions'
+import { ALL_COMPETITIONS_LABEL, COMPETITION_LABELS } from './competitions'
+import type { CompetitionChoice } from './competitions'
 import './CompetitionTabs.css'
 
 /**
@@ -11,13 +11,17 @@ import './CompetitionTabs.css'
 const COMPETITIONS = COMPETITION_LABELS
 
 type CompetitionTabsProps = {
-  /** The competition currently on screen. */
-  value: CompetitionKey
-  onChange: (competition: CompetitionKey) => void
+  /** What is on screen: one competition, or all of them. */
+  value: CompetitionChoice
+  onChange: (competition: CompetitionChoice) => void
 }
 
 /**
- * The competition selector: two pills, one of them pressed.
+ * The competition selector: two pills and "Todas", one of them pressed.
+ *
+ * "Todas" comes last on purpose. It is the widest view and the least specific, so
+ * somebody who wants one competition finds it first; and it is a way of looking
+ * rather than a third competition, which is why it carries no glyph of its own.
  *
  * Deliberately not a second `role="tablist"`. The four tables below already are
  * one, and nesting a tablist inside a tabpanel makes a screen reader announce
@@ -43,6 +47,15 @@ export function CompetitionTabs({ value, onChange }: CompetitionTabsProps) {
           </button>
         )
       })}
+
+      <button
+        className="competition-tabs__pill competition-tabs__pill--all"
+        type="button"
+        aria-pressed={value === 'all'}
+        onClick={() => onChange('all')}
+      >
+        {ALL_COMPETITIONS_LABEL}
+      </button>
     </div>
   )
 }

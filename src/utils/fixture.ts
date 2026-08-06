@@ -29,12 +29,25 @@ export interface FixtureRound {
  */
 export function fixtureRounds(
   matches: readonly Match[],
-  { competition }: { competition: CompetitionKey },
+  {
+    competition,
+  }: {
+    /**
+     * One competition, or `'all'` for the calendar the league actually plays.
+     *
+     * Merging is right here and nowhere else. Two matches run at the same time in
+     * Bahía and in Poli, and on a shared Saturday one of the two can belong to
+     * the women's competition, so a fixture filtered to one of them hides half of
+     * that night. Every other table stays split, because a point earned in one
+     * competition is not a point in the other.
+     */
+    competition: CompetitionKey | 'all'
+  },
 ): FixtureRound[] {
   const rounds = new Map<string, Map<string, Match[]>>()
 
   for (const match of matches) {
-    if (match.competition !== competition) continue
+    if (competition !== 'all' && match.competition !== competition) continue
 
     const slots = rounds.get(match.date) ?? new Map<string, Match[]>()
     rounds.set(match.date, slots)
@@ -50,9 +63,14 @@ export function fixtureRounds(
         .map(([time, slotMatches]) => ({
           time,
           // Bahía before Poli, and a slot with no cabecera assigned last, so the
-          // order on screen is the order on the sheet.
-          matches: [...slotMatches].sort((a, b) =>
-            (a.venue ?? 'zzz').localeCompare(b.venue ?? 'zzz'),
+          // order on screen is the order on the sheet. A merged slot can hold two
+          // competitions at the same time in the same cabecera only when one of
+          // them has no cabecera on the sheet, so the competition breaks the tie
+          // and the order stops depending on the order the matches arrived in.
+          matches: [...slotMatches].sort(
+            (a, b) =>
+              (a.venue ?? 'zzz').localeCompare(b.venue ?? 'zzz') ||
+              a.competition.localeCompare(b.competition),
           ),
         })),
     }))
