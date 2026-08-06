@@ -189,39 +189,53 @@
   text-transform: uppercase;
 }
 
+/*
+ * A grid and not a wrapping flex row, so the rows line up.
+ *
+ * With flex-wrap each badge sized itself and one name wrapping to two lines pushed
+ * its neighbours out of line, which is what "these are not symmetrical" was looking
+ * at. A grid gives every cell the same width and every row the same height.
+ */
 .team-card__badge-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(3.75rem, 1fr));
+  gap: var(--space-3) var(--space-2);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .team-card__badge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  /* The drawing gets a fixed square row and the name gets the rest, so a name on
+   * two lines cannot make its badge sit higher than the one beside it. */
+  grid-template-rows: auto 1fr;
+  justify-items: center;
   gap: var(--space-1);
-  width: 4.5rem;
 }
 
 /*
- * `contain`, never `cover`: one of these badges is landscape and one is small, and
- * cropping somebody's face to square it off is not a decision a stylesheet should
- * take.
+ * A square box, always the same size, with the drawing centred inside it.
+ *
+ * The files are prepared to match: `scripts/build-player-badges.py` trims each one
+ * to its own content and pads it to a square before resizing, because one of them
+ * carried thirty per cent empty canvas and came out visibly smaller than the rest
+ * inside the same box. `contain` and never `cover`, because cropping somebody's face
+ * to square it off is not a decision for a stylesheet.
  */
 .team-card__badge img {
   width: 100%;
+  aspect-ratio: 1;
   height: auto;
-  max-height: 4.5rem;
   object-fit: contain;
 }
 
 .team-card__badge-name {
+  align-self: start;
   color: var(--color-text-muted);
   font-size: var(--text-xs);
   line-height: var(--leading-body);
   text-align: center;
+  text-wrap: balance;
   overflow-wrap: anywhere;
 }
