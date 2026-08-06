@@ -172,8 +172,31 @@ of.
 
 ---
 
-## 7. What is still missing
+## 7. The backup
 
-Not code, mostly. `plan.md` keeps the list current: the playoff format, the four
-women's team names, the remaining data questions, and a backup for anything entered
-through the panel, which today exists in one place only.
+`backups/league.json`, rewritten every Sunday by `backup.yml` and committed. Git
+keeps every version, so the history is the archive and one overwritten file is the
+right shape.
+
+It reads with the same public key the site uses, which is the property that
+matters: it can only copy what any visitor could already read. `admins` holds
+people's email addresses and the database refuses that key, so nothing personal can
+reach a public repository even by mistake. `page_views` is left out because it is a
+counter about the site rather than the league's record of itself.
+
+The rule that protects it: **a failed read never overwrites a good copy.** A paused
+project, a dropped network, a table that answers with nothing: each of those would
+otherwise turn a season into an empty file that looks like a successful backup. Both
+refusals are tested rather than assumed.
+
+To restore, the file holds each table in the shape the database keeps it, so it goes
+back through `psql` or the SQL editor table by table. Restoring has never been
+rehearsed, which is the honest thing to say about any backup nobody has restored.
+
+---
+
+## 8. What is still missing
+
+Not code, mostly. `plan.md` keeps the list current: the playoff format, which
+women's team played which fixture, the remaining data questions, and the two
+metrics that need a decision about what the league promises its players.

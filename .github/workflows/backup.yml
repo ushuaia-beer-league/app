@@ -1,0 +1,72 @@
+name: Backup
+
+# Once a week, a copy of what the panel holds, committed to this repository.
+#
+# The versioned seed covers the season imported from `docs/sources/`, and it is
+# generated from those sources: it knows nothing about what the league types in
+# afterwards. From the first match sheet somebody fills in, that data exists in one
+# place only, and the free Supabase tier includes no automated backups.
+#
+# Saturdays are match days here, so this runs on Sunday morning, when the week's
+# results have been entered and before anybody starts editing again.
+#
+# It reads with the same public key the site uses, which is the safety property:
+# this can only copy what any visitor could already read. `admins` holds email
+# addresses and the database refuses that key, so nothing personal can reach a
+# public repository even by mistake.
+on:
+  schedule:
+    - cron: '20 12 * * 0'
+  workflow_dispatch:
+
+concurrency:
+  group: backup
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    name: Copy the league's data into the repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      # Absent variables are a configuration problem rather than a backup problem,
+      # and a scheduled job that quietly does nothing is worse than one that fails.
+      - name: Refuse to pretend when there is nothing to read
+        if: vars.SUPABASE_URL == '' || vars.SUPABASE_PUBLISHABLE_KEY == ''
+        run: |
+          echo "SUPABASE_URL or SUPABASE_PUBLISHABLE_KEY is not set as a repository variable."
+          echo "There is nothing to copy, so this is a failure and not a quiet success."
+          exit 1
+
+      - name: Read the league's data
+        env:
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: npm run backup
+
+      # Committed only when something changed, so a quiet fortnight leaves no empty
+      # commits behind. The script itself refuses to write a copy that lost rows, so
+      # by the time anything reaches here it is worth keeping.
+      - name: Commit it if the league's record moved
+        run: |
+          if git diff --quiet -- backups/; then
+            echo "Nothing changed since the last copy."
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add backups/
+          git commit -m 'chore: weekly copy of the league data'
+          git push
