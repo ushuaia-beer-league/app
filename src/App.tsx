@@ -9,6 +9,7 @@ import { SponsorsSection } from './components/SponsorsSection'
 import { TeamsSection } from './components/TeamsSection'
 import { useSeason } from './hooks/useSeason'
 import { anchorFor } from './utils/site-routes'
+import { useT } from './i18n/useLanguage'
 
 /**
  * The public page.
@@ -24,11 +25,12 @@ import { anchorFor } from './utils/site-routes'
  */
 export function App() {
   const { data: season, loading } = useSeason()
+  const t = useT()
 
   return (
     <>
       <a className="skip-link" href="#contenido">
-        Saltar al contenido
+        {t('Saltar al contenido')}
       </a>
 
       <SiteNav />
@@ -45,7 +47,7 @@ export function App() {
             id={anchorFor('ligas')}
             aria-live="polite"
           >
-            {loading ? 'Cargando la temporada…' : ''}
+            {loading ? t('Cargando la temporada…') : ''}
           </p>
         )}
 

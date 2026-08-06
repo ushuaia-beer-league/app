@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import { LanguagePicker } from '../i18n/LanguagePicker'
+import type { StringKey } from '../i18n/language'
+import { useT } from '../i18n/useLanguage'
 import { Crest } from './Crest'
 import { Wordmark } from './Wordmark'
 import './SiteNav.css'
@@ -17,9 +20,9 @@ import './SiteNav.css'
  * panel guarded by a password in the browser. It becomes a link to `/admin/`
  * behind Google sign-in.
  */
-const NAV_ITEMS = [
+const NAV_ITEMS: { href: string; label: StringKey }[] = [
   { href: '#historia', label: 'Historia' },
-  { href: '#ligas', label: 'Ligas' },
+  { href: '#ligas', label: 'Ligas & Estadísticas' },
   { href: '#equipos', label: 'Equipos' },
   { href: '#galeria', label: 'Fotos' },
   { href: '#sponsors', label: 'Sponsors' },
@@ -37,10 +40,11 @@ const LINKS_ID = 'site-nav-links'
  */
 export function SiteNav() {
   const [isOpen, setIsOpen] = useState(false)
+  const t = useT()
 
   return (
     <header className="site-nav">
-      <nav className="site-nav__bar" aria-label="Navegación principal">
+      <nav className="site-nav__bar" aria-label={t('Navegación principal')}>
         <a className="site-nav__brand" href="#hero">
           <Crest size="sm" />
           <Wordmark size="sm" />
@@ -56,7 +60,7 @@ export function SiteNav() {
           <span className="site-nav__toggle-glyph" aria-hidden="true">
             {isOpen ? '✕' : '☰'}
           </span>
-          {isOpen ? 'Cerrar menú' : 'Menú'}
+          {isOpen ? t('Cerrar menú') : t('Menú')}
         </button>
 
         <ul
@@ -66,10 +70,16 @@ export function SiteNav() {
           {NAV_ITEMS.map((item) => (
             <li key={item.href}>
               <a href={item.href} onClick={() => setIsOpen(false)}>
-                {item.label}
+                {t(item.label)}
               </a>
             </li>
           ))}
+          {/* Inside the disclosure on a phone, so a small screen does not have to
+           * find room for it beside the league's name, and on the bar from the
+           * breakpoint up. */}
+          <li className="site-nav__language">
+            <LanguagePicker />
+          </li>
         </ul>
       </nav>
     </header>

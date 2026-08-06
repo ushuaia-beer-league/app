@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { App } from './App'
 import { AdminApp } from './admin/AdminApp'
 import { CountVisit } from './data/CountVisit'
+import { LanguageProvider } from './i18n/LanguageProvider'
 import './index.css'
 
 const container = document.getElementById('root')
@@ -24,11 +25,13 @@ if (!container) {
 createRoot(container).render(
   <StrictMode>
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <CountVisit />
-      <Routes>
-        <Route path="/admin/*" element={<AdminApp />} />
-        <Route path="*" element={<App />} />
-      </Routes>
+      <LanguageProvider>
+        <CountVisit />
+        <Routes>
+          <Route path="/admin/*" element={<AdminApp />} />
+          <Route path="*" element={<App />} />
+        </Routes>
+      </LanguageProvider>
     </BrowserRouter>
   </StrictMode>,
 )

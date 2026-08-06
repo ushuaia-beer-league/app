@@ -1,0 +1,42 @@
+/*
+ * The language switch: two small buttons, the chosen one filled.
+ *
+ * Sized against the nav rather than against the page, because that is where it sits,
+ * and kept quiet: it matters to the few visitors who need it and should not compete
+ * with the league's own name beside it.
+ */
+.language-picker {
+  display: inline-flex;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.language-picker__option {
+  padding: 0.25rem var(--space-2);
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.language-picker__option:hover {
+  color: var(--color-text);
+}
+
+.language-picker__option--chosen {
+  background: var(--color-accent);
+  color: #0a0e14;
+  font-weight: 600;
+}
+
+/* Keyboard focus has to be visible on both states, so it is drawn inside. */
+.language-picker__option:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}

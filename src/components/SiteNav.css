@@ -130,3 +130,15 @@
     color: var(--color-text-muted);
   }
 }
+
+/* The language switch sits at the end of the row, pushed away from the links. */
+.site-nav__language {
+  margin-top: var(--space-2);
+}
+
+@media (min-width: 42.5em) {
+  .site-nav__language {
+    margin-top: 0;
+    margin-left: var(--space-2);
+  }
+}
