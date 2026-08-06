@@ -716,16 +716,22 @@ only the matchups. Use the calendar CSV for results.
     yet. At the playoffs they debut their own sponsors, Brolas, Drake, Táun and
     Vertice, and the colours change with them.
 
-    What was said matches what is loaded for two of the four: Zambirreras keeps
-    Táun and turns from red to blue, and the Vertice team turns from orange to
-    cream. The third does not match. Turbeerras was described as Drake, and what
-    is loaded, from the message of the same day, is Turbeerras with **Brolas** and
-    Frozen Queens with **Drake**. One of the two readings is wrong and they cannot
-    both stand, so nothing was written: either Turbeerras is Brolas, as loaded, or
-    Turbeerras and Frozen Queens swap sponsors.
+    The sponsors are settled, and the artwork settled them rather than anybody
+    having to answer. Two updated badges arrived the same day and the shirts inside
+    them are printed: the Turbeerras player wears **BROLAS** on the chest, and the
+    Moby Drink whale wears **VÉRTICE CONSTRUCCIONES**. Both match what is loaded,
+    so the message that described Turbeerras as Drake was a slip, and by
+    elimination Frozen Queens is Drake and Zambirreras is Táun. All four stand as
+    they are.
 
-    Also missing: the new colour for Frozen Queens, and the date the shirts are
-    first worn.
+    That is worth noting as a method and not just as an outcome: the badge is the
+    league's own artefact and it carries the answer on the jersey, which beats
+    anybody's memory of a sponsor list, including the league's own.
+
+    Still open, and not derivable from the drawings: the new colour of each shirt,
+    and the date they are first worn. The colours in the new badges are not
+    evidence of the shirt colour, since both are drawn on black and the last time
+    a colour was read off an image here it came out wrong.
 
     Worth writing down alongside it, because it is a modelling problem and not a
     data problem: the sponsor and the colour live on the team, and a team is not

@@ -36,3 +36,6 @@ supabase/.temp/
 # Skills installed by the Supabase MCP server, not ours to version
 .agents/
 .claude/skills/supabase-postgres-best-practices
+
+# Fonts unpacked by scripts/build-share-card.py, regenerated on demand.
+.share-card/

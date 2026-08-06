@@ -5,9 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ushuaia Beer League</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!--
+      The claim is the league's own and it is deliberately narrow. "The most
+      southern ice hockey league in the world" is what everybody reaches for and
+      the league says it is not true: it collides with CFM and with a league that
+      once existed here. "The most southern beer league" is the one they stand
+      behind, so it is the one that ships. A claim in a meta tag ends up quoted by
+      the press, and correcting it afterwards is not possible.
+    -->
     <meta
       name="description"
-      content="Liga recreativa de hockey sobre hielo de Ushuaia, Tierra del Fuego."
+      content="La beer league de hockey sobre hielo más austral del mundo. Fixture, posiciones, goleadores, arqueros y playoffs de la Ushuaia Beer League, en Tierra del Fuego."
     />
 
     <!--
@@ -23,24 +31,31 @@
       The card that shows when somebody drops the link into a WhatsApp group,
       which is how this site will actually be shared.
 
-      The image is the league's crest, and it is absolute because a relative one
-      is ignored by every scraper. It is served from `public/` rather than
-      imported like the crest the page itself draws: an imported asset gets a
-      hash in its filename at build time, and a hash cannot be written into
-      static HTML.
+      The image is absolute because a relative one is ignored by every scraper, and
+      it is served from `public/` rather than imported like the crest the page
+      itself draws: an imported asset gets a hash in its filename at build time,
+      and a hash cannot be written into static HTML.
 
-      It is the drawing's own portrait shape rather than the 1200 by 630 that a
-      wide card wants. That is why the card is declared as `summary`: a square-ish
-      image in a square-ish card, instead of the league's crest cropped to fit a
-      shape nobody drew it for.
+      It is 1200 by 630, the shape a wide card wants, so `summary_large_image` is
+      honest here. The crest on its own is portrait, and declaring a portrait
+      drawing as a wide card gets it cropped to a shape nobody drew it for; the
+      wide version is built around the crest instead, in the site's own typeface,
+      by `scripts/build-share-card.py`. It stands in until the league finds a
+      horizontal photo of the ice, which is what they would rather have.
+
+      JPEG and not WebP: some clients still refuse a WebP preview, and this is the
+      one image whose whole job is to render inside somebody else's app.
     -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ushuaia Beer League" />
     <meta property="og:locale" content="es_AR" />
-    <meta property="og:title" content="Ushuaia Beer League" />
+    <meta
+      property="og:title"
+      content="Ushuaia Beer League: hockey sobre hielo en el fin del mundo"
+    />
     <meta
       property="og:description"
-      content="Fixture, posiciones, goleadores y playoffs de la liga recreativa de hockey sobre hielo de Ushuaia."
+      content="La beer league de hockey sobre hielo más austral del mundo. Fixture, posiciones, goleadores y playoffs."
     />
     <meta
       property="og:url"
@@ -48,16 +63,53 @@
     />
     <meta
       property="og:image"
-      content="https://ushuaia-beer-league.github.io/app/ubl-crest.webp"
+      content="https://ushuaia-beer-league.github.io/app/ubl-share.jpg"
     />
-    <meta property="og:image:width" content="700" />
-    <meta property="og:image:height" content="839" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Escudo de la Ushuaia Beer League: un chopp de cerveza con patines de hockey."
+      content="Escudo de la Ushuaia Beer League, un chopp de cerveza con patines de hockey, junto al nombre de la liga."
     />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0a0e14" />
+
+    <!--
+      What the league is, in the vocabulary a search engine already understands.
+      This is what lets Google treat the site, the Instagram account and the name
+      as one thing rather than three unrelated results.
+
+      The street address is missing on purpose: the league gave two venues, Bahía
+      and Poli, and one address and one rink name, and which belongs to which has
+      not been answered. An address on the wrong rink would send somebody to the
+      wrong side of Ushuaia on a Saturday, so the city and the province go in and
+      the street waits for the answer.
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SportsOrganization",
+        "name": "Ushuaia Beer League",
+        "alternateName": "UBL",
+        "sport": "Hockey sobre hielo",
+        "description": "La beer league de hockey sobre hielo más austral del mundo.",
+        "url": "https://ushuaia-beer-league.github.io/app/",
+        "logo": "https://ushuaia-beer-league.github.io/app/ubl-crest.webp",
+        "image": "https://ushuaia-beer-league.github.io/app/ubl-share.jpg",
+        "email": "ushuaiabl@gmail.com",
+        "sameAs": ["https://www.instagram.com/ushuaiabeerleague/"],
+        "areaServed": {
+          "@type": "City",
+          "name": "Ushuaia"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Ushuaia",
+          "addressRegion": "Tierra del Fuego",
+          "addressCountry": "AR"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

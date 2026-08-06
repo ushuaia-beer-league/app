@@ -121,15 +121,13 @@ los datos y se resuelve contestándola:
    tiene número. El sistema lo guarda igual y solo lo avisa, porque un número
    repetido puede ser real; lo que falta es que la liga diga si en este caso lo
    es o si es un error de carga.
-5. **Las casacas nuevas del femenino.** Los escudos que están cargados son los
-   que usan hoy, con los sponsors de los equipos de varones, porque las camisetas
-   de mujeres todavía no habían llegado. En los playoffs se estrenan Brolas,
-   Drake, Táun y Vertice, y cambian los colores. De lo que nos pasaron, dos
-   coinciden con lo cargado (Zambirreras sigue con Táun y pasa de rojo a azul, y
-   el equipo de Vertice pasa de naranja a crema) y uno no: se dijo que Turbeerras
-   es Drake, y lo cargado es **Turbeerras con Brolas** y **Frozen Queens con
-   Drake**. No se tocó nada hasta saber cuál de las dos vale. Faltan también el
-   color nuevo de Frozen Queens y la fecha en que se estrenan.
+5. **Los colores de las casacas nuevas del femenino.** En los playoffs se
+   estrenan las camisetas con sponsors propios. Los sponsors ya están resueltos y
+   lo resolvieron los escudos: la camiseta de Turbeerras dice **BROLAS** y la de
+   Moby Drink dice **VÉRTICE CONSTRUCCIONES**, que es exactamente lo que estaba
+   cargado, así que Frozen Queens es Drake y Zambirreras es Táun. Lo que falta es
+   **el color de cada casaca nueva y la fecha en que se estrenan**. Los colores no
+   se pueden sacar de los escudos, están todos dibujados sobre negro.
 
 Ya contestado, el 6 de agosto de 2026: **qué equipo del femenino jugó qué
 fixture**. Turbeerras es el que el fixture llamó Birra del Fuego, Frozen Queens el
