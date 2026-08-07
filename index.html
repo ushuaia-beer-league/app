@@ -19,13 +19,23 @@
     />
 
     <!--
-      The one address that counts, said out loud, because this site exists at more
-      than one. The test copy on Vercel is byte for byte the same document, and
-      without this a search engine has two candidates for the same page and may
-      pick the branch. On the test build it points here too, which is exactly
-      right: it says "the real one is over there".
+      The one address that counts, said out loud, because the same site answers at
+      more than one host: the league's own domain, a Cloudflare Pages address, a copy
+      on Vercel for looking at a change before it is live, and the GitHub Pages
+      address it started on. Without this a search engine has four candidates for the
+      same page and picks one of them.
+
+      Every host names this one, including the ones that are not it. That is what
+      makes it useful rather than decorative: GitHub Pages telling crawlers that the
+      real address is `ubl.com.ar` is how the move to the new domain keeps whatever
+      the old one had earned.
+
+      It names the domain before the domain resolves, on purpose. The alternative was
+      to keep naming an address whose share card already answered 404, and this one
+      becomes correct on its own the moment NIC.ar delegates, with nobody editing
+      anything.
     -->
-    <link rel="canonical" href="https://ushuaia-beer-league.github.io/app/" />
+    <link rel="canonical" href="https://ubl.com.ar/" />
 
     <!--
       The card that shows when somebody drops the link into a WhatsApp group,
@@ -57,14 +67,8 @@
       property="og:description"
       content="La beer league de hockey sobre hielo más austral del mundo. Fixture, posiciones, goleadores y playoffs."
     />
-    <meta
-      property="og:url"
-      content="https://ushuaia-beer-league.github.io/app/"
-    />
-    <meta
-      property="og:image"
-      content="https://ushuaia-beer-league.github.io/app/ubl-share.jpg"
-    />
+    <meta property="og:url" content="https://ubl.com.ar/" />
+    <meta property="og:image" content="https://ubl.com.ar/ubl-share.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta
@@ -93,9 +97,9 @@
         "alternateName": "UBL",
         "sport": "Hockey sobre hielo",
         "description": "La beer league de hockey sobre hielo más austral del mundo.",
-        "url": "https://ushuaia-beer-league.github.io/app/",
-        "logo": "https://ushuaia-beer-league.github.io/app/ubl-crest.webp",
-        "image": "https://ushuaia-beer-league.github.io/app/ubl-share.jpg",
+        "url": "https://ubl.com.ar/",
+        "logo": "https://ubl.com.ar/ubl-crest.webp",
+        "image": "https://ubl.com.ar/ubl-share.jpg",
         "email": "ushuaiabl@gmail.com",
         "sameAs": ["https://www.instagram.com/ushuaiabeerleague/"],
         "areaServed": {

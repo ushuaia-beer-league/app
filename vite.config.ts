@@ -23,8 +23,13 @@ function spaFallback(): Plugin {
   }
 }
 
-/** Where the league's site really lives, which the static HTML is written for. */
-const PRODUCTION = 'https://ushuaia-beer-league.github.io/app'
+/**
+ * The league's own address, which is what the static HTML names everywhere.
+ *
+ * Not the host any particular build is served from: three of them serve this site
+ * and only one of them is its name.
+ */
+const PRODUCTION = 'https://ubl.com.ar'
 
 /** The stable address of the copy built for looking at a change before it is live. */
 const PREVIEW = 'https://ushuaia-beer-league.vercel.app'
