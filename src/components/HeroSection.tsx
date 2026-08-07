@@ -1,3 +1,5 @@
+import { fill } from '../i18n/language'
+import { useT } from '../i18n/useLanguage'
 import { Crest } from './Crest'
 import './HeroSection.css'
 import { anchorFor } from '../utils/site-routes'
@@ -49,6 +51,8 @@ export function HeroSection({
   stats = [],
   competitions = [],
 }: HeroSectionProps) {
+  const t = useT()
+
   return (
     <section
       className="hero"
@@ -60,11 +64,14 @@ export function HeroSection({
       <div className="hero__ring hero__ring--inner" aria-hidden="true" />
 
       <div className="hero__content">
-        <Crest size="md" label="Escudo de la Ushuaia Beer League" />
+        <Crest size="md" label={t('Escudo de la Ushuaia Beer League')} />
 
         <p className="hero__eyebrow">
-          🏒 {season === undefined ? '' : `Temporada ${season} · `}Hockey sobre
-          Hielo
+          🏒{' '}
+          {season === undefined
+            ? ''
+            : `${fill(t('Temporada {year}'), { year: season })} · `}
+          {t('Hockey sobre Hielo')}
         </p>
 
         <h1 className="hero__title" id="hero-title">
@@ -74,8 +81,9 @@ export function HeroSection({
         </h1>
 
         <p className="hero__tagline">
-          Hockey , <span className="hero__tagline-accent">Birra</span> , Fin del
-          Mundo · Desde 2023
+          {t('Hockey')} ,{' '}
+          <span className="hero__tagline-accent">{t('Birra')}</span> ,{' '}
+          {t('Fin del Mundo · Desde 2023')}
         </p>
 
         {stats.length > 0 && (
@@ -91,7 +99,7 @@ export function HeroSection({
 
         <p className="hero__cta">
           <a className="hero__button" href="#historia">
-            Historia UBL
+            {t('Historia UBL')}
           </a>
         </p>
 

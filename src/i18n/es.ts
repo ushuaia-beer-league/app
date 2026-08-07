@@ -133,6 +133,12 @@ export const STRINGS = [
   'Todavía no hay canales de contacto publicados.',
   'Estás viendo la última copia guardada de la temporada.',
   'Ninguna planilla de la liga publica los planteles de la {competition}.',
+  // The hero.
+  'Hockey sobre Hielo',
+  'Hockey',
+  'Birra',
+  'Fin del Mundo · Desde 2023',
+  'Historia UBL',
 ] as const
 
 /** Every string the site can say. */

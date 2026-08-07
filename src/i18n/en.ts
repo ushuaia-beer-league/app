@@ -151,4 +151,10 @@ export const en: Catalogue = {
     'You are seeing the last saved copy of the season.',
   'Ninguna planilla de la liga publica los planteles de la {competition}.':
     'No league sheet publishes the rosters for the {competition}.',
+  // The hero.
+  'Hockey sobre Hielo': 'Ice Hockey',
+  Hockey: 'Hockey',
+  Birra: 'Beer',
+  'Fin del Mundo · Desde 2023': 'End of the World · Since 2023',
+  'Historia UBL': 'The UBL story',
 }

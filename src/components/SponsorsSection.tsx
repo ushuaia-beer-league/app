@@ -28,6 +28,19 @@ type SponsorsSectionProps = {
  * The sponsors wall. With nothing to show it says so, rather than hiding the
  * section or inventing a logo: an empty list is a normal state here.
  */
+/**
+ * Whether a stored link is safe to hand to an anchor.
+ *
+ * The panel stores whatever an administrator types, and row level security decides
+ * who may type it, but a `javascript:` value in an href runs as the visitor: that is
+ * stored XSS, gated only by trusting every present and future administrator's
+ * account. So only a web address becomes a link, and anything else renders as the
+ * sponsor's plain name rather than as an error.
+ */
+function isWebAddress(href: string | undefined): href is string {
+  return href !== undefined && /^https?:\/\//i.test(href.trim())
+}
+
 export function SponsorsSection({ sponsors = [] }: SponsorsSectionProps) {
   const t = useT()
   return (
@@ -49,7 +62,7 @@ export function SponsorsSection({ sponsors = [] }: SponsorsSectionProps) {
                 {sponsor.glyph ?? '⭐'}
               </span>
               <span className="sponsors__name">
-                {sponsor.href === undefined ? (
+                {!isWebAddress(sponsor.href) ? (
                   sponsor.name
                 ) : (
                   <a

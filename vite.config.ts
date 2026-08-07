@@ -32,6 +32,45 @@ function spaFallback(onCloudflare: boolean): Plugin {
       // preview is told it does not exist.
       if (onCloudflare) {
         writeFileSync(join(outDir, '_redirects'), '/*    /index.html   200\n')
+
+        // The security headers, which a static host does not send unless told.
+        //
+        // The policy names everything the site legitimately talks to and nothing
+        // else: itself, Supabase (data and auth), and Google Analytics. A script
+        // injected from anywhere else does not load, an image cannot smuggle a
+        // request out, and the site cannot be framed, which is what clickjacking
+        // needs. `unsafe-inline` for styles only: React writes style attributes
+        // (the visits screen's bars), and blocking those breaks real screens to
+        // stop an attack that script-src already stops upstream.
+        //
+        // The JSON-LD block is fine under this: CSP governs executable scripts,
+        // and a data block is never executed.
+        const csp = [
+          "default-src 'self'",
+          "script-src 'self' https://www.googletagmanager.com",
+          "style-src 'self' 'unsafe-inline'",
+          "img-src 'self' data: blob: https://*.supabase.co",
+          "font-src 'self'",
+          "connect-src 'self' https://*.supabase.co wss://*.supabase.co" +
+            ' https://*.google-analytics.com https://*.analytics.google.com' +
+            ' https://*.googletagmanager.com',
+          "frame-ancestors 'none'",
+          "base-uri 'self'",
+          "form-action 'self'",
+        ].join('; ')
+
+        writeFileSync(
+          join(outDir, '_headers'),
+          [
+            '/*',
+            `  Content-Security-Policy: ${csp}`,
+            '  X-Content-Type-Options: nosniff',
+            '  X-Frame-Options: DENY',
+            '  Referrer-Policy: strict-origin-when-cross-origin',
+            '  Permissions-Policy: camera=(), microphone=(), geolocation=()',
+            '',
+          ].join('\n'),
+        )
       } else {
         copyFileSync(join(outDir, 'index.html'), join(outDir, '404.html'))
       }

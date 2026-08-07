@@ -157,4 +157,10 @@ export const ptBR: Catalogue = {
     'Você está vendo a última cópia salva da temporada.',
   'Ninguna planilla de la liga publica los planteles de la {competition}.':
     'Nenhuma planilha da liga publica os elencos da {competition}.',
+  // The hero.
+  'Hockey sobre Hielo': 'Hóquei no Gelo',
+  Hockey: 'Hóquei',
+  Birra: 'Breja',
+  'Fin del Mundo · Desde 2023': 'Fim do Mundo · Desde 2023',
+  'Historia UBL': 'História da UBL',
 }
