@@ -4,10 +4,53 @@
 
 Public website and back office for the Ushuaia Beer League, a recreational
 ice-hockey league in Ushuaia, Tierra del Fuego. React + Vite + TypeScript single
-page application deployed to GitHub Pages, with Supabase for data, auth and
+page application deployed to Cloudflare Pages, with Supabase for data, auth and
 storage.
 
-Target URL: https://ushuaia-beer-league.github.io/app/
+Target URL: https://ubl.com.ar (Cloudflare Pages; live at
+https://ushuaia-beer-league.pages.dev until NIC.ar delegates the domain).
+
+## Hosting, and how a change reaches the world
+
+- **Production is Cloudflare Pages**, deployed with
+  `CF_PAGES=1 npx vite build && npx wrangler@3 pages deploy dist
+--project-name=ushuaia-beer-league --branch=main`, using
+  `CLOUDFLARE_API_TOKEN` read from `~/.ubl-cf-token` (never echo it) and account
+  `9b8308fc3ebe0e1792495ec68371975a`. There is no git-connected build yet; a
+  deploy is an explicit act.
+- **Workflow: no pull requests.** Validate, commit to `main`, push, deploy.
+  The owner asked for this in so many words on 2026-08-06.
+- **GitHub Pages is frozen, on purpose.** `github.io/app/` serves its last build,
+  whose `canonical` names `ubl.com.ar`, so old links keep working and hand their
+  weight to the real address. The deploy workflow was removed on 2026-08-07;
+  `ci.yml` still validates every push. Do not resurrect the deploy.
+- **Vercel is the preview** (`ushuaia-beer-league.vercel.app`, `noindex`), to be
+  deleted once the Cloudflare setup is confirmed stable.
+- **Per-host mechanics live in `vite.config.ts`**: the base path, the deep-link
+  fallback (`404.html` for GitHub, `_redirects` for Cloudflare — never both on
+  one host), the security headers (`_headers`, Cloudflare only) and the preview's
+  own card. Each host detects itself; no build flag has to be remembered.
+
+## Languages
+
+The public site speaks Spanish (default, always — the browser's language is
+deliberately not consulted), English and Brazilian Portuguese. Two hard rules:
+
+- **The key of every string is its Spanish text** (`src/i18n/es.ts` is a list of
+  keys; Spanish needs no catalogue). Other languages are typed against it, so an
+  incomplete catalogue fails `npm run typecheck`. Adding a language is one file.
+- **The ten commandments are never translated**, in any language. They are
+  literals in `HistorySection`, not catalogue keys, and a test enforces it.
+
+## Analytics
+
+Two systems, deliberately both. The league's own counters (`page_views`,
+`visit_facts`) hold no identifier of any kind and are written only through two
+locked-down functions. Google Analytics (`VITE_GA4_ID` in `.env.production`) was
+added at the league's request on 2026-08-06: it does identify, so the panel and
+`docs/ADMIN.md` say so — never let those texts drift back to the old promise.
+GA4 is disabled on `.vercel.app` and localhost so previews never pollute the
+real numbers, and it reports each route change itself (`send_page_view: false`).
 
 Read `docs/knowledge-base.md` before changing anything that touches the domain.
 It holds the rulebook, the 2026 data, the organisation's functional document and
@@ -51,8 +94,8 @@ npm test -- --run
 npm run build
 ```
 
-All four validations must pass before committing. Pushing `main` triggers the
-Pages deploy, which runs them again and refuses to publish otherwise.
+All four validations must pass before committing. `ci.yml` runs them again on
+every push; publishing is the explicit wrangler deploy described above.
 
 ## Architecture
 

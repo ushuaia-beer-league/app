@@ -234,3 +234,33 @@ multi-season entity) but they are not built now.
 **Seven to nine days of effective work.** The public site with imported data
 ships first, since that is what can be shown to the group immediately; the back
 office follows.
+
+## Where this stands, 7 August 2026
+
+Everything above is built. What replaced the original "what is left" list:
+
+**Done since the plan was written:** Google OAuth configured and verified;
+Cloudflare Pages is production with `ubl.com.ar` attached (zone and CNAMEs
+ready); the site is split into real pages, one per address; three languages
+(es default, en, pt-BR) with the Spanish-key catalogue design; Google Analytics
+(G-KDT0D0YLCE) plus the league's own identifier-free counters; the wide share
+card and structured data; security headers and an http(s)-only sponsor link;
+weekly data backup workflow; email/password sign-in disabled; the GitHub Pages
+deploy retired with the old URL frozen pointing its canonical at the domain.
+
+**Waiting on the league:**
+
+1. NIC.ar delegation to `aliza.ns.cloudflare.com` / `clay.ns.cloudflare.com`,
+   the only thing between the site and `ubl.com.ar`.
+2. Rotate the Google OAuth client secret (it reached chat transcripts twice).
+3. Connect the repo to Cloudflare Pages in the dashboard for automatic builds
+   (three clicks; until then deploys are by hand and that works).
+4. The new women's shirt colours and their debut date; which venue address is
+   Bahía and which is Poli; the men's colours for Rock Choppers, Sucucho and
+   Zhockey.
+
+**Next build work, in order:** delete the Vercel preview once Cloudflare is
+confirmed stable; the per-date bulk match-entry sheet (spec known: paper →
+Excel, one sheet per round, the system audits); move the Cloudflare account and
+the domain to league ownership (recorded as debt in `knowledge-base.md`);
+donations counter and per-player credentials (the league's "a futuro" items).

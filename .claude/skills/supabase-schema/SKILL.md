@@ -78,3 +78,20 @@ schema change.
   or payment status.
 - Deactivate rather than delete. A removed player keeps the events that reference
   them, so use an `active` flag.
+
+## The two counter tables, added August 2026
+
+`page_views` (path, day, views) and `visit_facts` (day, fact, value, visits) are
+the analytics. Neither holds an identifier of any kind, and that is the design,
+not an accident: the browser decides whether a visitor is new or returning and
+sends one word.
+
+Neither table grants INSERT or UPDATE to anybody. The only write path is
+`public.record_view(page)` and `public.record_visit(visitor, device, referrer,
+entry)`, both `SECURITY DEFINER` with `EXECUTE` granted to `anon` — which the
+Supabase advisor flags on purpose and forever; the migrations explain why the
+alternatives are worse. Any of the three admin roles may SELECT; a visitor may
+not.
+
+If you add a column that could identify somebody to either table, stop: that is
+the line the whole design exists to hold.
