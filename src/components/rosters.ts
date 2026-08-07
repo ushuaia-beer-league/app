@@ -16,6 +16,7 @@
 
 import type { Seed } from '../data/seed'
 import type { TeamSeed } from '../data/teams-2026'
+import { canonicalSlug } from '../data/teams-2026'
 
 export interface RosterLine {
   playerSlug: string
@@ -65,9 +66,14 @@ export function teamRoster(
   season: RosterSource,
   team: Pick<TeamSeed, 'slug' | 'competition'>,
 ): TeamRoster {
+  // Both spellings of a renamed team resolve: the database was renamed to
+  // sponsor slugs on 2026-08-07 while the seed's rosters kept the identity, and
+  // without this bridge the four women's rosters vanished from their cards.
+  const slug = canonicalSlug(team.slug)
   const entries = season.rosters.filter(
     (entry) =>
-      entry.teamSlug === team.slug && entry.competition === team.competition,
+      canonicalSlug(entry.teamSlug) === slug &&
+      entry.competition === team.competition,
   )
 
   const timesWorn = new Map<number, number>()

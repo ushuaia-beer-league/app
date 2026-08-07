@@ -175,3 +175,25 @@ export const TEAMS_2026: readonly TeamSeed[] = [
   ...BEER_TEAMS_2026,
   ...WUBL_TEAMS_2026,
 ]
+
+/**
+ * The slugs an operator renamed in the database on 2026-08-07 (sponsor-based),
+ * mapped back to the identity the seed, the rosters and the artwork still use.
+ *
+ * A slug was supposed to be fixed for the life of the row and the panel let it
+ * be edited anyway; the first rename silently disconnected the women's rosters
+ * and their crests, which are keyed by the old spelling. This table is the
+ * bridge, in one place, so every join can resolve either spelling. The durable
+ * fix — freezing the slug once anything references it — is future panel work.
+ */
+export const RENAMED_SLUGS: Readonly<Record<string, string>> = {
+  'wubl-brolas': 'wubl-birra-del-fuego',
+  'wubl-drake': 'wubl-sucucho',
+  'wubl-taun': 'wubl-zhockey',
+  'wubl-vertice': 'wubl-tipo-nine',
+}
+
+/** A slug resolved to the identity the seed uses, whichever spelling arrives. */
+export function canonicalSlug(slug: string): string {
+  return RENAMED_SLUGS[slug] ?? slug
+}

@@ -1,6 +1,7 @@
 import { SEED_2026 } from '../data/seed-2026'
 import type { SeedPlayer, SeedRosterEntry } from '../data/seed'
 import { teamRoster } from './rosters'
+import { teamLogo } from './team-logos'
 
 /**
  * Small lists for the ordering rules, and the 2026 seed for the two gaps that
@@ -165,5 +166,51 @@ describe('teamRoster', () => {
 
     // No numbers means no number can be shared, however the count is written.
     expect(roster.sharedNumbers).toEqual([])
+  })
+})
+
+describe('teamRoster across the 2026 slug rename', () => {
+  it('finds the roster whichever spelling of the team arrives', () => {
+    // On 2026-08-07 an operator renamed the four women's slugs in the database
+    // to sponsor-based ones (wubl-brolas, wubl-drake, wubl-taun, wubl-vertice)
+    // while the seed's rosters kept the original identity. The join broke and
+    // all four rosters silently vanished from their cards. Both spellings must
+    // resolve, in either position, forever.
+    const source = {
+      players: PLAYERS,
+      rosters: [
+        entry('zayas-marcelo', null, {
+          teamSlug: 'wubl-birra-del-fuego',
+          competition: 'wubl' as const,
+        }),
+      ],
+    }
+
+    const renamed = teamRoster(source, {
+      slug: 'wubl-brolas',
+      competition: 'wubl',
+    })
+    expect(renamed.lines).toHaveLength(1)
+
+    const original = teamRoster(source, {
+      slug: 'wubl-birra-del-fuego',
+      competition: 'wubl',
+    })
+    expect(original.lines).toHaveLength(1)
+  })
+
+  it('keeps the crest reachable under both spellings too', () => {
+    // The same rename also blanked the crests in the fixture until the logo map
+    // learned the new keys. If somebody prunes the "duplicate" entries, this is
+    // what fails instead of the women's fixture.
+    for (const pair of [
+      ['wubl-brolas', 'wubl-birra-del-fuego'],
+      ['wubl-drake', 'wubl-sucucho'],
+      ['wubl-taun', 'wubl-zhockey'],
+      ['wubl-vertice', 'wubl-tipo-nine'],
+    ]) {
+      expect(teamLogo(pair[0])).not.toBeNull()
+      expect(teamLogo(pair[0])).toBe(teamLogo(pair[1]))
+    }
   })
 })
