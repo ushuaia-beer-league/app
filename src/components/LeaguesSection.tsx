@@ -178,7 +178,7 @@ export function LeaguesSection({
 
       {season.source === 'seed' && (
         <p className="leagues__snapshot">
-          Estás viendo la última copia guardada de la temporada.
+          {t('Estás viendo la última copia guardada de la temporada.')}
         </p>
       )}
 

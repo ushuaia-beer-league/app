@@ -38,7 +38,9 @@ export function SponsorsSection({ sponsors = [] }: SponsorsSectionProps) {
       tone="alt"
     >
       {sponsors.length === 0 ? (
-        <p className="sponsors__empty">Todavía no hay sponsors publicados.</p>
+        <p className="sponsors__empty">
+          {t('Todavía no hay sponsors publicados.')}
+        </p>
       ) : (
         <ul className="sponsors">
           {sponsors.map((sponsor) => (

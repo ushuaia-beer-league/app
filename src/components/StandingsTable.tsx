@@ -1,6 +1,7 @@
 import type { StandingsRow } from '../data/types'
 import './data-table.css'
 import './StandingsTable.css'
+import { useT } from '../i18n/useLanguage'
 
 /**
  * The one-point column, which is a different column in each competition rather
@@ -47,10 +48,11 @@ export function StandingsTable({
   teamName,
   onePointColumn = 'ppso',
 }: StandingsTableProps) {
+  const t = useT()
   if (rows.length === 0) {
     return (
       <p className="data-table__empty">
-        Todavía no hay partidos jugados en esta competencia.
+        {t('Todavía no hay partidos jugados en esta competencia.')}
       </p>
     )
   }
@@ -58,20 +60,20 @@ export function StandingsTable({
   return (
     <div className="standings">
       <p className="standings__hint">
-        Deslizá la tabla para ver todas las columnas.
+        {t('Deslizá la tabla para ver todas las columnas.')}
       </p>
 
       <div
         className="data-table-scroll"
         role="region"
-        aria-label="Tabla de posiciones"
+        aria-label={t('Tabla de posiciones')}
         tabIndex={0}
       >
         <table className="data-table standings__table">
           <thead>
             <tr>
               <th className="standings__team" scope="col">
-                Equipo
+                {t('Equipo')}
               </th>
               <th className="data-table__number" scope="col">
                 PJ

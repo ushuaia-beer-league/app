@@ -38,7 +38,7 @@ export function ContactSection({ channels = [] }: ContactSectionProps) {
     >
       {channels.length === 0 ? (
         <p className="contact__empty">
-          Todavía no hay canales de contacto publicados.
+          {t('Todavía no hay canales de contacto publicados.')}
         </p>
       ) : (
         <ul className="contact">

@@ -109,4 +109,52 @@ export const ptBR: Catalogue = {
   Escribinos: 'Fale com a gente',
   'Temporada {year}': 'Temporada {year}',
   'Tablas de la competencia': 'Tabelas da competição',
+  // Tables, fixture, playoffs and the empty states.
+  'Tabla de posiciones': 'Tabela de classificação',
+  'Tabla de goleadores': 'Tabela de artilharia',
+  'Tabla de arqueros': 'Tabela de goleiros',
+  Jugador: 'Jogador',
+  Equipo: 'Time',
+  Arquero: 'Goleiro',
+  'Sin equipo': 'Sem time',
+  'Deslizá la tabla para ver todas las columnas.':
+    'Arraste a tabela para ver todas as colunas.',
+  'Todavía no hay partidos jugados en esta competencia.':
+    'Ainda não há jogos disputados nesta competição.',
+  'Todavía no hay goleadores publicados en esta competencia.':
+    'Ainda não há artilharia publicada nesta competição.',
+  'Todavía no hay arqueros publicados en esta competencia.':
+    'Ainda não há goleiros publicados nesta competição.',
+  'Sin registrar': 'Sem registro',
+  'Sin resultado': 'Sem resultado',
+  'Todavía no hay fechas cargadas para esta competencia.':
+    'Ainda não há rodadas cadastradas nesta competição.',
+  'Ver la fecha ya jugada': 'Ver a rodada já disputada',
+  'Ver las {n} fechas ya jugadas': 'Ver as {n} rodadas já disputadas',
+  Repechaje: 'Repescagem',
+  'Cuartos de final': 'Quartas de final',
+  Semifinales: 'Semifinais',
+  Final: 'Final',
+  'Tercer puesto': 'Terceiro lugar',
+  'Quinto puesto': 'Quinto lugar',
+  Penales: 'Pênaltis',
+  Empate: 'Empate',
+  'Por definir': 'A definir',
+  'por posición': 'por classificação',
+  'Todavía no hay llaves publicadas para esta competencia.':
+    'Ainda não há chaveamento publicado nesta competição.',
+  '1 jugador en el plantel': '1 jogador no elenco',
+  '{n} jugadores en el plantel': '{n} jogadores no elenco',
+  'Todavía no hay equipos cargados en esta competencia.':
+    'Ainda não há times cadastrados nesta competição.',
+  'Cada equipo toma jugadoras de varios equipos de la Beer League, así que tampoco se pueden deducir de los planteles de arriba.':
+    'Cada time reúne jogadoras de vários times da Beer League, então também não dá para deduzir pelos elencos acima.',
+  'Todavía no hay sponsors publicados.':
+    'Ainda não há patrocinadores publicados.',
+  'Todavía no hay canales de contacto publicados.':
+    'Ainda não há canais de contato publicados.',
+  'Estás viendo la última copia guardada de la temporada.':
+    'Você está vendo a última cópia salva da temporada.',
+  'Ninguna planilla de la liga publica los planteles de la {competition}.':
+    'Nenhuma planilha da liga publica os elencos da {competition}.',
 }

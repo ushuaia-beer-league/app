@@ -3,6 +3,8 @@ import { playerBadges } from './player-badges'
 import type { TeamRoster } from './rosters'
 import { teamLogo } from './team-logos'
 import './TeamCard.css'
+import { useT } from '../i18n/useLanguage'
+import { fill } from '../i18n/language'
 
 /** "28" alone, "28 y 30" for two, "28, 30 y 7" for more. */
 const NUMBER_LIST = new Intl.ListFormat('es-AR', {
@@ -40,6 +42,7 @@ type TeamCardProps = {
  * state to hide.
  */
 export function TeamCard({ team, roster }: TeamCardProps) {
+  const t = useT()
   const { lines, sharedNumbers } = roster
   const logo = teamLogo(team.slug)
   const someNumberMissing = lines.some((line) => line.jerseyNumber === null)
@@ -84,13 +87,13 @@ export function TeamCard({ team, roster }: TeamCardProps) {
         <>
           <p className="team-card__count">
             {lines.length === 1
-              ? '1 jugador en el plantel'
-              : `${lines.length} jugadores en el plantel`}
+              ? t('1 jugador en el plantel')
+              : fill(t('{n} jugadores en el plantel'), { n: lines.length })}
           </p>
 
           {/* Named, so a screen reader can be told which of the card's two
            * lists it has landed in. */}
-          <ul className="team-card__roster" aria-label="Plantel">
+          <ul className="team-card__roster" aria-label={t('Plantel')}>
             {lines.map((line, index) => (
               <li
                 className="team-card__line"
@@ -138,11 +141,11 @@ export function TeamCard({ team, roster }: TeamCardProps) {
       {badges.length > 0 && (
         <div className="team-card__badges">
           <p className="team-card__badges-title">
-            Escudos que la liga hizo para cada jugador
+            {t('Escudos que la liga hizo para cada jugador')}
           </p>
           <ul
             className="team-card__badge-strip"
-            aria-label="Escudos de jugadores"
+            aria-label={t('Escudos de jugadores')}
           >
             {badges.map((badge) => (
               <li className="team-card__badge" key={badge.nickname}>

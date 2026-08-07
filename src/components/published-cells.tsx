@@ -12,6 +12,7 @@
  */
 
 import './data-table.css'
+import { useT } from '../i18n/useLanguage'
 
 /** What both published row shapes have in common. */
 type PublishedRow = {
@@ -52,10 +53,11 @@ export function PublishedName({ row }: { row: PublishedRow }) {
  * team at all is shown as the gap it is.
  */
 export function PublishedTeam({ row }: { row: PublishedRow }) {
+  const t = useT()
   return (
     <>
       {row.team === null ? (
-        <span className="data-table__gap">Sin equipo</span>
+        <span className="data-table__gap">{t('Sin equipo')}</span>
       ) : (
         row.team
       )}

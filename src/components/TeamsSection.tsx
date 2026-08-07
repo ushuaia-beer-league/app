@@ -137,7 +137,12 @@ export function TeamsSection({ season }: TeamsSectionProps) {
 
           {block.noRosterPublished && (
             <p className="teams__unpublished">
-              {`Ninguna planilla de la liga publica los planteles de la ${block.label}.`}
+              {fill(
+                t(
+                  'Ninguna planilla de la liga publica los planteles de la {competition}.',
+                ),
+                { competition: block.label },
+              )}
               {block.key === 'wubl' &&
                 ' Cada equipo toma jugadoras de varios equipos de la Beer League, así que tampoco se pueden deducir de los planteles de arriba.'}
             </p>
@@ -155,7 +160,7 @@ export function TeamsSection({ season }: TeamsSectionProps) {
 
           {block.teams.length === 0 ? (
             <p className="teams__empty">
-              Todavía no hay equipos cargados en esta competencia.
+              {t('Todavía no hay equipos cargados en esta competencia.')}
             </p>
           ) : (
             <ul className="teams__grid">

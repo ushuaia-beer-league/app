@@ -6,6 +6,8 @@ import {
 } from '../utils/playoffs'
 import { formatShortDate } from './dates'
 import './PlayoffBracket.css'
+import { useT } from '../i18n/useLanguage'
+import type { StringKey } from '../i18n/language'
 
 /**
  * What the league calls each round, in Spanish because it is on screen.
@@ -14,7 +16,7 @@ import './PlayoffBracket.css'
  * playoff berth. It is a bracket round the sheet plays inside the regular phase,
  * so it opens the bracket rather than being hidden in the fixture.
  */
-const ROUND_LABELS: Record<BracketRound['stage'], string> = {
+const ROUND_LABELS: Record<BracketRound['stage'], StringKey> = {
   playin: 'Repechaje',
   quarterfinal: 'Cuartos de final',
   semifinal: 'Semifinales',
@@ -28,14 +30,14 @@ const ROUND_LABELS: Record<BracketRound['stage'], string> = {
  * badge; the other two do, because the sheet writes a shootout as `5 p` and the
  * women's competition really does allow a draw.
  */
-const RESOLUTION_LABELS: Record<MatchResolution, string | null> = {
+const RESOLUTION_LABELS: Record<MatchResolution, StringKey | null> = {
   regulation: null,
   shootout: 'Penales',
   draw: 'Empate',
 }
 
 /** Printed on a slot the sheet says nothing at all about. */
-const UNDECIDED_LABEL = 'Por definir'
+const UNDECIDED_LABEL: StringKey = 'Por definir'
 
 /**
  * `2026-08-08` as `8 ago`.
@@ -95,10 +97,11 @@ type BracketSideProps = {
  * publish a fixture the league has not played.
  */
 function BracketSide({ match, side, resolved, teamName }: BracketSideProps) {
+  const t = useT()
   const teamId = resolved.teamId
   const label =
     teamId === null
-      ? (printedSide(match, side) ?? UNDECIDED_LABEL)
+      ? (printedSide(match, side) ?? t(UNDECIDED_LABEL))
       : teamName(teamId)
 
   // A team the record names is a fact. A team this site worked out from the
@@ -131,7 +134,9 @@ function BracketSide({ match, side, resolved, teamName }: BracketSideProps) {
         {derived && (
           <>
             <span aria-hidden="true"> ·</span>
-            <span className="playoff-bracket__derived">por posición</span>
+            <span className="playoff-bracket__derived">
+              {t('por posición')}
+            </span>
           </>
         )}
       </span>
@@ -164,12 +169,13 @@ export function PlayoffBracket({
   competition,
   teamName,
 }: PlayoffBracketProps) {
+  const t = useT()
   const rounds = resolveBracket(matches, { competition })
 
   if (rounds.length === 0) {
     return (
       <p className="playoff-bracket__empty">
-        Todavía no hay llaves publicadas para esta competencia.
+        {t('Todavía no hay llaves publicadas para esta competencia.')}
       </p>
     )
   }
@@ -177,7 +183,7 @@ export function PlayoffBracket({
   return (
     <div className="playoff-bracket">
       <p className="playoff-bracket__legend">
-        Donde dice <b>por posición</b>, el equipo no está escrito en la
+        Donde dice <b>{t('por posición')}</b>, el equipo no está escrito en la
         planilla: lo deduce el sitio de la tabla de posiciones o del resultado
         de un partido anterior. Un cruce que todavía no se puede deducir queda
         en blanco.
@@ -186,7 +192,7 @@ export function PlayoffBracket({
       {rounds.map((round) => (
         <div className="playoff-bracket__round" key={round.stage}>
           <h3 className="playoff-bracket__round-title">
-            {ROUND_LABELS[round.stage]}
+            {t(ROUND_LABELS[round.stage])}
           </h3>
 
           <ol className="playoff-bracket__matches">

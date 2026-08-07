@@ -10,6 +10,7 @@ import {
 } from './published-cells'
 import './data-table.css'
 import './GoalkeepingTable.css'
+import { useT } from '../i18n/useLanguage'
 
 type GoalkeepingTableProps = {
   /** Already ordered by `publishedGoalkeepingTable()`: percentage, then shots. */
@@ -32,10 +33,11 @@ type GoalkeepingTableProps = {
  * so the goalkeepers get called goalkeepers here.
  */
 export function GoalkeepingTable({ rows, publishedOn }: GoalkeepingTableProps) {
+  const t = useT()
   if (rows.length === 0) {
     return (
       <p className="data-table__empty">
-        Todavía no hay arqueros publicados en esta competencia.
+        {t('Todavía no hay arqueros publicados en esta competencia.')}
       </p>
     )
   }
@@ -50,14 +52,14 @@ export function GoalkeepingTable({ rows, publishedOn }: GoalkeepingTableProps) {
       <div
         className="data-table-scroll"
         role="region"
-        aria-label="Tabla de arqueros"
+        aria-label={t('Tabla de arqueros')}
         tabIndex={0}
       >
         <table className="data-table">
           <thead>
             <tr>
-              <th scope="col">Arquero</th>
-              <th scope="col">Equipo</th>
+              <th scope="col">{t('Arquero')}</th>
+              <th scope="col">{t('Equipo')}</th>
               <th className="data-table__number" scope="col">
                 PJ
               </th>

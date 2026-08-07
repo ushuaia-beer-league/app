@@ -4,6 +4,8 @@ import { competitionLabel } from './competitions'
 import { formatWeekdayDate } from './dates'
 import './data-table.css'
 import './FixtureList.css'
+import { useT } from '../i18n/useLanguage'
+import { fill } from '../i18n/language'
 
 /** The two cabeceras, spelled as the league spells them. */
 const VENUES: Record<Venue, string> = {
@@ -61,14 +63,14 @@ function sideLabel(
   match: Match,
   side: 'home' | 'away',
   teamName: (teamId: string) => string,
-): { text: string; printed: boolean } {
+): { text: string | null; printed: boolean } {
   const teamId = side === 'home' ? match.homeTeamId : match.awayTeamId
   if (teamId !== null) return { text: teamName(teamId), printed: false }
 
   const printed = printedSide(match.notes, side === 'home' ? 'Home' : 'Away')
   // A row with neither a team nor a printed side is a slot the sheet left blank.
   // It is still published, as the gap it is.
-  return { text: printed ?? 'Sin registrar', printed: true }
+  return { text: printed, printed: true }
 }
 
 /**
@@ -90,10 +92,11 @@ export function FixtureList({
   today,
   showCompetition = false,
 }: FixtureListProps) {
+  const t = useT()
   if (rounds.length === 0) {
     return (
       <p className="data-table__empty">
-        Todavía no hay fechas cargadas para esta competencia.
+        {t('Todavía no hay fechas cargadas para esta competencia.')}
       </p>
     )
   }
@@ -104,7 +107,7 @@ export function FixtureList({
     <div className="fixture-split">
       <section aria-labelledby="fixture-proximos">
         <h3 className="fixture-split__title" id="fixture-proximos">
-          Próximos partidos
+          {t('Próximos partidos')}
         </h3>
 
         {upcoming.length === 0 ? (
@@ -129,8 +132,8 @@ export function FixtureList({
            * a season to find it. */}
           <summary className="fixture-split__summary">
             {past.length === 1
-              ? 'Ver la fecha ya jugada'
-              : `Ver las ${past.length} fechas ya jugadas`}
+              ? t('Ver la fecha ya jugada')
+              : fill(t('Ver las {n} fechas ya jugadas'), { n: past.length })}
           </summary>
 
           <Rounds
@@ -154,6 +157,8 @@ function Rounds({
   teamName: (teamId: string) => string
   showCompetition: boolean
 }) {
+  const t = useT()
+
   return (
     <ol className="fixture">
       {rounds.map((round) => (
@@ -194,14 +199,14 @@ function Rounds({
                           <span
                             className={`fixture__team fixture__team--home${home.printed ? ' fixture__team--printed' : ''}`}
                           >
-                            {home.text}
+                            {home.text ?? t('Sin registrar')}
                           </span>
 
                           {match.score === null ? (
                             <span className="fixture__score fixture__score--pending">
                               {match.time}
                               <span className="fixture__pending-note">
-                                Sin resultado
+                                {t('Sin resultado')}
                               </span>
                             </span>
                           ) : (
@@ -218,7 +223,7 @@ function Rounds({
                           <span
                             className={`fixture__team${away.printed ? ' fixture__team--printed' : ''}`}
                           >
-                            {away.text}
+                            {away.text ?? t('Sin registrar')}
                           </span>
                         </div>
 

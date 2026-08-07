@@ -7,6 +7,7 @@ import {
 } from './published-cells'
 import './data-table.css'
 import './ScoringTable.css'
+import { useT } from '../i18n/useLanguage'
 
 type ScoringTableProps = {
   /** Already ordered by `publishedScoringTable()`: points, then goals. */
@@ -28,10 +29,11 @@ type ScoringTableProps = {
  * goals, points, in that order, with points being goals plus assists.
  */
 export function ScoringTable({ rows, publishedOn }: ScoringTableProps) {
+  const t = useT()
   if (rows.length === 0) {
     return (
       <p className="data-table__empty">
-        Todavía no hay goleadores publicados en esta competencia.
+        {t('Todavía no hay goleadores publicados en esta competencia.')}
       </p>
     )
   }
@@ -46,14 +48,14 @@ export function ScoringTable({ rows, publishedOn }: ScoringTableProps) {
       <div
         className="data-table-scroll"
         role="region"
-        aria-label="Tabla de goleadores"
+        aria-label={t('Tabla de goleadores')}
         tabIndex={0}
       >
         <table className="data-table">
           <thead>
             <tr>
-              <th scope="col">Jugador</th>
-              <th scope="col">Equipo</th>
+              <th scope="col">{t('Jugador')}</th>
+              <th scope="col">{t('Equipo')}</th>
               <th className="data-table__number" scope="col">
                 A
               </th>

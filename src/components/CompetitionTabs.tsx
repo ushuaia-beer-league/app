@@ -1,6 +1,7 @@
 import { ALL_COMPETITIONS_LABEL, COMPETITION_LABELS } from './competitions'
 import type { CompetitionChoice } from './competitions'
 import './CompetitionTabs.css'
+import { useT } from '../i18n/useLanguage'
 
 /**
  * MilkShake and All-Stars are on the reference's switcher and have no fixture,
@@ -29,8 +30,13 @@ type CompetitionTabsProps = {
  * the same thing in one word and need no arrow-key handling of their own.
  */
 export function CompetitionTabs({ value, onChange }: CompetitionTabsProps) {
+  const t = useT()
   return (
-    <div className="competition-tabs" role="group" aria-label="Competencia">
+    <div
+      className="competition-tabs"
+      role="group"
+      aria-label={t('Competencia')}
+    >
       {COMPETITIONS.map((competition) => {
         const chosen = competition.key === value
 

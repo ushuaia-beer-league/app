@@ -104,4 +104,51 @@ export const en: Catalogue = {
   Escribinos: 'Get in touch',
   'Temporada {year}': '{year} season',
   'Tablas de la competencia': 'Competition tables',
+  // Tables, fixture, playoffs and the empty states.
+  'Tabla de posiciones': 'Standings table',
+  'Tabla de goleadores': 'Scoring table',
+  'Tabla de arqueros': 'Goalies table',
+  Jugador: 'Player',
+  Equipo: 'Team',
+  Arquero: 'Goalie',
+  'Sin equipo': 'No team',
+  'Deslizá la tabla para ver todas las columnas.':
+    'Swipe the table to see every column.',
+  'Todavía no hay partidos jugados en esta competencia.':
+    'No games have been played in this competition yet.',
+  'Todavía no hay goleadores publicados en esta competencia.':
+    'No scoring has been published for this competition yet.',
+  'Todavía no hay arqueros publicados en esta competencia.':
+    'No goalie records have been published for this competition yet.',
+  'Sin registrar': 'Not recorded',
+  'Sin resultado': 'No result yet',
+  'Todavía no hay fechas cargadas para esta competencia.':
+    'No rounds have been entered for this competition yet.',
+  'Ver la fecha ya jugada': 'See the round already played',
+  'Ver las {n} fechas ya jugadas': 'See the {n} rounds already played',
+  Repechaje: 'Play-in',
+  'Cuartos de final': 'Quarterfinals',
+  Semifinales: 'Semifinals',
+  Final: 'Final',
+  'Tercer puesto': 'Third place',
+  'Quinto puesto': 'Fifth place',
+  Penales: 'Shootout',
+  Empate: 'Draw',
+  'Por definir': 'To be decided',
+  'por posición': 'by standing',
+  'Todavía no hay llaves publicadas para esta competencia.':
+    'No bracket has been published for this competition yet.',
+  '1 jugador en el plantel': '1 player on the roster',
+  '{n} jugadores en el plantel': '{n} players on the roster',
+  'Todavía no hay equipos cargados en esta competencia.':
+    'No teams have been entered for this competition yet.',
+  'Cada equipo toma jugadoras de varios equipos de la Beer League, así que tampoco se pueden deducir de los planteles de arriba.':
+    'Each team draws players from several Beer League teams, so they cannot be worked out from the rosters above either.',
+  'Todavía no hay sponsors publicados.': 'No sponsors have been published yet.',
+  'Todavía no hay canales de contacto publicados.':
+    'No contact details have been published yet.',
+  'Estás viendo la última copia guardada de la temporada.':
+    'You are seeing the last saved copy of the season.',
+  'Ninguna planilla de la liga publica los planteles de la {competition}.':
+    'No league sheet publishes the rosters for the {competition}.',
 }
