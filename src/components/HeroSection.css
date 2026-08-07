@@ -233,13 +233,15 @@
 }
 
 /*
- * Optical centring for the crest. The drawing is a mug whose handle hangs off
- * the left edge, so geometrically centred it reads as leaning left, and on a
- * phone, where it stands alone, the lean is obvious. A nudge of a few percent
- * puts the mug's body, not the artwork's bounding box, on the axis.
+ * Optical centring for the crest, measured this time. The handle hangs off the
+ * LEFT edge and takes 8% of the drawing, so centring the bounding box leaves the
+ * mug's body 4.1% right of the visual axis (computed from the artwork's own
+ * alpha channel by scripts/, column profile). The first version of this rule
+ * guessed the direction and nudged it further right; the owner saw it. Shifting
+ * left by the measured offset puts the body, not the box, on the axis.
  */
 .hero .crest {
-  transform: translateX(3.5%);
+  transform: translateX(-4.1%);
 }
 
 /*
