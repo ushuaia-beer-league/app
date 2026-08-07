@@ -99,8 +99,6 @@ export function TeamsSection({ season }: TeamsSectionProps) {
     [season],
   )
 
-  const someNameInferred = season.teams.some((team) => team.mappingInferred)
-
   return (
     <Section
       id={anchorFor('equipos')}
@@ -108,20 +106,11 @@ export function TeamsSection({ season }: TeamsSectionProps) {
       title={t('Equipos')}
       tone="alt"
     >
-      {someNameInferred && (
-        <p className="teams__note">
-          Los nombres con sponsor se dedujeron cruzando la planilla de planteles
-          con la tabla de posiciones y las llaves de playoffs. La liga todavía
-          no confirmó ninguno.
-        </p>
-      )}
-
-      <p className="teams__note teams__note--quiet">
-        Los once escudos son los que mandó la liga. El color de cada equipo no
-        lo registra ninguna planilla: está cargado donde alguien lo confirmó y
-        vacío donde no, y no lo deducimos del escudo.
-      </p>
-
+      {/* The two provenance notices that used to open this section were removed
+       * at the league's request on 2026-08-07: the operators had been living
+       * with the sponsored names for days without correcting one, which is the
+       * confirmation the notice was waiting for. The provenance itself still
+       * lives in docs/knowledge-base.md; the section no longer wears it. */}
       {blocks.map((block) => (
         <section
           className="teams__competition"

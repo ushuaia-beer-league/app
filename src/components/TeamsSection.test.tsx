@@ -80,15 +80,13 @@ describe('TeamsSection', () => {
     ).toBeVisible()
   })
 
-  it('says once that the sponsored names are still unconfirmed', () => {
+  it('wears no provenance notice, at the league request', () => {
+    // Removed 2026-08-07: the operators lived with the sponsored names for days
+    // without correcting one, which was the confirmation the old notice waited
+    // for. The provenance stays in docs/knowledge-base.md.
     render(<TeamsSection season={SEASON} />)
-
-    // Once for the whole section rather than once per card: eleven copies of the
-    // same caveat read as noise, and the doubt is about the mapping between two
-    // sheets, not about any one team.
-    expect(
-      screen.getAllByText(/La liga todavía no confirmó ninguno/),
-    ).toHaveLength(1)
+    expect(screen.queryByText(/se dedujeron/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/once escudos/)).not.toBeInTheDocument()
   })
 
   it('drops the caveat when the league has confirmed the names', () => {
@@ -111,10 +109,6 @@ describe('TeamsSection', () => {
 
   it('draws every crest the league sent, in both competitions', () => {
     render(<TeamsSection season={SEASON} />)
-
-    expect(
-      screen.getByText(/Los once escudos son los que mandó la liga/),
-    ).toBeVisible()
 
     // Every crest is decorative: the team's name is right beside it, so a screen
     // reader announcing the logo would only repeat it. Hence no image has a role.
