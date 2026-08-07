@@ -1,10 +1,17 @@
 /**
  * The public site's addresses, and what each one is called.
  *
- * The site is one scrolling page and stays that way: the league reads it top to
- * bottom and nobody asked for that to change. What this adds is that every part of
- * it has an address, so a link can open on the standings instead of at the top, and
- * so each of them can carry its own card when it is shared.
+ * **These are real pages, not anchors.** An earlier version of this file said the
+ * site was one scrolling page and that nobody had asked for that to change. That was
+ * wrong, and it was worse than wrong: the league had asked for the opposite, in those
+ * words, so as not to have to scroll, and the assumption got written down here as if
+ * it were their decision. Left alone it would have been quoted back as a requirement
+ * by whoever read it next.
+ *
+ * So each address renders its own screen: the fixture and the tables at `/ligas`, the
+ * teams at `/equipos`, and a short home page that no longer carries all of it at
+ * once. Sharing a link then genuinely lands somebody on a table rather than at the
+ * top of a page they have to scroll.
  *
  * Pure, and apart from the components, for two reasons. The obvious one is that a
  * wrong mapping here sends a shared link to the wrong table. The other is that this
