@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import type { SeasonData } from '../data/season-source'
 import { COMPETITION_LABELS } from './competitions'
 import { teamRoster } from './rosters'
@@ -6,6 +6,7 @@ import { Section } from './Section'
 import { TeamCard } from './TeamCard'
 import './TeamsSection.css'
 import { anchorFor } from '../utils/site-routes'
+import { canonicalSlug } from '../data/teams-2026'
 import { fill } from '../i18n/language'
 import { useT } from '../i18n/useLanguage'
 
@@ -98,6 +99,22 @@ export function TeamsSection({ season }: TeamsSectionProps) {
       }),
     [season],
   )
+
+  useEffect(() => {
+    // A shared team arrives as /equipos#<slug>. The browser's own fragment
+    // scroll fires before the season has rendered, so once the cards exist
+    // this walks to the named one. Through canonicalSlug, because a link
+    // shared before a rename must still find the team after it.
+    const slug = decodeURIComponent(window.location.hash.slice(1))
+    if (slug === '') return
+    const wanted = canonicalSlug(slug)
+    const card = season.teams.find(
+      (team) => canonicalSlug(team.slug) === wanted,
+    )
+    const element =
+      card === undefined ? null : document.getElementById(card.slug)
+    element?.scrollIntoView({ block: 'start' })
+  }, [season.teams])
 
   return (
     <Section

@@ -57,7 +57,9 @@ export function TeamCard({ team, roster }: TeamCardProps) {
   const [showing, setShowing] = useState<string | null>(null)
 
   return (
-    <li className="team-card">
+    // The id is the deep link: sharing a team points at #<slug>, and the
+    // teams page scrolls the named card into view when it loads.
+    <li className="team-card" id={team.slug}>
       <div className="team-card__head">
         {/* The team's own crest where the league sent one, and the empty frame
          * where it did not, which is every women's team. Decorative either way:
@@ -100,7 +102,7 @@ export function TeamCard({ team, roster }: TeamCardProps) {
               })
             }
             filename={`${team.slug}.png`}
-            text={`${team.shortName} · https://ubl.com.ar/equipos`}
+            text={`${team.shortName} · https://ubl.com.ar/equipos#${team.slug}`}
             what={team.shortName}
           />
         </div>
