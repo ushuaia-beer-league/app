@@ -54,3 +54,8 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: 9b8308fc3ebe0e1792495ec68371975a
         run: npx wrangler@3 pages deploy dist --project-name=ushuaia-beer-league --branch=main
+
+      # The alarm for the one bug a deploy can cause and nothing in the repo can
+      # see: a page naming a bundle the host no longer serves. Asks the live site.
+      - name: Check the live pages against their own assets
+        run: npm run smoke:pages
