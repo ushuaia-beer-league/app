@@ -250,3 +250,33 @@ describe('TeamsSection', () => {
     ).not.toBeInTheDocument()
   })
 })
+
+describe('TeamsSection, deep-linked', () => {
+  it('gives every card its slug as id, so a shared team has an address', () => {
+    render(<TeamsSection season={SEASON} />)
+    expect(beerCard('Sucucho').id).toBe('sucucho')
+  })
+
+  it('walks to the team the fragment names, across a rename', () => {
+    // A link shared before an operator renames the slug must still find the
+    // team: the fragment resolves through canonicalSlug, like every other
+    // slug-keyed lookup since 2026-08-07.
+    const scrolled: string[] = []
+    Element.prototype.scrollIntoView = function () {
+      scrolled.push((this as HTMLElement).id)
+    }
+    window.location.hash = '#wubl-brolas'
+    render(<TeamsSection season={SEASON} />)
+
+    expect(scrolled).toEqual(['wubl-birra-del-fuego'])
+    window.location.hash = ''
+  })
+
+  it('survives a malformed fragment instead of white-screening', () => {
+    // decodeURIComponent throws on "#%"; a crafted link must not unmount the
+    // page for whoever opens it.
+    window.location.hash = '#%'
+    expect(() => render(<TeamsSection season={SEASON} />)).not.toThrow()
+    window.location.hash = ''
+  })
+})
