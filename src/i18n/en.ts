@@ -12,6 +12,11 @@ import type { Catalogue } from './es'
  * Spanish and what hockey says in English, so it stays. **Beer League** is the name
  * of the thing.
  *
+ * **"Tercer tiempo" is not the third period.** It is the drinks after the match,
+ * the custom English rugby calls the "third half", and in a beer league that is the
+ * whole joke of the closing line. Translating it as "third period" is the obvious
+ * reading and the wrong one: it turns a punchline into a fact about the clock.
+ *
  * "Cabecera" has no English equivalent worth inventing: it is the league's word for
  * the two rinks that run at the same time, so where the word is needed the English
  * says "venue" and the page still names Bahía and Poli, which is what a reader
@@ -62,14 +67,14 @@ export const en: Catalogue = {
   'Escudo de la Ushuaia Beer League': 'Ushuaia Beer League crest',
   'Cómo nació la UBL': 'How the UBL started',
   'Toda gran historia arranca más o menos igual: cuatro amigos, muchas ganas de jugar y una pregunta simple:':
-    'Every good story starts about the same way: four friends, a lot of appetite for playing, and one simple question:',
+    'Every great story starts more or less the same way: four friends, a lot of appetite for playing, and one simple question:',
   '"¿Y si armamos algo para competir... pero pasándola bien?"':
     '“What if we set up something competitive... but actually fun?”',
   'Así nació la Ushuaia Beer League. Un grupo de apasionados por el deporte que buscaba un espacio donde lo importante no fuera solo ganar, sino también divertirse, reencontrarse, mover el cuerpo, quemar algunas calorías y compartir buenos momentos dentro y fuera de la cancha.':
     'That is how the Ushuaia Beer League began. A group of people who love the sport and wanted somewhere that was not only about winning, but about having a laugh, seeing each other again, moving, burning off a few calories and sharing good moments on the ice and off it.',
   '¿Qué significa Beer League?': 'What is a Beer League?',
   'El concepto viene de la cultura del hockey sobre hielo. En muchas partes del mundo, las Beer Leagues son ligas recreativas pensadas para quienes aman competir, pero ya no viven el deporte desde la exigencia profesional: jugadores fuera del circuito competitivo, madres y padres con agenda completa, ex deportistas, gente que vuelve después de años, amateurs con hambre de juego y sí... también algún que otro gordito cervecero 😎🍺':
-    'The idea comes from ice hockey culture. All over the world, beer leagues are recreational leagues for people who still love to compete but no longer take the sport at a professional pitch: players outside the competitive circuit, parents with no spare hours, former athletes, people coming back after years away, amateurs hungry for a game and yes... the odd beer belly too 😎🍺',
+    'The idea comes from ice hockey culture. All over the world, beer leagues are recreational leagues for people who still love to compete but no longer live the sport at professional intensity: players outside the competitive circuit, parents with no spare hours, former athletes, people coming back after years away, amateurs hungry for a game and yes... a few beer bellies too 😎🍺',
   'Es competencia con otra energía: menos presión, más comunidad.':
     'It is competition with a different energy: less pressure, more community.',
   'El comienzo': 'The beginning',
@@ -77,18 +82,18 @@ export const en: Catalogue = {
     'In 2023 the idea took shape in Ushuaia. What started as an experiment among friends grew round after round, season after season. More players. More teams. More stories. More people wanting in.',
   'Siempre con algo que valoramos muchísimo: la buena predisposición de quienes se suman, colaboran y hacen que cada edición salga adelante.':
     'Always with something we value enormously: the willingness of everyone who joins in, lends a hand and gets each season off the ground.',
-  'El primer gran apoyo': 'The first real backing',
+  'El primer gran apoyo': 'The first big backing',
   'Si hablamos de comienzos, hay que nombrar a quienes confiaron desde el día uno. Nuestro primer sponsor fue':
     'Talking about beginnings means naming the people who believed from day one. Our first sponsor was',
   ', acompañando el proyecto desde sus primeros pasos y entendiendo perfecto el espíritu de esta locura organizada. Porque si había Beer League... tenía que haber buena birra cerca.':
     ', backing the project from its first steps and understanding exactly the spirit of this organised madness. Because if there was going to be a Beer League... there had to be good beer nearby.',
   'Lo que somos hoy': 'What we are today',
   'La UBL es mucho más que un torneo. Es una comunidad. Es deporte con identidad fueguina. Es competencia sana. Es gente que se encuentra para jugar, reírse y compartir.':
-    'The UBL is much more than a tournament. It is a community. It is sport with Fuegian identity. It is healthy competition. It is people meeting up to play, laugh and share.',
+    'The UBL is much more than a tournament. It is a community. It is sport with Tierra del Fuego in it. It is healthy competition. It is people meeting up to play, laugh and share.',
   'Y lo mejor de todo es que esto recién empieza.':
     'And the best part is that this is only getting started.',
   'Fin del mundo. Comienzo de todo... tercer tiempo.':
-    'End of the world. Beginning of everything... third period.',
+    'End of the world. Beginning of everything... third half.',
   'Los diez mandamientos': 'The ten commandments',
   'El reglamento de la liga, citado tal como lo escribió. No se traduce.':
     'The league’s own rulebook, quoted in Spanish exactly as written. It is never translated.',
