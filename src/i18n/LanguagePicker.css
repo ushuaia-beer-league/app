@@ -50,23 +50,22 @@
 /* The flag is a little bigger than the label so it reads at a glance, which is the
  * only reason it is there. */
 .language-picker__flag {
-  font-size: 0.95rem;
+  font-size: 1.25rem;
   line-height: 1;
 }
 
 /*
- * On a narrow screen three names do not fit beside the league's crest, so only the
- * flags remain. The name stays in the accessible name of the button either way, and
- * on Windows, where the flag renders as two letters, those letters are the label.
+ * Flags only, everywhere: the league chose it on 2026-08-07. The name never leaves
+ * the button, it just stops being painted: a screen reader still hears
+ * "Castellano" or "English", and on Windows, where flag emoji render as the two
+ * letters of the country, those letters become the visible label on their own.
  */
-@media (max-width: 26em) {
-  .language-picker__name {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
+.language-picker__name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
