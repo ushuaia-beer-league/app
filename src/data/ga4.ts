@@ -52,7 +52,14 @@ declare global {
  */
 function isTheRealSite(): boolean {
   const host = window.location.hostname
-  return !host.endsWith('.vercel.app') && host !== 'localhost'
+  return (
+    !host.endsWith('.vercel.app') &&
+    // A subdomain of the Pages project is a per-branch preview deployment;
+    // the bare ushuaia-beer-league.pages.dev stays real because it serves
+    // production until NIC.ar delegates the domain.
+    !host.endsWith('.ushuaia-beer-league.pages.dev') &&
+    host !== 'localhost'
+  )
 }
 
 export function ga4Id(): string | null {
