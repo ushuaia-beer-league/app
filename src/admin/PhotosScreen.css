@@ -30,3 +30,84 @@
     grid-column: 1 / -1;
   }
 }
+
+/* The drop zone: a big honest target that is also just a button. */
+.photo-drop {
+  position: relative;
+}
+
+.photo-drop__button {
+  width: 100%;
+  padding: var(--space-5) var(--space-3);
+  background: transparent;
+  border: 2px dashed var(--color-border);
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  cursor: pointer;
+}
+
+.photo-drop__button:hover {
+  border-color: var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+.photo-drop__input {
+  display: none;
+}
+
+/* The gallery as a grid of thumbnails, ordered by dragging. */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: var(--space-2);
+  list-style: none;
+  padding: 0;
+}
+
+.photo-grid__item {
+  position: relative;
+  aspect-ratio: 1;
+  cursor: grab;
+  border: var(--card-border);
+  background: var(--card-bg);
+}
+
+.photo-grid__item--dragging {
+  opacity: 0.4;
+}
+
+.photo-grid__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+.photo-grid__actions {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(10, 14, 20, 0.75);
+}
+
+.photo-grid__button {
+  padding: var(--space-1) var(--space-2);
+  background: none;
+  border: 0;
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: var(--text-xs);
+}
+
+.photo-grid__button:disabled {
+  opacity: 0.3;
+}
+
+.photo-grid__button:hover:not(:disabled) {
+  color: var(--color-accent);
+}

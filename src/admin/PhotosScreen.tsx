@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SEED_2026 } from '../data/seed-2026'
 import {
   loadPhotos,
@@ -8,6 +8,7 @@ import {
 } from './adminQueries'
 import {
   movePhoto,
+  photoDraggedTo,
   newPhoto,
   photoPartsOf,
   photoProblems,
@@ -146,6 +147,9 @@ function PhotosGallery({ page, save, upload, imageUrl }: PhotosGalleryProps) {
     landed: number
     failures: readonly string[]
   } | null>(null)
+  /** The photo being dragged across the grid, if any. */
+  const [dragging, setDragging] = useState<string | null>(null)
+  const filePicker = useRef<HTMLInputElement>(null)
 
   const edit = (change: (current: readonly DraftPhoto[]) => DraftPhoto[]) => {
     setReport(null)
@@ -238,11 +242,27 @@ function PhotosGallery({ page, save, upload, imageUrl }: PhotosGalleryProps) {
         <fieldset className="editor__block">
           <legend className="editor__block-title">Agregar fotos</legend>
 
-          <p className="editor__field">
-            <label htmlFor="photo-new-files">Elegí una o varias fotos</label>
+          {/* The drop zone is also a button: a phone has nothing to drag. */}
+          <div
+            className="photo-drop"
+            onDragOver={(event) => event.preventDefault()}
+            onDrop={(event) => {
+              event.preventDefault()
+              const files = [...event.dataTransfer.files]
+              if (files.length > 0) void pick(files)
+            }}
+          >
+            <button
+              className="photo-drop__button"
+              onClick={() => filePicker.current?.click()}
+              type="button"
+            >
+              Arrastrá las fotos acá, o tocá para elegirlas
+            </button>
             <input
               accept={ACCEPTED_MEDIA_TYPES.join(',')}
-              id="photo-new-files"
+              aria-label="Elegí una o varias fotos"
+              className="photo-drop__input"
               multiple
               onChange={(event) => {
                 const files = [...(event.target.files ?? [])]
@@ -250,9 +270,10 @@ function PhotosGallery({ page, save, upload, imageUrl }: PhotosGalleryProps) {
                 event.target.value = ''
                 if (files.length > 0) void pick(files)
               }}
+              ref={filePicker}
               type="file"
             />
-          </p>
+          </div>
 
           {uploading > 0 && (
             <p className="editor__waiting" aria-live="polite">
@@ -263,8 +284,7 @@ function PhotosGallery({ page, save, upload, imageUrl }: PhotosGalleryProps) {
           <p className="editor__hint">
             Tienen que ser JPG, PNG, WEBP o AVIF. El panel las reduce antes de
             subirlas, así una temporada de fotos no se come el depósito. El
-            epígrafe y la fecha pueden quedar vacíos: una foto sin epígrafe
-            sigue siendo una foto.
+            orden se cambia arrastrando una foto adonde va.
           </p>
 
           {lastPick !== null && lastPick.failures.length > 0 && (
@@ -281,101 +301,67 @@ function PhotosGallery({ page, save, upload, imageUrl }: PhotosGalleryProps) {
           )}
         </fieldset>
 
-        <ul className="editor__rows">
+        <ul className="photo-grid">
           {draft.map((photo, index) => {
             const url = imageUrl(photo.storagePath)
-            const caption = photo.caption.trim()
-
             return (
-              <li className="editor__row" key={photo.id}>
-                <div className="editor__media">
-                  {url === null ? (
-                    <p className="editor__gap">
-                      Archivo cargado: {photo.storagePath}
-                    </p>
-                  ) : (
-                    <img
-                      alt={
-                        caption === ''
-                          ? `Foto ${index + 1} de la galería, sin epígrafe`
-                          : caption
-                      }
-                      className="photo-panel__image"
-                      src={url}
-                    />
-                  )}
-                </div>
-
-                <p className="editor__field">
-                  <label htmlFor={`photo-caption-${photo.id}`}>Epígrafe</label>
-                  <input
-                    id={`photo-caption-${photo.id}`}
-                    onChange={(event) =>
-                      edit((current) =>
-                        current.map((row) =>
-                          row.id === photo.id
-                            ? { ...row, caption: event.target.value }
-                            : row,
-                        ),
-                      )
-                    }
-                    type="text"
-                    value={photo.caption}
+              <li
+                className={`photo-grid__item${dragging === photo.id ? ' photo-grid__item--dragging' : ''}`}
+                draggable
+                key={photo.id}
+                onDragStart={() => setDragging(photo.id)}
+                onDragEnd={() => setDragging(null)}
+                onDragOver={(event) => event.preventDefault()}
+                onDrop={(event) => {
+                  event.preventDefault()
+                  if (dragging !== null)
+                    edit((current) =>
+                      photoDraggedTo(current, dragging, photo.id),
+                    )
+                  setDragging(null)
+                }}
+              >
+                {url === null ? (
+                  <p className="editor__gap">{photo.storagePath}</p>
+                ) : (
+                  <img
+                    alt={`Foto ${index + 1} de la galería`}
+                    className="photo-grid__image"
+                    src={url}
                   />
-                </p>
-
-                <p className="editor__field">
-                  <label htmlFor={`photo-date-${photo.id}`}>Fecha</label>
-                  <input
-                    id={`photo-date-${photo.id}`}
-                    onChange={(event) =>
-                      edit((current) =>
-                        current.map((row) =>
-                          row.id === photo.id
-                            ? { ...row, takenOn: event.target.value }
-                            : row,
-                        ),
-                      )
-                    }
-                    type="date"
-                    value={photo.takenOn}
-                  />
-                </p>
-
-                <div className="editor__row-actions">
+                )}
+                <div className="photo-grid__actions">
                   <button
                     aria-label={`Subir la foto ${index + 1} en el orden`}
-                    className="editor__move"
+                    className="photo-grid__button"
                     disabled={index === 0}
                     onClick={() =>
                       edit((current) => movePhoto(current, photo.id, -1))
                     }
                     type="button"
                   >
-                    Subir
+                    ◀
                   </button>
-
+                  <button
+                    aria-label={`Quitar la foto ${index + 1} de la galería`}
+                    className="photo-grid__button"
+                    onClick={() =>
+                      edit((current) => withoutPhoto(current, photo.id))
+                    }
+                    type="button"
+                  >
+                    ✕
+                  </button>
                   <button
                     aria-label={`Bajar la foto ${index + 1} en el orden`}
-                    className="editor__move"
+                    className="photo-grid__button"
                     disabled={index === draft.length - 1}
                     onClick={() =>
                       edit((current) => movePhoto(current, photo.id, 1))
                     }
                     type="button"
                   >
-                    Bajar
-                  </button>
-
-                  <button
-                    aria-label={`Quitar la foto ${index + 1} de la galería`}
-                    className="editor__remove"
-                    onClick={() =>
-                      edit((current) => withoutPhoto(current, photo.id))
-                    }
-                    type="button"
-                  >
-                    Quitar
+                    ▶
                   </button>
                 </div>
               </li>

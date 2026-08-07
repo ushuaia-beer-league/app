@@ -77,10 +77,10 @@ const show = ({
 const saveButton = () =>
   screen.getByRole('button', { name: /Guardar la galería|Guardando/ })
 
-/** The gallery's rows, in the order they are shown. */
+/** The gallery's grid items, in the order they are shown. */
 const rows = async () =>
-  (await screen.findAllByLabelText('Epígrafe')).map(
-    (field) => field.closest('li') as HTMLElement,
+  (await screen.findAllByAltText(/Foto \d+ de la galería/)).map(
+    (img) => img.closest('li') as HTMLElement,
   )
 
 const pick = async (files: readonly File[]) =>
@@ -227,40 +227,29 @@ describe('PhotosScreen', () => {
     expect(await rows()).toHaveLength(1)
   })
 
-  it('captions and dates a photograph, and leaves both empty if nobody said', async () => {
+  it('saves a new photograph with no caption and no date: both are facts nobody said', async () => {
     const { save } = show()
     await screen.findByText(
       'Todavía no hay fotos en la galería de esta temporada.',
     )
 
-    await pick([image('uno.jpg'), image('dos.jpg', 'image/jpeg', 500_000)])
-    await screen.findByText('2 fotos en la galería.')
-
-    const [first] = await rows()
-    fireEvent.change(within(first as HTMLElement).getByLabelText('Epígrafe'), {
-      target: { value: 'Rock Choppers campeón' },
-    })
-    fireEvent.change(within(first as HTMLElement).getByLabelText('Fecha'), {
-      target: { value: '2026-08-15' },
-    })
+    await pick([image('uno.jpg')])
+    await screen.findByText('1 fotos en la galería.')
 
     fireEvent.click(saveButton())
     await screen.findByText('Guardamos las fotos.')
 
-    const written = save.mock.calls[0]?.[0].upsert
-    expect(written?.[0]).toMatchObject({
-      caption: 'Rock Choppers campeón',
-      taken_on: '2026-08-15',
+    expect(save.mock.calls[0]?.[0].upsert[0]).toMatchObject({
+      caption: null,
+      taken_on: null,
     })
-    // A photograph with no caption is still a photograph.
-    expect(written?.[1]).toMatchObject({ caption: null, taken_on: null })
   })
 
-  it('shows a photograph that is already in the gallery, named by its caption', async () => {
+  it('shows a photograph that is already in the gallery', async () => {
     show({ photos: [photo()] })
 
     expect(
-      await screen.findByRole('img', { name: 'Final en el Poli' }),
+      await screen.findByRole('img', { name: 'Foto 1 de la galería' }),
     ).toHaveAttribute('src', 'https://media.example/photos/2026/aaa.jpg')
   })
 
@@ -335,7 +324,7 @@ describe('PhotosScreen', () => {
     ).toBeVisible()
   })
 
-  it('reads a refused save as a permission, and keeps every caption typed', async () => {
+  it('reads a refused save as a permission, and keeps the change pending', async () => {
     const save = vi.fn<Saver>().mockResolvedValue({
       saved: [],
       failed: [
@@ -349,9 +338,11 @@ describe('PhotosScreen', () => {
     show({ photos: [photo({ caption: null })], save })
 
     const [first] = await rows()
-    fireEvent.change(within(first as HTMLElement).getByLabelText('Epígrafe'), {
-      target: { value: 'Tercer tiempo en Bahía' },
-    })
+    fireEvent.click(
+      within(first as HTMLElement).getByRole('button', {
+        name: 'Quitar la foto 1 de la galería',
+      }),
+    )
     fireEvent.click(saveButton())
 
     const alert = await screen.findByRole('alert')
@@ -359,12 +350,7 @@ describe('PhotosScreen', () => {
       'No pudimos guardar las fotos: La base rechazó el cambio: tu rol no tiene permiso para editar sponsors ni fotos.',
     )
     expect(alert).toHaveTextContent('Lo que cargaste sigue en pantalla.')
-
-    expect(screen.getByText('Falta guardar las fotos.')).toBeVisible()
-    const [again] = await rows()
-    expect(within(again as HTMLElement).getByLabelText('Epígrafe')).toHaveValue(
-      'Tercer tiempo en Bahía',
-    )
+    expect(screen.getByText(/Falta guardar/)).toBeVisible()
   })
 
   it('reorders the gallery and writes the new places', async () => {
@@ -398,12 +384,23 @@ describe('PhotosScreen', () => {
   })
 
   it('writes nothing the second time the same gallery is saved', async () => {
-    const { save } = show({ photos: [photo()] })
+    const { save } = show({
+      photos: [
+        photo({ id: 'a', displayOrder: 0 }),
+        photo({
+          id: 'b',
+          storagePath: 'photos/2026/bbb.jpg',
+          displayOrder: 1,
+        }),
+      ],
+    })
 
     const [first] = await rows()
-    fireEvent.change(within(first as HTMLElement).getByLabelText('Epígrafe'), {
-      target: { value: 'Final en el Poli, 2026' },
-    })
+    fireEvent.click(
+      within(first as HTMLElement).getByRole('button', {
+        name: 'Bajar la foto 1 en el orden',
+      }),
+    )
     fireEvent.click(saveButton())
     await screen.findByText('Guardamos las fotos.')
 

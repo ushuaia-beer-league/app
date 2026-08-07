@@ -57,6 +57,39 @@ export function GallerySection({ photos = [] }: GallerySectionProps) {
 
   const opened = shown === null ? null : (photos[shown] ?? null)
 
+  /**
+   * Shares the open photograph itself — no drawn card, the photo is already
+   * the picture. The phone's share sheet where there is one, a download
+   * where there is not.
+   */
+  const sharePhoto = async () => {
+    if (opened === null) return
+    try {
+      const blob = await (await fetch(opened.url)).blob()
+      const file = new File([blob], 'foto-ubl.jpg', {
+        type: blob.type || 'image/jpeg',
+      })
+      if (
+        typeof navigator.canShare === 'function' &&
+        navigator.canShare({ files: [file] })
+      ) {
+        await navigator.share({
+          files: [file],
+          text: 'https://ubl.com.ar/fotos',
+        })
+        return
+      }
+      const url = URL.createObjectURL(blob)
+      const anchor = document.createElement('a')
+      anchor.href = url
+      anchor.download = file.name
+      anchor.click()
+      URL.revokeObjectURL(url)
+    } catch {
+      // Closing the sheet, or a photo the network refused: nothing to say.
+    }
+  }
+
   return (
     <Section
       id={anchorFor('fotos')}
@@ -157,6 +190,30 @@ export function GallerySection({ photos = [] }: GallerySectionProps) {
           onClick={() => move(1)}
         >
           ›
+        </button>
+        <button
+          type="button"
+          className="gallery__share"
+          aria-label={t('Compartir')}
+          onClick={() => {
+            void sharePhoto()
+          }}
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
         </button>
         <button
           type="button"
