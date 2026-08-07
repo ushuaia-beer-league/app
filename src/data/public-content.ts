@@ -70,6 +70,10 @@ export interface PublicContactChannel {
   label: string
   href: string
   glyph?: string
+  /** Which drawn icon the channel gets; null keeps the operator's emoji. */
+  kind: ChannelKind
+  /** The visible address under the name: the @handle or the mail address. */
+  detail: string | null
 }
 
 /**
@@ -136,11 +140,58 @@ export async function loadContactChannels(): Promise<PublicContactChannel[]> {
               label: friendlyChannelLabel(row.label, row.href),
               href: row.href,
               ...(row.glyph ? { glyph: row.glyph } : {}),
+              kind: channelKind(row.href),
+              detail: channelDetail(row.href),
             },
           ]
         : [],
     )
   } catch {
     return []
+  }
+}
+
+/** The channels the site draws a real icon for, recognised by their address. */
+export type ChannelKind = 'instagram' | 'mail' | 'whatsapp' | 'facebook' | null
+
+/**
+ * Which icon a channel gets, from its address and never from the stored emoji:
+ * the first Instagram row shipped wearing two beer mugs, because the panel's
+ * glyph field renders whatever an operator types. A known destination has one
+ * right icon; the emoji stays only for channels the site does not recognise.
+ */
+export function channelKind(href: string): ChannelKind {
+  if (/^mailto:/i.test(href)) return 'mail'
+  try {
+    const host = new URL(href).hostname.toLowerCase().replace(/^www\./, '')
+    if (host.endsWith('instagram.com')) return 'instagram'
+    if (host.endsWith('facebook.com') || host === 'fb.com' || host === 'fb.me')
+      return 'facebook'
+    if (host.endsWith('whatsapp.com') || host === 'wa.me') return 'whatsapp'
+  } catch {
+    return null
+  }
+  return null
+}
+
+/**
+ * The address a visitor can read under the channel's name, because "Instagram"
+ * alone does not say *which* account and a card that hides its destination
+ * makes people hover before they trust it. A profile URL yields its @handle, a
+ * mailto its address, any other site its hostname. WhatsApp yields nothing:
+ * its links carry a phone number, and this site does not print phone numbers.
+ */
+export function channelDetail(href: string): string | null {
+  if (/^mailto:/i.test(href)) return href.replace(/^mailto:/i, '').trim()
+  const kind = channelKind(href)
+  if (kind === 'whatsapp') return null
+  try {
+    const url = new URL(href)
+    const handle = url.pathname.split('/').filter(Boolean)[0]
+    if ((kind === 'instagram' || kind === 'facebook') && handle)
+      return `@${decodeURIComponent(handle)}`
+    return url.hostname.toLowerCase().replace(/^www\./, '')
+  } catch {
+    return null
   }
 }

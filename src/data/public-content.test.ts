@@ -1,4 +1,8 @@
-import { friendlyChannelLabel } from './public-content'
+import {
+  channelDetail,
+  channelKind,
+  friendlyChannelLabel,
+} from './public-content'
 
 describe('friendlyChannelLabel', () => {
   it('leaves a real name alone', () => {
@@ -34,5 +38,45 @@ describe('friendlyChannelLabel', () => {
         'https://tierradelfuego.gob.ar/x',
       ),
     ).toBe('tierradelfuego.gob.ar')
+  })
+})
+
+describe('channelKind', () => {
+  it('recognises the destinations the site draws icons for', () => {
+    // The first Instagram row shipped wearing two beer mugs: the icon comes
+    // from the address, never from whatever emoji an operator typed.
+    expect(channelKind('https://www.instagram.com/ushuaiabeerleague/')).toBe(
+      'instagram',
+    )
+    expect(channelKind('mailto:liga@example.com')).toBe('mail')
+    expect(channelKind('https://wa.me/15550100')).toBe('whatsapp')
+    expect(channelKind('https://facebook.com/ubl')).toBe('facebook')
+  })
+
+  it('answers null for anything it does not recognise', () => {
+    expect(channelKind('https://ubl.com.ar/fotos')).toBeNull()
+    expect(channelKind('not a url at all')).toBeNull()
+  })
+})
+
+describe('channelDetail', () => {
+  it('shows the handle for a profile and the address for a mail', () => {
+    // "Instagram" alone does not say which account; the card prints it.
+    expect(channelDetail('https://www.instagram.com/ushuaiabeerleague/')).toBe(
+      '@ushuaiabeerleague',
+    )
+    expect(channelDetail('mailto:liga@example.com')).toBe('liga@example.com')
+  })
+
+  it('shows the hostname for an ordinary link', () => {
+    expect(channelDetail('https://www.example.com/algo')).toBe('example.com')
+  })
+
+  it('never prints the phone number a WhatsApp link carries', () => {
+    expect(channelDetail('https://wa.me/15550100')).toBeNull()
+  })
+
+  it('answers nothing for an address it cannot parse', () => {
+    expect(channelDetail('not a url at all')).toBeNull()
   })
 })
