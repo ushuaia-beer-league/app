@@ -17,10 +17,19 @@
   border: var(--card-border);
 }
 
+/*
+ * The crest owns the head now: big, centred, with the name on its own line under
+ * it. The league asked in these words: the badges are commissioned artwork and a
+ * 64px thumbnail beside a title was hiding it. Centring also gives a long
+ * one-word name the card's full width, which is what stopped HANTACHOPPERS
+ * breaking mid-word.
+ */
 .team-card__head {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--space-3);
+  text-align: center;
 }
 
 /*
@@ -56,9 +65,9 @@
 
 .team-card__name {
   font-family: var(--font-display);
-  /* 3xl overflowed the card on the long names; this is still a step above the
-   * original size, and it wraps instead of escaping when even that is tight. */
-  font-size: var(--text-2xl);
+  /* Back to 3xl: centred under the crest the name has the whole card to itself,
+   * which is the room the side-by-side layout never gave it. */
+  font-size: var(--text-3xl);
   overflow-wrap: break-word;
   font-weight: var(--weight-regular);
   letter-spacing: var(--tracking-display);
