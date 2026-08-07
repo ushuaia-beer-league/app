@@ -37,7 +37,12 @@
  */
 .team-card__crest {
   flex-shrink: 0;
-  width: var(--crest-sm);
+  width: var(--crest-card);
+  /* `auto`, and it is load-bearing: the img carries height="256" as an HTML
+   * attribute, and without this the attribute wins over `aspect-ratio`, which only
+   * applies while the height is auto. It shipped without it once, and every card
+   * carried an invisible 40x256 crest that opened 256px of blank inside it. */
+  height: auto;
   aspect-ratio: 1;
   border: var(--border-width-hairline) dashed var(--color-border-strong);
   background: var(--color-wash);
@@ -45,7 +50,7 @@
 
 .team-card__name {
   font-family: var(--font-display);
-  font-size: var(--text-xl);
+  font-size: var(--text-3xl);
   font-weight: var(--weight-regular);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-display);
@@ -55,7 +60,7 @@
 /* The sponsored name, which is the roster sheet's and is still unconfirmed. */
 .team-card__sponsored {
   font-family: var(--font-condensed);
-  font-size: var(--text-2xs);
+  font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   letter-spacing: var(--tracking-wide);
   line-height: var(--leading-display);
@@ -65,7 +70,7 @@
 
 .team-card__count {
   font-family: var(--font-condensed);
-  font-size: var(--text-2xs);
+  font-size: var(--text-xs);
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-wider);
   line-height: var(--leading-display);
@@ -120,7 +125,7 @@
  * than as a number the league assigned. */
 .team-card__number--missing {
   font-family: var(--font-condensed);
-  font-size: var(--text-2xs);
+  font-size: var(--text-xs);
   font-weight: var(--weight-bold);
   letter-spacing: var(--tracking-wide);
   color: var(--color-text-muted);

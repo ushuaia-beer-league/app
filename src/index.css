@@ -128,6 +128,16 @@ img {
 
 /* While the season is on its way. One line, centred, in the muted voice the
  * rest of the page uses for anything that is not a fact yet. */
+/*
+ * The bar is fixed, so the document starts underneath it. This is the one place
+ * that accounts for that, for every page at once: when the site was a single
+ * document only the hero knew about the bar, and the day it became pages every
+ * other screen was born with its title half-hidden behind the navigation.
+ */
+main {
+  padding-top: var(--layout-nav-height);
+}
+
 .page-loading {
   padding: var(--space-8) var(--space-4);
   color: var(--color-text-muted);

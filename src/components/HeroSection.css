@@ -11,8 +11,7 @@
   align-items: center;
   justify-content: center;
   min-height: var(--layout-hero-min-height);
-  padding: calc(var(--layout-nav-height) + var(--space-6))
-    var(--layout-section-x) var(--space-7);
+  padding: var(--space-6) var(--layout-section-x) var(--space-7);
   overflow: hidden;
   text-align: center;
 }
@@ -208,8 +207,7 @@
 
 @media (min-width: 42.5em) {
   .hero {
-    padding: calc(var(--layout-nav-height) + var(--space-8))
-      var(--layout-section-x) var(--space-8);
+    padding: var(--space-8) var(--layout-section-x) var(--space-8);
   }
 
   .hero__content {
