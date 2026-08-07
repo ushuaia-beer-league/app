@@ -118,6 +118,17 @@ export function AdminApp() {
                   />
                 }
               />
+              {/* The team screens: `nuevo` and each team's slug resolve inside
+                  the same component, which reads the param. */}
+              <Route
+                path="equipos/:slug"
+                element={
+                  <TeamsAdminScreen
+                    role={status.role}
+                    year={SEED_2026.season}
+                  />
+                }
+              />
               <Route
                 path="fixture"
                 element={

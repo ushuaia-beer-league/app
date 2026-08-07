@@ -357,6 +357,12 @@ export interface RosterEntryDraft {
    */
   id: string
   playerId: string
+  /**
+   * The person's name, editable like the number: the sheets truncate
+   * ("Alvarado Danie") and the roster is where the truncation gets fixed.
+   * Saving writes it to `players.full_name` when it changed.
+   */
+  name: string
   /** Empty means no number, which the column allows and the sheet uses. */
   jerseyNumber: string
   active: boolean
@@ -391,6 +397,9 @@ export function rosterDraftFor(
       .map((entry) => ({
         id: entry.id,
         playerId: entry.playerId,
+        name:
+          page.people.find((person) => person.id === entry.playerId)
+            ?.fullName ?? '',
         jerseyNumber:
           entry.jerseyNumber === null ? '' : String(entry.jerseyNumber),
         active: entry.active,
@@ -577,10 +586,15 @@ export function rosterAddWarnings(
 export function withAddedPerson(
   draft: RosterDraft,
   add: RosterAddDraft,
+  page?: TeamsPage,
 ): RosterDraft {
   const name = add.name.trim()
   const invented = add.playerId === '' && name !== ''
   const playerId = invented ? crypto.randomUUID() : add.playerId
+  // A person picked from the list arrives with the name the league already
+  // has, so the row's name field starts full and editable, never blank.
+  const knownName =
+    page?.people.find((person) => person.id === playerId)?.fullName ?? ''
 
   return {
     entries: [
@@ -588,6 +602,7 @@ export function withAddedPerson(
       {
         id: crypto.randomUUID(),
         playerId,
+        name: invented ? name : knownName,
         jerseyNumber: add.jerseyNumber.trim(),
         active: true,
       },
@@ -599,7 +614,7 @@ export function withAddedPerson(
 }
 
 export type RosterProblemKind =
-  'jersey-not-a-count' | 'jersey-out-of-range' | 'person-twice'
+  'jersey-not-a-count' | 'jersey-out-of-range' | 'person-twice' | 'name-blanked'
 
 export interface RosterProblem {
   kind: RosterProblemKind
@@ -642,6 +657,17 @@ export function rosterProblems(
       })
     }
     seen.add(entry.playerId)
+
+    if (entry.name.trim() === '') {
+      // A blanked name would silently keep the old one: the write layer skips
+      // empty names on purpose, so the form says why nothing would change.
+      problems.push({
+        kind: 'name-blanked',
+        key: `name-blanked-${entry.id}`,
+        message:
+          'Hay una persona sin nombre en la lista. Escribí el nombre, o quitala del plantel.',
+      })
+    }
 
     for (const problem of jerseyProblems(
       entry.jerseyNumber,
@@ -801,6 +827,22 @@ export function rosterWrites(
         known.get(person.id) !== person.fullName,
     )
     .map((person) => ({ id: person.id, full_name: person.fullName.trim() }))
+
+  // A renamed person is a players write too: the sheets truncate names and
+  // this is where the truncation gets fixed. Compared trimmed against the
+  // baseline entry, so retyping the same name writes nothing.
+  const nameBefore = new Map(
+    baseline.entries.map((entry) => [entry.id, entry.name.trim()]),
+  )
+  for (const entry of draft.entries) {
+    const name = entry.name.trim()
+    const before = nameBefore.get(entry.id)
+    // Only a row the baseline already had can be a rename: a row just added
+    // names a person whose row is already right, or a newPeople insert.
+    if (before === undefined || before === name || name === '') continue
+    if (people.some((person) => person.id === entry.playerId)) continue
+    people.push({ id: entry.playerId, full_name: name })
+  }
 
   return { seasonId: page.seasonId, teamId: team.id, people, roster }
 }

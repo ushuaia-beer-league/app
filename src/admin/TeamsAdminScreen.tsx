@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { canonicalSlug } from '../data/teams-2026'
 import {
   COMPETITION_LABELS,
   competitionLabel,
@@ -113,32 +115,19 @@ export function TeamsAdminScreen({
   saveRosterRows = saveRoster,
   upload = uploadMedia,
 }: TeamsAdminScreenProps) {
+  const { slug } = useParams()
+  const [searchParams] = useSearchParams()
   const [page, setPage] = useState<TeamsPage | null>(null)
   const [because, setBecause] = useState<string | null>(null)
   const [competition, setCompetition] = useState<CompetitionKey>('beer')
-  /** The team being edited, or null while the form is a new one. */
-  const [editing, setEditing] = useState<string | null>(null)
-  const [draft, setDraft] = useState<TeamDraft>(() => emptyTeamDraft('beer'))
-  /** Whether the slug still follows the name, which it stops doing once touched. */
-  const [slugTouched, setSlugTouched] = useState(false)
-  const [busy, setBusy] = useState(false)
-  const [notice, setNotice] = useState<Notice | null>(null)
 
-  /** The team whose roster is open, or null while none is. */
-  const [openRoster, setOpenRoster] = useState<string | null>(null)
-  const [baseline, setBaseline] = useState<RosterDraft>({
-    entries: [],
-    newPeople: [],
-  })
-  const [roster, setRoster] = useState<RosterDraft>({
-    entries: [],
-    newPeople: [],
-  })
-  const [add, setAdd] = useState<RosterAddDraft>(emptyRosterAddDraft)
-  const [rosterReport, setRosterReport] = useState<RosterSaveReport | null>(
-    null,
-  )
-
+  /**
+   * Which screen the address names: the list, the new-team form, or one team
+   * with its roster. Screens rather than rows that unfold, asked for in those
+   * words: opening a team is a navigation, and the browser's back button is
+   * the way out — like an app, not like a page with a form hiding below.
+   */
+  const mode = slug === undefined ? 'list' : slug === 'nuevo' ? 'new' : 'team'
   useEffect(() => {
     let current = true
 
@@ -195,24 +184,217 @@ export function TeamsAdminScreen({
   const rows = sortedTeams(
     page.teams.filter((team) => team.competition === competition),
   )
+  // Through canonicalSlug, so an address written before an operator renames
+  // the slug still opens the team after it.
+  const screenTeam =
+    mode === 'team'
+      ? (page.teams.find(
+          (team) => canonicalSlug(team.slug) === canonicalSlug(slug ?? ''),
+        ) ?? null)
+      : null
+  const countOf = (teamId: string) =>
+    page.roster.filter((entry) => entry.teamId === teamId && entry.active)
+      .length
+
+  const blocked = !canWrite && (
+    <p className="teams__blocked">
+      Tu rol es {ROLE_NAMES[role]}, así que podés ver los equipos y los
+      planteles y no editarlos: la base solo acepta esos cambios de la gestión
+      deportiva y de la administración general. No es el panel escondiendo un
+      botón, es la política de la tabla.
+    </p>
+  )
+
+  if (mode === 'new' || mode === 'team') {
+    if (mode === 'team' && screenTeam === null) {
+      return (
+        <section className="teams">
+          <p className="teams__back">
+            <Link relative="path" to="..">
+              ‹ Equipos
+            </Link>
+          </p>
+          <p className="teams__error" role="alert">
+            Ningún equipo responde a la dirección «{slug}». Puede haber sido
+            renombrado: buscalo en la lista.
+          </p>
+        </section>
+      )
+    }
+    return (
+      <TeamEditor
+        // The key is what resets every draft when the address changes team.
+        key={screenTeam?.id ?? 'nuevo'}
+        page={page}
+        team={screenTeam}
+        newCompetition={
+          searchParams.get('competencia') === 'wubl' ? 'wubl' : 'beer'
+        }
+        role={role}
+        year={year}
+        canWrite={canWrite}
+        saveOne={saveOne}
+        saveRosterRows={saveRosterRows}
+        upload={upload}
+        reload={async () => {
+          const again = await load(year)
+          if (again.ok) setPage(again.data)
+        }}
+      />
+    )
+  }
+
+  return (
+    <section className="teams">
+      {header}
+
+      <fieldset className="teams__choices">
+        <legend>Competencia</legend>
+        {COMPETITION_LABELS.map((each) => (
+          <label
+            className="teams__choice"
+            htmlFor={`teams-competition-${each.key}`}
+            key={each.key}
+          >
+            <input
+              checked={competition === each.key}
+              id={`teams-competition-${each.key}`}
+              name="teams-competition"
+              onChange={() => setCompetition(each.key)}
+              type="radio"
+            />
+            {each.label}
+          </label>
+        ))}
+      </fieldset>
+
+      <h2 className="teams__subtitle">
+        Equipos de {competitionLabel(competition)}
+      </h2>
+
+      {rows.length === 0 && (
+        <p className="teams__empty">
+          Todavía no hay ningún equipo en {competitionLabel(competition)}. El
+          primero es el que después sostiene el plantel y el fixture.
+        </p>
+      )}
+
+      <ul className="teams__list">
+        {rows.map((team) => (
+          <li className="teams__row" key={team.id}>
+            <div className="teams__row-summary">
+              <span className="teams__name">
+                {team.shortName}
+                {team.fullName !== null && (
+                  <span className="teams__full">{team.fullName}</span>
+                )}
+              </span>
+
+              <span className="teams__slug">{team.slug}</span>
+
+              <span className="teams__count">
+                {countOf(team.id)} en el plantel {page.year}
+              </span>
+
+              {!team.active && <span className="teams__state">De baja</span>}
+
+              {/* One navigation, like an app: the team's screen holds its
+                  form and its roster, and the back button is the way out. */}
+              <Link
+                aria-label={`Ver el plantel de ${team.shortName}`}
+                className="teams__edit"
+                to={team.slug}
+              >
+                Plantel
+              </Link>
+
+              <Link
+                aria-label={`${canWrite ? 'Editar' : 'Abrir'} ${team.shortName}`}
+                className="teams__edit"
+                to={team.slug}
+              >
+                {canWrite ? 'Editar' : 'Abrir'}
+              </Link>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      {canWrite && (
+        <p className="teams__add">
+          <Link className="teams__edit" to={`nuevo?competencia=${competition}`}>
+            Agregar equipo en {competitionLabel(competition)}
+          </Link>
+        </p>
+      )}
+
+      {blocked}
+    </section>
+  )
+}
+
+type TeamEditorProps = {
+  page: TeamsPage
+  /** The team this screen is, or null when it is the new-team screen. */
+  team: TeamRecord | null
+  newCompetition: CompetitionKey
+  role: AdminRole
+  year: number
+  canWrite: boolean
+  saveOne: TeamsAdminScreenProps['saveOne'] & {}
+  saveRosterRows: TeamsAdminScreenProps['saveRosterRows'] & {}
+  upload: TeamsAdminScreenProps['upload'] & {}
+  /** Re-reads the page after a save, so new ids become editable rows. */
+  reload: () => Promise<void>
+}
+
+/**
+ * One team's screen — its form and its roster — or the new-team screen.
+ *
+ * Mounted with the team's id as its `key`, so navigating between teams resets
+ * every draft by construction: the state initializers read the team, and no
+ * effect has to chase the URL.
+ */
+function TeamEditor({
+  page,
+  team,
+  newCompetition,
+  role,
+  year,
+  canWrite,
+  saveOne,
+  saveRosterRows,
+  upload,
+  reload,
+}: TeamEditorProps) {
+  const navigate = useNavigate()
+  const editing = team?.id ?? null
+  const editingTeam = team
+  const [draft, setDraft] = useState<TeamDraft>(() =>
+    team === null ? emptyTeamDraft(newCompetition) : draftFromTeam(team),
+  )
+  /** Whether the slug still follows the name, which it stops doing once touched. */
+  const [slugTouched, setSlugTouched] = useState(team !== null)
+  const [busy, setBusy] = useState(false)
+  const [notice, setNotice] = useState<Notice | null>(null)
+
+  const [baseline, setBaseline] = useState<RosterDraft>(() =>
+    rosterDraftFor(page, editing),
+  )
+  const [roster, setRoster] = useState<RosterDraft>(() =>
+    rosterDraftFor(page, editing),
+  )
+  const [add, setAdd] = useState<RosterAddDraft>(emptyRosterAddDraft)
+  const [rosterReport, setRosterReport] = useState<RosterSaveReport | null>(
+    null,
+  )
+
   const problems = teamProblems(draft, page.teams, editing)
-  const editingTeam = page.teams.find((team) => team.id === editing) ?? null
-  const rosterTeam = page.teams.find((team) => team.id === openRoster) ?? null
+  const rosterTeam = team
 
   /** Only once something was typed: a form that opens complaining is not a panel. */
   const shown =
     draft.shortName.trim() === '' && draft.slug.trim() === '' ? [] : problems
-
-  const startNew = (key: CompetitionKey) => {
-    setEditing(null)
-    setDraft(emptyTeamDraft(key))
-    setSlugTouched(false)
-    setNotice(null)
-  }
-
-  const countOf = (teamId: string) =>
-    page.roster.filter((entry) => entry.teamId === teamId && entry.active)
-      .length
 
   const onSaveTeam = async () => {
     if (busy || problems.length > 0) return
@@ -231,12 +413,8 @@ export function TeamsAdminScreen({
     const result = await saveOne(plan)
 
     // Re-read rather than patch: an insert generated an id the panel never saw,
-    // and the roster below is edited by that id. If the read itself fails the
-    // list stays as it was, so the message the operator has to act on survives.
-    if (result.ok) {
-      const again = await load(year)
-      if (again.ok) setPage(again.data)
-    }
+    // and the roster below is edited by that id.
+    if (result.ok) await reload()
 
     setBusy(false)
 
@@ -248,21 +426,16 @@ export function TeamsAdminScreen({
             ? 'Guardamos el equipo nuevo.'
             : 'Guardamos los cambios del equipo.',
       })
-      setEditing(null)
-      setDraft(emptyTeamDraft(competition))
-      setSlugTouched(false)
+      // A new team gets its own screen, an existing one whose slug moved gets
+      // its new address: the URL is the state now, and it must not point at a
+      // team that no longer answers to it.
+      const landed = draft.slug.trim()
+      if (plan.teamId === null) navigate(`../${landed}`, { relative: 'path' })
+      else if (team !== null && team.slug !== landed)
+        navigate(`../${landed}`, { relative: 'path', replace: true })
     } else {
       setNotice({ tone: 'bad', text: result.because })
     }
-  }
-
-  const openRosterOf = (team: TeamRecord) => {
-    const fresh = rosterDraftFor(page, team.id)
-    setOpenRoster(team.id)
-    setBaseline(fresh)
-    setRoster(fresh)
-    setAdd(emptyRosterAddDraft())
-    setRosterReport(null)
   }
 
   const onSaveRoster = async () => {
@@ -481,16 +654,9 @@ export function TeamsAdminScreen({
               : 'Guardar el equipo'}
         </button>
 
-        {editingTeam !== null && (
-          <button
-            className="teams__cancel"
-            disabled={busy}
-            onClick={() => startNew(competition)}
-            type="button"
-          >
-            Cancelar
-          </button>
-        )}
+        <Link className="teams__cancel" relative="path" to="..">
+          {editingTeam === null ? 'Cancelar' : 'Volver a los equipos'}
+        </Link>
       </div>
     </form>
   )
@@ -567,7 +733,30 @@ export function TeamsAdminScreen({
                         value={entry.jerseyNumber}
                       />
                     </td>
-                    <th scope="row">{who}</th>
+                    <td>
+                      <input
+                        aria-label={`Nombre de ${who}`}
+                        className="teams__person-name"
+                        disabled={!canWrite || busy}
+                        onChange={(event) => {
+                          const name = event.target.value
+                          setRosterReport(null)
+                          setRoster((current) => ({
+                            ...current,
+                            entries: current.entries.map((each) =>
+                              each.id === entry.id ? { ...each, name } : each,
+                            ),
+                            newPeople: current.newPeople.map((person) =>
+                              person.id === entry.playerId
+                                ? { ...person, fullName: name }
+                                : person,
+                            ),
+                          }))
+                        }}
+                        type="text"
+                        value={entry.name}
+                      />
+                    </td>
                     <td>
                       {canWrite ? (
                         <button
@@ -634,7 +823,7 @@ export function TeamsAdminScreen({
                 event.preventDefault()
                 if (addProblems.length > 0) return
                 setRosterReport(null)
-                setRoster((current) => withAddedPerson(current, add))
+                setRoster((current) => withAddedPerson(current, add, page))
                 setAdd(emptyRosterAddDraft())
               }}
             >
@@ -792,117 +981,28 @@ export function TeamsAdminScreen({
     )
   }
 
+  const back = (
+    <p className="teams__back">
+      <Link relative="path" to="..">
+        ‹ Equipos
+      </Link>
+    </p>
+  )
+
+  const noticeLine = notice !== null && (
+    <p
+      className={notice.tone === 'ok' ? 'teams__saved' : 'teams__refused'}
+      role={notice.tone === 'ok' ? 'status' : 'alert'}
+    >
+      {notice.text}
+    </p>
+  )
+
   return (
     <section className="teams">
-      {header}
-
-      <fieldset className="teams__choices">
-        <legend>Competencia</legend>
-        {COMPETITION_LABELS.map((each) => (
-          <label
-            className="teams__choice"
-            htmlFor={`teams-competition-${each.key}`}
-            key={each.key}
-          >
-            <input
-              checked={competition === each.key}
-              id={`teams-competition-${each.key}`}
-              name="teams-competition"
-              onChange={() => {
-                setCompetition(each.key)
-                setOpenRoster(null)
-                startNew(each.key)
-              }}
-              type="radio"
-            />
-            {each.label}
-          </label>
-        ))}
-      </fieldset>
-
-      <h2 className="teams__subtitle">
-        Equipos de {competitionLabel(competition)}
-      </h2>
-
-      {rows.length === 0 && (
-        <p className="teams__empty">
-          Todavía no hay ningún equipo en {competitionLabel(competition)}. El
-          primero es el que después sostiene el plantel y el fixture.
-        </p>
-      )}
-
-      <ul className="teams__list">
-        {rows.map((team) => (
-          <li
-            className={`teams__row${editing === team.id ? ' teams__row--editing' : ''}`}
-            key={team.id}
-          >
-            <div className="teams__row-summary">
-              <span className="teams__name">
-                {team.shortName}
-                {team.fullName !== null && (
-                  <span className="teams__full">{team.fullName}</span>
-                )}
-              </span>
-
-              <span className="teams__slug">{team.slug}</span>
-
-              <span className="teams__count">
-                {countOf(team.id)} en el plantel {page.year}
-              </span>
-
-              {!team.active && <span className="teams__state">De baja</span>}
-
-              <button
-                aria-label={`Ver el plantel de ${team.shortName}`}
-                className="teams__edit"
-                disabled={busy}
-                onClick={() => openRosterOf(team)}
-                type="button"
-              >
-                Plantel
-              </button>
-
-              {canWrite && (
-                <button
-                  aria-expanded={editing === team.id}
-                  aria-label={`Editar ${team.shortName}`}
-                  className="teams__edit"
-                  disabled={busy}
-                  onClick={() => {
-                    setNotice(null)
-
-                    // The same button closes it again, so a row that was opened
-                    // by mistake does not have to be saved or navigated away
-                    // from to get rid of.
-                    if (editing === team.id) {
-                      startNew(competition)
-                      return
-                    }
-
-                    setEditing(team.id)
-                    setDraft(draftFromTeam(team))
-                    setSlugTouched(true)
-                  }}
-                  type="button"
-                >
-                  {editing === team.id ? 'Cerrar' : 'Editar'}
-                </button>
-              )}
-            </div>
-
-            {/* The form opens inside the row it belongs to rather than at the
-                bottom of the page. Asked for by the people who use this: editing
-                three teams in a row meant scrolling down to the form, saving,
-                scrolling back up to find the next one, and losing your place
-                every time. */}
-            {canWrite && editing === team.id && (
-              <div className="teams__row-editor">{teamForm}</div>
-            )}
-          </li>
-        ))}
-      </ul>
-
+      {back}
+      {canWrite && teamForm}
+      {noticeLine}
       {!canWrite && (
         <p className="teams__blocked">
           Tu rol es {ROLE_NAMES[role]}, así que podés ver los equipos y los
@@ -911,21 +1011,7 @@ export function TeamsAdminScreen({
           escondiendo un botón, es la política de la tabla.
         </p>
       )}
-
-      {/* Below the list, only for a team that does not exist yet: there is no
-          row to open for one. Every edit happens in its own row. */}
-      {canWrite && editing === null && teamForm}
-
-      {notice !== null && (
-        <p
-          className={notice.tone === 'ok' ? 'teams__saved' : 'teams__refused'}
-          role={notice.tone === 'ok' ? 'status' : 'alert'}
-        >
-          {notice.text}
-        </p>
-      )}
-
-      {rosterTeam !== null && rosterSection(rosterTeam)}
+      {team !== null && rosterSection(team)}
     </section>
   )
 }

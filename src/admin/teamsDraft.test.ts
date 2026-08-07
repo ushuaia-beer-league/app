@@ -316,7 +316,15 @@ describe('the roster it loaded', () => {
 
   it('names a person the draft invented, before their row exists', () => {
     const draftRoster = roster(
-      [{ id: 'r', playerId: 'new-1', jerseyNumber: '', active: true }],
+      [
+        {
+          id: 'r',
+          playerId: 'new-1',
+          name: 'Fijo',
+          jerseyNumber: '',
+          active: true,
+        },
+      ],
       [{ id: 'new-1', fullName: 'Zayas Maitena' }],
     )
 
@@ -489,8 +497,20 @@ describe('withAddedPerson', () => {
 
 describe('rosterProblems and rosterWarnings', () => {
   const twentyEight = roster([
-    { id: 'a', playerId: 'player-flor', jerseyNumber: '28', active: true },
-    { id: 'b', playerId: 'player-mauri', jerseyNumber: '28', active: true },
+    {
+      id: 'a',
+      playerId: 'player-flor',
+      name: 'Fijo',
+      jerseyNumber: '28',
+      active: true,
+    },
+    {
+      id: 'b',
+      playerId: 'player-mauri',
+      name: 'Fijo',
+      jerseyNumber: '28',
+      active: true,
+    },
   ])
 
   it('never refuses a number that repeats inside a team', () => {
@@ -508,7 +528,13 @@ describe('rosterProblems and rosterWarnings', () => {
 
   it('never refuses a person with no number, and says so out loud', () => {
     const nobodys = roster([
-      { id: 'a', playerId: 'player-omar', jerseyNumber: '', active: true },
+      {
+        id: 'a',
+        playerId: 'player-omar',
+        name: 'Fijo',
+        jerseyNumber: '',
+        active: true,
+      },
     ])
 
     expect(rosterProblems(page(), nobodys)).toEqual([])
@@ -522,7 +548,13 @@ describe('rosterProblems and rosterWarnings', () => {
       rosterWarnings(
         page(),
         roster([
-          { id: 'a', playerId: 'player-omar', jerseyNumber: '', active: false },
+          {
+            id: 'a',
+            playerId: 'player-omar',
+            name: 'Fijo',
+            jerseyNumber: '',
+            active: false,
+          },
         ]),
       ),
     ).toEqual([])
@@ -535,6 +567,7 @@ describe('rosterProblems and rosterWarnings', () => {
         {
           id: 'a',
           playerId: 'player-omar',
+          name: 'Fijo',
           jerseyNumber: 'ocho',
           active: true,
         },
@@ -553,6 +586,7 @@ describe('rosterProblems and rosterWarnings', () => {
           {
             id: 'a',
             playerId: 'player-omar',
+            name: 'Fijo',
             jerseyNumber: '128',
             active: true,
           },
@@ -566,8 +600,20 @@ describe('rosterProblems and rosterWarnings', () => {
       rosterProblems(
         page(),
         roster([
-          { id: 'a', playerId: 'player-omar', jerseyNumber: '1', active: true },
-          { id: 'b', playerId: 'player-omar', jerseyNumber: '2', active: true },
+          {
+            id: 'a',
+            playerId: 'player-omar',
+            name: 'Fijo',
+            jerseyNumber: '1',
+            active: true,
+          },
+          {
+            id: 'b',
+            playerId: 'player-omar',
+            name: 'Fijo',
+            jerseyNumber: '2',
+            active: true,
+          },
         ]),
       ).map((each) => each.kind),
     ).toEqual(['person-twice'])
@@ -579,15 +625,34 @@ describe('sortedRoster', () => {
     const rows = sortedRoster(
       page(),
       roster([
-        { id: 'a', playerId: 'player-omar', jerseyNumber: '', active: true },
-        { id: 'b', playerId: 'player-flor', jerseyNumber: '28', active: true },
+        {
+          id: 'a',
+          playerId: 'player-omar',
+          name: 'Fijo',
+          jerseyNumber: '',
+          active: true,
+        },
+        {
+          id: 'b',
+          playerId: 'player-flor',
+          name: 'Fijo',
+          jerseyNumber: '28',
+          active: true,
+        },
         {
           id: 'c',
           playerId: 'player-joaquin',
+          name: 'Fijo',
           jerseyNumber: '3',
           active: true,
         },
-        { id: 'd', playerId: 'player-mauri', jerseyNumber: '1', active: false },
+        {
+          id: 'd',
+          playerId: 'player-mauri',
+          name: 'Fijo',
+          jerseyNumber: '1',
+          active: false,
+        },
       ]),
     )
 
@@ -623,7 +688,13 @@ describe('personPicks', () => {
       page(),
       team(),
       roster([
-        { id: 'a', playerId: 'player-omar', jerseyNumber: '', active: true },
+        {
+          id: 'a',
+          playerId: 'player-omar',
+          name: 'Fijo',
+          jerseyNumber: '',
+          active: true,
+        },
       ]),
     )
 
@@ -673,6 +744,41 @@ describe('rosterWrites', () => {
       },
     ])
     expect(rosterPartsOf(writes)).toEqual(['roster'])
+  })
+
+  it('renames a person: the write that fixes a truncated sheet name', () => {
+    // "Alvarado Danie" is what the sheet prints; the roster is where the
+    // truncation gets fixed, and the fix lands in players.full_name.
+    const before = loaded()
+    const after = roster(
+      before.entries.map((each) => ({ ...each, name: 'Alvarado Daniela' })),
+    )
+    const writes = rosterWrites(page(), team(), before, after)
+
+    expect(writes.people).toEqual([
+      { id: 'player-joaquin', full_name: 'Alvarado Daniela' },
+    ])
+    expect(writes.roster).toEqual([])
+    expect(rosterPartsOf(writes)).toEqual(['people'])
+  })
+
+  it('does not read a retyped identical name, or a blanked one, as a rename', () => {
+    const before = loaded()
+    const same = roster(
+      before.entries.map((each) => ({ ...each, name: ` ${each.name} ` })),
+    )
+    expect(rosterWrites(page(), team(), before, same).people).toEqual([])
+
+    // A blanked name writes nothing; rosterProblems is what refuses the save.
+    const blanked = roster(
+      before.entries.map((each) => ({ ...each, name: '' })),
+    )
+    expect(rosterWrites(page(), team(), before, blanked).people).toEqual([])
+    expect(
+      rosterProblems(page(), blanked).some(
+        (problem) => problem.kind === 'name-blanked',
+      ),
+    ).toBe(true)
   })
 
   it('writes an absent number as null rather than as a zero', () => {
@@ -729,7 +835,13 @@ describe('rosterWrites', () => {
 
   it('sends a row whose number is not a number nowhere', () => {
     const after = roster([
-      { id: 'a', playerId: 'player-omar', jerseyNumber: 'ocho', active: true },
+      {
+        id: 'a',
+        playerId: 'player-omar',
+        name: 'Fijo',
+        jerseyNumber: 'ocho',
+        active: true,
+      },
     ])
 
     expect(rosterWrites(page(), team(), roster([]), after).roster).toEqual([])
