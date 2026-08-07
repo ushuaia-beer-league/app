@@ -104,9 +104,32 @@
     align-items: start;
   }
 
+  /* The crest AND the section heading stay put: an image alone pinned to the
+   * left said nothing, in the owner's words. The heading elements are the
+   * Section's own, scoped here through the section id so no other section
+   * inherits the behaviour. They stack, so each needs its own resting line. */
   .history__crest {
     position: sticky;
-    top: calc(var(--layout-nav-height) + var(--space-5));
+    top: calc(var(--layout-nav-height) + 7.5rem);
+  }
+
+  #historia .section__eyebrow,
+  #historia .section__title,
+  #historia .section__rule {
+    position: sticky;
+    z-index: 1;
+  }
+
+  #historia .section__eyebrow {
+    top: calc(var(--layout-nav-height) + var(--space-4));
+  }
+
+  #historia .section__title {
+    top: calc(var(--layout-nav-height) + var(--space-4) + 1.4rem);
+  }
+
+  #historia .section__rule {
+    top: calc(var(--layout-nav-height) + var(--space-4) + 4.4rem);
   }
 }
 
@@ -123,7 +146,10 @@
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .hero__content {
-      animation: hero-recede linear both;
+      animation-name: hero-recede;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-duration: auto;
       animation-timeline: view();
       animation-range: exit 0% exit 90%;
     }
