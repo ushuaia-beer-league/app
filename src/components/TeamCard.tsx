@@ -4,6 +4,10 @@ import { useState } from 'react'
 import { playerBadge } from './player-badges'
 import type { TeamRoster } from './rosters'
 import { crestFor } from './team-logos'
+import { competitionLabel } from './competitions'
+import { ShareButton } from './ShareButton'
+import { shareWording } from './share-wording'
+import { teamShareCard } from '../utils/share-card'
 import './TeamCard.css'
 import { useT } from '../i18n/useLanguage'
 import { fill } from '../i18n/language'
@@ -81,6 +85,26 @@ export function TeamCard({ team, roster }: TeamCardProps) {
           )}
         </div>
       </div>
+
+      {/* Only a card with a roster has something to share: crest and name
+       * alone are already on every phone that has the link. */}
+      {lines.length > 0 && (
+        <div className="team-card__share">
+          <ShareButton
+            build={() =>
+              teamShareCard(lines, {
+                title: team.shortName,
+                subtitle: competitionLabel(team.competition),
+                crest: logo,
+                wording: shareWording(t),
+              })
+            }
+            filename={`${team.slug}.png`}
+            text={`${team.shortName} · https://ubl.com.ar/equipos`}
+            what={team.shortName}
+          />
+        </div>
+      )}
 
       {lines.length === 0 ? (
         <p className="team-card__unpublished">

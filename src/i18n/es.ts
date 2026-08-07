@@ -133,6 +133,14 @@ export const STRINGS = [
   'Todavía no hay canales de contacto publicados.',
   'Estás viendo la última copia guardada de la temporada.',
   'Ninguna planilla de la liga publica los planteles de la {competition}.',
+  // Sharing a table, a team or a round as an image.
+  'Compartir',
+  'Compartir {que} como imagen',
+  'Goleadoras',
+  'Arqueras',
+  'y {n} más en ubl.com.ar',
+  'No se pudo armar la imagen para compartir.',
+
   // The hero.
   'Hockey sobre Hielo',
   'Hockey',

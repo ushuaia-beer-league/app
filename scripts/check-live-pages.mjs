@@ -90,6 +90,9 @@ const WELL_KNOWN = [
   ['/robots.txt', 'text/plain'],
   ['/sitemap.xml', 'xml'],
   ['/ubl-share.jpg', 'jpeg'],
+  // One of the per-page share cards stands in for all nineteen: they are
+  // written by the same build step, so one of them real means the step ran.
+  ['/share/ligas-posiciones.jpg', 'jpeg'],
 ]
 
 for (const [path, expected] of WELL_KNOWN) {

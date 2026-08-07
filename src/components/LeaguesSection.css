@@ -91,3 +91,9 @@
 .leagues__block-title--wubl {
   color: var(--color-comp-wubl-ink);
 }
+
+.leagues__share {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--space-3);
+}

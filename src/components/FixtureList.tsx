@@ -1,4 +1,3 @@
-import type { Match, MatchResolution, Venue } from '../data/types'
 import { splitFixtureByDate, type FixtureRound } from '../utils/fixture'
 import { competitionLabel } from './competitions'
 import { formatWeekdayDate } from './dates'
@@ -6,26 +5,19 @@ import './data-table.css'
 import './FixtureList.css'
 import { useT } from '../i18n/useLanguage'
 import { teamLogo } from './team-logos'
+import { ShareButton } from './ShareButton'
+import { shareWording } from './share-wording'
+import { fixtureShareCard } from '../utils/share-card'
+import {
+  matchSides,
+  roundShareLines,
+  RESOLUTIONS,
+  VENUES,
+  type ResolvedSides,
+} from './fixture-lines'
+
+export type { ResolvedSides } from './fixture-lines'
 import { fill } from '../i18n/language'
-
-/** The two cabeceras, spelled as the league spells them. */
-const VENUES: Record<Venue, string> = {
-  bahia: 'Bahía',
-  poli: 'Poli',
-}
-
-/** Only a result that is not the plain one is worth saying out loud. */
-const RESOLUTIONS: Record<MatchResolution, string | null> = {
-  regulation: null,
-  shootout: 'Penales',
-  draw: 'Empate',
-}
-
-/** What the bracket resolver knows about a match the sheet left teamless. */
-export type ResolvedSides = ReadonlyMap<
-  string,
-  { home: string | null; away: string | null }
->
 
 type FixtureListProps = {
   /**
@@ -59,40 +51,6 @@ type FixtureListProps = {
    * rows tells the reader nothing they did not already choose.
    */
   showCompetition?: boolean
-}
-
-/**
- * What the sheet printed where a team should be.
- *
- * A bracket row names a position rather than a team, and one round-1 row names
- * nobody at all. The importer records that gap in `Match.notes` and quotes the
- * sheet's own words while doing it: `scripts/parse-sources.ts` writes `Home side
- * printed as "3er Lugar (hanta)"`. Reading the quotation back is what lets the
- * row show "3er Lugar (hanta)" instead of a blank, without any of it being
- * inferred here.
- */
-function printedSide(
-  notes: string | null,
-  side: 'Home' | 'Away',
-): string | null {
-  if (notes === null) return null
-
-  const quoted = new RegExp(`${side} side printed as "([^"]+)"`).exec(notes)
-  return quoted?.[1] ?? null
-}
-
-function sideLabel(
-  match: Match,
-  side: 'home' | 'away',
-  teamName: (teamId: string) => string,
-): { text: string | null; printed: boolean } {
-  const teamId = side === 'home' ? match.homeTeamId : match.awayTeamId
-  if (teamId !== null) return { text: teamName(teamId), printed: false }
-
-  const printed = printedSide(match.notes, side === 'home' ? 'Home' : 'Away')
-  // A row with neither a team nor a printed side is a slot the sheet left blank.
-  // It is still published, as the gap it is.
-  return { text: printed, printed: true }
 }
 
 /**
@@ -195,7 +153,29 @@ function Rounds({
     <ol className="fixture">
       {rounds.map((round) => (
         <li className="fixture__round" key={round.date}>
-          <h4 className="fixture__date">{formatWeekdayDate(round.date)}</h4>
+          <div className="fixture__round-head">
+            <h4 className="fixture__date">{formatWeekdayDate(round.date)}</h4>
+            <ShareButton
+              build={() =>
+                fixtureShareCard(
+                  roundShareLines(round, {
+                    resolvedSides,
+                    teamName,
+                    unregistered: t('Sin registrar'),
+                    showCompetition,
+                  }),
+                  {
+                    title: formatWeekdayDate(round.date),
+                    subtitle: 'Fixture · Ushuaia Beer League',
+                    wording: shareWording(t),
+                  },
+                )
+              }
+              filename={`fixture-${round.date}.png`}
+              text={`Fixture · https://ubl.com.ar/ligas/fixture`}
+              what={`Fixture ${formatWeekdayDate(round.date)}`}
+            />
+          </div>
 
           <ol className="fixture__slots">
             {round.slots.map((slot) => (
@@ -204,20 +184,13 @@ function Rounds({
 
                 <ul className="fixture__venues">
                   {slot.matches.map((match) => {
-                    // The sheet's side, or the one the resolver derived where
-                    // the sheet printed a placeholder. A derived side is a real
-                    // team: named and badged, not grey.
-                    const derived = resolvedSides?.get(match.id)
-                    const homeId = match.homeTeamId ?? derived?.home ?? null
-                    const awayId = match.awayTeamId ?? derived?.away ?? null
-                    const home =
-                      match.homeTeamId === null && homeId !== null
-                        ? { text: teamName(homeId), printed: false }
-                        : sideLabel(match, 'home', teamName)
-                    const away =
-                      match.awayTeamId === null && awayId !== null
-                        ? { text: teamName(awayId), printed: false }
-                        : sideLabel(match, 'away', teamName)
+                    // A derived side is a real team: named and badged, not
+                    // grey.
+                    const { homeId, awayId, home, away } = matchSides(
+                      match,
+                      resolvedSides?.get(match.id),
+                      teamName,
+                    )
                     const resolution =
                       match.score === null
                         ? null

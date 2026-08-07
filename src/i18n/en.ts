@@ -151,6 +151,15 @@ export const en: Catalogue = {
     'You are seeing the last saved copy of the season.',
   'Ninguna planilla de la liga publica los planteles de la {competition}.':
     'No league sheet publishes the rosters for the {competition}.',
+  // Sharing a table, a team or a round as an image.
+  Compartir: 'Share',
+  'Compartir {que} como imagen': 'Share {que} as an image',
+  Goleadoras: 'Scoring',
+  Arqueras: 'Goalies',
+  'y {n} más en ubl.com.ar': 'and {n} more at ubl.com.ar',
+  'No se pudo armar la imagen para compartir.':
+    'The image could not be put together for sharing.',
+
   // The hero.
   'Hockey sobre Hielo': 'Ice Hockey',
   Hockey: 'Hockey',
