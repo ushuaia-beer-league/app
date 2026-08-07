@@ -57,5 +57,10 @@ jobs:
 
       # The alarm for the one bug a deploy can cause and nothing in the repo can
       # see: a page naming a bundle the host no longer serves. Asks the live site.
+      # With one retry: right after a deploy the host propagates for a few
+      # seconds and pages can briefly name the previous build's assets. That
+      # window is normal; the same answer two minutes apart is the real bug.
       - name: Check the live pages against their own assets
-        run: npm run smoke:pages
+        run: |
+          sleep 30
+          npm run smoke:pages || (echo 'reintento tras propagación...' && sleep 90 && npm run smoke:pages)
