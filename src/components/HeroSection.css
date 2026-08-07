@@ -228,3 +228,13 @@
     border-inline-start: var(--border-width-hairline) solid var(--color-border);
   }
 }
+
+/*
+ * Optical centring for the crest. The drawing is a mug whose handle hangs off
+ * the left edge, so geometrically centred it reads as leaning left, and on a
+ * phone, where it stands alone, the lean is obvious. A nudge of a few percent
+ * puts the mug's body, not the artwork's bounding box, on the axis.
+ */
+.hero .crest {
+  transform: translateX(3.5%);
+}
