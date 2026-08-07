@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import type { TeamSeed } from '../data/teams-2026'
 import type { TeamRoster } from './rosters'
 import { TeamCard } from './TeamCard'
@@ -210,64 +210,65 @@ describe('the player badges', () => {
     mappingInferred: true,
   }
 
-  const EMPTY: TeamRoster = { lines: [], sharedNumbers: [] }
-
-  it('shows the ten Beerizar badges on the team that has them', () => {
-    render(<TeamCard team={TIPO_NINE} roster={EMPTY} />)
-
-    const strip = screen.getByRole('list', { name: 'Escudos de jugadores' })
-    // Counted by element and not by role: like every crest on this card the
-    // badge images are decorative, because the nickname is printed underneath.
-    expect(strip.querySelectorAll('img')).toHaveLength(10)
+  const roster = (names: string[]): TeamRoster => ({
+    lines: names.map((name, i) => ({
+      playerSlug: name.toLowerCase().replace(/ /g, '-'),
+      name,
+      jerseyNumber: i + 1,
+      numberShared: false,
+    })),
+    sharedNumbers: [],
   })
 
-  it('names each badge with the league’s own nickname and nothing more', () => {
-    // The nickname is what the league wrote on the file. It is not a claim about
-    // which roster line the person is, because eight of the ten are first names
-    // only and matching them would be a guess.
-    render(<TeamCard team={TIPO_NINE} roster={EMPTY} />)
+  it('attaches the badge to the player who owns it, closed until asked', () => {
+    render(
+      <TeamCard
+        team={TIPO_NINE}
+        roster={roster(['Alarcon Gonza', 'Apellido Sinescudo'])}
+      />,
+    )
 
-    expect(screen.getByText('Maite')).toBeInTheDocument()
-    expect(screen.getByText('Tincho Cosentino')).toBeInTheDocument()
-    expect(screen.getByText('Tincho López')).toBeInTheDocument()
-  })
-
-  it('shows no strip at all on a team that has no badges', () => {
-    // Ten of the eleven teams. An empty heading with nothing under it would read
-    // as a loading failure.
-    render(<TeamCard team={ROCK_CHOPPERS} roster={EMPTY} />)
-
+    const trigger = screen.getByRole('button', { name: 'Alarcon Gonza' })
+    expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    // The player with no badge is plain text, not a control.
     expect(
-      screen.queryByRole('list', { name: 'Escudos de jugadores' }),
+      screen.queryByRole('button', { name: 'Apellido Sinescudo' }),
+    ).not.toBeInTheDocument()
+
+    fireEvent.click(trigger)
+    expect(trigger).toHaveAttribute('aria-expanded', 'true')
+    fireEvent.click(trigger)
+    expect(trigger).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('shows one badge at a time per card', () => {
+    render(
+      <TeamCard
+        team={TIPO_NINE}
+        roster={roster(['Alarcon Gonza', 'Diaz Ofelia'])}
+      />,
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'Alarcon Gonza' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Diaz Ofelia' }))
+    expect(
+      screen.getByRole('button', { name: 'Alarcon Gonza' }),
+    ).toHaveAttribute('aria-expanded', 'false')
+    expect(screen.getByRole('button', { name: 'Diaz Ofelia' })).toHaveAttribute(
+      'aria-expanded',
+      'true',
+    )
+  })
+
+  it('shows no strip and no badges on a team that has none', () => {
+    render(<TeamCard team={ROCK_CHOPPERS} roster={roster(['Alarcon Gonza'])} />)
+
+    // Same name, other team: the badge belongs to Tipo Nine's Gonza only.
+    expect(
+      screen.queryByRole('button', { name: 'Alarcon Gonza' }),
     ).not.toBeInTheDocument()
     expect(
       screen.queryByText(/Escudos que la liga hizo/),
     ).not.toBeInTheDocument()
-  })
-
-  it('shows the badges beside a roster, not instead of one', () => {
-    render(
-      <TeamCard
-        team={TIPO_NINE}
-        roster={{
-          lines: [
-            {
-              playerSlug: 'someone',
-              name: 'Apellido Nombre',
-              jerseyNumber: 9,
-              numberShared: false,
-            },
-          ],
-          sharedNumbers: [],
-        }}
-      />,
-    )
-
-    expect(screen.getByText('Apellido Nombre')).toBeInTheDocument()
-    expect(
-      screen
-        .getByRole('list', { name: 'Escudos de jugadores' })
-        .querySelectorAll('img'),
-    ).toHaveLength(10)
   })
 })

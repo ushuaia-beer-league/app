@@ -183,100 +183,52 @@
 }
 
 /*
- * The strip of player badges, which one team has.
- *
- * A wrapping row rather than a sideways scroller: ten of them at this size fit in
- * two or three rows on a phone, and a horizontal scroller inside a card that is
- * already inside a grid is one gesture too many.
+ * The badge a roster line owns, shown beside the name on hover or focus, and on a
+ * phone on tap (the button toggles it; hover does not exist there). The league
+ * chose this over a strip of portraits on 2026-08-07: the strip doubled the card
+ * and repeated ten names the roster already lists.
  */
-.team-card__badges {
-  margin-top: var(--space-4);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-line);
-}
-
-.team-card__badges-title {
-  margin: 0 0 var(--space-3);
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  letter-spacing: var(--tracking-wider);
-  text-transform: uppercase;
-}
-
-/*
- * A grid and not a wrapping flex row, so the rows line up.
- *
- * With flex-wrap each badge sized itself and one name wrapping to two lines pushed
- * its neighbours out of line, which is what "these are not symmetrical" was looking
- * at. A grid gives every cell the same width and every row the same height.
- */
-.team-card__badge-strip {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(3.75rem, 1fr));
-  gap: var(--space-3) var(--space-2);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.team-card__badge {
-  display: grid;
-  /* The drawing gets a fixed square row and the name gets the rest, so a name on
-   * two lines cannot make its badge sit higher than the one beside it. */
-  grid-template-rows: auto 1fr;
-  justify-items: center;
-  gap: var(--space-1);
-}
-
-/*
- * A square box, always the same size, with the drawing centred inside it.
- *
- * The files are prepared to match: `scripts/build-player-badges.py` trims each one
- * to its own content and pads it to a square before resizing, because one of them
- * carried thirty per cent empty canvas and came out visibly smaller than the rest
- * inside the same box. `contain` and never `cover`, because cropping somebody's face
- * to square it off is not a decision for a stylesheet.
- */
-.team-card__badge img {
-  width: 100%;
-  aspect-ratio: 1;
-  height: auto;
-  object-fit: contain;
-}
-
-/*
- * The nickname shows on hover, the league's choice on 2026-08-07: ten captions
- * under ten portraits doubled the strip's height and wrapped badly. It overlays
- * the badge instead of sitting under it, so hiding it costs no layout, and on a
- * screen with no hover (a phone) it simply never shows: there the badges are the
- * decoration and the roster above already has every name. The text stays in the
- * DOM either way, so a screen reader still hears it.
- */
-.team-card__badge {
+.team-card__player--badged {
   position: relative;
 }
 
-.team-card__badge-name {
+.team-card__player-name {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline dotted var(--color-text-muted);
+  text-underline-offset: 3px;
+}
+
+.team-card__player-badge {
   position: absolute;
-  bottom: -0.2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0.1rem 0.4rem;
-  background: var(--color-surface-sunken);
+  z-index: 2;
+  bottom: calc(100% + 0.35rem);
+  left: 0;
+  display: none;
+  padding: 0.35rem;
   border: 1px solid var(--color-line);
-  border-radius: var(--radius-pill);
-  color: var(--color-text);
-  font-size: var(--text-xs);
-  line-height: var(--leading-body);
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 120ms ease;
+  background: var(--color-surface-sunken);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+.team-card__player-badge img {
+  display: block;
+  width: 8rem;
+  height: 8rem;
+  object-fit: contain;
+}
+
+.team-card__player-badge--open {
+  display: block;
 }
 
 @media (hover: hover) {
-  .team-card__badge:hover .team-card__badge-name,
-  .team-card__badge:focus-within .team-card__badge-name {
-    opacity: 1;
+  .team-card__player--badged:hover .team-card__player-badge,
+  .team-card__player-name:focus-visible + .team-card__player-badge {
+    display: block;
   }
 }
