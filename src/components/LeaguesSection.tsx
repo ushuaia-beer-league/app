@@ -19,11 +19,14 @@ import { PlayoffBracket } from './PlayoffBracket'
 import { Section } from './Section'
 import { StandingsTable } from './StandingsTable'
 import './LeaguesSection.css'
-import { anchorFor } from '../utils/site-routes'
+import { anchorFor, pathForLeagues } from '../utils/site-routes'
 import { fill } from '../i18n/language'
 import { useT } from '../i18n/useLanguage'
 import { canonicalSlug } from '../data/teams-2026'
 import { crestFor } from './team-logos'
+import { ShareButton } from './ShareButton'
+import { shareWording } from './share-wording'
+import { goalkeepingShareCard, scoringShareCard } from '../utils/share-card'
 
 /**
  * The four tables the league keeps, in the order a visitor asks for them: what
@@ -333,17 +336,65 @@ export function LeaguesSection({
               )}
 
               {tab === 'scoring' && (
-                <ScoringTable
-                  rows={block.scorers}
-                  publishedOn={season.publishedOn}
-                />
+                <>
+                  <ScoringTable
+                    rows={block.scorers}
+                    publishedOn={season.publishedOn}
+                  />
+                  {block.scorers.length > 0 && (
+                    <div className="leagues__share">
+                      <ShareButton
+                        build={() =>
+                          scoringShareCard(block.scorers, {
+                            title:
+                              block.key === 'wubl'
+                                ? t('Goleadoras')
+                                : t('Goleadores'),
+                            subtitle: `${block.label} · ${season.season}`,
+                            wording: shareWording(t),
+                          })
+                        }
+                        filename={`goleadores-${block.key}-${season.season}.png`}
+                        text={`https://ubl.com.ar${pathForLeagues('scoring', block.key)}`}
+                        what={
+                          block.key === 'wubl'
+                            ? t('Goleadoras')
+                            : t('Goleadores')
+                        }
+                      />
+                    </div>
+                  )}
+                </>
               )}
 
               {tab === 'goalkeeping' && (
-                <GoalkeepingTable
-                  rows={block.goalkeepers}
-                  publishedOn={season.publishedOn}
-                />
+                <>
+                  <GoalkeepingTable
+                    rows={block.goalkeepers}
+                    publishedOn={season.publishedOn}
+                  />
+                  {block.goalkeepers.length > 0 && (
+                    <div className="leagues__share">
+                      <ShareButton
+                        build={() =>
+                          goalkeepingShareCard(block.goalkeepers, {
+                            title:
+                              block.key === 'wubl'
+                                ? t('Arqueras')
+                                : t('Arqueros'),
+                            subtitle: `${block.label} · ${season.season}`,
+                            wording: shareWording(t),
+                          })
+                        }
+                        filename={`arqueros-${block.key}-${season.season}.png`}
+                        text={`https://ubl.com.ar${pathForLeagues('goalkeeping', block.key)}`}
+                        what={
+                          block.key === 'wubl' ? t('Arqueras') : t('Arqueros')
+                        }
+                      />
+                    </div>
+                  )}
+                </>
               )}
 
               {tab === 'playoffs' && (

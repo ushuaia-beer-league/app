@@ -241,3 +241,9 @@
     display: block;
   }
 }
+
+.team-card__share {
+  display: flex;
+  justify-content: flex-end;
+  margin-block: var(--space-2) var(--space-3);
+}

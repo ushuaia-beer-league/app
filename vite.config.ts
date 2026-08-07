@@ -1,4 +1,10 @@
-import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  writeFileSync,
+} from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vitest/config'
@@ -57,6 +63,16 @@ function spaFallback(onCloudflare: boolean): Plugin {
           `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
         )
 
+        const ownShareCard = (path: string): string => {
+          const slug = path.slice(1).replaceAll('/', '-')
+          if (!existsSync(join('public/share', `${slug}.jpg`))) {
+            throw new Error(
+              `no share card for ${path}: run npm run build:share-cards`,
+            )
+          }
+          return `${PRODUCTION}/share/${slug}.jpg`
+        }
+
         const entry = readFileSync(join(outDir, 'index.html'), 'utf8')
         for (const route of SITE_ROUTES) {
           if (route.path === '/') continue
@@ -79,6 +95,10 @@ function spaFallback(onCloudflare: boolean): Plugin {
             .replace(
               /(<meta\s+property="og:url"\s+content=")[^"]*/,
               `$1${address}`,
+            )
+            .replace(
+              /(<meta\s+property="og:image"\s+content=")[^"]*/,
+              `$1${ownShareCard(route.path)}`,
             )
             .replace(/(<link\s+rel="canonical"\s+href=")[^"]*/, `$1${address}`)
 
@@ -114,6 +134,10 @@ function spaFallback(onCloudflare: boolean): Plugin {
             .replace(
               /(<meta\s+property="og:url"\s+content=")[^"]*/,
               `$1${address}`,
+            )
+            .replace(
+              /(<meta\s+property="og:image"\s+content=")[^"]*/,
+              `$1${ownShareCard(page.path)}`,
             )
             .replace(/(<link\s+rel="canonical"\s+href=")[^"]*/, `$1${address}`)
           if (!html.includes(page.title) || !html.includes(address)) {

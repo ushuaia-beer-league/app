@@ -353,3 +353,43 @@ export function variantPages(): VariantPage[] {
   }
   return pages
 }
+
+/**
+ * The pages that get their own drawn `og:image`, and the file each one wears.
+ *
+ * WhatsApp and Facebook show the image beside a shared link, and they read it
+ * from the static head — so the art is drawn at build time by
+ * `scripts/build-share-cards.py`, committed under `public/share/`, and wired
+ * per page by `vite.config.ts`. All three speak through this function: the
+ * script draws one card per entry, the config points each page at its slug,
+ * and `share-pages.test.ts` refuses a page whose art has not been drawn.
+ *
+ * The heading is the title's first segment and the rest becomes the small
+ * line, so "Goleadoras · Women's Beer League · Ushuaia Beer League" draws as
+ * a big GOLEADORAS over the competition — the words the league chose, split
+ * where the league's own separator splits them.
+ */
+export interface SharePage {
+  /** `ligas-goleadores-women`: the address with its slashes flattened. */
+  slug: string
+  heading: string
+  subheading: string
+}
+
+export function shareCardPages(): SharePage[] {
+  const paths = [
+    ...SITE_ROUTES.filter((route) => route.path !== '/').map((route) => ({
+      path: route.path,
+      title: route.title,
+    })),
+    ...variantPages().map((page) => ({ path: page.path, title: page.title })),
+  ]
+  return paths.map(({ path, title }) => {
+    const [heading, ...rest] = title.split(' · ')
+    return {
+      slug: path.slice(1).replaceAll('/', '-'),
+      heading: heading ?? title,
+      subheading: rest.join(' · '),
+    }
+  })
+}

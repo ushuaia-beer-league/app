@@ -335,6 +335,14 @@ labels, and the slug-rename bridge (`canonicalSlug`) with regression tests. The
 live guard now also checks the conventional paths' content types after every
 deploy.
 
+In review on `feat/share-images`: sharing as an image. A Compartir button on
+the scoring and goalkeeping tables, each team card and each fixture round
+draws the data on screen as a branded card and opens the phone's share sheet
+(WhatsApp, Instagram); desktops download the same image. Every written page
+also carries its own `og:image`, drawn at build time from the route table
+(`npm run build:share-cards`), so a pasted link shows its own card instead of
+the generic art — identity only, never a result, per the league's rule.
+
 Still waiting on the league: rotate the Google OAuth secret; the men's missing
 colours; Zambirreras' new badge (uploadable from the panel). Still in the
 backlog: the per-date bulk entry sheet; donations and player credentials;
