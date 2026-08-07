@@ -113,6 +113,10 @@ export function App() {
           <>
             <HeroSection season={season?.season} />
             <HistorySection overrides={overrides} />
+            {/* The operators asked for the sponsors on the front page too, under
+             * the story: whoever pays for the ice gets seen without a click. The
+             * same list keeps its own page at /sponsors. */}
+            <SponsorsSection sponsors={sponsors} />
           </>
         )}
 
