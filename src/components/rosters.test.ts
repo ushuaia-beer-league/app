@@ -203,14 +203,15 @@ describe('teamRoster across the 2026 slug rename', () => {
     // The same rename also blanked the crests in the fixture until the logo map
     // learned the new keys. If somebody prunes the "duplicate" entries, this is
     // what fails instead of the women's fixture.
-    for (const pair of [
+    const pairs: readonly [string, string][] = [
       ['wubl-brolas', 'wubl-birra-del-fuego'],
       ['wubl-drake', 'wubl-sucucho'],
       ['wubl-taun', 'wubl-zhockey'],
       ['wubl-vertice', 'wubl-tipo-nine'],
-    ]) {
-      expect(teamLogo(pair[0])).not.toBeNull()
-      expect(teamLogo(pair[0])).toBe(teamLogo(pair[1]))
+    ]
+    for (const [renamed, original] of pairs) {
+      expect(teamLogo(renamed)).not.toBeNull()
+      expect(teamLogo(renamed)).toBe(teamLogo(original))
     }
   })
 })
