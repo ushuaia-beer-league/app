@@ -139,6 +139,14 @@ export const STRINGS = [
   'Foto siguiente',
   'Cerrar',
 
+  // Sharing a table, a team or a round as an image.
+  'Compartir',
+  'Compartir {que} como imagen',
+  'Goleadoras',
+  'Arqueras',
+  'y {n} más en ubl.com.ar',
+  'No se pudo armar la imagen para compartir.',
+
   // The hero.
   'Hockey sobre Hielo',
   'Hockey',

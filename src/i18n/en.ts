@@ -157,6 +157,15 @@ export const en: Catalogue = {
   'Foto siguiente': 'Next photo',
   Cerrar: 'Close',
 
+  // Sharing a table, a team or a round as an image.
+  Compartir: 'Share',
+  'Compartir {que} como imagen': 'Share {que} as an image',
+  Goleadoras: 'Scoring',
+  Arqueras: 'Goalies',
+  'y {n} más en ubl.com.ar': 'and {n} more at ubl.com.ar',
+  'No se pudo armar la imagen para compartir.':
+    'The image could not be put together for sharing.',
+
   // The hero.
   'Hockey sobre Hielo': 'Ice Hockey',
   Hockey: 'Hockey',

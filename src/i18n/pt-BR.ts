@@ -163,6 +163,15 @@ export const ptBR: Catalogue = {
   'Foto siguiente': 'Próxima foto',
   Cerrar: 'Fechar',
 
+  // Sharing a table, a team or a round as an image.
+  Compartir: 'Compartilhar',
+  'Compartir {que} como imagen': 'Compartilhar {que} como imagem',
+  Goleadoras: 'Artilheiras',
+  Arqueras: 'Goleiras',
+  'y {n} más en ubl.com.ar': 'e mais {n} em ubl.com.ar',
+  'No se pudo armar la imagen para compartir.':
+    'Não foi possível montar a imagem para compartilhar.',
+
   // The hero.
   'Hockey sobre Hielo': 'Hóquei no Gelo',
   Hockey: 'Hóquei',
