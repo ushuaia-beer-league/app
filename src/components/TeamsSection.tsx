@@ -6,6 +6,8 @@ import { Section } from './Section'
 import { TeamCard } from './TeamCard'
 import './TeamsSection.css'
 import { anchorFor } from '../utils/site-routes'
+import { fill } from '../i18n/language'
+import { useT } from '../i18n/useLanguage'
 
 /**
  * The two competitions that have teams, in the order the league lists them.
@@ -56,6 +58,7 @@ type TeamsSectionProps = {
  * the two gaps the sheet leaves. Nothing is counted here.
  */
 export function TeamsSection({ season }: TeamsSectionProps) {
+  const t = useT()
   const blocks = useMemo(
     () =>
       COMPETITIONS.map((competition) => {
@@ -101,8 +104,8 @@ export function TeamsSection({ season }: TeamsSectionProps) {
   return (
     <Section
       id={anchorFor('equipos')}
-      eyebrow={`Temporada ${season.season}`}
-      title="Equipos"
+      eyebrow={fill(t('Temporada {year}'), { year: season.season })}
+      title={t('Equipos')}
       tone="alt"
     >
       {someNameInferred && (

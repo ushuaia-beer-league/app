@@ -1,6 +1,7 @@
 import { Section } from './Section'
 import './SponsorsSection.css'
 import { anchorFor } from '../utils/site-routes'
+import { useT } from '../i18n/useLanguage'
 
 type Sponsor = {
   name: string
@@ -28,11 +29,12 @@ type SponsorsSectionProps = {
  * section or inventing a logo: an empty list is a normal state here.
  */
 export function SponsorsSection({ sponsors = [] }: SponsorsSectionProps) {
+  const t = useT()
   return (
     <Section
       id={anchorFor('sponsors')}
-      eyebrow="Gracias a ellos es posible"
-      title="Sponsors"
+      eyebrow={t('Gracias a ellos es posible')}
+      title={t('Sponsors')}
       tone="alt"
     >
       {sponsors.length === 0 ? (

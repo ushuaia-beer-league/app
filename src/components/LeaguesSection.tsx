@@ -19,6 +19,8 @@ import { Section } from './Section'
 import { StandingsTable } from './StandingsTable'
 import './LeaguesSection.css'
 import { anchorFor } from '../utils/site-routes'
+import { fill } from '../i18n/language'
+import { useT } from '../i18n/useLanguage'
 
 /**
  * The four tables the league keeps, in the order a visitor asks for them: what
@@ -72,6 +74,7 @@ export function LeaguesSection({
   season,
   today = todayIso(),
 }: LeaguesSectionProps) {
+  const t = useT()
   const [choice, setChoice] = useState<CompetitionChoice>('beer')
   const [tab, setTab] = useState<TabKey>('fixture')
   const tabButtons = useRef<(HTMLButtonElement | null)[]>([])
@@ -168,8 +171,8 @@ export function LeaguesSection({
   return (
     <Section
       id={anchorFor('ligas')}
-      eyebrow={`Temporada ${season.season}`}
-      title="Ligas & Estadísticas"
+      eyebrow={fill(t('Temporada {year}'), { year: season.season })}
+      title={t('Ligas & Estadísticas')}
     >
       <CompetitionTabs value={choice} onChange={setChoice} />
 
@@ -182,7 +185,7 @@ export function LeaguesSection({
       <div
         className="leagues__tabs"
         role="tablist"
-        aria-label="Tablas de la competencia"
+        aria-label={t('Tablas de la competencia')}
       >
         {TABS.map((item, index) => {
           const chosen = item.key === tab

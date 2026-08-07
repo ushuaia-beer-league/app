@@ -97,4 +97,11 @@ export const en: Catalogue = {
   'Los diez mandamientos': 'The ten commandments',
   'El reglamento de la liga, citado tal como lo escribió. No se traduce.':
     'The league’s own rulebook, quoted in Spanish exactly as written. It is never translated.',
+  // Section headings.
+  Galería: 'Gallery',
+  'Fotos & Momentos': 'Photos & Moments',
+  'Gracias a ellos es posible': 'They make it possible',
+  Escribinos: 'Get in touch',
+  'Temporada {year}': '{year} season',
+  'Tablas de la competencia': 'Competition tables',
 }

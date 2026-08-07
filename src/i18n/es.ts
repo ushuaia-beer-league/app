@@ -90,6 +90,13 @@ export const STRINGS = [
   'Fin del mundo. Comienzo de todo... tercer tiempo.',
   'Los diez mandamientos',
   'El reglamento de la liga, citado tal como lo escribió. No se traduce.',
+  // Section headings.
+  'Galería',
+  'Fotos & Momentos',
+  'Gracias a ellos es posible',
+  'Escribinos',
+  'Temporada {year}',
+  'Tablas de la competencia',
 ] as const
 
 /** Every string the site can say. */

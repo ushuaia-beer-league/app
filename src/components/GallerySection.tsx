@@ -1,6 +1,7 @@
 import { Section } from './Section'
 import './GallerySection.css'
 import { anchorFor } from '../utils/site-routes'
+import { useT } from '../i18n/useLanguage'
 
 /** As many slots as the reference draws, so the grid keeps its proportions. */
 const PLACEHOLDER_SLOTS = [0, 1, 2, 3, 4, 5]
@@ -18,8 +19,13 @@ const PLACEHOLDER_SLOTS = [0, 1, 2, 3, 4, 5]
  * only make sense once there are real images to arrange.
  */
 export function GallerySection() {
+  const t = useT()
   return (
-    <Section id={anchorFor('fotos')} eyebrow="Galería" title="Fotos & Momentos">
+    <Section
+      id={anchorFor('fotos')}
+      eyebrow={t('Galería')}
+      title={t('Fotos & Momentos')}
+    >
       <div className="gallery" aria-hidden="true">
         {PLACEHOLDER_SLOTS.map((slot) => (
           <div className="gallery__slot" key={slot}>

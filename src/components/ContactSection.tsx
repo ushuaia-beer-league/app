@@ -1,6 +1,7 @@
 import { Section } from './Section'
 import './ContactSection.css'
 import { anchorFor } from '../utils/site-routes'
+import { useT } from '../i18n/useLanguage'
 
 type ContactChannel = {
   /** What the visitor reads, in Spanish: "Instagram", "Correo", and so on. */
@@ -28,8 +29,13 @@ type ContactSectionProps = {
  * never had.
  */
 export function ContactSection({ channels = [] }: ContactSectionProps) {
+  const t = useT()
   return (
-    <Section id={anchorFor('contacto')} eyebrow="Escribinos" title="Contacto">
+    <Section
+      id={anchorFor('contacto')}
+      eyebrow={t('Escribinos')}
+      title={t('Contacto')}
+    >
       {channels.length === 0 ? (
         <p className="contact__empty">
           Todavía no hay canales de contacto publicados.

@@ -102,4 +102,11 @@ export const ptBR: Catalogue = {
   'Los diez mandamientos': 'Os dez mandamentos',
   'El reglamento de la liga, citado tal como lo escribió. No se traduce.':
     'O regulamento da liga, citado em espanhol exatamente como foi escrito. Não se traduz.',
+  // Section headings.
+  Galería: 'Galeria',
+  'Fotos & Momentos': 'Fotos & Momentos',
+  'Gracias a ellos es posible': 'Graças a eles é possível',
+  Escribinos: 'Fale com a gente',
+  'Temporada {year}': 'Temporada {year}',
+  'Tablas de la competencia': 'Tabelas da competição',
 }

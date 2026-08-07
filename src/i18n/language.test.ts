@@ -77,7 +77,14 @@ const TRANSLATED = LANGUAGES.filter((language) => language !== 'es')
  */
 const SAME_AS_SPANISH: Readonly<Record<string, readonly string[]>> = {
   en: ['Fixture', 'Playoffs', 'Sponsors'],
-  'pt-BR': ['Ligas', 'Fotos', 'Todas', 'Playoffs'],
+  'pt-BR': [
+    'Ligas',
+    'Fotos',
+    'Todas',
+    'Playoffs',
+    'Fotos & Momentos',
+    'Temporada {year}',
+  ],
 }
 
 describe('the catalogues', () => {
