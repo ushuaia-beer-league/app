@@ -292,6 +292,10 @@
     }
 
     .hero__content .crest {
+      /* Growing from its base, so the crest expands upward into the hero's
+       * headroom instead of descending over the eyebrow and the title: the
+       * gap between badge and words stays put while both animate. */
+      transform-origin: 50% 100%;
       animation-name: hero-crest-grow;
       animation-timing-function: ease-out;
       animation-fill-mode: both;
