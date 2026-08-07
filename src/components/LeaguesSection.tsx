@@ -22,6 +22,7 @@ import './LeaguesSection.css'
 import { anchorFor } from '../utils/site-routes'
 import { fill } from '../i18n/language'
 import { useT } from '../i18n/useLanguage'
+import { canonicalSlug } from '../data/teams-2026'
 import { crestFor } from './team-logos'
 
 /**
@@ -142,10 +143,15 @@ export function LeaguesSection({
   const teamCrest = useMemo(() => {
     // Through crestFor, so the fixture prefers the crest uploaded from the
     // panel exactly like the team cards do: the same team must wear the same
-    // badge on every page of the site.
-    const teams = new Map(season.teams.map((team) => [team.slug, team]))
+    // badge on every page of the site. Keyed and queried through
+    // canonicalSlug, because the panel can rename a slug while matches or the
+    // seed still speak the old spelling — that is how the rosters vanished on
+    // 2026-08-07, and a slug-keyed lookup that skips the bridge repeats it.
+    const teams = new Map(
+      season.teams.map((team) => [canonicalSlug(team.slug), team]),
+    )
     return (teamId: string) => {
-      const team = teams.get(teamId)
+      const team = teams.get(canonicalSlug(teamId))
       return team === undefined ? crestFor({ slug: teamId }) : crestFor(team)
     }
   }, [season.teams])
