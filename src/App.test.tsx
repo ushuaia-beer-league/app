@@ -72,6 +72,6 @@ describe('App', () => {
       </MemoryRouter>,
     )
 
-    expect(screen.getByText('Historia de la UBL')).toBeVisible()
+    expect(screen.getAllByText('Historia de la UBL')[0]).toBeVisible()
   })
 })

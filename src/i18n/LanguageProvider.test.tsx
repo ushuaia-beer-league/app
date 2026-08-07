@@ -22,7 +22,8 @@ describe('the language, end to end', () => {
       </LanguageProvider>,
     )
 
-    expect(screen.getByText('Historia de la UBL')).toBeInTheDocument()
+    // Twice on purpose: the section heading and the caption pinned to the crest.
+    expect(screen.getAllByText('Historia de la UBL')).toHaveLength(2)
     expect(screen.getByText('Cómo nació la UBL')).toBeInTheDocument()
   })
 
@@ -35,9 +36,9 @@ describe('the language, end to end', () => {
       </LanguageProvider>,
     )
 
-    expect(screen.getByText('The UBL story')).toBeInTheDocument()
+    expect(screen.getAllByText('The UBL story')).toHaveLength(2)
     expect(screen.getByText('How the UBL started')).toBeInTheDocument()
-    expect(screen.queryByText('Historia de la UBL')).not.toBeInTheDocument()
+    expect(screen.queryAllByText('Historia de la UBL')).toHaveLength(0)
   })
 
   it('never translates the ten commandments', () => {
