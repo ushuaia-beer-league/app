@@ -380,7 +380,7 @@
   --crest-sm: 40px;
   /* The crest on a team card. Its own size and not --crest-sm, because that one is
    * also the badge inside the 56px navigation bar, which 64px would overflow. */
-  --crest-card: 64px;
+  --crest-card: 88px;
   --crest-md: 130px;
   --crest-lg: 260px;
 

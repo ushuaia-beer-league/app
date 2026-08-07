@@ -205,8 +205,8 @@ function Rounds({
                                 className="fixture__crest"
                                 src={teamLogo(match.homeTeamId ?? '')!}
                                 alt=""
-                                width={22}
-                                height={22}
+                                width={30}
+                                height={30}
                                 loading="lazy"
                               />
                             )}
@@ -239,8 +239,8 @@ function Rounds({
                                 className="fixture__crest"
                                 src={teamLogo(match.awayTeamId ?? '')!}
                                 alt=""
-                                width={22}
-                                height={22}
+                                width={30}
+                                height={30}
                                 loading="lazy"
                               />
                             )}

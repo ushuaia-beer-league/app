@@ -75,8 +75,8 @@
 
 /* An uploaded logo takes the glyph's seat, same footprint. */
 .sponsors__logo {
-  width: 40px;
-  height: 40px;
+  width: 84px;
+  height: 84px;
   object-fit: contain;
 }
 
