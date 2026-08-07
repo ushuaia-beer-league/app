@@ -89,6 +89,10 @@
   background: transparent;
   max-width: min(94vw, 90rem);
   max-height: 94vh;
+  /* The global reset zeroes every margin, and `margin: auto` is exactly how a
+   * native dialog centres itself — without this the photo hangs off the
+   * top-left corner of the screen. */
+  margin: auto;
 }
 
 .gallery__lightbox::backdrop {

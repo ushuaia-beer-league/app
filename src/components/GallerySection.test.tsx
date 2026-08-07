@@ -68,3 +68,56 @@ describe('GallerySection, with photographs', () => {
     expect(container.querySelector('.gallery__stage')).toBeNull()
   })
 })
+
+describe('GallerySection, swiped', () => {
+  const PHOTOS = [
+    { url: 'https://example.com/a.jpg', caption: null },
+    { url: 'https://example.com/b.jpg', caption: null },
+  ]
+
+  function swipe(dialog: Element, fromX: number, toX: number, dy = 0) {
+    fireEvent.touchStart(dialog, {
+      touches: [{ clientX: fromX, clientY: 300 }],
+    })
+    fireEvent.touchEnd(dialog, {
+      changedTouches: [{ clientX: toX, clientY: 300 + dy }],
+    })
+  }
+
+  it('pages the wall with a horizontal swipe, in both directions', () => {
+    const { container } = render(<GallerySection photos={PHOTOS} />)
+    fireEvent.click(
+      screen.getAllByRole('button', { name: 'Ampliar la foto' })[0]!,
+    )
+    const dialog = container.querySelector('.gallery__lightbox')!
+
+    swipe(dialog, 300, 100)
+    expect(container.querySelector('.gallery__stage img')).toHaveAttribute(
+      'src',
+      'https://example.com/b.jpg',
+    )
+
+    swipe(dialog, 100, 300)
+    expect(container.querySelector('.gallery__stage img')).toHaveAttribute(
+      'src',
+      'https://example.com/a.jpg',
+    )
+  })
+
+  it('ignores a scroll and a fidget, which are not page turns', () => {
+    const { container } = render(<GallerySection photos={PHOTOS} />)
+    fireEvent.click(
+      screen.getAllByRole('button', { name: 'Ampliar la foto' })[0]!,
+    )
+    const dialog = container.querySelector('.gallery__lightbox')!
+
+    // Mostly vertical: somebody scrolling the caption into view.
+    swipe(dialog, 300, 200, 400)
+    // Too short: a tap that drifted.
+    swipe(dialog, 300, 280)
+    expect(container.querySelector('.gallery__stage img')).toHaveAttribute(
+      'src',
+      'https://example.com/a.jpg',
+    )
+  })
+})
