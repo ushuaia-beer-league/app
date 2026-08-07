@@ -136,7 +136,7 @@ export function mediaExtension(file: PickedFile): string {
  * without rewriting a single row.
  */
 export function mediaObjectPath(
-  folder: 'sponsors' | 'photos',
+  folder: 'sponsors' | 'photos' | 'teams',
   year: number,
   file: PickedFile,
   id: string,

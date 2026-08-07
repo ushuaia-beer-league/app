@@ -41,6 +41,36 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_channels: {
+        Row: {
+          active: boolean
+          display_order: number
+          glyph: string | null
+          href: string
+          id: string
+          label: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          display_order?: number
+          glyph?: string | null
+          href: string
+          id?: string
+          label: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          display_order?: number
+          glyph?: string | null
+          href?: string
+          id?: string
+          label?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       competitions: {
         Row: {
           active: boolean

@@ -63,6 +63,7 @@ import type {
   MatchSavePlan,
 } from './fixtureDraft'
 import type { AdminRole } from './useAdminSession'
+import { PUBLIC_CONTACT_SELECT } from '../data/queries'
 import type { ViewCount, VisitFactCount } from './visitsSummary'
 
 export interface AdminMatch {
@@ -1194,7 +1195,7 @@ export async function savePhotos(
  * silently overwriting somebody else's logo.
  */
 export async function uploadMedia(
-  folder: 'sponsors' | 'photos',
+  folder: 'sponsors' | 'photos' | 'teams',
   year: number,
   file: File,
 ): Promise<Result<string>> {
@@ -1734,6 +1735,54 @@ export async function saveSiteContent(block: {
   const { error } = await client
     .from('site_content')
     .upsert({ ...block, updated_at: new Date().toISOString() })
+
+  if (error) return { ok: false, because: error.message }
+  return { ok: true, data: null }
+}
+
+/** One contact channel as the panel edits it. */
+export interface ContactChannelRow {
+  id: string
+  label: string
+  href: string
+  glyph: string | null
+  display_order: number
+  active: boolean
+}
+
+/**
+ * Every channel, active or not: retiring one is `active = false`, never a
+ * delete, the same rule as sponsors — last season's channels are still a fact.
+ */
+export async function loadContactChannelsAdmin(): Promise<
+  Result<ContactChannelRow[]>
+> {
+  const client = await getSupabaseClient()
+  if (!client) return { ok: false, because: NO_CONNECTION }
+
+  const { data, error } = await client
+    .from('contact_channels')
+    .select(PUBLIC_CONTACT_SELECT)
+    .order('display_order')
+
+  if (error) return { ok: false, because: error.message }
+  return { ok: true, data: (data ?? []) as ContactChannelRow[] }
+}
+
+/**
+ * Upserts one channel. Who may write is the database's decision: the policies
+ * accept communications and general administration, and the href constraint
+ * refuses anything that is not web or mailto, so a typo comes back as words.
+ */
+export async function saveContactChannel(
+  row: ContactChannelRow,
+): Promise<Result<null>> {
+  const client = await getSupabaseClient()
+  if (!client) return { ok: false, because: NO_CONNECTION }
+
+  const { error } = await client
+    .from('contact_channels')
+    .upsert({ ...row, updated_at: new Date().toISOString() })
 
   if (error) return { ok: false, because: error.message }
   return { ok: true, data: null }

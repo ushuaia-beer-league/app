@@ -27,6 +27,12 @@ export interface TeamSeed {
   aliases: readonly string[]
   /** True when the organisation has not confirmed the name mapping. */
   mappingInferred: boolean
+  /**
+   * A crest uploaded from the panel: a storage path (or a full URL from the old
+   * text field). Absent in the seed, where the repo's own artwork is the crest,
+   * which is also what the site falls back to when the database sleeps.
+   */
+  logoUrl?: string | null
 }
 
 export const BEER_TEAMS_2026: readonly TeamSeed[] = [

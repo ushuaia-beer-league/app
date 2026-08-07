@@ -181,7 +181,6 @@ describe('TeamsAdminScreen', () => {
     typeIn('Nombre con sponsor (opcional)', 'Hantachoppers')
     typeIn('Apodo del cuadro (opcional)', 'hanta')
     typeIn('Color (opcional)', 'verde')
-    typeIn('Dirección del escudo (opcional)', 'https://example.com/hanta.png')
     fireEvent.click(teamSaveButton())
 
     expect(await screen.findByRole('status')).toHaveTextContent(
@@ -196,7 +195,9 @@ describe('TeamsAdminScreen', () => {
         full_name: 'Hantachoppers',
         nickname: 'hanta',
         colour: 'verde',
-        logo_url: 'https://example.com/hanta.png',
+        // The crest arrives by upload now, not by typing an address;
+        // untouched, it saves as the null it is.
+        logo_url: null,
         active: true,
       },
     })

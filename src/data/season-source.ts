@@ -52,6 +52,7 @@ interface TeamRow {
   short_name: string
   full_name: string | null
   nickname: string | null
+  logo_url: string | null
 }
 
 export interface MatchRow {
@@ -213,6 +214,7 @@ async function loadFromSupabase(
         nickname: row.nickname,
         aliases: [],
         mappingInferred: true,
+        logoUrl: row.logo_url,
       })),
       // Rosters and players are not read yet: no view needs them until the
       // rosters land in phase 3, and asking for rows nobody renders spends the

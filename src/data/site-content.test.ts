@@ -1,4 +1,5 @@
 import {
+  builtInBlock,
   CONTENT_KEYS,
   overrideFor,
   paragraphsOf,
@@ -52,5 +53,30 @@ describe('paragraphsOf', () => {
 
   it('drops emptiness rather than rendering empty paragraphs', () => {
     expect(paragraphsOf('\n\n  \n\n')).toEqual([])
+  })
+})
+
+describe('builtInBlock', () => {
+  const es = (key: string) => key
+
+  it('rebuilds each block as editable paragraphs', () => {
+    const block = builtInBlock('historia-comienzo', es as never)
+    expect(block.title).toBe('El comienzo')
+    expect(block.body.split('\n\n')).toHaveLength(2)
+    expect(block.body).toContain('En 2023')
+  })
+
+  it('keeps the sponsor’s name inside its sentence', () => {
+    // "Birra del Fuego" is a proper noun the catalogue never carries; losing it
+    // would hand the operators a sentence with a hole in the middle.
+    const block = builtInBlock('historia-apoyo', es as never)
+    expect(block.body).toContain('fue Birra del Fuego,')
+  })
+
+  it('ends the story with the third half untranslated here', () => {
+    const block = builtInBlock('historia-hoy', es as never)
+    expect(
+      block.body.endsWith('Fin del mundo. Comienzo de todo... tercer tiempo.'),
+    ).toBe(true)
   })
 })

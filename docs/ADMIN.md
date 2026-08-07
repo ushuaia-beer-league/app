@@ -10,8 +10,8 @@ Dos páginas. Si algo de acá no alcanza, está mal escrito: avisá y lo arregla
 
 ## Las dos direcciones
 
-- **El sitio público**: https://ushuaia-beer-league.github.io/app/
-- **El panel**: https://ushuaia-beer-league.github.io/app/admin/
+- **El sitio público**: https://ubl.com.ar
+- **El panel**: https://ubl.com.ar/admin/
 
 El sitio público no necesita nada de nadie: está siempre disponible y no tiene
 contraseña. El panel pide ingresar con Google.
@@ -36,7 +36,7 @@ de su propio sistema.
 | ---------------------- | ------------------------------------------- |
 | Administración general | Todo, incluida la lista de administradores  |
 | Gestión deportiva      | Equipos, fixture, resultados y estadísticas |
-| Comunicación           | Fotos y sponsors                            |
+| Comunicación           | Fotos, sponsors, textos y contacto          |
 
 Estos permisos **no son botones escondidos**: están escritos en la base de
 datos. Si alguien de comunicación intenta cargar un resultado, la base lo
@@ -95,15 +95,35 @@ está vacía.
 
 ## Textos del sitio
 
-En `/app/admin/textos` se pueden cambiar los cinco bloques de la Historia. Lo
+En `/admin/textos` se pueden cambiar los cinco bloques de la Historia. Lo
 pueden hacer **comunicación y administración general**, igual que fotos y
 sponsors, y el permiso está en la base, no en el botón.
 
-Se edita **por idioma**: castellano, inglés y portugués tienen cada uno su
-pestaña. Un idioma que nadie editó sigue mostrando la traducción original, así
-que cambiar el castellano nunca deja el inglés en blanco. Los párrafos se separan
+Cada bloque aparece **ya cargado con el texto vigente**, así se edita encima de
+lo que hay en vez de tipear de cero (pedido de los operadores). Se edita **por
+idioma**: castellano, inglés y portugués tienen cada uno su pestaña. Un idioma
+que nadie editó sigue mostrando la traducción original, así que cambiar el
+castellano nunca deja el inglés en blanco. Los párrafos se separan
 con una línea en blanco. Los diez mandamientos no aparecen ahí a propósito: son
 el reglamento y no se editan desde ningún panel.
+
+## Contacto
+
+En `/admin/contacto` se cargan los canales que muestra la página de
+contacto: el correo, el Instagram, lo que la liga quiera publicar. Lo pueden
+hacer **comunicación y administración general**. La dirección tiene que empezar
+con `https://` o `mailto:` — la base rechaza cualquier otra cosa, no importa
+desde dónde se intente. Un canal desactivado deja de mostrarse pero no se
+borra.
+
+## Escudos de equipos
+
+En Equipos, al editar un equipo hay un botón para **subir el escudo como
+archivo**. Subirlo lo deja preparado; **Guardar es lo que publica**. Lo puede
+hacer gestión deportiva (y administración general), porque el escudo es parte
+del equipo. Mientras un equipo no tenga escudo subido, el sitio muestra el
+dibujo que mandó la liga, y ese mismo dibujo es el que aparece si la base está
+dormida.
 
 ## Cuando la base está dormida
 
@@ -161,7 +181,7 @@ asterisco es lo que avisa que ese nombre no está confirmado.
 
 ## Visitas
 
-`/app/admin/visitas` dice si alguien está usando el sitio, que es lo único que
+`/admin/visitas` dice si alguien está usando el sitio, que es lo único que
 GitHub Pages no cuenta por su cuenta. Contesta cinco cosas:
 
 - **Qué pantalla se abrió y qué día**, que es el contador viejo.

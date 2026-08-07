@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import { playerBadge } from './player-badges'
 import type { TeamRoster } from './rosters'
+import { mediaUrl } from '../admin/mediaFiles'
 import { teamLogo } from './team-logos'
 import './TeamCard.css'
 import { useT } from '../i18n/useLanguage'
@@ -46,7 +47,16 @@ type TeamCardProps = {
 export function TeamCard({ team, roster }: TeamCardProps) {
   const t = useT()
   const { lines, sharedNumbers } = roster
-  const logo = teamLogo(team.slug)
+  // The uploaded crest wins; the repo's artwork is the fallback, and it is also
+  // what a paused database serves, so a card never loses its badge to the free
+  // tier. The old panel field accepted full URLs, so both shapes resolve.
+  const uploaded =
+    team.logoUrl == null || team.logoUrl === ''
+      ? null
+      : /^https?:/i.test(team.logoUrl)
+        ? team.logoUrl
+        : mediaUrl(team.logoUrl)
+  const logo = uploaded ?? teamLogo(team.slug)
   const someNumberMissing = lines.some((line) => line.jerseyNumber === null)
   // Which roster line is showing its badge, on a screen where hover does not
   // exist and a tap has to do hover's job. One at a time, per card.

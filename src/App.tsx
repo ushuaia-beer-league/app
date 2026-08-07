@@ -10,8 +10,10 @@ import { SiteNav } from './components/SiteNav'
 import { SponsorsSection } from './components/SponsorsSection'
 import { TeamsSection } from './components/TeamsSection'
 import {
+  loadContactChannels,
   loadPublicPhotos,
   loadPublicSponsors,
+  type PublicContactChannel,
   type PublicPhoto,
   type PublicSponsor,
 } from './data/public-content'
@@ -61,6 +63,7 @@ export function App() {
   const [overrides, setOverrides] = useState<ContentOverrides>()
   const [sponsors, setSponsors] = useState<PublicSponsor[]>([])
   const [photos, setPhotos] = useState<PublicPhoto[]>([])
+  const [channels, setChannels] = useState<PublicContactChannel[]>([])
 
   // Loaded once, like the season: the prose changes when somebody edits it in the
   // panel, not per navigation, and a failed load is simply the built-in text.
@@ -74,6 +77,9 @@ export function App() {
     })
     void loadPublicPhotos().then((rows) => {
       if (current) setPhotos(rows)
+    })
+    void loadContactChannels().then((rows) => {
+      if (current) setChannels(rows)
     })
     return () => {
       current = false
@@ -142,7 +148,7 @@ export function App() {
           (season ? <TeamsSection season={season} /> : waiting)}
 
         {section === 'fotos' && <GallerySection photos={photos} />}
-        {section === 'contacto' && <ContactSection />}
+        {section === 'contacto' && <ContactSection channels={channels} />}
       </main>
 
       <SiteFooter season={season?.season} />

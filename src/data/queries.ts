@@ -49,7 +49,7 @@ export const PUBLISHED_GOALIE_STATS_SELECT =
 
 /** The teams, as both the public site and the panel list them. */
 export const TEAMS_SELECT =
-  'slug, competition_key, short_name, full_name, nickname'
+  'slug, competition_key, short_name, full_name, nickname, logo_url'
 
 /** The panel-edited prose overrides, read by the public site and the panel. */
 export const SITE_CONTENT_SELECT = 'key, language, title, body'
@@ -59,3 +59,7 @@ export const PUBLIC_SPONSORS_SELECT = 'name, url, logo_path, display_order'
 
 /** The published gallery. */
 export const PUBLIC_PHOTOS_SELECT = 'storage_path, caption, display_order'
+
+/** The league's contact channels, as the public site and the panel read them. */
+export const PUBLIC_CONTACT_SELECT =
+  'id, label, href, glyph, display_order, active'

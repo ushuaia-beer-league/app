@@ -1,5 +1,9 @@
 import { mediaUrl } from '../admin/mediaFiles'
-import { PUBLIC_PHOTOS_SELECT, PUBLIC_SPONSORS_SELECT } from './queries'
+import {
+  PUBLIC_CONTACT_SELECT,
+  PUBLIC_PHOTOS_SELECT,
+  PUBLIC_SPONSORS_SELECT,
+} from './queries'
 import { getSupabaseClient } from './supabase-client'
 
 /**
@@ -57,6 +61,47 @@ export async function loadPublicPhotos(): Promise<PublicPhoto[]> {
       const url = mediaUrl(row.storage_path)
       return url === null ? [] : [{ url, caption: row.caption }]
     })
+  } catch {
+    return []
+  }
+}
+
+export interface PublicContactChannel {
+  label: string
+  href: string
+  glyph?: string
+}
+
+/**
+ * Whether a stored href may become a link. The database constraint already
+ * refuses anything that is not web or mailto, but the browser is the layer that
+ * executes an href, so it checks again: two layers, one rule.
+ */
+function isContactHref(href: string): boolean {
+  return /^(https?:\/\/|mailto:)/i.test(href.trim())
+}
+
+export async function loadContactChannels(): Promise<PublicContactChannel[]> {
+  try {
+    const client = await getSupabaseClient()
+    if (!client) return []
+    const { data, error } = await client
+      .from('contact_channels')
+      .select(PUBLIC_CONTACT_SELECT)
+      .eq('active', true)
+      .order('display_order')
+    if (error || !data) return []
+    return data.flatMap((row) =>
+      isContactHref(row.href)
+        ? [
+            {
+              label: row.label,
+              href: row.href,
+              ...(row.glyph ? { glyph: row.glyph } : {}),
+            },
+          ]
+        : [],
+    )
   } catch {
     return []
   }

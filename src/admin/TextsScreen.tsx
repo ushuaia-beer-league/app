@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react'
 
 import {
+  builtInBlock,
   CONTENT_KEYS,
   loadContentOverrides,
   overrideFor,
   type ContentKey,
 } from '../data/site-content'
-import { LANGUAGES, LANGUAGE_NAMES, type Language } from '../i18n/language'
+import {
+  LANGUAGES,
+  LANGUAGE_NAMES,
+  translator,
+  type Language,
+} from '../i18n/language'
 import { saveSiteContent, type Result } from './adminQueries'
 import './TextsScreen.css'
 
@@ -35,6 +41,8 @@ const BLOCK_NAMES: Readonly<Record<ContentKey, string>> = {
 interface Draft {
   title: string
   body: string
+  /** Still the built-in text: shown as such, and saving it publishes a copy. */
+  fromBuiltIn: boolean
 }
 
 export function TextsScreen() {
@@ -51,8 +59,23 @@ export function TextsScreen() {
       for (const key of CONTENT_KEYS) {
         for (const lang of LANGUAGES) {
           const row = overrideFor(overrides, key, lang)
-          if (row)
-            next[`${key}#${lang}`] = { title: row.title ?? '', body: row.body }
+          if (row) {
+            next[`${key}#${lang}`] = {
+              title: row.title ?? '',
+              body: row.body,
+              fromBuiltIn: false,
+            }
+          } else {
+            // Prefilled with the words the site shows today, so editing means
+            // touching what is there rather than retyping it — the operators
+            // asked for exactly this ("editar por sobre lo hecho").
+            const builtIn = builtInBlock(key, translator(lang))
+            next[`${key}#${lang}`] = {
+              title: builtIn.title,
+              body: builtIn.body,
+              fromBuiltIn: true,
+            }
+          }
         }
       }
       setDrafts(next)
@@ -127,15 +150,21 @@ export function TextsScreen() {
 
       <ul className="texts__blocks">
         {CONTENT_KEYS.map((key) => {
-          const draft = drafts[draftKey(key)] ?? { title: '', body: '' }
-          const edited = draft.body.trim() !== ''
+          const draft = drafts[draftKey(key)] ?? {
+            title: '',
+            body: '',
+            fromBuiltIn: true,
+          }
 
           return (
             <li className="texts__block" key={key}>
               <h3 className="texts__block-name">
                 {BLOCK_NAMES[key]}
-                {!edited && (
-                  <span className="texts__original"> · texto original</span>
+                {draft.fromBuiltIn && (
+                  <span className="texts__original">
+                    {' '}
+                    · texto original, editá encima y guardá
+                  </span>
                 )}
               </h3>
               <label className="texts__label" htmlFor={`title-${key}`}>
@@ -148,7 +177,11 @@ export function TextsScreen() {
                 onChange={(event) =>
                   setDrafts((all) => ({
                     ...all,
-                    [draftKey(key)]: { ...draft, title: event.target.value },
+                    [draftKey(key)]: {
+                      ...draft,
+                      title: event.target.value,
+                      fromBuiltIn: false,
+                    },
                   }))
                 }
               />
@@ -163,7 +196,11 @@ export function TextsScreen() {
                 onChange={(event) =>
                   setDrafts((all) => ({
                     ...all,
-                    [draftKey(key)]: { ...draft, body: event.target.value },
+                    [draftKey(key)]: {
+                      ...draft,
+                      body: event.target.value,
+                      fromBuiltIn: false,
+                    },
                   }))
                 }
               />

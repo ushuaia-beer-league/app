@@ -8,6 +8,7 @@ import {
   loadTeamsPage,
   saveRoster,
   saveTeam,
+  uploadMedia,
   type Result,
 } from './adminQueries'
 import { ROLE_NAMES } from './adminsDraft'
@@ -46,6 +47,8 @@ import { can, type AdminRole } from './useAdminSession'
 import './TeamsAdminScreen.css'
 
 interface TeamsAdminScreenProps {
+  /** Test seam: how a crest file becomes a storage path. */
+  upload?: typeof uploadMedia
   /** The signed-in person's role, so the screen can say why it offers no form. */
   role: AdminRole
   /** The season whose rosters are being edited. */
@@ -108,6 +111,7 @@ export function TeamsAdminScreen({
   load = loadTeamsPage,
   saveOne = saveTeam,
   saveRosterRows = saveRoster,
+  upload = uploadMedia,
 }: TeamsAdminScreenProps) {
   const [page, setPage] = useState<TeamsPage | null>(null)
   const [because, setBecause] = useState<string | null>(null)
@@ -404,17 +408,34 @@ export function TeamsAdminScreen({
       </p>
 
       <p className="teams__field teams__field--wide">
-        <label htmlFor="teams-logo">Dirección del escudo (opcional)</label>
+        <label htmlFor="teams-logo-file">Escudo (subir imagen)</label>
+        {/* The old field asked for an address, which nobody has: the operators
+         * have files. The upload stores the file and writes its path into the
+         * same draft field the save already carries, so nothing downstream
+         * changed. Guardar es lo que publica. */}
         <input
-          autoComplete="off"
-          id="teams-logo"
-          inputMode="url"
-          onChange={(event) =>
-            setDraft((current) => ({ ...current, logoUrl: event.target.value }))
-          }
-          type="text"
-          value={draft.logoUrl}
+          accept="image/*"
+          id="teams-logo-file"
+          onChange={(event) => {
+            const file = event.target.files?.[0]
+            if (!file) return
+            void upload('teams', year, file).then((result) => {
+              if (result.ok) {
+                setDraft((current) => ({ ...current, logoUrl: result.data }))
+                setNotice({
+                  tone: 'ok',
+                  text: 'Escudo subido. Guardá el equipo para publicarlo.',
+                })
+              } else {
+                setNotice({ tone: 'bad', text: result.because })
+              }
+            })
+          }}
+          type="file"
         />
+        {draft.logoUrl !== '' && (
+          <span className="teams__hint">Cargado: {draft.logoUrl}</span>
+        )}
       </p>
 
       <label className="teams__choice" htmlFor="teams-active">

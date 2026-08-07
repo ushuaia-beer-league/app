@@ -9,9 +9,17 @@
   gap: var(--space-5);
 }
 
+/*
+ * A column on every screen size: heading, then crest, stacked and centred. It
+ * was a row on phones once — heading squeezed beside the mug — and the owner's
+ * photo of it was the whole review. Sticky arrives only at the two-column
+ * breakpoint below; on a phone the pair simply opens the section.
+ */
 .history__crest {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
 }
 
 .history__blocks {
