@@ -124,11 +124,20 @@ function spaFallback(onCloudflare: boolean): Plugin {
           join(outDir, '_headers'),
           [
             '/*',
+            // HTML must revalidate on every request. Each deploy renames the
+            // hashed bundles, so a cached page from the previous deploy points at
+            // assets that no longer exist and the site renders blank: it happened,
+            // on /equipos, the day the per-route pages shipped. The assets
+            // themselves are immutable by name and get the opposite rule below.
+            '  Cache-Control: public, max-age=0, must-revalidate',
             `  Content-Security-Policy: ${csp}`,
             '  X-Content-Type-Options: nosniff',
             '  X-Frame-Options: DENY',
             '  Referrer-Policy: strict-origin-when-cross-origin',
             '  Permissions-Policy: camera=(), microphone=(), geolocation=()',
+            '',
+            '/assets/*',
+            '  Cache-Control: public, max-age=31536000, immutable',
             '',
           ].join('\n'),
         )
