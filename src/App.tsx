@@ -14,7 +14,13 @@ import {
   type ContentOverrides,
 } from './data/site-content'
 import { useSeason } from './hooks/useSeason'
-import { pathForTab, routeFor, type SectionKey } from './utils/site-routes'
+import {
+  competitionFor,
+  pathForLeagues,
+  routeFor,
+  withoutCompetition,
+  type SectionKey,
+} from './utils/site-routes'
 import { useT } from './i18n/useLanguage'
 
 /**
@@ -60,7 +66,8 @@ export function App() {
     }
   }, [])
 
-  const route = routeFor(pathname)
+  const route = routeFor(withoutCompetition(pathname))
+  const competition = competitionFor(pathname)
   const section: SectionKey = route?.section ?? 'inicio'
 
   // In an effect and not during render: the document is not this component's to
@@ -100,7 +107,11 @@ export function App() {
             <LeaguesSection
               season={season}
               tab={route?.tab}
-              onTabChange={(tab) => navigate(pathForTab(tab))}
+              choice={competition}
+              onTabChange={(tab) => navigate(pathForLeagues(tab, competition))}
+              onChoiceChange={(next) =>
+                navigate(pathForLeagues(route?.tab ?? 'fixture', next))
+              }
             />
           ) : (
             waiting

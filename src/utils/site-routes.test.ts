@@ -1,5 +1,8 @@
 import {
   anchorFor,
+  competitionFor,
+  pathForLeagues,
+  withoutCompetition,
   LEAGUE_TABS,
   pathForTab,
   routeFor,
@@ -116,6 +119,34 @@ describe('the route table', () => {
     for (const route of sharedRoutes()) {
       expect(route.description).not.toMatch(/\d/)
       expect(route.title).not.toMatch(/\d/)
+    }
+  })
+})
+
+describe('the competition in the address', () => {
+  it('reads women and todas, and defaults to the Beer League', () => {
+    expect(competitionFor('/ligas/goleadores/women')).toBe('wubl')
+    expect(competitionFor('/ligas/posiciones/todas')).toBe('all')
+    expect(competitionFor('/ligas/goleadores')).toBe('beer')
+  })
+
+  it('strips the segment so the page still resolves', () => {
+    expect(routeFor(withoutCompetition('/ligas/goleadores/women'))?.tab).toBe(
+      'scoring',
+    )
+    expect(routeFor(withoutCompetition('/ligas/playoffs/todas'))?.tab).toBe(
+      'playoffs',
+    )
+    expect(routeFor(withoutCompetition('/equipos'))?.section).toBe('equipos')
+  })
+
+  it('round-trips every tab and competition through the address', () => {
+    for (const tab of LEAGUE_TABS) {
+      for (const choice of ['beer', 'wubl', 'all'] as const) {
+        const path = pathForLeagues(tab, choice)
+        expect(routeFor(withoutCompetition(path))?.tab).toBe(tab)
+        expect(competitionFor(path)).toBe(choice)
+      }
     }
   })
 })

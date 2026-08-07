@@ -223,3 +223,47 @@ export function anchorFor(section: SectionKey): string {
 export function sharedRoutes(): readonly SiteRoute[] {
   return SITE_ROUTES.filter((route) => route.shared)
 }
+
+/**
+ * The competition, when the address names one: `/ligas/goleadores/women` or
+ * `/ligas/posiciones/todas`. No segment means the Beer League, which is what the
+ * page already showed by default, so every existing link keeps its meaning.
+ *
+ * `women` and not `wubl` in the address, because an address is read by people and
+ * the league's own English name for the competition is the Women's Beer League.
+ */
+const CHOICE_BY_SEGMENT: Readonly<Record<string, 'wubl' | 'all'>> = {
+  women: 'wubl',
+  todas: 'all',
+}
+
+const SEGMENT_BY_CHOICE: Readonly<Partial<Record<string, string>>> = {
+  wubl: 'women',
+  all: 'todas',
+}
+
+/** The competition an address asks for. Beer League unless it says otherwise. */
+export function competitionFor(pathname: string): 'beer' | 'wubl' | 'all' {
+  const last = pathname.toLowerCase().replace(/\/+$/, '').split('/').pop() ?? ''
+  return CHOICE_BY_SEGMENT[last] ?? 'beer'
+}
+
+/** Strips a competition segment so `routeFor` sees the page it belongs to. */
+export function withoutCompetition(pathname: string): string {
+  const cleaned = pathname.toLowerCase().replace(/\/+$/, '')
+  const last = cleaned.split('/').pop() ?? ''
+  return last in CHOICE_BY_SEGMENT
+    ? cleaned.slice(0, cleaned.length - last.length - 1)
+    : pathname
+}
+
+/** The address for a tab in a competition, which the two selectors write. */
+export function pathForLeagues(
+  tab: TabKey,
+  choice: 'beer' | 'wubl' | 'all',
+): string {
+  const segment = SEGMENT_BY_CHOICE[choice]
+  return segment === undefined
+    ? pathForTab(tab)
+    : `${pathForTab(tab)}/${segment}`
+}

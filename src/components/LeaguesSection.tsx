@@ -49,6 +49,10 @@ type LeaguesSectionProps = {
   tab?: TabKey
   /** Called when somebody picks a tab, so the address can follow. */
   onTabChange?: (tab: TabKey) => void
+  /** The competition the address names, when it names one. */
+  choice?: CompetitionChoice
+  /** Called when somebody picks a competition, so the address can follow. */
+  onChoiceChange?: (choice: CompetitionChoice) => void
   /** The season, from Supabase or from the versioned seed. */
   season: SeasonData
   /**
@@ -79,9 +83,18 @@ export function LeaguesSection({
   today = todayIso(),
   tab: tabFromUrl,
   onTabChange,
+  choice: choiceFromUrl,
+  onChoiceChange,
 }: LeaguesSectionProps) {
   const t = useT()
-  const [choice, setChoice] = useState<CompetitionChoice>('beer')
+  const [ownChoice, setOwnChoice] = useState<CompetitionChoice>('beer')
+  // The address owns the competition when there is one to own it, exactly like
+  // the tab: a shared /ligas/goleadores/women has to open on the women's table.
+  const choice = choiceFromUrl ?? ownChoice
+  const setChoice = (next: CompetitionChoice) => {
+    setOwnChoice(next)
+    onChoiceChange?.(next)
+  }
   const [ownTab, setOwnTab] = useState<TabKey>('fixture')
 
   // The address owns the tab when there is an address to own it, so a shared link
