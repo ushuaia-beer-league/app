@@ -34,7 +34,12 @@ body {
   line-height: var(--leading-body);
 
   /* The hero rings are wider than a phone on purpose. */
-  overflow-x: hidden;
+  /* `clip` and not `hidden`, and it is load-bearing: `hidden` turns the body
+   * into a scroll container, and a scroll-driven animation (`animation-timeline:
+   * view()`) then measures against that container instead of the viewport and
+   * never leaves zero. The hero parallax shipped dead for hours because of this
+   * one word. `clip` cuts sideways overflow without creating a scroller. */
+  overflow-x: clip;
 }
 
 /*
