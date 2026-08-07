@@ -56,9 +56,16 @@ function isTheRealSite(): boolean {
 }
 
 export function ga4Id(): string | null {
-  const id = MEASUREMENT_ID?.trim()
-  if (id === undefined || !ID_SHAPE.test(id)) return null
-  return isTheRealSite() ? id : null
+  // The match itself is what gets returned, not the string that was tested. Testing
+  // one value and using another is the shape of bug where a validator and whatever
+  // consumes it disagree about where a string ends; with the id taken out of the
+  // match there is no second value for them to disagree about. A `$` in JavaScript
+  // also matches before a trailing newline, which is the usual way that disagreement
+  // sneaks in.
+  const found = MEASUREMENT_ID?.trim().match(ID_SHAPE)
+  if (!found) return null
+
+  return isTheRealSite() ? found[0] : null
 }
 
 let started = false
