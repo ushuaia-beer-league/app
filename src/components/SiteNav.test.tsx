@@ -24,7 +24,6 @@ describe('SiteNav', () => {
       ['Ligas & Estadísticas', '/ligas'],
       ['Equipos', '/equipos'],
       ['Fotos', '/fotos'],
-      ['Sponsors', '/sponsors'],
       ['Contacto', '/contacto'],
     ]
 

@@ -179,13 +179,6 @@ export const SITE_ROUTES: readonly SiteRoute[] = [
     shared: false,
   },
   {
-    path: '/sponsors',
-    section: 'sponsors',
-    title: `Sponsors · ${LEAGUE_NAME}`,
-    description: 'Quiénes pagan el hielo.',
-    shared: false,
-  },
-  {
     path: '/contacto',
     section: 'contacto',
     title: `Contacto · ${LEAGUE_NAME}`,

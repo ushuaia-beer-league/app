@@ -139,7 +139,6 @@ export function App() {
           (season ? <TeamsSection season={season} /> : waiting)}
 
         {section === 'fotos' && <GallerySection photos={photos} />}
-        {section === 'sponsors' && <SponsorsSection sponsors={sponsors} />}
         {section === 'contacto' && <ContactSection />}
       </main>
 

@@ -27,7 +27,6 @@ const ROUTES = [
   '/ligas/playoffs',
   '/equipos',
   '/fotos',
-  '/sponsors',
   '/contacto',
   '/ligas/goleadores/women',
   '/ligas/posiciones/todas',

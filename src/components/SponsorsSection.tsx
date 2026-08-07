@@ -43,6 +43,42 @@ function isWebAddress(href: string | undefined): href is string {
   return href !== undefined && /^https?:\/\//i.test(href.trim())
 }
 
+function CardBody({ sponsor }: { sponsor: Sponsor }) {
+  const inner = (
+    <>
+      {sponsor.logoUrl !== undefined ? (
+        <img
+          className="sponsors__logo"
+          src={sponsor.logoUrl}
+          alt=""
+          loading="lazy"
+        />
+      ) : (
+        <span className="sponsors__glyph" aria-hidden="true">
+          {sponsor.glyph ?? '⭐'}
+        </span>
+      )}
+      <span className="sponsors__name">{sponsor.name}</span>
+      {sponsor.category !== undefined && (
+        <span className="sponsors__category">{sponsor.category}</span>
+      )}
+    </>
+  )
+
+  return isWebAddress(sponsor.href) ? (
+    <a
+      className="sponsors__card-link"
+      href={sponsor.href}
+      rel="noreferrer noopener"
+      target="_blank"
+    >
+      {inner}
+    </a>
+  ) : (
+    inner
+  )
+}
+
 export function SponsorsSection({ sponsors = [] }: SponsorsSectionProps) {
   const t = useT()
   return (
@@ -60,35 +96,10 @@ export function SponsorsSection({ sponsors = [] }: SponsorsSectionProps) {
         <ul className="sponsors">
           {sponsors.map((sponsor) => (
             <li className="sponsors__card" key={sponsor.name}>
-              {sponsor.logoUrl !== undefined ? (
-                <img
-                  className="sponsors__logo"
-                  src={sponsor.logoUrl}
-                  alt=""
-                  loading="lazy"
-                />
-              ) : (
-                <span className="sponsors__glyph" aria-hidden="true">
-                  {sponsor.glyph ?? '⭐'}
-                </span>
-              )}
-              <span className="sponsors__name">
-                {!isWebAddress(sponsor.href) ? (
-                  sponsor.name
-                ) : (
-                  <a
-                    className="sponsors__link"
-                    href={sponsor.href}
-                    rel="noreferrer noopener"
-                    target="_blank"
-                  >
-                    {sponsor.name}
-                  </a>
-                )}
-              </span>
-              {sponsor.category !== undefined && (
-                <span className="sponsors__category">{sponsor.category}</span>
-              )}
+              {/* The whole card is the link, at the operators' request: a
+               * sponsor's card is one target, not a name with a margin. A card
+               * with no link is the same card, not an anchor to nowhere. */}
+              <CardBody sponsor={sponsor} />
             </li>
           ))}
         </ul>

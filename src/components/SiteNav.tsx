@@ -26,7 +26,6 @@ const NAV_ITEMS: { to: string; label: StringKey }[] = [
   { to: '/ligas', label: 'Ligas & Estadísticas' },
   { to: '/equipos', label: 'Equipos' },
   { to: '/fotos', label: 'Fotos' },
-  { to: '/sponsors', label: 'Sponsors' },
   { to: '/contacto', label: 'Contacto' },
 ]
 

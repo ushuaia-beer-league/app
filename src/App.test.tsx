@@ -60,7 +60,6 @@ describe('App', () => {
 
     expect(titlesAt('/')).toEqual(['Historia de la UBL', 'Sponsors'])
     expect(titlesAt('/fotos')).toEqual(['Fotos & Momentos'])
-    expect(titlesAt('/sponsors')).toEqual(['Sponsors'])
     expect(titlesAt('/contacto')).toEqual(['Contacto'])
   })
 
