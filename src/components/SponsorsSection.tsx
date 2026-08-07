@@ -5,8 +5,10 @@ import { useT } from '../i18n/useLanguage'
 
 type Sponsor = {
   name: string
-  /** The sponsor's category, in Spanish, for instance "Sponsor principal". */
-  category: string
+  /** The sponsor's category, when one is worth printing. */
+  category?: string
+  /** The uploaded logo, already a full URL. */
+  logoUrl?: string
   /** Optional emoji standing in for the logo until the real file is uploaded. */
   glyph?: string
   /** Optional link to the sponsor's own site. */
@@ -58,9 +60,18 @@ export function SponsorsSection({ sponsors = [] }: SponsorsSectionProps) {
         <ul className="sponsors">
           {sponsors.map((sponsor) => (
             <li className="sponsors__card" key={sponsor.name}>
-              <span className="sponsors__glyph" aria-hidden="true">
-                {sponsor.glyph ?? '⭐'}
-              </span>
+              {sponsor.logoUrl !== undefined ? (
+                <img
+                  className="sponsors__logo"
+                  src={sponsor.logoUrl}
+                  alt=""
+                  loading="lazy"
+                />
+              ) : (
+                <span className="sponsors__glyph" aria-hidden="true">
+                  {sponsor.glyph ?? '⭐'}
+                </span>
+              )}
               <span className="sponsors__name">
                 {!isWebAddress(sponsor.href) ? (
                   sponsor.name
@@ -75,7 +86,9 @@ export function SponsorsSection({ sponsors = [] }: SponsorsSectionProps) {
                   </a>
                 )}
               </span>
-              <span className="sponsors__category">{sponsor.category}</span>
+              {sponsor.category !== undefined && (
+                <span className="sponsors__category">{sponsor.category}</span>
+              )}
             </li>
           ))}
         </ul>

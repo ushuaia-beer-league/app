@@ -18,7 +18,12 @@ const PLACEHOLDER_SLOTS = [0, 1, 2, 3, 4, 5]
  * its own Spanish alternative text. The reference's tall and wide slot variants
  * only make sense once there are real images to arrange.
  */
-export function GallerySection() {
+type GallerySectionProps = {
+  /** The published gallery, newest ordering decided by the panel. */
+  photos?: { url: string; caption: string | null }[]
+}
+
+export function GallerySection({ photos = [] }: GallerySectionProps) {
   const t = useT()
   return (
     <Section
@@ -26,13 +31,28 @@ export function GallerySection() {
       eyebrow={t('Galería')}
       title={t('Fotos & Momentos')}
     >
-      <div className="gallery" aria-hidden="true">
-        {PLACEHOLDER_SLOTS.map((slot) => (
-          <div className="gallery__slot" key={slot}>
-            <span className="gallery__glyph">📷</span>
-          </div>
-        ))}
-      </div>
+      {photos.length > 0 ? (
+        <div className="gallery">
+          {photos.map((photo) => (
+            <figure className="gallery__photo" key={photo.url}>
+              <img src={photo.url} alt={photo.caption ?? ''} loading="lazy" />
+              {photo.caption !== null && (
+                <figcaption className="gallery__caption">
+                  {photo.caption}
+                </figcaption>
+              )}
+            </figure>
+          ))}
+        </div>
+      ) : (
+        <div className="gallery" aria-hidden="true">
+          {PLACEHOLDER_SLOTS.map((slot) => (
+            <div className="gallery__slot" key={slot}>
+              <span className="gallery__glyph">📷</span>
+            </div>
+          ))}
+        </div>
+      )}
 
       <p className="gallery__note">
         📁 Las fotos se van agregando a lo largo de la temporada

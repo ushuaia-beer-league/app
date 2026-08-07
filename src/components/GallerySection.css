@@ -42,3 +42,18 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* Real photographs, when the panel has published any. */
+.gallery__photo {
+  margin: 0;
+}
+.gallery__photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.gallery__caption {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  padding-top: 0.25rem;
+}

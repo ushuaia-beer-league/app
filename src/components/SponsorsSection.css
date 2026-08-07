@@ -72,3 +72,10 @@
   letter-spacing: var(--tracking-wide);
   color: var(--color-text-muted);
 }
+
+/* An uploaded logo takes the glyph's seat, same footprint. */
+.sponsors__logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}

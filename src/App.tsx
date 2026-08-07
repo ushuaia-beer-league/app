@@ -10,6 +10,12 @@ import { SiteNav } from './components/SiteNav'
 import { SponsorsSection } from './components/SponsorsSection'
 import { TeamsSection } from './components/TeamsSection'
 import {
+  loadPublicPhotos,
+  loadPublicSponsors,
+  type PublicPhoto,
+  type PublicSponsor,
+} from './data/public-content'
+import {
   loadContentOverrides,
   type ContentOverrides,
 } from './data/site-content'
@@ -53,6 +59,8 @@ export function App() {
   const t = useT()
 
   const [overrides, setOverrides] = useState<ContentOverrides>()
+  const [sponsors, setSponsors] = useState<PublicSponsor[]>([])
+  const [photos, setPhotos] = useState<PublicPhoto[]>([])
 
   // Loaded once, like the season: the prose changes when somebody edits it in the
   // panel, not per navigation, and a failed load is simply the built-in text.
@@ -60,6 +68,12 @@ export function App() {
     let current = true
     void loadContentOverrides().then((loaded) => {
       if (current) setOverrides(loaded)
+    })
+    void loadPublicSponsors().then((rows) => {
+      if (current) setSponsors(rows)
+    })
+    void loadPublicPhotos().then((rows) => {
+      if (current) setPhotos(rows)
     })
     return () => {
       current = false
@@ -120,8 +134,8 @@ export function App() {
         {section === 'equipos' &&
           (season ? <TeamsSection season={season} /> : waiting)}
 
-        {section === 'fotos' && <GallerySection />}
-        {section === 'sponsors' && <SponsorsSection />}
+        {section === 'fotos' && <GallerySection photos={photos} />}
+        {section === 'sponsors' && <SponsorsSection sponsors={sponsors} />}
         {section === 'contacto' && <ContactSection />}
       </main>
 

@@ -5,6 +5,7 @@ import { formatWeekdayDate } from './dates'
 import './data-table.css'
 import './FixtureList.css'
 import { useT } from '../i18n/useLanguage'
+import { teamLogo } from './team-logos'
 import { fill } from '../i18n/language'
 
 /** The two cabeceras, spelled as the league spells them. */
@@ -199,6 +200,16 @@ function Rounds({
                           <span
                             className={`fixture__team fixture__team--home${home.printed ? ' fixture__team--printed' : ''}`}
                           >
+                            {teamLogo(match.homeTeamId ?? '') !== null && (
+                              <img
+                                className="fixture__crest"
+                                src={teamLogo(match.homeTeamId ?? '')!}
+                                alt=""
+                                width={22}
+                                height={22}
+                                loading="lazy"
+                              />
+                            )}
                             {home.text ?? t('Sin registrar')}
                           </span>
 
@@ -223,6 +234,16 @@ function Rounds({
                           <span
                             className={`fixture__team${away.printed ? ' fixture__team--printed' : ''}`}
                           >
+                            {teamLogo(match.awayTeamId ?? '') !== null && (
+                              <img
+                                className="fixture__crest"
+                                src={teamLogo(match.awayTeamId ?? '')!}
+                                alt=""
+                                width={22}
+                                height={22}
+                                loading="lazy"
+                              />
+                            )}
                             {away.text ?? t('Sin registrar')}
                           </span>
                         </div>

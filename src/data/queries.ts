@@ -53,3 +53,9 @@ export const TEAMS_SELECT =
 
 /** The panel-edited prose overrides, read by the public site and the panel. */
 export const SITE_CONTENT_SELECT = 'key, language, title, body'
+
+/** The published sponsors, as the public site shows them. */
+export const PUBLIC_SPONSORS_SELECT = 'name, url, logo_path, display_order'
+
+/** The published gallery. */
+export const PUBLIC_PHOTOS_SELECT = 'storage_path, caption, display_order'

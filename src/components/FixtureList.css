@@ -242,3 +242,12 @@
 .fixture__match--wubl .fixture__competition {
   color: var(--color-comp-wubl-ink);
 }
+
+/* The crest beside each side of a fixture row, asked for by the operators. */
+.fixture__crest {
+  width: 22px;
+  height: 22px;
+  margin-right: 0.35rem;
+  object-fit: contain;
+  vertical-align: -0.3em;
+}
