@@ -133,6 +133,12 @@ export const STRINGS = [
   'Todavía no hay canales de contacto publicados.',
   'Estás viendo la última copia guardada de la temporada.',
   'Ninguna planilla de la liga publica los planteles de la {competition}.',
+  // The gallery's lightbox.
+  'Ampliar la foto',
+  'Foto anterior',
+  'Foto siguiente',
+  'Cerrar',
+
   // The hero.
   'Hockey sobre Hielo',
   'Hockey',

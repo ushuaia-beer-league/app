@@ -151,6 +151,12 @@ export const en: Catalogue = {
     'You are seeing the last saved copy of the season.',
   'Ninguna planilla de la liga publica los planteles de la {competition}.':
     'No league sheet publishes the rosters for the {competition}.',
+  // The gallery's lightbox.
+  'Ampliar la foto': 'Enlarge the photo',
+  'Foto anterior': 'Previous photo',
+  'Foto siguiente': 'Next photo',
+  Cerrar: 'Close',
+
   // The hero.
   'Hockey sobre Hielo': 'Ice Hockey',
   Hockey: 'Hockey',

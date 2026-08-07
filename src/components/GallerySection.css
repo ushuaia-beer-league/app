@@ -43,17 +43,126 @@
   }
 }
 
-/* Real photographs, when the panel has published any. */
-.gallery__photo {
-  margin: 0;
+/*
+ * Real photographs pack like a masonry wall: CSS columns fill each column
+ * independently, so a portrait shot deepens its own column instead of
+ * stretching a grid row and leaving a photo-sized hole beside it. Three
+ * columns from tablet up rather than the placeholder grid's four, because
+ * these are photographs to look at, not slots to count.
+ */
+.gallery--masonry {
+  display: block;
+  columns: 2;
+  column-gap: var(--space-2);
 }
+
+.gallery__photo {
+  margin: 0 0 var(--space-2);
+  break-inside: avoid;
+}
+
+.gallery__open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
 .gallery__photo img {
   width: 100%;
   height: auto;
   display: block;
 }
+
 .gallery__caption {
   color: var(--color-text-muted);
   font-size: var(--text-xs);
   padding-top: 0.25rem;
+}
+
+/* The lightbox: the platform's own dialog, dressed in the site's night. */
+.gallery__lightbox {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  max-width: min(94vw, 90rem);
+  max-height: 94vh;
+}
+
+.gallery__lightbox::backdrop {
+  background: rgba(4, 6, 10, 0.92);
+}
+
+.gallery__stage {
+  margin: 0;
+}
+
+.gallery__stage img {
+  display: block;
+  max-width: 94vw;
+  max-height: 86vh;
+  width: auto;
+  height: auto;
+}
+
+.gallery__stage-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+}
+
+.gallery__counter {
+  color: var(--color-text);
+}
+
+.gallery__nav,
+.gallery__close {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--layout-tap-min);
+  height: var(--layout-tap-min);
+  border: var(--card-border);
+  background: rgba(10, 14, 20, 0.8);
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.gallery__nav:hover,
+.gallery__close:hover {
+  border-color: var(--color-border-accent);
+  color: var(--color-accent);
+}
+
+.gallery__nav--prev {
+  left: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.gallery__nav--next {
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.gallery__close {
+  top: var(--space-3);
+  right: var(--space-3);
+}
+
+@media (min-width: 42.5em) {
+  .gallery--masonry {
+    columns: 3;
+  }
 }
