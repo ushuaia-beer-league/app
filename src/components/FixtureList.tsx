@@ -40,6 +40,12 @@ type FixtureListProps = {
   rounds: readonly FixtureRound[]
   teamName: (teamId: string) => string
   /**
+   * The crest for a team id, preferring the panel's upload like every other
+   * view. Defaults to the bundled artwork so a caller without season teams
+   * still shows badges.
+   */
+  teamCrest?: (teamId: string) => string | null
+  /**
    * Today, as `YYYY-MM-DD`. A parameter rather than a reading of the clock, so a
    * test can sit on a match day, and so the whole page agrees on what day it is
    * instead of each component asking separately.
@@ -108,6 +114,7 @@ export function FixtureList({
   today,
   showCompetition = false,
   resolvedSides,
+  teamCrest = teamLogo,
 }: FixtureListProps) {
   const t = useT()
   if (rounds.length === 0) {
@@ -137,6 +144,7 @@ export function FixtureList({
             resolvedSides={resolvedSides}
             rounds={upcoming}
             teamName={teamName}
+            teamCrest={teamCrest}
             showCompetition={showCompetition}
           />
         )}
@@ -158,6 +166,7 @@ export function FixtureList({
             resolvedSides={resolvedSides}
             rounds={past}
             teamName={teamName}
+            teamCrest={teamCrest}
             showCompetition={showCompetition}
           />
         </details>
@@ -170,11 +179,13 @@ export function FixtureList({
 function Rounds({
   rounds,
   teamName,
+  teamCrest,
   showCompetition,
   resolvedSides,
 }: {
   rounds: readonly FixtureRound[]
   teamName: (teamId: string) => string
+  teamCrest: (teamId: string) => string | null
   showCompetition: boolean
   resolvedSides?: ResolvedSides
 }) {
@@ -232,10 +243,10 @@ function Rounds({
                           <span
                             className={`fixture__team fixture__team--home${home.printed ? ' fixture__team--printed' : ''}`}
                           >
-                            {teamLogo(homeId ?? '') !== null && (
+                            {teamCrest(homeId ?? '') !== null && (
                               <img
                                 className="fixture__crest"
-                                src={teamLogo(homeId ?? '')!}
+                                src={teamCrest(homeId ?? '')!}
                                 alt=""
                                 width={64}
                                 height={64}
@@ -266,10 +277,10 @@ function Rounds({
                           <span
                             className={`fixture__team${away.printed ? ' fixture__team--printed' : ''}`}
                           >
-                            {teamLogo(awayId ?? '') !== null && (
+                            {teamCrest(awayId ?? '') !== null && (
                               <img
                                 className="fixture__crest"
-                                src={teamLogo(awayId ?? '')!}
+                                src={teamCrest(awayId ?? '')!}
                                 alt=""
                                 width={64}
                                 height={64}

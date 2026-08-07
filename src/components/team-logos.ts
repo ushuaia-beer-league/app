@@ -9,6 +9,7 @@ import wublSucucho from '../assets/logos/wubl-sucucho.webp'
 import wublTipoNine from '../assets/logos/wubl-tipo-nine.webp'
 import wublZhockey from '../assets/logos/wubl-zhockey.webp'
 import zhockey from '../assets/logos/zhockey.webp'
+import { mediaUrl } from '../admin/mediaFiles'
 
 /**
  * The crest of each team that has one, by slug.
@@ -65,4 +66,27 @@ export const TEAM_LOGOS: Readonly<Record<string, string>> = {
 /** The crest for a slug, or null when the league has not sent one. */
 export function teamLogo(slug: string): string | null {
   return TEAM_LOGOS[slug] ?? null
+}
+
+/**
+ * The crest a team actually shows, everywhere a team shows one.
+ *
+ * The uploaded crest wins; the repo's artwork is the fallback, and it is also
+ * what a paused database serves, so a badge never goes missing to the free
+ * tier. The old panel field accepted full URLs, so both shapes resolve. One
+ * function on purpose: the fixture once read only the bundled art while the
+ * team cards preferred the upload, and the same team wore two different
+ * badges on two pages of one site.
+ */
+export function crestFor(team: {
+  slug: string
+  logoUrl?: string | null
+}): string | null {
+  const uploaded =
+    team.logoUrl == null || team.logoUrl === ''
+      ? null
+      : /^https?:/i.test(team.logoUrl)
+        ? team.logoUrl
+        : mediaUrl(team.logoUrl)
+  return uploaded ?? teamLogo(team.slug)
 }

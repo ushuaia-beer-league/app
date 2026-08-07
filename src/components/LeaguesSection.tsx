@@ -22,6 +22,7 @@ import './LeaguesSection.css'
 import { anchorFor } from '../utils/site-routes'
 import { fill } from '../i18n/language'
 import { useT } from '../i18n/useLanguage'
+import { crestFor } from './team-logos'
 
 /**
  * The four tables the league keeps, in the order a visitor asks for them: what
@@ -136,6 +137,17 @@ export function LeaguesSection({
     // A team id nothing answers for is a gap between two sources, so the id is
     // shown as it is. Inventing a name would hide the gap.
     return (teamId: string) => names.get(teamId) ?? teamId
+  }, [season.teams])
+
+  const teamCrest = useMemo(() => {
+    // Through crestFor, so the fixture prefers the crest uploaded from the
+    // panel exactly like the team cards do: the same team must wear the same
+    // badge on every page of the site.
+    const teams = new Map(season.teams.map((team) => [team.slug, team]))
+    return (teamId: string) => {
+      const team = teams.get(teamId)
+      return team === undefined ? crestFor({ slug: teamId }) : crestFor(team)
+    }
   }, [season.teams])
 
   /**
@@ -277,6 +289,7 @@ export function LeaguesSection({
             resolvedSides={resolvedSides}
             rounds={rounds}
             teamName={teamName}
+            teamCrest={teamCrest}
             today={today}
             // Only when both are on screen at once: with one competition chosen,
             // saying which one on every single row is noise.

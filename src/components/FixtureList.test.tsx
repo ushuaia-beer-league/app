@@ -208,6 +208,30 @@ describe('FixtureList', () => {
     expect(screen.queryByText('Nota sobre este partido:')).toBeNull()
   })
 
+  it('wears the crest its caller derives, upload included', () => {
+    // The regression of 2026-08-07: the fixture read only the bundled artwork
+    // while the team cards preferred the crest uploaded from the panel, and
+    // the same team wore its old badge here and its new one on /equipos. The
+    // crest is the caller's to derive; this list just wears what it is told.
+    const { container } = render(
+      <FixtureList
+        rounds={[ROUND_ONE]}
+        teamName={teamName}
+        teamCrest={(teamId) =>
+          teamId === 'rock-choppers'
+            ? 'https://cdn.example.com/nuevo-escudo.webp'
+            : null
+        }
+        today="2026-05-23"
+      />,
+    )
+
+    const crests = [...container.querySelectorAll('.fixture__crest')]
+    expect(crests.map((img) => img.getAttribute('src'))).toEqual([
+      'https://cdn.example.com/nuevo-escudo.webp',
+    ])
+  })
+
   it('says so when the competition has no dates', () => {
     render(<FixtureList rounds={[]} teamName={teamName} today="2026-05-01" />)
 
