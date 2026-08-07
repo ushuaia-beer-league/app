@@ -31,7 +31,9 @@ describe('SponsorsSection', () => {
 
     expect(screen.getByText('Sponsor de ejemplo')).toBeVisible()
     expect(screen.getByText('Sponsor principal')).toBeVisible()
-    expect(screen.getByRole('link', { name: 'Otro sponsor' })).toHaveAttribute(
+    // The whole card is the link now, so its accessible name carries the
+    // category too: the operators asked for one target, not a name with margin.
+    expect(screen.getByRole('link', { name: /Otro sponsor/ })).toHaveAttribute(
       'href',
       'https://example.com',
     )
