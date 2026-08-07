@@ -1,7 +1,8 @@
 import { en } from './en'
-import { es } from './es'
+import { STRINGS } from './es'
 import {
   DEFAULT_LANGUAGE,
+  fill,
   isLanguage,
   LANGUAGES,
   LANGUAGE_NAMES,
@@ -64,51 +65,51 @@ describe('translator', () => {
 
 describe('the catalogues', () => {
   it('translates every string the site can say', () => {
-    // Enforced by the type system too: `en` is typed as `Catalogue`. This asserts it
-    // at runtime as well, because the day a language is added by copying a file, a
-    // key left holding its Spanish by accident is a silent miss.
-    expect(Object.keys(en).sort()).toEqual(Object.keys(es).sort())
+    // Enforced by the type system too: `en` is typed as `Catalogue`, which is built
+    // from this list. Asserted at runtime as well, because the day a language is
+    // added by copying a file, an entry left holding its Spanish is a silent miss.
+    expect(Object.keys(en).sort()).toEqual([...STRINGS].sort())
   })
 
   it('leaves no English entry still in Spanish by accident', () => {
-    // Some entries are correctly identical in both. They are listed, so that a new
+    // Some entries are correctly identical in both, and they are listed, so a new
     // untranslated string cannot hide among them.
-    const sameInBoth = new Set([
-      'Fixture',
-      'Playoffs',
-      'Sponsors',
-      'Historia',
-      'Contacto',
-      'Equipos',
-      'Fotos',
-      'Inicio',
-      'Menú',
-      'Competencia',
-      'Todas',
-      'Goleadores',
-      'Arqueros',
-      'Posiciones',
-      'Plantel',
-      'Ligas & Estadísticas',
-      'Saltar al contenido',
-      'Cambiar idioma',
-      'Próximos partidos',
-      'Cargando la temporada…',
-      'Escudos de jugadores',
-      'Escudos que la liga hizo para cada jugador',
-      'El plantel de este equipo no está publicado en las planillas de la liga.',
-    ])
+    const sameInBoth = new Set<string>(['Fixture', 'Playoffs', 'Sponsors'])
 
-    for (const key of Object.keys(es) as (keyof typeof es)[]) {
-      if (en[key] === es[key] && !sameInBoth.has(key)) {
-        throw new Error(`"${key}" is still in Spanish in en.ts`)
-      }
-    }
+    const untranslated = STRINGS.filter(
+      (key) => en[key] === key && !sameInBoth.has(key),
+    )
+
+    expect(untranslated).toEqual([])
   })
 
   it('names every language in its own words', () => {
     for (const language of LANGUAGES) {
       expect(LANGUAGE_NAMES[language].length).toBeGreaterThan(3)
     }
+  })
+})
+
+describe('fill', () => {
+  it('puts the number where the string says', () => {
+    expect(fill('{n} jugadores en el plantel', { n: 10 })).toBe(
+      '10 jugadores en el plantel',
+    )
+  })
+
+  it('fills every hole, including the same one twice', () => {
+    expect(fill('{a} vs {b}, y gana {a}', { a: 'Blanco', b: 'Verde' })).toBe(
+      'Blanco vs Verde, y gana Blanco',
+    )
+  })
+
+  it('leaves a hole nobody filled visible instead of writing undefined', () => {
+    // A visible {n} is a bug somebody fixes. The word "undefined" inside a sentence
+    // is a bug somebody screenshots.
+    expect(fill('{n} partidos', {})).toBe('{n} partidos')
+  })
+
+  it('leaves a string with no holes alone', () => {
+    expect(fill('Próximos partidos', { n: 3 })).toBe('Próximos partidos')
   })
 })

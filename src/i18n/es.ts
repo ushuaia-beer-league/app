@@ -1,8 +1,12 @@
 /**
- * The site's own words, in the language it was written in.
+ * Every string the site can say, listed once, in the language it was written in.
  *
- * This file is the source of truth for two things at once: what the site says, and
- * what the key of every translatable string is. **The key is the Spanish text.**
+ * **The Spanish text is the key, and it is also the Spanish translation.** There is no
+ * Spanish catalogue mapping keys to values, because it would map every string to
+ * itself: a list of keys is the same information without the second copy, and without
+ * the chance of the two copies drifting apart. It also matters for the long prose in
+ * Historia, where a paragraph written twice is a paragraph that can disagree with
+ * itself.
  *
  * That choice is the whole design, so it is worth defending. The usual approach is
  * to invent a key per string (`fixture.upcoming.title`) and keep the Spanish
@@ -27,49 +31,72 @@
  *   changes, the machinery is the same and the strings get added.
  */
 
-export const es = {
+export const STRINGS = [
   // Navigation and the shell.
-  Inicio: 'Inicio',
-  Historia: 'Historia',
-  Equipos: 'Equipos',
-  Fotos: 'Fotos',
-  Sponsors: 'Sponsors',
-  Contacto: 'Contacto',
-  'Ligas & Estadísticas': 'Ligas & Estadísticas',
-  Menú: 'Menú',
-  'Cerrar menú': 'Cerrar menú',
-  'Navegación principal': 'Navegación principal',
-  Ligas: 'Ligas',
-  'Saltar al contenido': 'Saltar al contenido',
-  'Cambiar idioma': 'Cambiar idioma',
+  'Inicio',
+  'Historia',
+  'Equipos',
+  'Fotos',
+  'Sponsors',
+  'Contacto',
+  'Ligas & Estadísticas',
+  'Menú',
+  'Cerrar menú',
+  'Navegación principal',
+  'Ligas',
+  'Saltar al contenido',
+  'Cambiar idioma',
 
   // Competitions and the selector.
-  Todas: 'Todas',
-  Competencia: 'Competencia',
+  'Todas',
+  'Competencia',
 
   // The tabs.
-  Fixture: 'Fixture',
-  Posiciones: 'Posiciones',
-  Goleadores: 'Goleadores',
-  Arqueros: 'Arqueros',
-  Playoffs: 'Playoffs',
+  'Fixture',
+  'Posiciones',
+  'Goleadores',
+  'Arqueros',
+  'Playoffs',
 
   // The fixture.
-  'Próximos partidos': 'Próximos partidos',
-  'Cargando la temporada…': 'Cargando la temporada…',
+  'Próximos partidos',
+  'Cargando la temporada…',
 
   // Teams.
-  Plantel: 'Plantel',
-  'Escudos de jugadores': 'Escudos de jugadores',
-  'Escudos que la liga hizo para cada jugador':
-    'Escudos que la liga hizo para cada jugador',
-  'El plantel de este equipo no está publicado en las planillas de la liga.':
-    'El plantel de este equipo no está publicado en las planillas de la liga.',
-} as const
+  'Plantel',
+  'Escudos de jugadores',
+  'Escudos que la liga hizo para cada jugador',
+  'El plantel de este equipo no está publicado en las planillas de la liga.',
+  // Historia, the league's own account of itself.
+  'Sobre nosotros',
+  'Historia de la UBL',
+  'Escudo de la Ushuaia Beer League',
+  'Cómo nació la UBL',
+  'Toda gran historia arranca más o menos igual: cuatro amigos, muchas ganas de jugar y una pregunta simple:',
+  '"¿Y si armamos algo para competir... pero pasándola bien?"',
+  'Así nació la Ushuaia Beer League. Un grupo de apasionados por el deporte que buscaba un espacio donde lo importante no fuera solo ganar, sino también divertirse, reencontrarse, mover el cuerpo, quemar algunas calorías y compartir buenos momentos dentro y fuera de la cancha.',
+  '¿Qué significa Beer League?',
+  'El concepto viene de la cultura del hockey sobre hielo. En muchas partes del mundo, las Beer Leagues son ligas recreativas pensadas para quienes aman competir, pero ya no viven el deporte desde la exigencia profesional: jugadores fuera del circuito competitivo, madres y padres con agenda completa, ex deportistas, gente que vuelve después de años, amateurs con hambre de juego y sí... también algún que otro gordito cervecero 😎🍺',
+  'Es competencia con otra energía: menos presión, más comunidad.',
+  'El comienzo',
+  'En 2023, esa idea tomó forma en Ushuaia. Lo que arrancó como una prueba entre amigos empezó a crecer fecha tras fecha, temporada tras temporada. Más jugadores. Más equipos. Más historias. Más ganas de participar.',
+  'Siempre con algo que valoramos muchísimo: la buena predisposición de quienes se suman, colaboran y hacen que cada edición salga adelante.',
+  'El primer gran apoyo',
+  'Si hablamos de comienzos, hay que nombrar a quienes confiaron desde el día uno. Nuestro primer sponsor fue',
+  ', acompañando el proyecto desde sus primeros pasos y entendiendo perfecto el espíritu de esta locura organizada. Porque si había Beer League... tenía que haber buena birra cerca.',
+  'Lo que somos hoy',
+  'La UBL es mucho más que un torneo. Es una comunidad. Es deporte con identidad fueguina. Es competencia sana. Es gente que se encuentra para jugar, reírse y compartir.',
+  'Y lo mejor de todo es que esto recién empieza.',
+  'Fin del mundo. Comienzo de todo... tercer tiempo.',
+  'Los diez mandamientos',
+  'El reglamento de la liga, citado tal como lo escribió. No se traduce.',
+] as const
+
+/** Every string the site can say. */
+export type StringKey = (typeof STRINGS)[number]
 
 /**
- * Every string the site can say, as a type. `en.ts` and any language added later is
- * checked against this, so an untranslated string cannot ship unnoticed.
+ * What a language other than Spanish has to provide: all of it. Spanish needs no
+ * catalogue at all, because the key is the Spanish.
  */
-export type StringKey = keyof typeof es
 export type Catalogue = Readonly<Record<StringKey, string>>

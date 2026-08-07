@@ -55,4 +55,41 @@ export const en: Catalogue = {
     'Badges the league made for each player',
   'El plantel de este equipo no está publicado en las planillas de la liga.':
     'This team’s roster is not published in the league’s own sheets.',
+  // Historia, the league's own account of itself. The tone is half the page, so
+  // the jokes are translated as jokes rather than flattened.
+  'Sobre nosotros': 'About us',
+  'Historia de la UBL': 'The UBL story',
+  'Escudo de la Ushuaia Beer League': 'Ushuaia Beer League crest',
+  'Cómo nació la UBL': 'How the UBL started',
+  'Toda gran historia arranca más o menos igual: cuatro amigos, muchas ganas de jugar y una pregunta simple:':
+    'Every good story starts about the same way: four friends, a lot of appetite for playing, and one simple question:',
+  '"¿Y si armamos algo para competir... pero pasándola bien?"':
+    '“What if we set up something competitive... but actually fun?”',
+  'Así nació la Ushuaia Beer League. Un grupo de apasionados por el deporte que buscaba un espacio donde lo importante no fuera solo ganar, sino también divertirse, reencontrarse, mover el cuerpo, quemar algunas calorías y compartir buenos momentos dentro y fuera de la cancha.':
+    'That is how the Ushuaia Beer League began. A group of people who love the sport and wanted somewhere that was not only about winning, but about having a laugh, seeing each other again, moving, burning off a few calories and sharing good moments on the ice and off it.',
+  '¿Qué significa Beer League?': 'What is a Beer League?',
+  'El concepto viene de la cultura del hockey sobre hielo. En muchas partes del mundo, las Beer Leagues son ligas recreativas pensadas para quienes aman competir, pero ya no viven el deporte desde la exigencia profesional: jugadores fuera del circuito competitivo, madres y padres con agenda completa, ex deportistas, gente que vuelve después de años, amateurs con hambre de juego y sí... también algún que otro gordito cervecero 😎🍺':
+    'The idea comes from ice hockey culture. All over the world, beer leagues are recreational leagues for people who still love to compete but no longer take the sport at a professional pitch: players outside the competitive circuit, parents with no spare hours, former athletes, people coming back after years away, amateurs hungry for a game and yes... the odd beer belly too 😎🍺',
+  'Es competencia con otra energía: menos presión, más comunidad.':
+    'It is competition with a different energy: less pressure, more community.',
+  'El comienzo': 'The beginning',
+  'En 2023, esa idea tomó forma en Ushuaia. Lo que arrancó como una prueba entre amigos empezó a crecer fecha tras fecha, temporada tras temporada. Más jugadores. Más equipos. Más historias. Más ganas de participar.':
+    'In 2023 the idea took shape in Ushuaia. What started as an experiment among friends grew round after round, season after season. More players. More teams. More stories. More people wanting in.',
+  'Siempre con algo que valoramos muchísimo: la buena predisposición de quienes se suman, colaboran y hacen que cada edición salga adelante.':
+    'Always with something we value enormously: the willingness of everyone who joins in, lends a hand and gets each season off the ground.',
+  'El primer gran apoyo': 'The first real backing',
+  'Si hablamos de comienzos, hay que nombrar a quienes confiaron desde el día uno. Nuestro primer sponsor fue':
+    'Talking about beginnings means naming the people who believed from day one. Our first sponsor was',
+  ', acompañando el proyecto desde sus primeros pasos y entendiendo perfecto el espíritu de esta locura organizada. Porque si había Beer League... tenía que haber buena birra cerca.':
+    ', backing the project from its first steps and understanding exactly the spirit of this organised madness. Because if there was going to be a Beer League... there had to be good beer nearby.',
+  'Lo que somos hoy': 'What we are today',
+  'La UBL es mucho más que un torneo. Es una comunidad. Es deporte con identidad fueguina. Es competencia sana. Es gente que se encuentra para jugar, reírse y compartir.':
+    'The UBL is much more than a tournament. It is a community. It is sport with Fuegian identity. It is healthy competition. It is people meeting up to play, laugh and share.',
+  'Y lo mejor de todo es que esto recién empieza.':
+    'And the best part is that this is only getting started.',
+  'Fin del mundo. Comienzo de todo... tercer tiempo.':
+    'End of the world. Beginning of everything... third period.',
+  'Los diez mandamientos': 'The ten commandments',
+  'El reglamento de la liga, citado tal como lo escribió. No se traduce.':
+    'The league’s own rulebook, quoted in Spanish exactly as written. It is never translated.',
 }

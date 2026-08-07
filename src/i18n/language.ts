@@ -1,5 +1,5 @@
 import { en } from './en'
-import { es, type Catalogue, type StringKey } from './es'
+import type { Catalogue, StringKey } from './es'
 
 /**
  * Which languages the site speaks, and how it decides.
@@ -38,7 +38,11 @@ export const LANGUAGE_NAMES: Readonly<Record<Language, string>> = {
  */
 export const DEFAULT_LANGUAGE: Language = 'es'
 
-const CATALOGUES: Readonly<Record<Language, Catalogue>> = { es, en }
+/**
+ * Spanish is absent on purpose: its catalogue would map every string to itself, so
+ * `translator('es')` returns the key instead of looking anything up.
+ */
+const CATALOGUES: Readonly<Partial<Record<Language, Catalogue>>> = { en }
 
 /** Where a chosen language is remembered, in the visitor's own browser. */
 export const LANGUAGE_KEY = 'ubl.lang'
@@ -71,7 +75,29 @@ export function resolveLanguage(stored: unknown): Language {
  */
 export function translator(language: Language): (key: StringKey) => string {
   const catalogue = CATALOGUES[language]
-  return (key) => catalogue[key]
+  return catalogue === undefined ? (key) => key : (key) => catalogue[key]
 }
 
 export type { StringKey }
+
+/**
+ * Fills the holes in a string that carries a number or a name.
+ *
+ * `fill(t('{n} jugadores en el plantel'), { n: 10 })`. Kept this plain on purpose:
+ * the alternative is a library that knows about plural categories, and this league
+ * needs two forms in four languages, all of which mark plural the same way. The
+ * singular and the plural are separate entries, which is how the code already read
+ * before any of this existed.
+ *
+ * A hole with no value is left as it is rather than replaced by "undefined": a
+ * visible `{n}` is a bug somebody fixes, and the word "undefined" in the middle of a
+ * sentence is a bug somebody screenshots.
+ */
+export function fill(
+  template: string,
+  values: Readonly<Record<string, string | number>>,
+): string {
+  return template.replace(/\{(\w+)\}/g, (whole, key: string) =>
+    key in values ? String(values[key]) : whole,
+  )
+}
