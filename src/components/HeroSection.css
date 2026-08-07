@@ -12,7 +12,10 @@
   justify-content: center;
   min-height: var(--layout-hero-min-height);
   padding: var(--space-6) var(--layout-section-x) var(--space-7);
-  overflow: hidden;
+  /* `clip`, not `hidden`, same reason as the body: `hidden` makes this box a
+   * scroll container, and the content's scroll-driven parallax then measures
+   * against a scroller that never scrolls. `clip` trims the rings identically. */
+  overflow: clip;
   text-align: center;
 }
 
