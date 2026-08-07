@@ -5,7 +5,12 @@
 
 .contact {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--grid-card-min), 1fr));
+  /*
+   * Wider than the generic card minimum: these cards print an address under
+   * the name, and "@ushuaiabeerleague" broken mid-word looks like two handles.
+   * min() keeps a viewport narrower than the card from overflowing sideways.
+   */
+  grid-template-columns: repeat(auto-fill, minmax(min(18rem, 100%), 1fr));
   gap: var(--space-3);
   list-style: none;
 }
