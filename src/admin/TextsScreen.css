@@ -1,0 +1,81 @@
+/* Textos: the same vocabulary as the other panel screens. */
+.texts__title {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: var(--tracking-display);
+  text-transform: uppercase;
+}
+.texts__note {
+  max-width: 60ch;
+  margin: 0 0 var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+}
+.texts__languages {
+  display: inline-flex;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+.texts__language {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-line);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: var(--text-sm);
+}
+.texts__language--chosen {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #0a0e14;
+  font-weight: 600;
+}
+.texts__notice {
+  margin: 0 0 var(--space-3);
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+}
+.texts__blocks {
+  display: grid;
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.texts__block-name {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-lg);
+}
+.texts__original {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
+.texts__label {
+  display: block;
+  margin: var(--space-2) 0 var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+}
+.texts__input,
+.texts__textarea {
+  width: 100%;
+  padding: var(--space-2);
+  border: 1px solid var(--color-line);
+  background: var(--color-surface-sunken);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+}
+.texts__save {
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 0;
+  background: var(--color-accent);
+  color: #0a0e14;
+  cursor: pointer;
+  font-weight: 600;
+}

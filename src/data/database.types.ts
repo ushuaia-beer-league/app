@@ -786,6 +786,30 @@ export type Database = {
           },
         ]
       }
+      site_content: {
+        Row: {
+          body: string
+          key: string
+          language: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          body: string
+          key: string
+          language: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          body?: string
+          key?: string
+          language?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       visit_facts: {
         Row: {
           day: string

@@ -60,6 +60,7 @@ const LABELS: Readonly<Record<string, string>> = {
   'admin/fixture': 'Panel: fixture',
   'admin/sponsors': 'Panel: sponsors',
   'admin/fotos': 'Panel: fotos',
+  'admin/textos': 'Panel: textos',
   'admin/temporadas': 'Panel: temporadas',
   'admin/administradores': 'Panel: administradores',
   'admin/visitas': 'Panel: visitas',

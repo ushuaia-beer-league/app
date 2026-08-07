@@ -93,6 +93,18 @@ que nadie toque el sitio.
 Un sponsor sin logo se publica igual, con su nombre. Una galería vacía dice que
 está vacía.
 
+## Textos del sitio
+
+En `/app/admin/textos` se pueden cambiar los cinco bloques de la Historia. Lo
+pueden hacer **comunicación y administración general**, igual que fotos y
+sponsors, y el permiso está en la base, no en el botón.
+
+Se edita **por idioma**: castellano, inglés y portugués tienen cada uno su
+pestaña. Un idioma que nadie editó sigue mostrando la traducción original, así
+que cambiar el castellano nunca deja el inglés en blanco. Los párrafos se separan
+con una línea en blanco. Los diez mandamientos no aparecen ahí a propósito: son
+el reglamento y no se editan desde ningún panel.
+
 ## Cuando la base está dormida
 
 El servicio de base de datos que usamos es gratuito y **se pausa después de una

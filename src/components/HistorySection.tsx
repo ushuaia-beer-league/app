@@ -1,4 +1,10 @@
-import { useT } from '../i18n/useLanguage'
+import {
+  overrideFor,
+  paragraphsOf,
+  type ContentKey,
+  type ContentOverrides,
+} from '../data/site-content'
+import { useLanguage } from '../i18n/useLanguage'
 import { Crest } from './Crest'
 import { Section } from './Section'
 import './HistorySection.css'
@@ -21,8 +27,36 @@ import './HistorySection.css'
  * translation later, and the page says what they are so an English reader is not
  * left wondering why one list is in Spanish.
  */
-export function HistorySection() {
-  const t = useT()
+type HistorySectionProps = {
+  /** Panel-edited prose, when any exists. Absent = the built-in text below. */
+  overrides?: ContentOverrides
+}
+
+export function HistorySection({ overrides }: HistorySectionProps = {}) {
+  const { t, language } = useLanguage()
+
+  /** The override for a block, or null meaning render the built-in JSX. */
+  const edited = (key: ContentKey) => overrideFor(overrides, key, language)
+
+  /** One edited block, rendered as plain paragraphs. */
+  const editedBlock = (
+    key: ContentKey,
+    glyph: string,
+    builtInTitle: string,
+  ) => {
+    const block = edited(key)
+    if (block === null) return null
+    return (
+      <article className="history__block">
+        <h3 className="history__block-title">
+          <span aria-hidden="true">{glyph}</span> {block.title ?? builtInTitle}
+        </h3>
+        {paragraphsOf(block.body).map((paragraph) => (
+          <p key={paragraph.slice(0, 40)}>{paragraph}</p>
+        ))}
+      </article>
+    )
+  }
 
   return (
     <Section
@@ -37,96 +71,110 @@ export function HistorySection() {
         </div>
 
         <div className="history__blocks">
-          <article className="history__block">
-            <h3 className="history__block-title">
-              <span aria-hidden="true">🍺</span> {t('Cómo nació la UBL')}
-            </h3>
-            <p>
-              {t(
-                'Toda gran historia arranca más o menos igual: cuatro amigos, muchas ganas de jugar y una pregunta simple:',
-              )}{' '}
-              <em>
+          {editedBlock('historia-nacimiento', '🍺', t('Cómo nació la UBL')) ?? (
+            <article className="history__block">
+              <h3 className="history__block-title">
+                <span aria-hidden="true">🍺</span> {t('Cómo nació la UBL')}
+              </h3>
+              <p>
                 {t(
-                  '"¿Y si armamos algo para competir... pero pasándola bien?"',
-                )}
-              </em>
-            </p>
-            <p>
-              {t(
-                'Así nació la Ushuaia Beer League. Un grupo de apasionados por el deporte que buscaba un espacio donde lo importante no fuera solo ganar, sino también divertirse, reencontrarse, mover el cuerpo, quemar algunas calorías y compartir buenos momentos dentro y fuera de la cancha.',
-              )}
-            </p>
-          </article>
-
-          <article className="history__block">
-            <h3 className="history__block-title">
-              <span aria-hidden="true">❄️</span>{' '}
-              {t('¿Qué significa Beer League?')}
-            </h3>
-            <p>
-              {t(
-                'El concepto viene de la cultura del hockey sobre hielo. En muchas partes del mundo, las Beer Leagues son ligas recreativas pensadas para quienes aman competir, pero ya no viven el deporte desde la exigencia profesional: jugadores fuera del circuito competitivo, madres y padres con agenda completa, ex deportistas, gente que vuelve después de años, amateurs con hambre de juego y sí... también algún que otro gordito cervecero 😎🍺',
-              )}
-            </p>
-            <p>
-              <em>
+                  'Toda gran historia arranca más o menos igual: cuatro amigos, muchas ganas de jugar y una pregunta simple:',
+                )}{' '}
+                <em>
+                  {t(
+                    '"¿Y si armamos algo para competir... pero pasándola bien?"',
+                  )}
+                </em>
+              </p>
+              <p>
                 {t(
-                  'Es competencia con otra energía: menos presión, más comunidad.',
+                  'Así nació la Ushuaia Beer League. Un grupo de apasionados por el deporte que buscaba un espacio donde lo importante no fuera solo ganar, sino también divertirse, reencontrarse, mover el cuerpo, quemar algunas calorías y compartir buenos momentos dentro y fuera de la cancha.',
                 )}
-              </em>
-            </p>
-          </article>
+              </p>
+            </article>
+          )}
 
-          <article className="history__block">
-            <h3 className="history__block-title">
-              <span aria-hidden="true">🏒</span> {t('El comienzo')}
-            </h3>
-            <p>
-              {t(
-                'En 2023, esa idea tomó forma en Ushuaia. Lo que arrancó como una prueba entre amigos empezó a crecer fecha tras fecha, temporada tras temporada. Más jugadores. Más equipos. Más historias. Más ganas de participar.',
-              )}
-            </p>
-            <p>
-              {t(
-                'Siempre con algo que valoramos muchísimo: la buena predisposición de quienes se suman, colaboran y hacen que cada edición salga adelante.',
-              )}
-            </p>
-          </article>
+          {editedBlock(
+            'historia-beer-league',
+            '❄️',
+            t('¿Qué significa Beer League?'),
+          ) ?? (
+            <article className="history__block">
+              <h3 className="history__block-title">
+                <span aria-hidden="true">❄️</span>{' '}
+                {t('¿Qué significa Beer League?')}
+              </h3>
+              <p>
+                {t(
+                  'El concepto viene de la cultura del hockey sobre hielo. En muchas partes del mundo, las Beer Leagues son ligas recreativas pensadas para quienes aman competir, pero ya no viven el deporte desde la exigencia profesional: jugadores fuera del circuito competitivo, madres y padres con agenda completa, ex deportistas, gente que vuelve después de años, amateurs con hambre de juego y sí... también algún que otro gordito cervecero 😎🍺',
+                )}
+              </p>
+              <p>
+                <em>
+                  {t(
+                    'Es competencia con otra energía: menos presión, más comunidad.',
+                  )}
+                </em>
+              </p>
+            </article>
+          )}
 
-          <article className="history__block">
-            <h3 className="history__block-title">
-              <span aria-hidden="true">🍺</span> {t('El primer gran apoyo')}
-            </h3>
-            <p>
-              {t(
-                'Si hablamos de comienzos, hay que nombrar a quienes confiaron desde el día uno. Nuestro primer sponsor fue',
-              )}{' '}
-              <em>Birra del Fuego</em>
-              {t(
-                ', acompañando el proyecto desde sus primeros pasos y entendiendo perfecto el espíritu de esta locura organizada. Porque si había Beer League... tenía que haber buena birra cerca.',
-              )}
-            </p>
-          </article>
+          {editedBlock('historia-comienzo', '🏒', t('El comienzo')) ?? (
+            <article className="history__block">
+              <h3 className="history__block-title">
+                <span aria-hidden="true">🏒</span> {t('El comienzo')}
+              </h3>
+              <p>
+                {t(
+                  'En 2023, esa idea tomó forma en Ushuaia. Lo que arrancó como una prueba entre amigos empezó a crecer fecha tras fecha, temporada tras temporada. Más jugadores. Más equipos. Más historias. Más ganas de participar.',
+                )}
+              </p>
+              <p>
+                {t(
+                  'Siempre con algo que valoramos muchísimo: la buena predisposición de quienes se suman, colaboran y hacen que cada edición salga adelante.',
+                )}
+              </p>
+            </article>
+          )}
 
-          <article className="history__block">
-            <h3 className="history__block-title">
-              <span aria-hidden="true">🔥</span> {t('Lo que somos hoy')}
-            </h3>
-            <p>
-              {t(
-                'La UBL es mucho más que un torneo. Es una comunidad. Es deporte con identidad fueguina. Es competencia sana. Es gente que se encuentra para jugar, reírse y compartir.',
-              )}
-            </p>
-            <p>
-              <em>{t('Y lo mejor de todo es que esto recién empieza.')}</em>
-            </p>
-            <p className="history__closing">
-              <strong>
-                {t('Fin del mundo. Comienzo de todo... tercer tiempo.')}{' '}
-                <span aria-hidden="true">🍻🏒</span>
-              </strong>
-            </p>
-          </article>
+          {editedBlock('historia-apoyo', '🍺', t('El primer gran apoyo')) ?? (
+            <article className="history__block">
+              <h3 className="history__block-title">
+                <span aria-hidden="true">🍺</span> {t('El primer gran apoyo')}
+              </h3>
+              <p>
+                {t(
+                  'Si hablamos de comienzos, hay que nombrar a quienes confiaron desde el día uno. Nuestro primer sponsor fue',
+                )}{' '}
+                <em>Birra del Fuego</em>
+                {t(
+                  ', acompañando el proyecto desde sus primeros pasos y entendiendo perfecto el espíritu de esta locura organizada. Porque si había Beer League... tenía que haber buena birra cerca.',
+                )}
+              </p>
+            </article>
+          )}
+
+          {editedBlock('historia-hoy', '🔥', t('Lo que somos hoy')) ?? (
+            <article className="history__block">
+              <h3 className="history__block-title">
+                <span aria-hidden="true">🔥</span> {t('Lo que somos hoy')}
+              </h3>
+              <p>
+                {t(
+                  'La UBL es mucho más que un torneo. Es una comunidad. Es deporte con identidad fueguina. Es competencia sana. Es gente que se encuentra para jugar, reírse y compartir.',
+                )}
+              </p>
+              <p>
+                <em>{t('Y lo mejor de todo es que esto recién empieza.')}</em>
+              </p>
+              <p className="history__closing">
+                <strong>
+                  {t('Fin del mundo. Comienzo de todo... tercer tiempo.')}{' '}
+                  <span aria-hidden="true">🍻🏒</span>
+                </strong>
+              </p>
+            </article>
+          )}
 
           <article className="history__block">
             <h3 className="history__block-title">

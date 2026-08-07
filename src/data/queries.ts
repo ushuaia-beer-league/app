@@ -50,3 +50,6 @@ export const PUBLISHED_GOALIE_STATS_SELECT =
 /** The teams, as both the public site and the panel list them. */
 export const TEAMS_SELECT =
   'slug, competition_key, short_name, full_name, nickname'
+
+/** The panel-edited prose overrides, read by the public site and the panel. */
+export const SITE_CONTENT_SELECT = 'key, language, title, body'

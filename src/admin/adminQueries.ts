@@ -1716,3 +1716,25 @@ export async function loadVisitFacts(
 
   return { ok: true, data: (data ?? []) as VisitFactCount[] }
 }
+
+/**
+ * One prose block, one language, upserted. Who may call this successfully is the
+ * database's decision: the `site_content` policies accept communications and
+ * general administration, and everybody else gets the refusal back as words.
+ */
+export async function saveSiteContent(block: {
+  key: string
+  language: string
+  title: string | null
+  body: string
+}): Promise<Result<null>> {
+  const client = await getSupabaseClient()
+  if (!client) return { ok: false, because: NO_CONNECTION }
+
+  const { error } = await client
+    .from('site_content')
+    .upsert({ ...block, updated_at: new Date().toISOString() })
+
+  if (error) return { ok: false, because: error.message }
+  return { ok: true, data: null }
+}

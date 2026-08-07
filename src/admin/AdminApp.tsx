@@ -14,6 +14,7 @@ import { VisitsScreen } from './VisitsScreen'
 import { loadAdminMatches, type AdminMatch } from './adminQueries'
 import { can, useAdminSession } from './useAdminSession'
 import './AdminApp.css'
+import { TextsScreen } from './TextsScreen'
 
 /**
  * The back office.
@@ -62,6 +63,9 @@ export function AdminApp() {
               )}
               {can(status.role, 'content') && (
                 <NavLink to="/admin/fotos">Fotos</NavLink>
+              )}
+              {can(status.role, 'content') && (
+                <NavLink to="/admin/textos">Textos</NavLink>
               )}
               {can(status.role, 'league') && (
                 <NavLink to="/admin/temporadas">Temporadas</NavLink>
@@ -118,6 +122,7 @@ export function AdminApp() {
               />
               <Route path="sponsors" element={<SponsorsScreen />} />
               <Route path="fotos" element={<PhotosScreen />} />
+              <Route path="textos" element={<TextsScreen />} />
               <Route
                 path="temporadas"
                 element={<SeasonsScreen role={status.role} />}

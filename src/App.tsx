@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ContactSection } from './components/ContactSection'
 import { GallerySection } from './components/GallerySection'
@@ -9,6 +9,10 @@ import { SiteFooter } from './components/SiteFooter'
 import { SiteNav } from './components/SiteNav'
 import { SponsorsSection } from './components/SponsorsSection'
 import { TeamsSection } from './components/TeamsSection'
+import {
+  loadContentOverrides,
+  type ContentOverrides,
+} from './data/site-content'
 import { useSeason } from './hooks/useSeason'
 import { pathForTab, routeFor, type SectionKey } from './utils/site-routes'
 import { useT } from './i18n/useLanguage'
@@ -42,6 +46,20 @@ export function App() {
   const navigate = useNavigate()
   const t = useT()
 
+  const [overrides, setOverrides] = useState<ContentOverrides>()
+
+  // Loaded once, like the season: the prose changes when somebody edits it in the
+  // panel, not per navigation, and a failed load is simply the built-in text.
+  useEffect(() => {
+    let current = true
+    void loadContentOverrides().then((loaded) => {
+      if (current) setOverrides(loaded)
+    })
+    return () => {
+      current = false
+    }
+  }, [])
+
   const route = routeFor(pathname)
   const section: SectionKey = route?.section ?? 'inicio'
 
@@ -73,7 +91,7 @@ export function App() {
         {section === 'inicio' && (
           <>
             <HeroSection season={season?.season} />
-            <HistorySection />
+            <HistorySection overrides={overrides} />
           </>
         )}
 
