@@ -302,3 +302,22 @@ the audit refuses and why a gap is published rather than invented.
 
 Estimate: the module plus tests is the bulk of it; the screen reuses the panel's
 existing vocabulary. One long session.
+
+## Backlog: the sticky Historia and the hero parallax (asked 7 August 2026)
+
+The owner's words, paraphrased: Historia scrolls away as one block, so the crest
+on the left leaves the screen and its column sits empty. Wanted instead: the
+section takes the full viewport height, the crest and the title stay fixed while
+the prose column scrolls through its blocks, and when the prose runs out the page
+moves on to the next section. And on the hero, a parallax: the opening screen
+recedes and fades as you scroll into the story.
+
+Sketch: CSS-first. `position: sticky` on the crest/title column inside a grid
+(no scroll-jacking, so a phone and a screen reader keep normal scrolling), and
+the hero fade with a scroll-driven animation (`animation-timeline: view()`)
+guarded by `@supports` and `prefers-reduced-motion`, falling back to today's
+static layout everywhere else. No JavaScript scroll listeners: they fight the
+main thread and the browser already knows how to do both of these.
+
+Also pending from the operators, plan already approved: editable contact
+channels (mail and Instagram), and per-team logo upload from the panel.
