@@ -68,6 +68,11 @@ export function HistorySection({ overrides }: HistorySectionProps = {}) {
       <div className="history">
         <div className="history__crest">
           <Crest size="lg" label={t('Escudo de la Ushuaia Beer League')} />
+          {/* Travels pinned with the crest. Hidden from readers because the
+           * Section's own h2 already says it; this copy is the visual anchor. */}
+          <p className="history__crest-caption" aria-hidden="true">
+            {t('Historia de la UBL')}
+          </p>
         </div>
 
         <div className="history__blocks">

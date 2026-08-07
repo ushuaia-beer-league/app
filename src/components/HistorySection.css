@@ -110,27 +110,17 @@
    * inherits the behaviour. They stack, so each needs its own resting line. */
   .history__crest {
     position: sticky;
-    top: calc(var(--layout-nav-height) + 7.5rem);
+    top: calc(var(--layout-nav-height) + var(--space-5));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
   }
 
-  #historia .section__eyebrow,
-  #historia .section__title,
-  #historia .section__rule {
-    position: sticky;
-    z-index: 1;
-  }
-
-  #historia .section__eyebrow {
-    top: calc(var(--layout-nav-height) + var(--space-4));
-  }
-
-  #historia .section__title {
-    top: calc(var(--layout-nav-height) + var(--space-4) + 1.4rem);
-  }
-
-  #historia .section__rule {
-    top: calc(var(--layout-nav-height) + var(--space-4) + 4.4rem);
-  }
+  /* The first sticky attempt pinned the Section's own heading elements, which
+   * pinned them ON TOP of the crest: two things anchored to one spot. Now the
+   * heading that stays is part of the crest column itself, one sticky unit,
+   * and the Section heading above scrolls away like every other section's. */
 }
 
 /*
@@ -161,4 +151,14 @@
     opacity: 0;
     transform: translateY(22%) scale(0.96);
   }
+}
+
+/* The caption pinned with the crest, so the image never travels nameless. */
+.history__crest-caption {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  letter-spacing: var(--tracking-display);
+  text-align: center;
+  text-transform: uppercase;
 }
