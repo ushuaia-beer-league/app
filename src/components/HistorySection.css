@@ -124,41 +124,34 @@
 }
 
 /*
- * The hero recedes as the story arrives.
- *
- * A scroll-driven animation the browser runs off the main thread: as the hero
- * leaves the viewport its content drifts up slower than the page and fades,
- * which is the parallax the owner asked for. Guarded twice: browsers without
- * `animation-timeline` keep today's static hero, and so does anybody who asked
- * their system for reduced motion, because a fade tied to scrolling is exactly
- * the kind of movement that request is about. No scroll listener anywhere.
+ * The heading pinned with the crest: eyebrow, title and the gold rule, the same
+ * three pieces every section opens with, living inside the sticky column so the
+ * image and the words hold the screen together and leave together.
  */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .hero__content {
-      animation-name: hero-recede;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-duration: auto;
-      animation-timeline: view();
-      animation-range: exit 0% exit 90%;
-    }
-  }
+.history__pinned-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
 }
 
-@keyframes hero-recede {
-  to {
-    opacity: 0;
-    transform: translateY(22%) scale(0.96);
-  }
-}
-
-/* The caption pinned with the crest, so the image never travels nameless. */
-.history__crest-caption {
+.history__pinned-title {
   margin: 0;
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
+  font-size: var(--text-3xl);
   letter-spacing: var(--tracking-display);
+  line-height: var(--leading-display);
   text-align: center;
   text-transform: uppercase;
+  color: var(--color-text-heading);
+}
+
+@media (min-width: 56em) {
+  .history__pinned-heading {
+    align-items: flex-start;
+  }
+
+  .history__pinned-title {
+    text-align: left;
+  }
 }

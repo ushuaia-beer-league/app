@@ -64,15 +64,20 @@ export function HistorySection({ overrides }: HistorySectionProps = {}) {
       eyebrow={t('Sobre nosotros')}
       title={t('Historia de la UBL')}
       tone="alt"
+      headerHidden
     >
       <div className="history">
         <div className="history__crest">
+          {/* The visible heading rides pinned with the crest, one unit with its
+           * own spacing, and leaves upward only when the section's prose runs
+           * out, which is sticky's native ending. Hidden from readers because
+           * the Section's own (visually hidden) h2 already names the landmark. */}
+          <div className="history__pinned-heading" aria-hidden="true">
+            <p className="section__eyebrow">{t('Sobre nosotros')}</p>
+            <p className="history__pinned-title">{t('Historia de la UBL')}</p>
+            <div className="section__rule" />
+          </div>
           <Crest size="lg" label={t('Escudo de la Ushuaia Beer League')} />
-          {/* Travels pinned with the crest. Hidden from readers because the
-           * Section's own h2 already says it; this copy is the visual anchor. */}
-          <p className="history__crest-caption" aria-hidden="true">
-            {t('Historia de la UBL')}
-          </p>
         </div>
 
         <div className="history__blocks">

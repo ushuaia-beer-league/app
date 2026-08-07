@@ -66,55 +66,60 @@ export function HeroSection({
       <div className="hero__content">
         <Crest size="md" label={t('Escudo de la Ushuaia Beer League')} />
 
-        <p className="hero__eyebrow">
-          🏒{' '}
-          {season === undefined
-            ? ''
-            : `${fill(t('Temporada {year}'), { year: season })} · `}
-          {t('Hockey sobre Hielo')}
-        </p>
+        {/* Everything that is not the crest, grouped: on scroll the words shrink
+         * and go translucent while the crest grows, two opposite motions that
+         * need two elements. */}
+        <div className="hero__text">
+          <p className="hero__eyebrow">
+            🏒{' '}
+            {season === undefined
+              ? ''
+              : `${fill(t('Temporada {year}'), { year: season })} · `}
+            {t('Hockey sobre Hielo')}
+          </p>
 
-        <h1 className="hero__title" id="hero-title">
-          <span className="hero__word hero__word--ice">Ushuaia</span>{' '}
-          <span className="hero__word hero__word--white">Beer</span>{' '}
-          <span className="hero__word hero__word--gold">League</span>
-        </h1>
+          <h1 className="hero__title" id="hero-title">
+            <span className="hero__word hero__word--ice">Ushuaia</span>{' '}
+            <span className="hero__word hero__word--white">Beer</span>{' '}
+            <span className="hero__word hero__word--gold">League</span>
+          </h1>
 
-        <p className="hero__tagline">
-          {t('Hockey')} ,{' '}
-          <span className="hero__tagline-accent">{t('Birra')}</span> ,{' '}
-          {t('Fin del Mundo · Desde 2023')}
-        </p>
+          <p className="hero__tagline">
+            {t('Hockey')} ,{' '}
+            <span className="hero__tagline-accent">{t('Birra')}</span> ,{' '}
+            {t('Fin del Mundo · Desde 2023')}
+          </p>
 
-        {stats.length > 0 && (
-          <dl className="hero__stats">
-            {stats.map((stat) => (
-              <div className="hero__stat" key={stat.label}>
-                <dt className="hero__stat-label">{stat.label}</dt>
-                <dd className="hero__stat-value">{stat.value}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
+          {stats.length > 0 && (
+            <dl className="hero__stats">
+              {stats.map((stat) => (
+                <div className="hero__stat" key={stat.label}>
+                  <dt className="hero__stat-label">{stat.label}</dt>
+                  <dd className="hero__stat-value">{stat.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
 
-        <p className="hero__cta">
-          <a className="hero__button" href="#historia">
-            {t('Historia UBL')}
-          </a>
-        </p>
+          <p className="hero__cta">
+            <a className="hero__button" href="#historia">
+              {t('Historia UBL')}
+            </a>
+          </p>
 
-        {competitions.length > 0 && (
-          <ul className="hero__pills">
-            {competitions.map((competition) => (
-              <li
-                className={`hero__pill hero__pill--${competition.tone}`}
-                key={competition.name}
-              >
-                {competition.name}
-              </li>
-            ))}
-          </ul>
-        )}
+          {competitions.length > 0 && (
+            <ul className="hero__pills">
+              {competitions.map((competition) => (
+                <li
+                  className={`hero__pill hero__pill--${competition.tone}`}
+                  key={competition.name}
+                >
+                  {competition.name}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </section>
   )

@@ -8,7 +8,9 @@ describe('HistorySection', () => {
     expect(
       screen.getByRole('heading', { level: 2, name: 'Historia de la UBL' }),
     ).toBeVisible()
-    expect(screen.getByText('Sobre nosotros')).toBeVisible()
+    // Twice since the pinned-heading redesign: the Section's own copy is
+    // visually hidden for readers, the visible one rides the sticky column.
+    expect(screen.getAllByText('Sobre nosotros')).toHaveLength(2)
     expect(
       screen.getByRole('heading', { level: 3, name: 'Cómo nació la UBL' }),
     ).toBeVisible()

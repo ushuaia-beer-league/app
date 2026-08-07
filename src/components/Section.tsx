@@ -15,6 +15,12 @@ type SectionProps = {
    * backdrop shows through, which is what makes the alternation read.
    */
   tone?: SectionTone
+  /**
+   * Visually hide the eyebrow/title/rule while keeping them for readers. For the
+   * one section that draws its own heading pinned inside its layout (Historia):
+   * the accessible name must not disappear just because the visible one moved.
+   */
+  headerHidden?: boolean
   children: ReactNode
 }
 
@@ -27,6 +33,7 @@ export function Section({
   eyebrow,
   title,
   tone = 'base',
+  headerHidden = false,
   children,
 }: SectionProps) {
   // The anchor is Spanish because it ends up in the address bar; this one never
@@ -40,11 +47,16 @@ export function Section({
       aria-labelledby={headingId}
     >
       <div className="section__inner">
-        <p className="section__eyebrow">{eyebrow}</p>
-        <h2 className="section__title" id={headingId}>
+        <p className={headerHidden ? 'sr-only' : 'section__eyebrow'}>
+          {eyebrow}
+        </p>
+        <h2
+          className={headerHidden ? 'sr-only' : 'section__title'}
+          id={headingId}
+        >
           {title}
         </h2>
-        <div className="section__rule" aria-hidden="true" />
+        {!headerHidden && <div className="section__rule" aria-hidden="true" />}
         {children}
       </div>
     </section>

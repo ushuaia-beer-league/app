@@ -241,3 +241,77 @@
 .hero .crest {
   transform: translateX(3.5%);
 }
+
+/*
+ * The opening screen stays put and the page rides over it.
+ *
+ * `sticky` under the fixed bar, `z-index: 0`, and everything after the hero sits
+ * in `.home__over` (opaque, `z-index: 1`), so scrolling drags the story up and
+ * over the hero rather than pushing the hero away. Layout, not an animation, so
+ * it works everywhere and needs no motion opt-in.
+ */
+.hero {
+  position: sticky;
+  top: var(--layout-nav-height);
+  z-index: 0;
+}
+
+/* The text group only exists to move as one thing; it keeps the column layout. */
+.hero__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/*
+ * The two opposite motions, driven by the page's own scroll: the words shrink
+ * and go translucent while the crest grows toward the viewer, which reads as
+ * the league's badge staying while the poster around it recedes. `scale` and
+ * `opacity`, the two properties the compositor animates without layout work.
+ *
+ * `scroll(root)` and not `view()`: the hero is pinned, so it never leaves the
+ * viewport and a view timeline would sit at zero forever. The range is the
+ * first viewport-height of scrolling, exactly the distance the story needs to
+ * arrive over it.
+ *
+ * Guarded twice: no support keeps a static hero, and `prefers-reduced-motion`
+ * keeps it too, because scroll-tied shrinking is precisely the motion that
+ * setting asks to be spared.
+ */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__text {
+      transform-origin: 50% 0;
+      animation-name: hero-words-recede;
+      animation-timing-function: ease-out;
+      animation-fill-mode: both;
+      animation-duration: auto;
+      animation-timeline: scroll(root);
+      animation-range: 0vh 90vh;
+    }
+
+    .hero__content .crest {
+      animation-name: hero-crest-grow;
+      animation-timing-function: ease-out;
+      animation-fill-mode: both;
+      animation-duration: auto;
+      animation-timeline: scroll(root);
+      animation-range: 0vh 90vh;
+    }
+  }
+}
+
+@keyframes hero-words-recede {
+  to {
+    opacity: 0.06;
+    scale: 0.55;
+  }
+}
+
+@keyframes hero-crest-grow {
+  to {
+    scale: 1.65;
+    opacity: 0.35;
+  }
+}
