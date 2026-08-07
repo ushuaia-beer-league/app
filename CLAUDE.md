@@ -26,6 +26,12 @@ https://ushuaia-beer-league.pages.dev until NIC.ar delegates the domain).
   `ci.yml` still validates every push. Do not resurrect the deploy.
 - **Vercel is the preview** (`ushuaia-beer-league.vercel.app`, `noindex`), to be
   deleted once the Cloudflare setup is confirmed stable.
+- **DNS for the domain is deliberately NOT proxied** (grey cloud). The orange
+  proxy in front of Pages mixed cached HTML from one deploy with assets of
+  another and produced intermittent blank pages. Do not re-enable it. HTML ships
+  `max-age=0, must-revalidate`; hashed assets are immutable. After each deploy,
+  CI runs `npm run smoke:pages` against the live domain, with a retry because a
+  seconds-long propagation window is normal.
 - **Per-host mechanics live in `vite.config.ts`**: the base path, the deep-link
   fallback (`404.html` for GitHub, `_redirects` for Cloudflare — never both on
   one host), the security headers (`_headers`, Cloudflare only) and the preview's
