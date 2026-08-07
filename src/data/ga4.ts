@@ -42,9 +42,23 @@ declare global {
 }
 
 /** Whether this build has a measurement id worth loading. */
+/**
+ * The hosts that are not the league's site and must not report to its property.
+ *
+ * The preview on Vercel is the same build with the same measurement id, so without
+ * this every look at a change before it is live would land in the league's real
+ * numbers as if a visitor had come. A test visit counted as a visitor is worse than
+ * no number at all, because nobody can tell them apart afterwards.
+ */
+function isTheRealSite(): boolean {
+  const host = window.location.hostname
+  return !host.endsWith('.vercel.app') && host !== 'localhost'
+}
+
 export function ga4Id(): string | null {
   const id = MEASUREMENT_ID?.trim()
-  return id !== undefined && ID_SHAPE.test(id) ? id : null
+  if (id === undefined || !ID_SHAPE.test(id)) return null
+  return isTheRealSite() ? id : null
 }
 
 let started = false
