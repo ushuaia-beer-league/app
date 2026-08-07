@@ -48,9 +48,18 @@
   background: var(--color-wash);
 }
 
+/* A flex child refuses to shrink below its content unless told, so a one-word
+ * name like HANTACHOPPERS pushed straight out of the card. */
+.team-card__names {
+  min-width: 0;
+}
+
 .team-card__name {
   font-family: var(--font-display);
-  font-size: var(--text-3xl);
+  /* 3xl overflowed the card on the long names; this is still a step above the
+   * original size, and it wraps instead of escaping when even that is tight. */
+  font-size: var(--text-2xl);
+  overflow-wrap: break-word;
   font-weight: var(--weight-regular);
   letter-spacing: var(--tracking-display);
   line-height: var(--leading-display);
