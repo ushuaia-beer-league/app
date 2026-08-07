@@ -86,6 +86,8 @@ const SAME_AS_SPANISH: Readonly<Record<string, readonly string[]>> = {
     'Temporada {year}',
     'Final',
     'Empate',
+    // "The previous photo" is the same three words in both languages.
+    'Foto anterior',
   ],
 }
 

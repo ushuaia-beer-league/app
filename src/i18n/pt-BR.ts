@@ -157,6 +157,12 @@ export const ptBR: Catalogue = {
     'Você está vendo a última cópia salva da temporada.',
   'Ninguna planilla de la liga publica los planteles de la {competition}.':
     'Nenhuma planilha da liga publica os elencos da {competition}.',
+  // The gallery's lightbox.
+  'Ampliar la foto': 'Ampliar a foto',
+  'Foto anterior': 'Foto anterior',
+  'Foto siguiente': 'Próxima foto',
+  Cerrar: 'Fechar',
+
   // Sharing a table, a team or a round as an image.
   Compartir: 'Compartilhar',
   'Compartir {que} como imagen': 'Compartilhar {que} como imagem',
