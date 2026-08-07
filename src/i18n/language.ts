@@ -1,4 +1,5 @@
 import { en } from './en'
+import { ptBR } from './pt-BR'
 import type { Catalogue, StringKey } from './es'
 
 /**
@@ -16,7 +17,7 @@ import type { Catalogue, StringKey } from './es'
  * more entry here plus one file typed as `Catalogue`, and `tsc` then lists every
  * string that file is missing.
  */
-export const LANGUAGES = ['es', 'en'] as const
+export const LANGUAGES = ['es', 'en', 'pt-BR'] as const
 
 export type Language = (typeof LANGUAGES)[number]
 
@@ -24,6 +25,28 @@ export type Language = (typeof LANGUAGES)[number]
 export const LANGUAGE_NAMES: Readonly<Record<Language, string>> = {
   es: 'Castellano',
   en: 'English',
+  'pt-BR': 'Português',
+}
+
+/**
+ * The flag shown beside each language, chosen by the league.
+ *
+ * A flag is a country and a language is not, which is the usual argument against
+ * this, and it loses here: the people these flags are for are visitors deciding in
+ * one second which of three words to press, and a flag reads faster than a word they
+ * cannot read. The league picked which country stands for which language, and these
+ * are its choices, not a guess: Argentina for Spanish because that is whose league
+ * this is, the United States for English, Brazil for Portuguese because that is
+ * where Ushuaia's Portuguese speakers come from.
+ *
+ * Windows does not draw flag emoji at all: it falls back to the two letters of the
+ * country code. That is why the name of the language is always beside it rather than
+ * instead of it, and why the flag is `aria-hidden`.
+ */
+export const LANGUAGE_FLAGS: Readonly<Record<Language, string>> = {
+  es: '🇦🇷',
+  en: '🇺🇸',
+  'pt-BR': '🇧🇷',
 }
 
 /**
@@ -42,7 +65,10 @@ export const DEFAULT_LANGUAGE: Language = 'es'
  * Spanish is absent on purpose: its catalogue would map every string to itself, so
  * `translator('es')` returns the key instead of looking anything up.
  */
-const CATALOGUES: Readonly<Partial<Record<Language, Catalogue>>> = { en }
+const CATALOGUES: Readonly<Partial<Record<Language, Catalogue>>> = {
+  en,
+  'pt-BR': ptBR,
+}
 
 /** Where a chosen language is remembered, in the visitor's own browser. */
 export const LANGUAGE_KEY = 'ubl.lang'

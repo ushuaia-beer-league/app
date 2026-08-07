@@ -1,10 +1,10 @@
-import { en } from './en'
 import { STRINGS } from './es'
 import {
   DEFAULT_LANGUAGE,
   fill,
   isLanguage,
   LANGUAGES,
+  LANGUAGE_FLAGS,
   LANGUAGE_NAMES,
   resolveLanguage,
   translator,
@@ -63,29 +63,55 @@ describe('translator', () => {
   })
 })
 
+/**
+ * Every language other than Spanish, checked the same way. Adding Italian or French
+ * means adding a line to `TRANSLATED` and nothing else, which is the point.
+ */
+const TRANSLATED = LANGUAGES.filter((language) => language !== 'es')
+
+/**
+ * The entries that are correctly identical to the Spanish, per language.
+ *
+ * Listed rather than tolerated, so a genuinely untranslated string cannot hide among
+ * the words that happen to be the same in both.
+ */
+const SAME_AS_SPANISH: Readonly<Record<string, readonly string[]>> = {
+  en: ['Fixture', 'Playoffs', 'Sponsors'],
+  'pt-BR': ['Ligas', 'Fotos', 'Todas', 'Playoffs'],
+}
+
 describe('the catalogues', () => {
-  it('translates every string the site can say', () => {
-    // Enforced by the type system too: `en` is typed as `Catalogue`, which is built
-    // from this list. Asserted at runtime as well, because the day a language is
-    // added by copying a file, an entry left holding its Spanish is a silent miss.
-    expect(Object.keys(en).sort()).toEqual([...STRINGS].sort())
+  it('translates every string the site can say, in every language', () => {
+    for (const language of TRANSLATED) {
+      const t = translator(language)
+      for (const key of STRINGS) {
+        expect(t(key), `${language}: ${key}`).toBeTruthy()
+      }
+    }
   })
 
-  it('leaves no English entry still in Spanish by accident', () => {
-    // Some entries are correctly identical in both, and they are listed, so a new
-    // untranslated string cannot hide among them.
-    const sameInBoth = new Set<string>(['Fixture', 'Playoffs', 'Sponsors'])
+  it('leaves no entry still in Spanish by accident', () => {
+    for (const language of TRANSLATED) {
+      const t = translator(language)
+      const allowed = new Set(SAME_AS_SPANISH[language] ?? [])
+      const untranslated = STRINGS.filter(
+        (key) => t(key) === key && !allowed.has(key),
+      )
 
-    const untranslated = STRINGS.filter(
-      (key) => en[key] === key && !sameInBoth.has(key),
-    )
-
-    expect(untranslated).toEqual([])
+      expect(untranslated, `still Spanish in ${language}`).toEqual([])
+    }
   })
 
-  it('names every language in its own words', () => {
+  it('answers the key itself in Spanish, with no catalogue at all', () => {
+    // The design: Spanish needs no table, because the key is the Spanish.
+    const t = translator('es')
+    for (const key of STRINGS) expect(t(key)).toBe(key)
+  })
+
+  it('names every language in its own words, with a flag', () => {
     for (const language of LANGUAGES) {
       expect(LANGUAGE_NAMES[language].length).toBeGreaterThan(3)
+      expect(LANGUAGE_FLAGS[language]).toMatch(/\p{Regional_Indicator}{2}/u)
     }
   })
 })

@@ -1,17 +1,21 @@
-import { LANGUAGES, LANGUAGE_NAMES } from './language'
+import { LANGUAGES, LANGUAGE_FLAGS, LANGUAGE_NAMES } from './language'
 import { useLanguage } from './useLanguage'
 import './LanguagePicker.css'
 
 /**
- * Two buttons, not a dropdown.
+ * One button per language, not a dropdown.
  *
- * With two languages a select is more clicks and less clear, and the pair doubles as
- * the indicator of which one is on. When Italian, French and Portuguese arrive this
- * becomes a menu, and that is the moment to change it rather than now.
+ * Three still fit, and a row of buttons doubles as the indicator of which one is on,
+ * which a closed select cannot do. Somewhere past four this becomes a menu; that is a
+ * decision for the day a fifth language arrives, not a thing to build first.
  *
- * A radio group and not a set of links: this changes how the page reads, not where the
+ * A group of buttons and not links: this changes how the page reads, not where the
  * visitor is, so it must not put an entry in their history that a back button then
  * appears to undo.
+ *
+ * The flag is decoration and the name is the label. On Windows the flag does not draw
+ * at all and shows two letters instead, so a design where the flag carried the meaning
+ * would be unusable for a whole platform.
  */
 export function LanguagePicker() {
   const { language, choose, t } = useLanguage()
@@ -40,7 +44,12 @@ export function LanguagePicker() {
             lang={option}
             onClick={() => choose(option)}
           >
-            {LANGUAGE_NAMES[option]}
+            <span className="language-picker__flag" aria-hidden="true">
+              {LANGUAGE_FLAGS[option]}
+            </span>
+            <span className="language-picker__name">
+              {LANGUAGE_NAMES[option]}
+            </span>
           </button>
         )
       })}
