@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { LanguagePicker } from '../i18n/LanguagePicker'
 import type { StringKey } from '../i18n/language'
@@ -20,13 +21,13 @@ import './SiteNav.css'
  * panel guarded by a password in the browser. It becomes a link to `/admin/`
  * behind Google sign-in.
  */
-const NAV_ITEMS: { href: string; label: StringKey }[] = [
-  { href: '#historia', label: 'Historia' },
-  { href: '#ligas', label: 'Ligas & Estadísticas' },
-  { href: '#equipos', label: 'Equipos' },
-  { href: '#galeria', label: 'Fotos' },
-  { href: '#sponsors', label: 'Sponsors' },
-  { href: '#contacto', label: 'Contacto' },
+const NAV_ITEMS: { to: string; label: StringKey }[] = [
+  { to: '/', label: 'Historia' },
+  { to: '/ligas', label: 'Ligas & Estadísticas' },
+  { to: '/equipos', label: 'Equipos' },
+  { to: '/fotos', label: 'Fotos' },
+  { to: '/sponsors', label: 'Sponsors' },
+  { to: '/contacto', label: 'Contacto' },
 ]
 
 const LINKS_ID = 'site-nav-links'
@@ -45,10 +46,10 @@ export function SiteNav() {
   return (
     <header className="site-nav">
       <nav className="site-nav__bar" aria-label={t('Navegación principal')}>
-        <a className="site-nav__brand" href="#hero">
+        <Link className="site-nav__brand" to="/">
           <Crest size="sm" />
           <Wordmark size="sm" />
-        </a>
+        </Link>
 
         <button
           className="site-nav__toggle"
@@ -68,10 +69,10 @@ export function SiteNav() {
           id={LINKS_ID}
         >
           {NAV_ITEMS.map((item) => (
-            <li key={item.href}>
-              <a href={item.href} onClick={() => setIsOpen(false)}>
+            <li key={item.to}>
+              <Link to={item.to} onClick={() => setIsOpen(false)}>
                 {t(item.label)}
-              </a>
+              </Link>
             </li>
           ))}
           {/* Inside the disclosure on a phone, so a small screen does not have to

@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { ContactSection } from './components/ContactSection'
 import { GallerySection } from './components/GallerySection'
 import { HeroSection } from './components/HeroSection'
@@ -8,24 +10,56 @@ import { SiteNav } from './components/SiteNav'
 import { SponsorsSection } from './components/SponsorsSection'
 import { TeamsSection } from './components/TeamsSection'
 import { useSeason } from './hooks/useSeason'
-import { anchorFor } from './utils/site-routes'
+import { pathForTab, routeFor, type SectionKey } from './utils/site-routes'
 import { useT } from './i18n/useLanguage'
 
 /**
- * The public page.
+ * The public site, as separate pages.
  *
- * The season is loaded once, here, and handed down. There is no error branch
- * because there is no error to handle: `useSeason` answers with Supabase when it
- * is configured and awake and with the versioned seed whenever it is not, and
- * `LeaguesSection` says which of the two the visitor is looking at.
+ * It used to be one long document with the navigation jumping between anchors, and
+ * the league asked for it to be split so nobody has to scroll past a whole season to
+ * reach the teams. Each address now renders its own screen and nothing else.
  *
- * TODO phase 4: `/admin/`, and the sponsors and photographs the organisation
- * loads from it, which is what turns the two placeholder sections below into
- * real ones.
+ * Three things follow from that and are worth knowing before changing it:
+ *
+ * - **The season is still loaded once, here**, and handed to whichever screen is on.
+ *   Moving the load into each screen would fetch it again on every navigation, and on
+ *   the free Supabase tier that is the difference between waking the database once
+ *   and waking it constantly.
+ * - **An address nobody recognises renders the home page** rather than a 404. On a
+ *   site this size a "not found" is a dead end a visitor cannot act on, and a
+ *   mistyped link is far likelier than a page that existed and went away.
+ * - **The tab under `/ligas` comes from the address**, so a shared link opens on the
+ *   standings and the back button walks between the tables.
+ *
+ * There is no error branch because there is nothing to handle: `useSeason` answers
+ * with Supabase when it is configured and awake and with the versioned seed whenever
+ * it is not, and `LeaguesSection` says which of the two is on screen.
  */
 export function App() {
   const { data: season, loading } = useSeason()
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
   const t = useT()
+
+  const route = routeFor(pathname)
+  const section: SectionKey = route?.section ?? 'inicio'
+
+  // In an effect and not during render: the document is not this component's to
+  // change while React is still deciding what to draw, and the lint rule that says so
+  // is right. Set here rather than in each screen all the same, because one place
+  // knows both the address and its name. A browser tab still showing the previous
+  // screen is the classic single page application bug, and it is what a bookmark
+  // saves.
+  useEffect(() => {
+    if (route !== null) document.title = route.title
+  }, [route])
+
+  const waiting = (
+    <p className="page-loading" aria-live="polite">
+      {loading ? t('Cargando la temporada…') : ''}
+    </p>
+  )
 
   return (
     <>
@@ -36,26 +70,30 @@ export function App() {
       <SiteNav />
 
       <main id="contenido">
-        <HeroSection season={season?.season} />
-        <HistorySection />
-
-        {season ? (
-          <LeaguesSection season={season} />
-        ) : (
-          <p
-            className="page-loading"
-            id={anchorFor('ligas')}
-            aria-live="polite"
-          >
-            {loading ? t('Cargando la temporada…') : ''}
-          </p>
+        {section === 'inicio' && (
+          <>
+            <HeroSection season={season?.season} />
+            <HistorySection />
+          </>
         )}
 
-        {season && <TeamsSection season={season} />}
+        {section === 'ligas' &&
+          (season ? (
+            <LeaguesSection
+              season={season}
+              tab={route?.tab}
+              onTabChange={(tab) => navigate(pathForTab(tab))}
+            />
+          ) : (
+            waiting
+          ))}
 
-        <GallerySection />
-        <SponsorsSection />
-        <ContactSection />
+        {section === 'equipos' &&
+          (season ? <TeamsSection season={season} /> : waiting)}
+
+        {section === 'fotos' && <GallerySection />}
+        {section === 'sponsors' && <SponsorsSection />}
+        {section === 'contacto' && <ContactSection />}
       </main>
 
       <SiteFooter season={season?.season} />

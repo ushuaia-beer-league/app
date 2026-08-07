@@ -45,6 +45,10 @@ const TAB_ID = 'ligas-tab-'
 const PANEL_ID = 'ligas-panel-'
 
 type LeaguesSectionProps = {
+  /** The tab the address names, when the site is mounted behind a router. */
+  tab?: TabKey
+  /** Called when somebody picks a tab, so the address can follow. */
+  onTabChange?: (tab: TabKey) => void
   /** The season, from Supabase or from the versioned seed. */
   season: SeasonData
   /**
@@ -73,10 +77,21 @@ type LeaguesSectionProps = {
 export function LeaguesSection({
   season,
   today = todayIso(),
+  tab: tabFromUrl,
+  onTabChange,
 }: LeaguesSectionProps) {
   const t = useT()
   const [choice, setChoice] = useState<CompetitionChoice>('beer')
-  const [tab, setTab] = useState<TabKey>('fixture')
+  const [ownTab, setOwnTab] = useState<TabKey>('fixture')
+
+  // The address owns the tab when there is an address to own it, so a shared link
+  // opens on the table it names and the back button walks the tables. Falls back to
+  // its own state, which is what happens in a test that mounts this on its own.
+  const tab = tabFromUrl ?? ownTab
+  const setTab = (next: TabKey) => {
+    setOwnTab(next)
+    onTabChange?.(next)
+  }
   const tabButtons = useRef<(HTMLButtonElement | null)[]>([])
 
   /**
