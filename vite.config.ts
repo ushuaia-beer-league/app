@@ -43,6 +43,18 @@ function spaFallback(onCloudflare: boolean): Plugin {
         //
         // The routes and their words come from `site-routes.ts`, which is the one
         // place that knows both, and they are the league's own texts.
+        // A real sitemap, because the SPA rewrite answers 200 for any path: a
+        // crawler asking for sitemap.xml would otherwise be handed HTML with a
+        // straight face. One entry per address, the same table as everything else.
+        const urls = SITE_ROUTES.map(
+          (r) =>
+            `  <url><loc>${PRODUCTION}${r.path === '/' ? '/' : r.path}</loc></url>`,
+        ).join('\n')
+        writeFileSync(
+          join(outDir, 'sitemap.xml'),
+          `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
+        )
+
         const entry = readFileSync(join(outDir, 'index.html'), 'utf8')
         for (const route of SITE_ROUTES) {
           if (route.path === '/') continue
@@ -206,7 +218,7 @@ function previewIdentity(isPreview: boolean): Plugin {
             'Allow: /',
             '',
           ].join('\n')
-        : `# ${PRODUCTION}/\nUser-agent: *\nAllow: /\n`
+        : `# ${PRODUCTION}/\nUser-agent: *\nAllow: /\nSitemap: ${PRODUCTION}/sitemap.xml\n`
 
       writeFileSync(join(outDir, 'robots.txt'), body)
     },
