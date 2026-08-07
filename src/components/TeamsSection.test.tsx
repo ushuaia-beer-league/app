@@ -271,4 +271,12 @@ describe('TeamsSection, deep-linked', () => {
     expect(scrolled).toEqual(['wubl-birra-del-fuego'])
     window.location.hash = ''
   })
+
+  it('survives a malformed fragment instead of white-screening', () => {
+    // decodeURIComponent throws on "#%"; a crafted link must not unmount the
+    // page for whoever opens it.
+    window.location.hash = '#%'
+    expect(() => render(<TeamsSection season={SEASON} />)).not.toThrow()
+    window.location.hash = ''
+  })
 })

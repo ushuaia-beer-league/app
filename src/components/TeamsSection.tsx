@@ -105,7 +105,15 @@ export function TeamsSection({ season }: TeamsSectionProps) {
     // scroll fires before the season has rendered, so once the cards exist
     // this walks to the named one. Through canonicalSlug, because a link
     // shared before a rename must still find the team after it.
-    const slug = decodeURIComponent(window.location.hash.slice(1))
+    // decodeURIComponent throws on a malformed fragment ("#%"), and an
+    // exception here unmounts the whole page: a bad link must scroll nowhere,
+    // never white-screen the site.
+    let slug: string
+    try {
+      slug = decodeURIComponent(window.location.hash.slice(1))
+    } catch {
+      return
+    }
     if (slug === '') return
     const wanted = canonicalSlug(slug)
     const card = season.teams.find(
