@@ -8,7 +8,7 @@ import { defineConfig, type Plugin } from 'vitest/config'
  * entry document there lets a client-side route survive a hard refresh or a
  * shared link, which a static host cannot resolve on its own.
  */
-function spaFallback(): Plugin {
+function spaFallback(onCloudflare: boolean): Plugin {
   let outDir = 'dist'
 
   return {
@@ -18,7 +18,23 @@ function spaFallback(): Plugin {
       outDir = resolve(config.root, config.build.outDir)
     },
     closeBundle() {
-      copyFileSync(join(outDir, 'index.html'), join(outDir, '404.html'))
+      // Two hosts, two mechanisms, and they must not both be present.
+      //
+      // GitHub Pages answers an unknown path with `404.html`, so a copy of the entry
+      // document there is what lets a deep link survive.
+      //
+      // Cloudflare Pages reads `_redirects`, and `200` there is a rewrite rather than
+      // a redirect: the address stays as it was typed and the status is right. But it
+      // only reaches that rule when there is no `404.html`, which is why one is
+      // skipped on the other's host. With both files present every address except the
+      // home page drew the correct screen and answered 404, which is the worst
+      // combination available: a visitor sees the page and every crawler and link
+      // preview is told it does not exist.
+      if (onCloudflare) {
+        writeFileSync(join(outDir, '_redirects'), '/*    /index.html   200\n')
+      } else {
+        copyFileSync(join(outDir, 'index.html'), join(outDir, '404.html'))
+      }
     },
   }
 }
@@ -131,7 +147,7 @@ export default defineConfig({
   base,
   plugins: [
     react(),
-    spaFallback(),
+    spaFallback(process.env.CF_PAGES !== undefined),
     previewIdentity(process.env.VERCEL !== undefined),
   ],
   test: {
