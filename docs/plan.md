@@ -264,3 +264,41 @@ confirmed stable; the per-date bulk match-entry sheet (spec known: paper →
 Excel, one sheet per round, the system audits); move the Cloudflare account and
 the domain to league ownership (recorded as debt in `knowledge-base.md`);
 donations counter and per-player credentials (the league's "a futuro" items).
+
+## Backlog: the per-date bulk entry sheet (planned 7 August 2026, not started)
+
+What the league does today: results are written on paper at the rink, then typed
+into an Excel that accumulates match by match, one sheet per date. What they asked
+for, in Francisco's words: a loading sheet so entry is not cell by cell, with the
+system doing the audit the spreadsheet cannot.
+
+**1. Pure module first, `src/utils/bulk-entry.ts`.** A draft for one date: every
+match of that round across both venues and competitions, each with score,
+resolution, scorers with assists, goalie lines and who played. Audits, each an
+explicit named check with tests:
+
+- goals entered must sum to the score, per team, or the row says what is
+  missing (never blocks publishing a gap, but says it);
+- every named player must be on that team's roster, else the name is held as
+  printed and flagged, never guessed (the confirmed-names lesson);
+- a franchise player at most once per match; in playoffs a substitute only
+  when the team has five or fewer;
+- goalie shots faced >= goals against; a draw only where draws exist;
+- both venues may run at once: two matches in one time slot is normal, the
+  audit must not call it a clash.
+
+**2. Paste from their Excel.** The screen accepts a TSV paste (copy the sheet,
+paste in a textarea) and parses it into the draft, reusing the importer's reading
+rules (`source-notation.ts`, `team-lookup.ts`). Hand entry in the grid is the
+fallback, not the main path: the league already has the Excel open.
+
+**3. Screen `/admin/carga`.** Pick the date (from the fixture's rounds), see the
+audit verdict per match before anything is written, then one save per match
+(sport-admin RLS as everywhere). Partial saves are fine and reported per match;
+what did not reconcile stays on screen with its reason.
+
+**4. Documentation.** An ADMIN.md section in the operators' words, including what
+the audit refuses and why a gap is published rather than invented.
+
+Estimate: the module plus tests is the bulk of it; the screen reuses the panel's
+existing vocabulary. One long session.
