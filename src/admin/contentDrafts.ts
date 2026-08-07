@@ -328,6 +328,23 @@ export function movePhoto(
   return movedBy(draft, id, offset)
 }
 
+/** The dragged photo lands where the target sits; everything else slides. */
+export function photoDraggedTo(
+  draft: readonly DraftPhoto[],
+  draggedId: string,
+  targetId: string,
+): DraftPhoto[] {
+  if (draggedId === targetId) return [...draft]
+  const dragged = draft.find((photo) => photo.id === draggedId)
+  const targetAt = draft.findIndex((photo) => photo.id === targetId)
+  if (dragged === undefined || targetAt === -1) return [...draft]
+  const rest = draft.filter((photo) => photo.id !== draggedId)
+  const at = rest.findIndex((photo) => photo.id === targetId)
+  // Dropping on a later photo lands after it; on an earlier one, before it.
+  const insertAt = targetAt > draft.indexOf(dragged) ? at + 1 : at
+  return [...rest.slice(0, insertAt), dragged, ...rest.slice(insertAt)]
+}
+
 export function withoutPhoto(
   draft: readonly DraftPhoto[],
   id: string,
