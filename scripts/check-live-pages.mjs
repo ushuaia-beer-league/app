@@ -77,6 +77,34 @@ for (const route of ROUTES) {
   console.log(`  ${route}: ok (${assets.length} assets)`)
 }
 
+// The conventional paths nothing links but everything requests. On this host an
+// absent file falls into the SPA rewrite and answers HTML with a 200, which is
+// how Google's favicon fetcher once received a web page instead of an icon and
+// drew a generic globe in the search results. Each of these must answer as what
+// it claims to be, not merely answer.
+const WELL_KNOWN = [
+  ['/favicon.ico', 'icon'],
+  ['/favicon.svg', 'svg'],
+  ['/favicon-48.png', 'png'],
+  ['/apple-touch-icon.png', 'png'],
+  ['/robots.txt', 'text/plain'],
+  ['/sitemap.xml', 'xml'],
+  ['/ubl-share.jpg', 'jpeg'],
+]
+
+for (const [path, expected] of WELL_KNOWN) {
+  const response = await fetch(`${HOST}${path}`, fresh)
+  const type = response.headers.get('content-type') ?? ''
+  if (!response.ok || !type.includes(expected)) {
+    console.log(
+      `  ${path}: answered ${response.status} as "${type}" — the rewrite wearing a costume`,
+    )
+    failures += 1
+  } else {
+    console.log(`  ${path}: ok (${type})`)
+  }
+}
+
 if (failures > 0) {
   console.error(`\n${failures} page/asset pairs are broken on ${HOST}.`)
   process.exit(1)

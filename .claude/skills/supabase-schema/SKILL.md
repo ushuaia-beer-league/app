@@ -95,3 +95,18 @@ not.
 
 If you add a column that could identify somebody to either table, stop: that is
 the line the whole design exists to hold.
+
+## The content tables, added 7 August 2026
+
+`site_content` (key, language, title, body) holds panel-edited overrides for the
+site's prose, per block and per language; an absent row means the built-in text,
+so editing Spanish never blanks English. `contact_channels` (label, href, glyph,
+display_order, active) holds the public contact links; its check constraint
+refuses any href that is not `https://` or `mailto:` — remember POSIX bounds a
+regex repetition at 255, which is why the length lives in `char_length`, not in
+the pattern. Both tables: public SELECT, writes for
+`private.can_manage_content()` (communications + general).
+
+Storage: `media_insert_sport_teams` / `media_update_sport_teams` let sporting
+management write under the `teams/` prefix only, because team crests belong to
+the team row, which is sport's.

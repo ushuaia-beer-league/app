@@ -321,3 +321,21 @@ main thread and the browser already knows how to do both of these.
 
 Also pending from the operators, plan already approved: editable contact
 channels (mail and Instagram), and per-team logo upload from the panel.
+
+## Where this stands, late 7 August 2026
+
+Shipped since the morning note: editable contact channels and site prose (both
+role-gated in the database, prose prefilled so operators edit over the current
+words), per-team crest upload from the panel (sport role, `teams/` storage
+prefix), the hero pinned with opposed scroll motions and the story heading
+pinned with its crest, Todas as the default competition with `/beer` and
+`/women` address segments, resolved playoff seeds shown in the fixture, the new
+women's badges, real favicons (the `favicon.ico`-as-HTML bug), friendly contact
+labels, and the slug-rename bridge (`canonicalSlug`) with regression tests. The
+live guard now also checks the conventional paths' content types after every
+deploy.
+
+Still waiting on the league: rotate the Google OAuth secret; the men's missing
+colours; Zambirreras' new badge (uploadable from the panel). Still in the
+backlog: the per-date bulk entry sheet; donations and player credentials;
+freezing slugs once referenced.

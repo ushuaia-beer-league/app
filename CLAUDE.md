@@ -147,6 +147,14 @@ corrupts every table on the site.
 
 ## Data integrity
 
+- **Team slugs are identity and the panel can still rename them.** On 2026-08-07
+  an operator renamed the four women's slugs to sponsor names and every join
+  keyed by slug (rosters, crests) silently broke. `RENAMED_SLUGS` /
+  `canonicalSlug()` in `src/data/teams-2026.ts` is the bridge; route any new
+  slug-keyed lookup through it, and keep `rosters.test.ts`'s rename suite
+  passing. The durable fix — freezing a slug once referenced — is pending panel
+  work.
+
 - Standings, scoring leaders, goalkeeping and playoff progression are **derived**
   from match records at read time. Never persist an aggregate.
 - Preserve incomplete facts visibly. If the source sheet does not say who scored,
