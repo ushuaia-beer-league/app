@@ -105,13 +105,16 @@ function spaFallback(onCloudflare: boolean): Plugin {
         // and a data block is never executed.
         const csp = [
           "default-src 'self'",
-          "script-src 'self' https://www.googletagmanager.com",
+          // static.cloudflareinsights.com is Cloudflare's own beacon, which Pages
+          // injects into every site it serves; blocking it fills the console with
+          // CSP errors and measures nothing we chose. Allowed rather than fought.
+          "script-src 'self' https://www.googletagmanager.com https://static.cloudflareinsights.com",
           "style-src 'self' 'unsafe-inline'",
           "img-src 'self' data: blob: https://*.supabase.co",
           "font-src 'self'",
           "connect-src 'self' https://*.supabase.co wss://*.supabase.co" +
             ' https://*.google-analytics.com https://*.analytics.google.com' +
-            ' https://*.googletagmanager.com',
+            ' https://*.googletagmanager.com https://cloudflareinsights.com',
           "frame-ancestors 'none'",
           "base-uri 'self'",
           "form-action 'self'",
