@@ -52,12 +52,14 @@ declare global {
  */
 function isTheRealSite(): boolean {
   const host = window.location.hostname
+  // The bare project domain serves production until NIC.ar delegates
+  // ubl.com.ar, so it reports. Every OTHER pages.dev host is a preview:
+  // per-branch subdomains of this project, and the whole beer-league-web
+  // project, which exists only to build previews for pull requests.
+  if (host === 'ushuaia-beer-league.pages.dev') return true
   return (
     !host.endsWith('.vercel.app') &&
-    // A subdomain of the Pages project is a per-branch preview deployment;
-    // the bare ushuaia-beer-league.pages.dev stays real because it serves
-    // production until NIC.ar delegates the domain.
-    !host.endsWith('.ushuaia-beer-league.pages.dev') &&
+    !host.endsWith('.pages.dev') &&
     host !== 'localhost'
   )
 }
