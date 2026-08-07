@@ -171,9 +171,17 @@ Esa fecha no viaja a ninguna parte. Si alguien abre el almacenamiento de su
 navegador, lo que va a encontrar es una fecha, y una fecha no se puede cruzar con
 nada.
 
-Por eso sigue sin haber cartel de cookies, y también es una decisión: lo que se
-guarda no es un identificador y no sale del navegador. Si algún día el sitio
-apuntara a Europa, esto es lo primero que habría que revisar.
+**Ojo, esto cambió.** Todo lo de arriba sigue siendo cierto para estos contadores,
+pero el sitio ahora **también tiene Google Analytics**, que la liga decidió sumar el
+6 de agosto de 2026. Analytics sí identifica: le pone un identificador al navegador
+de cada visitante y le manda los datos a Google, con país, ciudad, dispositivo y
+recorrido. Eso se mira en Google Analytics, no en este panel.
+
+Antes esta página decía que el sitio no guardaba nada atribuible a una persona y que
+por eso no pedía permiso a nadie. Con Analytics adentro **eso dejó de ser cierto para
+el sitio**, y queda escrito acá en vez de borrado, porque una promesa que se apaga en
+silencio es peor que una que se corrige. Si algún día el sitio apunta a Europa, el
+cartel de cookies pasa a ser obligatorio y esto es lo primero que hay que revisar.
 
 **Cuidado con una lectura.** «Volvió» se cuenta una vez por día: alguien que entra
 cinco días distintos suma cinco. Dice cada cuánto vuelve la gente, no cuánta

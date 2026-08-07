@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 
+import { startGa4, trackPageView } from './ga4'
 import { recordView } from './page-views'
 import { recordVisit } from './visit-facts'
 
@@ -33,6 +34,13 @@ export function CountVisit() {
     counted.current = pathname
     void recordView(pathname)
     void recordVisit(pathname)
+
+    // Google Analytics, where the league asked for it. It loads once and then reports
+    // each screen, because a single page app would otherwise report only the first.
+    // `ga4.ts` explains at length what this costs and why the panel's wording changed
+    // with it.
+    startGa4()
+    trackPageView(pathname)
   }, [pathname])
 
   return null

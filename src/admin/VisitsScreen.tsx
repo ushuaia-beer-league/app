@@ -87,12 +87,12 @@ export function VisitsScreen({
       <h2 className="visits__title">Visitas</h2>
 
       <p className="visits__note">
-        Últimos 30 días. La base guarda contadores y nada más: ninguna
-        dirección, ningún navegador, nada que se pueda atribuir a una persona.
-        Para saber quién vuelve, el sitio deja <strong>una sola fecha</strong>{' '}
-        guardada en el navegador de quien entra, y esa fecha no viaja a ninguna
-        parte: el navegador la compara con hoy y manda una palabra, «primera
-        vez» o «volvió».
+        Últimos 30 días. <strong>Estos</strong> contadores no guardan ninguna
+        dirección, ningún navegador ni nada que se pueda atribuir a una persona:
+        para saber quién vuelve, el sitio deja una sola fecha guardada en el
+        navegador de quien entra, y esa fecha no viaja a ninguna parte. El
+        navegador la compara con hoy y manda una palabra, «primera vez» o
+        «volvió».
       </p>
 
       {who !== null && who.entries > 0 && (
@@ -193,10 +193,13 @@ export function VisitsScreen({
       </p>
 
       <p className="visits__note visits__note--quiet">
-        No hay país ni ciudad, y es una decisión: saber de dónde entra alguien
-        exige un servicio que lea la dirección de cada visitante, que cuesta
-        plata y cuesta privacidad. Preferimos que esto siga siendo gratis y sin
-        datos de nadie.
+        Aparte de esto, el sitio tiene <strong>Google Analytics</strong>, que la
+        liga decidió sumar y que sí identifica: le pone un identificador al
+        navegador de cada visitante y le manda los datos a Google, con país,
+        ciudad, dispositivo y recorrido. Eso se mira en Google Analytics, no
+        acá. Se aclara porque antes esta pantalla decía que el sitio no guardaba
+        nada atribuible a una persona, y con Analytics adentro eso dejó de ser
+        cierto para el sitio, aunque siga siendo cierto para estos contadores.
       </p>
     </section>
   )
