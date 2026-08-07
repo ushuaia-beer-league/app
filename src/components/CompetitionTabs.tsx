@@ -37,6 +37,18 @@ export function CompetitionTabs({ value, onChange }: CompetitionTabsProps) {
       role="group"
       aria-label={t('Competencia')}
     >
+      {/* Todas leads, at the league's request: the fixture opens showing the
+       * whole night — both rinks, both competitions — and filtering down to one
+       * league is the second gesture, not the first. */}
+      <button
+        className="competition-tabs__pill competition-tabs__pill--all"
+        type="button"
+        aria-pressed={value === 'all'}
+        onClick={() => onChange('all')}
+      >
+        {ALL_COMPETITIONS_LABEL}
+      </button>
+
       {COMPETITIONS.map((competition) => {
         const chosen = competition.key === value
 
@@ -53,15 +65,6 @@ export function CompetitionTabs({ value, onChange }: CompetitionTabsProps) {
           </button>
         )
       })}
-
-      <button
-        className="competition-tabs__pill competition-tabs__pill--all"
-        type="button"
-        aria-pressed={value === 'all'}
-        onClick={() => onChange('all')}
-      >
-        {ALL_COMPETITIONS_LABEL}
-      </button>
     </div>
   )
 }

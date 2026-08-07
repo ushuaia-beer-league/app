@@ -49,6 +49,14 @@ export const TEAM_LOGOS: Readonly<Record<string, string>> = {
   'tipo-nine': tipoNine,
   zhockey,
   'wubl-birra-del-fuego': wublBirraDelFuego,
+  // The same four teams under the slugs an operator renamed them to on
+  // 2026-08-07 (sponsor-based: brolas/drake/taun/vertice). The database rows
+  // moved; the seed and these keys had not, and the women's fixture lost its
+  // crests. Both spellings resolve so neither copy of the data goes badgeless.
+  'wubl-brolas': wublBirraDelFuego,
+  'wubl-drake': wublSucucho,
+  'wubl-taun': wublZhockey,
+  'wubl-vertice': wublTipoNine,
   'wubl-sucucho': wublSucucho,
   'wubl-tipo-nine': wublTipoNine,
   'wubl-zhockey': wublZhockey,

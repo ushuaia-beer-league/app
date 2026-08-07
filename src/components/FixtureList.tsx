@@ -21,7 +21,22 @@ const RESOLUTIONS: Record<MatchResolution, string | null> = {
   draw: 'Empate',
 }
 
+/** What the bracket resolver knows about a match the sheet left teamless. */
+export type ResolvedSides = ReadonlyMap<
+  string,
+  { home: string | null; away: string | null }
+>
+
 type FixtureListProps = {
+  /**
+   * Sides the playoff resolver derived from the standings — the 1st and 2nd
+   * seeds waiting in the semifinals, a played-out quarterfinal's winner. The
+   * fixture shows them where the sheet printed only a placeholder, because a
+   * visitor reading "Semifinal 1 (verde)" deserves the team the seeding already
+   * names. Sides the resolver refuses stay exactly as printed: deriving is the
+   * resolver's job, never this list's.
+   */
+  resolvedSides?: ResolvedSides
   rounds: readonly FixtureRound[]
   teamName: (teamId: string) => string
   /**
@@ -92,6 +107,7 @@ export function FixtureList({
   teamName,
   today,
   showCompetition = false,
+  resolvedSides,
 }: FixtureListProps) {
   const t = useT()
   if (rounds.length === 0) {
@@ -118,6 +134,7 @@ export function FixtureList({
           </p>
         ) : (
           <Rounds
+            resolvedSides={resolvedSides}
             rounds={upcoming}
             teamName={teamName}
             showCompetition={showCompetition}
@@ -138,6 +155,7 @@ export function FixtureList({
           </summary>
 
           <Rounds
+            resolvedSides={resolvedSides}
             rounds={past}
             teamName={teamName}
             showCompetition={showCompetition}
@@ -153,10 +171,12 @@ function Rounds({
   rounds,
   teamName,
   showCompetition,
+  resolvedSides,
 }: {
   rounds: readonly FixtureRound[]
   teamName: (teamId: string) => string
   showCompetition: boolean
+  resolvedSides?: ResolvedSides
 }) {
   const t = useT()
 
@@ -173,8 +193,20 @@ function Rounds({
 
                 <ul className="fixture__venues">
                   {slot.matches.map((match) => {
-                    const home = sideLabel(match, 'home', teamName)
-                    const away = sideLabel(match, 'away', teamName)
+                    // The sheet's side, or the one the resolver derived where
+                    // the sheet printed a placeholder. A derived side is a real
+                    // team: named and badged, not grey.
+                    const derived = resolvedSides?.get(match.id)
+                    const homeId = match.homeTeamId ?? derived?.home ?? null
+                    const awayId = match.awayTeamId ?? derived?.away ?? null
+                    const home =
+                      match.homeTeamId === null && homeId !== null
+                        ? { text: teamName(homeId), printed: false }
+                        : sideLabel(match, 'home', teamName)
+                    const away =
+                      match.awayTeamId === null && awayId !== null
+                        ? { text: teamName(awayId), printed: false }
+                        : sideLabel(match, 'away', teamName)
                     const resolution =
                       match.score === null
                         ? null
@@ -200,10 +232,10 @@ function Rounds({
                           <span
                             className={`fixture__team fixture__team--home${home.printed ? ' fixture__team--printed' : ''}`}
                           >
-                            {teamLogo(match.homeTeamId ?? '') !== null && (
+                            {teamLogo(homeId ?? '') !== null && (
                               <img
                                 className="fixture__crest"
-                                src={teamLogo(match.homeTeamId ?? '')!}
+                                src={teamLogo(homeId ?? '')!}
                                 alt=""
                                 width={30}
                                 height={30}
@@ -234,10 +266,10 @@ function Rounds({
                           <span
                             className={`fixture__team${away.printed ? ' fixture__team--printed' : ''}`}
                           >
-                            {teamLogo(match.awayTeamId ?? '') !== null && (
+                            {teamLogo(awayId ?? '') !== null && (
                               <img
                                 className="fixture__crest"
-                                src={teamLogo(match.awayTeamId ?? '')!}
+                                src={teamLogo(awayId ?? '')!}
                                 alt=""
                                 width={30}
                                 height={30}

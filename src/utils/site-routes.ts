@@ -134,7 +134,7 @@ export const SITE_ROUTES: readonly SiteRoute[] = [
     section: 'ligas',
     tab: 'standings',
     title: `Tabla de posiciones · ${LEAGUE_NAME}`,
-    description: 'Cómo va la liga fecha por fecha.',
+    description: 'Cómo van las dos ligas fecha por fecha.',
     shared: true,
   },
   {
@@ -150,7 +150,8 @@ export const SITE_ROUTES: readonly SiteRoute[] = [
     section: 'ligas',
     tab: 'goalkeeping',
     title: `Arqueros · ${LEAGUE_NAME}`,
-    description: 'Tiros recibidos, goles recibidos y porcentaje de atajadas.',
+    description:
+      'Tiros recibidos, goles recibidos y porcentaje de atajadas de las dos ligas.',
     shared: false,
   },
   {
@@ -225,20 +226,24 @@ export function sharedRoutes(): readonly SiteRoute[] {
  * `women` and not `wubl` in the address, because an address is read by people and
  * the league's own English name for the competition is the Women's Beer League.
  */
-const CHOICE_BY_SEGMENT: Readonly<Record<string, 'wubl' | 'all'>> = {
+const CHOICE_BY_SEGMENT: Readonly<Record<string, 'beer' | 'wubl' | 'all'>> = {
+  beer: 'beer',
   women: 'wubl',
+  // Legacy: the base address used to mean the Beer League and /todas meant both.
+  // Both leagues at once became the default on 2026-08-07, so the bare address
+  // now means todas and this segment survives only so old links keep working.
   todas: 'all',
 }
 
 const SEGMENT_BY_CHOICE: Readonly<Partial<Record<string, string>>> = {
+  beer: 'beer',
   wubl: 'women',
-  all: 'todas',
 }
 
-/** The competition an address asks for. Beer League unless it says otherwise. */
+/** The competition an address asks for. Both at once unless it names one. */
 export function competitionFor(pathname: string): 'beer' | 'wubl' | 'all' {
   const last = pathname.toLowerCase().replace(/\/+$/, '').split('/').pop() ?? ''
-  return CHOICE_BY_SEGMENT[last] ?? 'beer'
+  return CHOICE_BY_SEGMENT[last] ?? 'all'
 }
 
 /** Strips a competition segment so `routeFor` sees the page it belongs to. */
@@ -279,56 +284,56 @@ export interface VariantPage {
 const WOMEN = "Women's Beer League"
 
 const VARIANT_WORDING: Readonly<
-  Record<TabKey, { women: [string, string]; todas: [string, string] }>
+  Record<TabKey, { beer: [string, string]; women: [string, string] }>
 > = {
   fixture: {
+    beer: [
+      'Próximos partidos · Beer League',
+      'Fecha, hora y cabecera de los partidos de la Beer League.',
+    ],
     women: [
       `Próximos partidos · ${WOMEN}`,
       'Fecha, hora y cabecera de los partidos del femenino.',
     ],
-    todas: [
-      'Próximos partidos · Todas las competencias',
-      'Fecha, hora y cabecera de todo lo que se viene, en las dos ligas.',
-    ],
   },
   standings: {
+    beer: [
+      'Tabla de posiciones · Beer League',
+      'Cómo va la Beer League fecha por fecha.',
+    ],
     women: [
       `Tabla de posiciones · ${WOMEN}`,
       'Cómo va la liga femenina fecha por fecha.',
     ],
-    todas: [
-      'Tablas de posiciones · Todas las competencias',
-      'Cómo van las dos ligas fecha por fecha.',
-    ],
   },
   scoring: {
+    beer: [
+      'Goleadores · Beer League',
+      'Goles, asistencias y puntos de la Beer League.',
+    ],
     women: [
       `Goleadoras · ${WOMEN}`,
       'Goles, asistencias y puntos de las jugadoras del femenino.',
     ],
-    todas: [
-      'Goleadores · Todas las competencias',
-      'Goles, asistencias y puntos de las dos ligas.',
-    ],
   },
   goalkeeping: {
+    beer: [
+      'Arqueros · Beer League',
+      'Tiros recibidos, goles recibidos y porcentaje de atajadas de la Beer League.',
+    ],
     women: [
       `Arqueras · ${WOMEN}`,
       'Tiros recibidos, goles recibidos y porcentaje de atajadas del femenino.',
     ],
-    todas: [
-      'Arqueros · Todas las competencias',
-      'Tiros, goles y porcentajes de atajadas de las dos ligas.',
-    ],
   },
   playoffs: {
+    beer: [
+      'Playoffs · Beer League',
+      'El cuadro de la Beer League, cruce por cruce, a medida que se define.',
+    ],
     women: [
       `Playoffs · ${WOMEN}`,
       'El cuadro del femenino, cruce por cruce, a medida que se define.',
-    ],
-    todas: [
-      'Playoffs · Todas las competencias',
-      'Los cuadros de las dos ligas, cruce por cruce.',
     ],
   },
 }
@@ -337,7 +342,7 @@ const VARIANT_WORDING: Readonly<
 export function variantPages(): VariantPage[] {
   const pages: VariantPage[] = []
   for (const tab of LEAGUE_TABS) {
-    for (const segment of ['women', 'todas'] as const) {
+    for (const segment of ['beer', 'women'] as const) {
       const [title, description] = VARIANT_WORDING[tab][segment]
       pages.push({
         path: `${pathForTab(tab)}/${segment}`,

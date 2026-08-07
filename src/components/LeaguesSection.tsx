@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState, type KeyboardEvent } from 'react'
 import type { SeasonData } from '../data/season-source'
 import type { CompetitionKey } from '../data/types'
+import { resolveBracket } from '../utils/playoffs'
 import { fixtureRounds } from '../utils/fixture'
 import {
   publishedGoalkeepingTable,
@@ -87,7 +88,7 @@ export function LeaguesSection({
   onChoiceChange,
 }: LeaguesSectionProps) {
   const t = useT()
-  const [ownChoice, setOwnChoice] = useState<CompetitionChoice>('beer')
+  const [ownChoice, setOwnChoice] = useState<CompetitionChoice>('all')
   // The address owns the competition when there is one to own it, exactly like
   // the tab: a shared /ligas/goleadores/women has to open on the women's table.
   const choice = choiceFromUrl ?? ownChoice
@@ -136,6 +137,30 @@ export function LeaguesSection({
     // shown as it is. Inventing a name would hide the gap.
     return (teamId: string) => names.get(teamId) ?? teamId
   }, [season.teams])
+
+  /**
+   * What the playoff resolver knows about matches the sheet left teamless: the
+   * seeds waiting in the semifinals, a played quarterfinal's winner. Computed
+   * for both competitions once and handed to the fixture, so "Semifinal 1
+   * (verde)" shows the team the standings already name — and never more than
+   * that: an undecided side stays undecided here too.
+   */
+  const resolvedSides = useMemo(() => {
+    const map = new Map<string, { home: string | null; away: string | null }>()
+    for (const key of ['beer', 'wubl'] as const) {
+      for (const round of resolveBracket(season.matches, {
+        competition: key,
+      })) {
+        for (const entry of round.matches) {
+          map.set(entry.match.id, {
+            home: entry.home.teamId,
+            away: entry.away.teamId,
+          })
+        }
+      }
+    }
+    return map
+  }, [season.matches])
 
   const rounds = useMemo(
     () => fixtureRounds(season.matches, { competition: choice }),
@@ -249,6 +274,7 @@ export function LeaguesSection({
       >
         {tab === 'fixture' && (
           <FixtureList
+            resolvedSides={resolvedSides}
             rounds={rounds}
             teamName={teamName}
             today={today}

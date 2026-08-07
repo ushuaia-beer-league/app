@@ -124,14 +124,16 @@ const SEASON: SeasonData = {
 }
 
 describe('LeaguesSection', () => {
-  it('opens on the fixture of the Beer League', () => {
+  it('opens on the fixture with both competitions at once', () => {
+    // Todas is the default since 2026-08-07, the league's own order: the page
+    // opens on the whole night, and filtering down is the second gesture.
     render(<LeaguesSection season={SEASON} />)
 
     expect(
       screen.getByRole('heading', { level: 2, name: 'Ligas & Estadísticas' }),
     ).toBeVisible()
     expect(screen.getByText('Temporada 2026')).toBeVisible()
-    expect(screen.getByRole('button', { name: 'Beer League' })).toHaveAttribute(
+    expect(screen.getByRole('button', { name: 'Todas' })).toHaveAttribute(
       'aria-pressed',
       'true',
     )
@@ -179,6 +181,8 @@ describe('LeaguesSection', () => {
 
   it('shows the standings the utilities computed, not any of its own', () => {
     render(<LeaguesSection season={SEASON} />)
+    // Todas is the default now, so a test about ONE league's table filters first.
+    fireEvent.click(screen.getByRole('button', { name: 'Beer League' }))
 
     fireEvent.click(screen.getByRole('tab', { name: 'Posiciones' }))
 
@@ -259,6 +263,8 @@ describe('LeaguesSection', () => {
 
   it('says the published tables are the league own totals, with their date', () => {
     render(<LeaguesSection season={SEASON} />)
+    // Todas is the default now, so a test about ONE league's table filters first.
+    fireEvent.click(screen.getByRole('button', { name: 'Beer League' }))
 
     fireEvent.click(screen.getByRole('tab', { name: 'Goleadores' }))
     expect(
@@ -306,6 +312,8 @@ describe('LeaguesSection', () => {
         season={{ ...SEED_2026, source: 'seed', fellBackBecause: null }}
       />,
     )
+    // Todas is the default now, so a test about ONE league's table filters first.
+    fireEvent.click(screen.getByRole('button', { name: 'Beer League' }))
 
     fireEvent.click(screen.getByRole('tab', { name: 'Posiciones' }))
 
@@ -324,18 +332,18 @@ describe('LeaguesSection showing every competition at once', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Todas' }))
   }
 
-  it('offers the option and marks it pressed once chosen', () => {
+  it('starts pressed, and filtering to one league un-presses it', () => {
     render(<LeaguesSection season={SEASON} today="2026-06-01" />)
 
     const all = screen.getByRole('button', { name: 'Todas' })
-    expect(all).toHaveAttribute('aria-pressed', 'false')
-
-    chooseAll()
-
     expect(all).toHaveAttribute('aria-pressed', 'true')
+
+    fireEvent.click(screen.getByRole('button', { name: 'Beer League' }))
+
+    expect(all).toHaveAttribute('aria-pressed', 'false')
     expect(screen.getByRole('button', { name: 'Beer League' })).toHaveAttribute(
       'aria-pressed',
-      'false',
+      'true',
     )
   })
 
@@ -370,7 +378,9 @@ describe('LeaguesSection showing every competition at once', () => {
 
     fireEvent.click(screen.getByRole('tab', { name: 'Posiciones' }))
 
-    // One competition chosen: one table, and no heading repeating the choice.
+    // Filtering down to one competition: one table, and no heading repeating
+    // the choice. (Todas is the default now, so the filter is the gesture.)
+    fireEvent.click(screen.getByRole('button', { name: 'Beer League' }))
     expect(screen.getAllByRole('table')).toHaveLength(1)
     expect(
       screen.queryByRole('heading', { level: 3, name: 'Beer League' }),

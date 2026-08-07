@@ -124,10 +124,14 @@ describe('the route table', () => {
 })
 
 describe('the competition in the address', () => {
-  it('reads women and todas, and defaults to the Beer League', () => {
+  it('reads each competition, and defaults to both at once', () => {
+    // Todas became the default on 2026-08-07, the league's own order: the page
+    // opens on the whole night and filtering down is the second gesture.
     expect(competitionFor('/ligas/goleadores/women')).toBe('wubl')
+    expect(competitionFor('/ligas/goleadores/beer')).toBe('beer')
+    expect(competitionFor('/ligas/goleadores')).toBe('all')
+    // The old /todas addresses keep meaning what they meant.
     expect(competitionFor('/ligas/posiciones/todas')).toBe('all')
-    expect(competitionFor('/ligas/goleadores')).toBe('beer')
   })
 
   it('strips the segment so the page still resolves', () => {
