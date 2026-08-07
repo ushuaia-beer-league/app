@@ -88,3 +88,51 @@
     justify-content: flex-start;
   }
 }
+
+/*
+ * The crest stays while the story scrolls.
+ *
+ * The owner's complaint, in their words: the whole section scrolled away as one
+ * block, so the crest left first and its column sat empty. `sticky` is the whole
+ * fix, and deliberately not a scroll hijack: the page keeps scrolling normally on
+ * every device and for every reader, the crest simply rides along its column
+ * until the prose runs out, and then the section hands over to the next one.
+ * Two-column layouts only, which is why it lives in the same breakpoint.
+ */
+@media (min-width: 56em) {
+  .history {
+    align-items: start;
+  }
+
+  .history__crest {
+    position: sticky;
+    top: calc(var(--layout-nav-height) + var(--space-5));
+  }
+}
+
+/*
+ * The hero recedes as the story arrives.
+ *
+ * A scroll-driven animation the browser runs off the main thread: as the hero
+ * leaves the viewport its content drifts up slower than the page and fades,
+ * which is the parallax the owner asked for. Guarded twice: browsers without
+ * `animation-timeline` keep today's static hero, and so does anybody who asked
+ * their system for reduced motion, because a fade tied to scrolling is exactly
+ * the kind of movement that request is about. No scroll listener anywhere.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__content {
+      animation: hero-recede linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 90%;
+    }
+  }
+}
+
+@keyframes hero-recede {
+  to {
+    opacity: 0;
+    transform: translateY(22%) scale(0.96);
+  }
+}
