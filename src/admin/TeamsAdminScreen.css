@@ -371,3 +371,23 @@
   font-size: var(--text-sm);
   line-height: var(--leading-body);
 }
+
+.teams__back {
+  font-family: var(--font-condensed);
+  letter-spacing: var(--tracking-wide);
+}
+
+.teams__back a,
+.teams__add a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.teams__add {
+  margin-top: var(--space-3);
+}
+
+.teams__person-name {
+  width: 100%;
+  min-width: 12rem;
+}

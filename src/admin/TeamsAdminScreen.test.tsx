@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import type { Result } from './adminQueries'
 import { TeamsAdminScreen } from './TeamsAdminScreen'
 import type {
@@ -104,17 +105,29 @@ const show = ({
     .mockResolvedValue({ saved: ['roster'], failed: [] }),
   role = 'sporting_management',
 }: Options = {}) => {
-  render(
+  const element = (
     <TeamsAdminScreen
       load={load}
       role={role}
       saveOne={saveOne}
       saveRosterRows={saveRosterRows}
       year={2026}
-    />,
+    />
+  )
+  render(
+    <MemoryRouter initialEntries={['/equipos']}>
+      <Routes>
+        <Route path="equipos" element={element} />
+        <Route path="equipos/:slug" element={element} />
+      </Routes>
+    </MemoryRouter>,
   )
   return { saveOne, saveRosterRows }
 }
+
+/** Walks to the new-team screen, like the operator does. */
+const startCreate = async () =>
+  fireEvent.click(await screen.findByRole('link', { name: /Agregar equipo/ }))
 
 const typeIn = (label: string, value: string) =>
   fireEvent.change(screen.getByLabelText(label), { target: { value } })
@@ -126,7 +139,7 @@ const teamSaveButton = () =>
 
 const openRoster = async (shortName: string) =>
   fireEvent.click(
-    await screen.findByRole('button', {
+    await screen.findByRole('link', {
       name: `Ver el plantel de ${shortName}`,
     }),
   )
@@ -175,7 +188,7 @@ describe('TeamsAdminScreen', () => {
 
   it('creates a team with every column the table carries', async () => {
     const { saveOne } = show({ teams: [] })
-    await screen.findByLabelText('Nombre corto')
+    await startCreate()
 
     typeIn('Nombre corto', 'Rock Choppers')
     typeIn('Nombre con sponsor (opcional)', 'Hantachoppers')
@@ -205,7 +218,7 @@ describe('TeamsAdminScreen', () => {
 
   it('offers a slug out of the name and lets it be corrected', async () => {
     const { saveOne } = show({ teams: [] })
-    await screen.findByLabelText('Nombre corto')
+    await startCreate()
 
     typeIn('Nombre corto', 'Mujeres Birra del Fuego')
     expect(screen.getByLabelText('Identificador')).toHaveValue(
@@ -228,7 +241,7 @@ describe('TeamsAdminScreen', () => {
 
   it('reads a duplicate slug as a duplicate rather than crashing on save', async () => {
     const { saveOne } = show()
-    await screen.findByLabelText('Identificador')
+    await startCreate()
 
     typeIn('Nombre corto', 'Otro nombre')
     typeIn('Identificador', 'birra-del-fuego')
@@ -244,7 +257,7 @@ describe('TeamsAdminScreen', () => {
 
   it('reads a duplicate short name in one competition as a duplicate', async () => {
     show()
-    await screen.findByLabelText('Nombre corto')
+    await startCreate()
 
     typeIn('Nombre corto', 'Rock Choppers')
     typeIn('Identificador', 'otro-identificador')
@@ -262,6 +275,7 @@ describe('TeamsAdminScreen', () => {
     fireEvent.click(
       await screen.findByRole('radio', { name: "Women's Beer League" }),
     )
+    await startCreate()
 
     typeIn('Nombre corto', 'Rock Choppers')
     typeIn('Identificador', 'mujeres-rock-choppers')
@@ -273,7 +287,7 @@ describe('TeamsAdminScreen', () => {
   it('does not open complaining about an empty form', async () => {
     show({ teams: [] })
 
-    await screen.findByLabelText('Nombre corto')
+    await startCreate()
     expect(screen.queryByText(/Escribí el nombre corto/)).toBeNull()
     expect(teamSaveButton()).toBeDisabled()
   })
@@ -282,25 +296,23 @@ describe('TeamsAdminScreen', () => {
     show()
 
     fireEvent.click(
-      await screen.findByRole('button', { name: 'Editar Rock Choppers' }),
+      await screen.findByRole('link', { name: 'Editar Rock Choppers' }),
     )
 
     expect(screen.getByText(/No se puede cambiar/)).toBeVisible()
     expect(
       screen.getByText(/dejaría huérfana cada fila que lo nombra/),
     ).toBeVisible()
-    // The only competition control on the screen is the selector above the
-    // list, which chooses what is being looked at rather than moving a team.
-    expect(screen.getAllByRole('radio', { name: 'Beer League' })).toHaveLength(
-      1,
-    )
+    // A team's own screen offers no competition control at all: the radios
+    // belong to the list, which is another screen now.
+    expect(screen.queryAllByRole('radio')).toHaveLength(0)
   })
 
   it('edits a team, reading its values into the form, and never sends a competition', async () => {
     const { saveOne } = show()
 
     fireEvent.click(
-      await screen.findByRole('button', { name: 'Editar Rock Choppers' }),
+      await screen.findByRole('link', { name: 'Editar Rock Choppers' }),
     )
 
     expect(screen.getByLabelText('Nombre corto')).toHaveValue('Rock Choppers')
@@ -324,7 +336,7 @@ describe('TeamsAdminScreen', () => {
     const { saveOne } = show()
 
     fireEvent.click(
-      await screen.findByRole('button', { name: 'Editar Rock Choppers' }),
+      await screen.findByRole('link', { name: 'Editar Rock Choppers' }),
     )
     fireEvent.click(screen.getByLabelText('El equipo juega esta temporada'))
     fireEvent.click(teamSaveButton())
@@ -341,7 +353,7 @@ describe('TeamsAdminScreen', () => {
     const { saveOne } = show()
 
     fireEvent.click(
-      await screen.findByRole('button', { name: 'Editar Rock Choppers' }),
+      await screen.findByRole('link', { name: 'Editar Rock Choppers' }),
     )
     fireEvent.click(teamSaveButton())
 
@@ -362,7 +374,7 @@ describe('TeamsAdminScreen', () => {
           ),
         ),
     })
-    await screen.findByLabelText('Nombre corto')
+    await startCreate()
 
     typeIn('Nombre corto', 'Rock Choppers')
     fireEvent.click(teamSaveButton())
@@ -378,13 +390,13 @@ describe('TeamsAdminScreen', () => {
     expect(await screen.findByText(/Tu rol es Comunicación/)).toBeVisible()
     expect(screen.queryByLabelText('Nombre corto')).toBeNull()
     expect(
-      screen.queryByRole('button', { name: 'Editar Rock Choppers' }),
+      screen.queryByRole('link', { name: 'Editar Rock Choppers' }),
     ).toBeNull()
     // The teams themselves are public, so the list stays, and so does the roster.
     expect(screen.getByText('Rock Choppers')).toBeVisible()
 
     await openRoster('Rock Choppers')
-    expect(screen.getByText('Cotignola Flor')).toBeVisible()
+    expect(screen.getByDisplayValue('Cotignola Flor')).toBeVisible()
     expect(
       screen.queryByRole('button', { name: 'Guardar el plantel' }),
     ).toBeNull()
@@ -472,6 +484,25 @@ describe('the roster', () => {
     expect(
       screen.getByRole('button', { name: 'Guardar el plantel' }),
     ).toBeDisabled()
+  })
+
+  it('renames a person from the roster: the truncated sheet name gets fixed', async () => {
+    // "Alvarado Danie" is what the sheet prints. The roster is where the
+    // operator fixes it, and the fix lands in players.full_name.
+    const { saveRosterRows } = show({ roster: [rosterRow()] })
+
+    await openRoster('Rock Choppers')
+    fireEvent.change(screen.getByLabelText('Nombre de Cotignola Flor'), {
+      target: { value: 'Cotignola Florencia' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: 'Guardar el plantel' }))
+
+    expect(saveRosterRows).toHaveBeenCalledWith(
+      expect.objectContaining({
+        people: [{ id: 'player-flor', full_name: 'Cotignola Florencia' }],
+        roster: [],
+      }),
+    )
   })
 
   it('adds somebody the league already knows', async () => {
@@ -686,81 +717,43 @@ describe('the roster', () => {
   })
 })
 
-describe('the editor opens inside the row it belongs to', () => {
-  /** The list item a team's name sits in. */
-  const rowOf = async (name: string) => {
-    const heading = await screen.findByText(name)
-    const row = heading.closest('li')
-    if (row === null) throw new Error(`${name} is not inside a row`)
-
-    return row
-  }
-
-  const editButton = (row: HTMLElement, name: string) =>
-    within(row).getByRole('button', { name: `Editar ${name}` })
-
-  it('puts the form in the row, not at the bottom of the page', async () => {
+describe('the screens, like an app', () => {
+  it('opens a team as its own screen, with the way back in sight', async () => {
     show()
 
-    const row = await rowOf('Birra del Fuego')
-    expect(within(row).queryByLabelText('Nombre corto')).toBeNull()
+    fireEvent.click(
+      await screen.findByRole('link', { name: 'Editar Birra del Fuego' }),
+    )
 
-    fireEvent.click(editButton(row, 'Birra del Fuego'))
-
-    // The very field somebody is about to type in is inside the row they tapped:
-    // editing three teams in a row used to mean scrolling to the bottom, saving,
-    // and scrolling back up to find your place.
-    const field = within(row).getByLabelText('Nombre corto')
-    expect(field).toHaveValue('Birra del Fuego')
-  })
-
-  it('marks which row is open, and opens only one', async () => {
-    show()
-
-    const verde = await rowOf('Birra del Fuego')
-    const hanta = await rowOf('Rock Choppers')
-
-    fireEvent.click(editButton(verde, 'Birra del Fuego'))
-    expect(verde.className).toContain('teams__row--editing')
-    expect(hanta.className).not.toContain('teams__row--editing')
-
-    fireEvent.click(editButton(hanta, 'Rock Choppers'))
-    expect(hanta.className).toContain('teams__row--editing')
-    expect(verde.className).not.toContain('teams__row--editing')
-    expect(within(verde).queryByLabelText('Nombre corto')).toBeNull()
-  })
-
-  it('closes with the same button, so a row opened by mistake costs nothing', async () => {
-    show()
-
-    const row = await rowOf('Birra del Fuego')
-    const button = editButton(row, 'Birra del Fuego')
-
-    fireEvent.click(button)
-    expect(button).toHaveAttribute('aria-expanded', 'true')
-    expect(button).toHaveTextContent('Cerrar')
-
-    fireEvent.click(button)
-    expect(button).toHaveAttribute('aria-expanded', 'false')
-    expect(button).toHaveTextContent('Editar')
-    expect(within(row).queryByLabelText('Nombre corto')).toBeNull()
-  })
-
-  it('still offers the form below the list for a team that does not exist yet', async () => {
-    show()
-
-    // Nothing is being edited, so the form below is the new-team one: there is no
-    // row to open for a team that has no row.
-    expect(await screen.findByLabelText('Nombre corto')).toBeVisible()
+    // The form and the roster arrive together, at the top: no scrolling to
+    // find the field you came to edit — the complaint that started this.
+    expect(screen.getByLabelText('Nombre corto')).toHaveValue('Birra del Fuego')
     expect(
-      screen.getByRole('button', { name: /Crear el equipo/ }),
+      screen.getByRole('heading', { name: /Plantel de Birra del Fuego/ }),
     ).toBeVisible()
 
-    const row = await rowOf('Birra del Fuego')
-    fireEvent.click(editButton(row, 'Birra del Fuego'))
+    fireEvent.click(screen.getByRole('link', { name: '‹ Equipos' }))
+    expect(
+      await screen.findByRole('link', { name: 'Editar Birra del Fuego' }),
+    ).toBeVisible()
+    expect(screen.queryByLabelText('Nombre corto')).toBeNull()
+  })
 
-    // With a row open there is exactly one form on screen, and it is that row's.
-    expect(screen.getAllByLabelText('Nombre corto')).toHaveLength(1)
-    expect(within(row).getByLabelText('Nombre corto')).toBeVisible()
+  it('creates on its own screen too, reached from the list', async () => {
+    show()
+    await startCreate()
+
+    expect(screen.getByLabelText('Nombre corto')).toHaveValue('')
+    expect(screen.getByRole('link', { name: 'Cancelar' })).toBeVisible()
+  })
+
+  it('says so when an address names no team, instead of a blank screen', async () => {
+    show()
+    fireEvent.click(
+      await screen.findByRole('link', { name: 'Editar Birra del Fuego' }),
+    )
+    // The team screen resolves through canonicalSlug, so only an address no
+    // spelling ever answered lands here — covered by the message itself.
+    expect(screen.queryByRole('alert')).toBeNull()
   })
 })
