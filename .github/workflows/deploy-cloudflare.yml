@@ -1,0 +1,56 @@
+name: Deploy to Cloudflare Pages
+
+# Every push to main publishes, which is what a dashboard-connected project would
+# do; this does it from here instead so no wizard and no GitHub App install were
+# needed, and the deploy runs the same validations as everything else first.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'backups/**'
+  workflow_dispatch:
+
+concurrency:
+  group: cloudflare-pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Validate, build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test -- --run
+
+      - name: Point the build at Supabase
+        if: vars.SUPABASE_URL != '' && vars.SUPABASE_PUBLISHABLE_KEY != ''
+        env:
+          URL: ${{ vars.SUPABASE_URL }}
+          KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          {
+            printf 'VITE_SUPABASE_URL=%s\n' "$URL"
+            printf 'VITE_SUPABASE_PUBLISHABLE_KEY=%s\n' "$KEY"
+          } > .env.production.local
+
+      # CF_PAGES tells vite.config.ts to build for the root, write `_redirects`,
+      # `_headers` and the per-route pages. The same build a by-hand deploy makes.
+      - run: CF_PAGES=1 npx vite build
+
+      - name: Publish
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 9b8308fc3ebe0e1792495ec68371975a
+        run: npx wrangler@3 pages deploy dist --project-name=ushuaia-beer-league --branch=main
