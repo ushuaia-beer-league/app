@@ -1,7 +1,8 @@
-import { copyFileSync, writeFileSync } from 'node:fs'
-import { join, resolve } from 'node:path'
+import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { dirname, join, resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vitest/config'
+import { SITE_ROUTES } from './src/utils/site-routes'
 
 /**
  * GitHub Pages answers an unknown path with `404.html`. Shipping a copy of the
@@ -32,6 +33,51 @@ function spaFallback(onCloudflare: boolean): Plugin {
       // preview is told it does not exist.
       if (onCloudflare) {
         writeFileSync(join(outDir, '_redirects'), '/*    /index.html   200\n')
+
+        // One HTML file per address, so a scraper that runs no JavaScript still
+        // gets that address's own title, description and card. WhatsApp, Facebook
+        // and search engines all read the static document and nothing else, so
+        // without these every shared link showed the home page's card whatever it
+        // pointed at. Static files win over the `_redirects` rewrite, so the
+        // visitor gets the same application either way; only the head differs.
+        //
+        // The routes and their words come from `site-routes.ts`, which is the one
+        // place that knows both, and they are the league's own texts.
+        const entry = readFileSync(join(outDir, 'index.html'), 'utf8')
+        for (const route of SITE_ROUTES) {
+          if (route.path === '/') continue
+
+          const address = `${PRODUCTION}${route.path}`
+          const html = entry
+            .replace(/<title>[^<]*<\/title>/, `<title>${route.title}</title>`)
+            .replace(
+              /(<meta\s+name="description"\s+content=")[^"]*/,
+              `$1${route.description}`,
+            )
+            .replace(
+              /(<meta\s+property="og:title"\s+content=")[^"]*/,
+              `$1${route.title}`,
+            )
+            .replace(
+              /(<meta\s+property="og:description"\s+content=")[^"]*/,
+              `$1${route.description}`,
+            )
+            .replace(
+              /(<meta\s+property="og:url"\s+content=")[^"]*/,
+              `$1${address}`,
+            )
+            .replace(/(<link\s+rel="canonical"\s+href=")[^"]*/, `$1${address}`)
+
+          // The build is its own test: a head this file failed to rewrite is a
+          // shared link that lies, so it fails loudly here instead of shipping.
+          if (!html.includes(route.title) || !html.includes(address)) {
+            throw new Error(`route page not rewritten: ${route.path}`)
+          }
+
+          const target = join(outDir, `${route.path.slice(1)}.html`)
+          mkdirSync(dirname(target), { recursive: true })
+          writeFileSync(target, html)
+        }
 
         // The security headers, which a static host does not send unless told.
         //
