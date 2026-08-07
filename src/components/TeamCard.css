@@ -244,12 +244,39 @@
   object-fit: contain;
 }
 
+/*
+ * The nickname shows on hover, the league's choice on 2026-08-07: ten captions
+ * under ten portraits doubled the strip's height and wrapped badly. It overlays
+ * the badge instead of sitting under it, so hiding it costs no layout, and on a
+ * screen with no hover (a phone) it simply never shows: there the badges are the
+ * decoration and the roster above already has every name. The text stays in the
+ * DOM either way, so a screen reader still hears it.
+ */
+.team-card__badge {
+  position: relative;
+}
+
 .team-card__badge-name {
-  align-self: start;
-  color: var(--color-text-muted);
+  position: absolute;
+  bottom: -0.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.1rem 0.4rem;
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
   font-size: var(--text-xs);
   line-height: var(--leading-body);
-  text-align: center;
-  text-wrap: balance;
-  overflow-wrap: anywhere;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease;
+}
+
+@media (hover: hover) {
+  .team-card__badge:hover .team-card__badge-name,
+  .team-card__badge:focus-within .team-card__badge-name {
+    opacity: 1;
+  }
 }
