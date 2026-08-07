@@ -31,6 +31,8 @@ export function GallerySection({ photos = [] }: GallerySectionProps) {
   const t = useT()
   const [shown, setShown] = useState<number | null>(null)
   const dialogRef = useRef<HTMLDialogElement>(null)
+  // Where a touch began, so lifting the finger can say which way it swiped.
+  const touchStart = useRef<{ x: number; y: number } | null>(null)
 
   useEffect(() => {
     const dialog = dialogRef.current
@@ -108,6 +110,25 @@ export function GallerySection({ photos = [] }: GallerySectionProps) {
         onKeyDown={(event) => {
           if (event.key === 'ArrowRight') move(1)
           if (event.key === 'ArrowLeft') move(-1)
+        }}
+        onTouchStart={(event) => {
+          const touch = event.touches[0]
+          touchStart.current = touch
+            ? { x: touch.clientX, y: touch.clientY }
+            : null
+        }}
+        onTouchEnd={(event) => {
+          // A swipe on a phone pages the wall like the arrows do. Mostly
+          // horizontal and longer than a fidget, so a scroll or a tap on the
+          // buttons never turns the page by accident.
+          const start = touchStart.current
+          touchStart.current = null
+          const touch = event.changedTouches[0]
+          if (start === null || touch === undefined) return
+          const dx = touch.clientX - start.x
+          const dy = touch.clientY - start.y
+          if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.5) return
+          move(dx < 0 ? 1 : -1)
         }}
       >
         {opened !== null && (
