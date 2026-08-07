@@ -267,3 +267,91 @@ export function pathForLeagues(
     ? pathForTab(tab)
     : `${pathForTab(tab)}/${segment}`
 }
+
+/**
+ * The per-competition pages, each with its own words.
+ *
+ * Not a generic suffix, at the league's request: the women's scoring page says
+ * **Goleadoras** and talks about the women's league, because a shared card that
+ * says "Goleadores · Beer League" over a women's table is a card that lied.
+ * Spanish is gendered and these pages are about people, so each variant carries
+ * its own title and description instead of a template.
+ */
+export interface VariantPage {
+  path: string
+  title: string
+  description: string
+}
+
+const WOMEN = "Women's Beer League"
+
+const VARIANT_WORDING: Readonly<
+  Record<TabKey, { women: [string, string]; todas: [string, string] }>
+> = {
+  fixture: {
+    women: [
+      `Próximos partidos · ${WOMEN}`,
+      'Fecha, hora y cabecera de los partidos del femenino.',
+    ],
+    todas: [
+      'Próximos partidos · Todas las competencias',
+      'Fecha, hora y cabecera de todo lo que se viene, en las dos ligas.',
+    ],
+  },
+  standings: {
+    women: [
+      `Tabla de posiciones · ${WOMEN}`,
+      'Cómo va la liga femenina fecha por fecha.',
+    ],
+    todas: [
+      'Tablas de posiciones · Todas las competencias',
+      'Cómo van las dos ligas fecha por fecha.',
+    ],
+  },
+  scoring: {
+    women: [
+      `Goleadoras · ${WOMEN}`,
+      'Goles, asistencias y puntos de las jugadoras del femenino.',
+    ],
+    todas: [
+      'Goleadores · Todas las competencias',
+      'Goles, asistencias y puntos de las dos ligas.',
+    ],
+  },
+  goalkeeping: {
+    women: [
+      `Arqueras · ${WOMEN}`,
+      'Tiros recibidos, goles recibidos y porcentaje de atajadas del femenino.',
+    ],
+    todas: [
+      'Arqueros · Todas las competencias',
+      'Tiros, goles y porcentajes de atajadas de las dos ligas.',
+    ],
+  },
+  playoffs: {
+    women: [
+      `Playoffs · ${WOMEN}`,
+      'El cuadro del femenino, cruce por cruce, a medida que se define.',
+    ],
+    todas: [
+      'Playoffs · Todas las competencias',
+      'Los cuadros de las dos ligas, cruce por cruce.',
+    ],
+  },
+}
+
+/** Every per-competition page the build writes, with its own words. */
+export function variantPages(): VariantPage[] {
+  const pages: VariantPage[] = []
+  for (const tab of LEAGUE_TABS) {
+    for (const segment of ['women', 'todas'] as const) {
+      const [title, description] = VARIANT_WORDING[tab][segment]
+      pages.push({
+        path: `${pathForTab(tab)}/${segment}`,
+        title: `${title} · Ushuaia Beer League`,
+        description,
+      })
+    }
+  }
+  return pages
+}

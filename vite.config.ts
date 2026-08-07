@@ -2,7 +2,7 @@ import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vitest/config'
-import { SITE_ROUTES } from './src/utils/site-routes'
+import { SITE_ROUTES, variantPages } from './src/utils/site-routes'
 
 /**
  * GitHub Pages answers an unknown path with `404.html`. Shipping a copy of the
@@ -46,10 +46,12 @@ function spaFallback(onCloudflare: boolean): Plugin {
         // A real sitemap, because the SPA rewrite answers 200 for any path: a
         // crawler asking for sitemap.xml would otherwise be handed HTML with a
         // straight face. One entry per address, the same table as everything else.
-        const urls = SITE_ROUTES.map(
-          (r) =>
-            `  <url><loc>${PRODUCTION}${r.path === '/' ? '/' : r.path}</loc></url>`,
-        ).join('\n')
+        const urls = [
+          ...SITE_ROUTES.map((r) => (r.path === '/' ? '/' : r.path)),
+          ...variantPages().map((p) => p.path),
+        ]
+          .map((path) => `  <url><loc>${PRODUCTION}${path}</loc></url>`)
+          .join('\n')
         writeFileSync(
           join(outDir, 'sitemap.xml'),
           `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
@@ -87,6 +89,37 @@ function spaFallback(onCloudflare: boolean): Plugin {
           }
 
           const target = join(outDir, `${route.path.slice(1)}.html`)
+          mkdirSync(dirname(target), { recursive: true })
+          writeFileSync(target, html)
+        }
+
+        // The per-competition pages, each with its own words (Goleadoras, not a
+        // suffix). Same mechanics, different table.
+        for (const page of variantPages()) {
+          const address = `${PRODUCTION}${page.path}`
+          const html = entry
+            .replace(/<title>[^<]*<\/title>/, `<title>${page.title}</title>`)
+            .replace(
+              /(<meta\s+name="description"\s+content=")[^"]*/,
+              `$1${page.description}`,
+            )
+            .replace(
+              /(<meta\s+property="og:title"\s+content=")[^"]*/,
+              `$1${page.title}`,
+            )
+            .replace(
+              /(<meta\s+property="og:description"\s+content=")[^"]*/,
+              `$1${page.description}`,
+            )
+            .replace(
+              /(<meta\s+property="og:url"\s+content=")[^"]*/,
+              `$1${address}`,
+            )
+            .replace(/(<link\s+rel="canonical"\s+href=")[^"]*/, `$1${address}`)
+          if (!html.includes(page.title) || !html.includes(address)) {
+            throw new Error(`variant page not rewritten: ${page.path}`)
+          }
+          const target = join(outDir, `${page.path.slice(1)}.html`)
           mkdirSync(dirname(target), { recursive: true })
           writeFileSync(target, html)
         }

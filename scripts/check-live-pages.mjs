@@ -29,6 +29,8 @@ const ROUTES = [
   '/fotos',
   '/sponsors',
   '/contacto',
+  '/ligas/goleadores/women',
+  '/ligas/posiciones/todas',
 ]
 
 const fresh = { headers: { 'cache-control': 'no-cache' } }
