@@ -1,0 +1,78 @@
+name: Preview on Cloudflare Pages
+
+# Every pull request gets its own preview deployment, the same direct-upload
+# mechanics as production with one difference: `--branch` is not `main`, so
+# Cloudflare files it as a preview under a subdomain of the project instead of
+# touching what the league's links point at. The subdomain is also why these
+# deployments never pollute the real analytics: `ga4.ts` refuses to report
+# from `*.ushuaia-beer-league.pages.dev`.
+#
+# No validations here on purpose — `ci.yml` already runs them on every push,
+# and a preview of a red branch is still a preview worth looking at.
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'backups/**'
+
+concurrency:
+  group: cloudflare-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  preview:
+    name: Build and publish a preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Point the build at Supabase
+        if: vars.SUPABASE_URL != '' && vars.SUPABASE_PUBLISHABLE_KEY != ''
+        env:
+          URL: ${{ vars.SUPABASE_URL }}
+          KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          {
+            printf 'VITE_SUPABASE_URL=%s\n' "$URL"
+            printf 'VITE_SUPABASE_PUBLISHABLE_KEY=%s\n' "$KEY"
+          } > .env.production.local
+
+      # The same build production gets, per-route pages and all: a preview
+      # that builds differently previews something else.
+      - run: CF_PAGES=1 npx vite build
+
+      - name: Publish the preview
+        id: publish
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 9b8308fc3ebe0e1792495ec68371975a
+          BRANCH: ${{ github.head_ref }}
+        run: |
+          npx wrangler@3 pages deploy dist \
+            --project-name=ushuaia-beer-league \
+            --branch="$BRANCH" | tee deploy.log
+          url=$(grep -Eo 'https://[a-z0-9-]+\.ushuaia-beer-league\.pages\.dev' deploy.log | tail -1)
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      # One comment per pull request, updated on every push rather than piled
+      # up: the reader wants the current address, not the history of them.
+      - name: Say where the preview lives
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          URL: ${{ steps.publish.outputs.url }}
+        run: |
+          body="Preview: $URL"
+          gh pr comment "$PR" --edit-last --body "$body" \
+            || gh pr comment "$PR" --body "$body"
