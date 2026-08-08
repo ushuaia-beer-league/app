@@ -22,7 +22,12 @@ const entry = (
   id: string,
   overrides: Partial<Match> = {},
   counts: AdminMatch['counts'] = { players: 0, goals: 0, goalieLines: 0 },
-): AdminMatch => ({ id, match: match(overrides), counts })
+): AdminMatch => ({
+  id,
+  match: match(overrides),
+  counts,
+  names: { home: null, away: null },
+})
 
 const names: Record<string, string> = {
   'rock-choppers': 'Rock Choppers',

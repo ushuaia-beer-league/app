@@ -71,6 +71,11 @@ export interface AdminMatch {
   id: string
   match: Match
   counts: MatchRecordCounts
+  /**
+   * The teams' names as the database has them today — never the seed's copy,
+   * which goes stale the moment an operator renames a team.
+   */
+  names: { home: string | null; away: string | null }
 }
 
 /** The one shape a caller has to handle: it worked, or it did not and why. */
@@ -127,6 +132,8 @@ export async function loadAdminMatches(
   if (error) return { ok: false, because: error.message }
 
   const rows = (data ?? []) as unknown as (MatchRow & {
+    home_team: { slug: string; short_name: string } | null
+    away_team: { slug: string; short_name: string } | null
     match_players: unknown
     match_goals: unknown
     goalie_lines: unknown
@@ -141,6 +148,10 @@ export async function loadAdminMatches(
         players: countOf(row.match_players),
         goals: countOf(row.match_goals),
         goalieLines: countOf(row.goalie_lines),
+      },
+      names: {
+        home: row.home_team?.short_name ?? null,
+        away: row.away_team?.short_name ?? null,
       },
     })),
   }

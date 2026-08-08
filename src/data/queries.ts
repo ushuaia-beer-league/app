@@ -33,7 +33,7 @@ export const SEASON_MATCHES_SELECT =
  * sheet still needs without reading every row of every sheet.
  */
 export const ADMIN_MATCHES_SELECT =
-  'id, competition_key, stage, match_date, start_time, venue, home_goals, away_goals, resolution, notes, home_team:matches_home_team_fkey (slug), away_team:matches_away_team_fkey (slug), match_players(count), match_goals(count), goalie_lines(count)'
+  'id, competition_key, stage, match_date, start_time, venue, home_goals, away_goals, resolution, notes, home_team:matches_home_team_fkey (slug, short_name), away_team:matches_away_team_fkey (slug, short_name), match_players(count), match_goals(count), goalie_lines(count)'
 
 /** One match with every child row of its sheet, in a single request. */
 export const MATCH_SHEET_SELECT =
