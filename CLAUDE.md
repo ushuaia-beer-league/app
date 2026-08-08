@@ -155,6 +155,14 @@ corrupts every table on the site.
   passing. The durable fix — freezing a slug once referenced — is pending panel
   work.
 
+- **The seed only answers when the database cannot.** On 2026-08-07 an operator
+  updated a roster and the public site kept showing the old one: the season
+  source still handed `SEED_2026.players`/`rosters` behind a phase-3 comment
+  ("no view needs them") that had stopped being true. When a saved change does
+  not appear, grep for `SEED_2026` outside the fallback path before debugging
+  the save. Every new panel-editable table must be read by `loadSeason` the
+  day the panel learns to write it.
+
 - Standings, scoring leaders, goalkeeping and playoff progression are **derived**
   from match records at read time. Never persist an aggregate.
 - Preserve incomplete facts visibly. If the source sheet does not say who scored,

@@ -347,3 +347,16 @@ Still waiting on the league: rotate the Google OAuth secret; the men's missing
 colours; Zambirreras' new badge (uploadable from the panel). Still in the
 backlog: the per-date bulk entry sheet; donations and player credentials;
 freezing slugs once referenced.
+
+## Where this stands, night of 7 August 2026
+
+Shipped since the evening note, all through pull requests with Cloudflare
+previews (the git-connected `beer-league-web` project builds previews only;
+production stays on the workflow deploy): sharing as a drawn image (tables,
+teams, fixture rounds, and the photo itself from the lightbox), per-page
+`og:image` cards, the gallery as a masonry wall with a centred, swipeable
+lightbox, the photo panel as a drag-and-drop grid, each team as its own admin
+screen with editable roster names, and two truth fixes — the public rosters
+and the admin matches list now read the database, never the seed, when it
+answers. The favicon files pass every Google rule; the generic globe in
+results is their favicon crawler's lag.
