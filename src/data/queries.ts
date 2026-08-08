@@ -63,3 +63,14 @@ export const PUBLIC_PHOTOS_SELECT = 'storage_path, caption, display_order'
 /** The league's contact channels, as the public site and the panel read them. */
 export const PUBLIC_CONTACT_SELECT =
   'id, label, href, glyph, display_order, active'
+
+/**
+ * The public rosters: every active roster row of the season with its team's
+ * slug, and the players by id. The player's uuid stands in for the seed's
+ * `playerSlug` on both sides of the join — the public join is by string
+ * equality and never prints the key, so an opaque one serves.
+ */
+export const SEASON_PLAYERS_SELECT = 'id, full_name'
+
+export const SEASON_ROSTER_SELECT =
+  'player_id, competition_key, jersey_number, active, teams (slug)'

@@ -32,6 +32,8 @@ import {
   PUBLISHED_GOALIE_STATS_SELECT,
   PUBLISHED_PLAYER_STATS_SELECT,
   SEASON_MATCHES_SELECT,
+  SEASON_PLAYERS_SELECT,
+  SEASON_ROSTER_SELECT,
   TEAMS_SELECT,
 } from '../src/data/queries'
 
@@ -86,6 +88,18 @@ const QUERIES: { what: string; table: string; select: string }[] = [
     what: 'the teams',
     table: 'teams',
     select: TEAMS_SELECT,
+  },
+  {
+    what: 'the public players',
+    table: 'players',
+    select: SEASON_PLAYERS_SELECT,
+  },
+  {
+    // The embed rides team_players' composite foreign key to teams; like the
+    // matches embed, only the real API can say whether PostgREST accepts it.
+    what: 'the public rosters',
+    table: 'team_players',
+    select: SEASON_ROSTER_SELECT,
   },
 ]
 
