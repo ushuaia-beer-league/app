@@ -21,6 +21,8 @@ import {
   PUBLISHED_GOALIE_STATS_SELECT,
   PUBLISHED_PLAYER_STATS_SELECT,
   SEASON_MATCHES_SELECT,
+  SEASON_PLAYERS_SELECT,
+  SEASON_ROSTER_SELECT,
   TEAMS_SELECT,
 } from './queries'
 import { SEED_2026 } from './seed-2026'
@@ -154,36 +156,47 @@ async function loadFromSupabase(
 
   const seasonId = (seasonRow.data as { id: string }).id
 
-  const [teams, matches, playerStats, goalieStats] = await Promise.all([
-    client.from('teams').select(TEAMS_SELECT),
-    // The two teams are embedded by **foreign key name**, not by column. A match
-    // reaches `teams` twice, so the embed has to say which way, and the obvious
-    // spelling of that (`home_team:home_team_id`) is wrong here: the key is the
-    // pair `(home_team_id, competition_key)`, which is what keeps a Beer League
-    // match from naming a women's team, and PostgREST only accepts the column
-    // shorthand for a single-column key. It answers `PGRST200` otherwise, which
-    // fails the whole request: no fixture, no standings, no scorers. This is not
-    // catchable by the tests, which mock the client, so
-    // `npm run smoke:queries` runs it against the real API instead.
-    client
-      .from('matches')
-      .select(SEASON_MATCHES_SELECT)
-      .eq('season_id', seasonId)
-      .order('match_date')
-      .order('start_time'),
-    client
-      .from('published_player_stats')
-      .select(PUBLISHED_PLAYER_STATS_SELECT)
-      .eq('season_id', seasonId),
-    client
-      .from('published_goalie_stats')
-      .select(PUBLISHED_GOALIE_STATS_SELECT)
-      .eq('season_id', seasonId),
-  ])
+  const [teams, matches, playerStats, goalieStats, players, roster] =
+    await Promise.all([
+      client.from('teams').select(TEAMS_SELECT),
+      // The two teams are embedded by **foreign key name**, not by column. A match
+      // reaches `teams` twice, so the embed has to say which way, and the obvious
+      // spelling of that (`home_team:home_team_id`) is wrong here: the key is the
+      // pair `(home_team_id, competition_key)`, which is what keeps a Beer League
+      // match from naming a women's team, and PostgREST only accepts the column
+      // shorthand for a single-column key. It answers `PGRST200` otherwise, which
+      // fails the whole request: no fixture, no standings, no scorers. This is not
+      // catchable by the tests, which mock the client, so
+      // `npm run smoke:queries` runs it against the real API instead.
+      client
+        .from('matches')
+        .select(SEASON_MATCHES_SELECT)
+        .eq('season_id', seasonId)
+        .order('match_date')
+        .order('start_time'),
+      client
+        .from('published_player_stats')
+        .select(PUBLISHED_PLAYER_STATS_SELECT)
+        .eq('season_id', seasonId),
+      client
+        .from('published_goalie_stats')
+        .select(PUBLISHED_GOALIE_STATS_SELECT)
+        .eq('season_id', seasonId),
+      client.from('players').select(SEASON_PLAYERS_SELECT),
+      client
+        .from('team_players')
+        .select(SEASON_ROSTER_SELECT)
+        .eq('season_id', seasonId),
+    ])
 
-  const failure = [teams, matches, playerStats, goalieStats].find(
-    (result) => result.error,
-  )
+  const failure = [
+    teams,
+    matches,
+    playerStats,
+    goalieStats,
+    players,
+    roster,
+  ].find((result) => result.error)
   if (failure?.error) return { data: null, because: failure.error.message }
 
   const matchRows = (matches.data ?? []) as unknown as MatchRow[]
@@ -197,6 +210,17 @@ async function loadFromSupabase(
   const teamRows = (teams.data ?? []) as TeamRow[]
   const playerRows = (playerStats.data ?? []) as unknown as PublishedPlayerRow[]
   const goalieRows = (goalieStats.data ?? []) as unknown as PublishedGoalieRow[]
+  const playerRosterRows = (players.data ?? []) as {
+    id: string
+    full_name: string
+  }[]
+  const rosterRows = (roster.data ?? []) as unknown as {
+    player_id: string
+    competition_key: CompetitionKey
+    jersey_number: number | null
+    active: boolean
+    teams: { slug: string } | null
+  }[]
 
   return {
     because: null,
@@ -216,11 +240,30 @@ async function loadFromSupabase(
         mappingInferred: true,
         logoUrl: row.logo_url,
       })),
-      // Rosters and players are not read yet: no view needs them until the
-      // rosters land in phase 3, and asking for rows nobody renders spends the
-      // free tier's request budget for nothing.
-      players: SEED_2026.players,
-      rosters: SEED_2026.rosters,
+      // The rosters the panel edits, not the seed's copy: an operator who
+      // fixes a name or moves a number has to see it on the public site, and
+      // until 2026-08-07 this handed the seed even when the database answered.
+      // The player's uuid stands in for the seed's slug on both sides of the
+      // public join, which never prints the key.
+      players: playerRosterRows.map((row) => ({
+        slug: row.id,
+        name: row.full_name,
+        // The sheet's own spelling only exists for imported rows; for the
+        // database's truth the display name is the record.
+        printedName: row.full_name,
+      })),
+      rosters: rosterRows.flatMap((row) =>
+        row.active && row.teams !== null
+          ? [
+              {
+                playerSlug: row.player_id,
+                teamSlug: row.teams.slug,
+                competition: row.competition_key,
+                jerseyNumber: row.jersey_number,
+              },
+            ]
+          : [],
+      ),
       matches: matchRows.map(matchFromRow),
       publishedPlayerStats: playerRows.map((row) => ({
         competition: row.competition_key,
