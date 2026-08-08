@@ -178,8 +178,20 @@ function MatchesRoute() {
     }
   }, [])
 
-  const teamName = (teamId: string) =>
-    SEED_2026.teams.find((team) => team.slug === teamId)?.shortName ?? teamId
+  // Named by the rows the database just answered, never by the seed: a team
+  // renamed in the panel keeps its list naming it right, and a brand-new team
+  // needs no redeploy to have a name.
+  const names = new Map(
+    (matches ?? []).flatMap((row) => {
+      const pairs: [string, string][] = []
+      if (row.match.homeTeamId !== null && row.names.home !== null)
+        pairs.push([row.match.homeTeamId, row.names.home])
+      if (row.match.awayTeamId !== null && row.names.away !== null)
+        pairs.push([row.match.awayTeamId, row.names.away])
+      return pairs
+    }),
+  )
+  const teamName = (teamId: string) => names.get(teamId) ?? teamId
 
   if (because !== null) {
     return (
