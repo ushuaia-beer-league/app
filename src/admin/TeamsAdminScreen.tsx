@@ -45,6 +45,7 @@ import {
   type TeamSavePlan,
   type TeamsPage,
 } from './teamsDraft'
+import { NAMED_COLOURS, pickerValue, swatchFor } from './teamColours'
 import { can, type AdminRole } from './useAdminSession'
 import './TeamsAdminScreen.css'
 
@@ -563,22 +564,79 @@ function TeamEditor({
         />
       </p>
 
-      <p className="teams__field">
-        <label htmlFor="teams-colour">Color (opcional)</label>
-        <input
-          autoComplete="off"
-          id="teams-colour"
-          onChange={(event) =>
-            setDraft((current) => ({ ...current, colour: event.target.value }))
-          }
-          type="text"
-          value={draft.colour}
-        />
-      </p>
+      {/* Colour used to be a text field, and typing «Turquesa» to choose a
+       * colour is not choosing a colour. The swatches store the league's own
+       * word, which is what the sheets say and what the saved rows already
+       * hold; the picker beside them stores a hex for a kit whose shade is not
+       * one of the words. The column takes either. */}
+      <fieldset className="teams__colours">
+        <legend>Color (opcional)</legend>
 
-      <p className="teams__hint">
-        El color va como lo dicen las planillas, con palabras: «verde», «azul».
-      </p>
+        <div className="teams__swatches">
+          {NAMED_COLOURS.map((colour) => (
+            <button
+              aria-label={colour.name}
+              aria-pressed={
+                draft.colour.trim().toLowerCase() === colour.name.toLowerCase()
+              }
+              className="teams__swatch"
+              key={colour.name}
+              onClick={() =>
+                setDraft((current) => ({ ...current, colour: colour.name }))
+              }
+              style={{ background: colour.hex }}
+              title={colour.name}
+              type="button"
+            />
+          ))}
+        </div>
+
+        <p className="teams__colour-row">
+          <label className="teams__colour-custom" htmlFor="teams-colour">
+            Otro tono
+            <input
+              id="teams-colour"
+              onChange={(event) =>
+                setDraft((current) => ({
+                  ...current,
+                  colour: event.target.value,
+                }))
+              }
+              type="color"
+              value={pickerValue(draft.colour)}
+            />
+          </label>
+
+          <span className="teams__colour-chosen">
+            {draft.colour.trim() === '' ? (
+              'Sin color'
+            ) : (
+              <>
+                {swatchFor(draft.colour) !== null && (
+                  <span
+                    aria-hidden="true"
+                    className="teams__swatch teams__swatch--chosen"
+                    style={{ background: swatchFor(draft.colour) ?? undefined }}
+                  />
+                )}
+                {draft.colour}
+              </>
+            )}
+          </span>
+
+          {draft.colour.trim() !== '' && (
+            <button
+              className="teams__cancel"
+              onClick={() =>
+                setDraft((current) => ({ ...current, colour: '' }))
+              }
+              type="button"
+            >
+              Sin color
+            </button>
+          )}
+        </p>
+      </fieldset>
 
       <p className="teams__field teams__field--wide">
         <label htmlFor="teams-logo-file">Escudo (subir imagen)</label>
