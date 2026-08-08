@@ -193,7 +193,7 @@ describe('TeamsAdminScreen', () => {
     typeIn('Nombre corto', 'Rock Choppers')
     typeIn('Nombre con sponsor (opcional)', 'Hantachoppers')
     typeIn('Apodo del cuadro (opcional)', 'hanta')
-    typeIn('Color (opcional)', 'verde')
+    fireEvent.click(screen.getByRole('button', { name: 'Verde' }))
     fireEvent.click(teamSaveButton())
 
     expect(await screen.findByRole('status')).toHaveTextContent(
@@ -207,13 +207,51 @@ describe('TeamsAdminScreen', () => {
         short_name: 'Rock Choppers',
         full_name: 'Hantachoppers',
         nickname: 'hanta',
-        colour: 'verde',
+        colour: 'Verde',
         // The crest arrives by upload now, not by typing an address;
         // untouched, it saves as the null it is.
         logo_url: null,
         active: true,
       },
     })
+  })
+
+  it('picks a colour by tapping it, and stores the league word', async () => {
+    // The field used to be free text: typing «Turquesa» to choose a colour is
+    // not choosing a colour. The swatch stores the same word the sheets use
+    // and the saved rows already hold, so nothing had to be migrated.
+    const { saveOne } = show({ teams: [] })
+    await startCreate()
+
+    typeIn('Nombre corto', 'Sucucho')
+    fireEvent.click(screen.getByRole('button', { name: 'Amarillo' }))
+    expect(screen.getByRole('button', { name: 'Amarillo' })).toHaveAttribute(
+      'aria-pressed',
+      'true',
+    )
+
+    fireEvent.click(teamSaveButton())
+    expect(saveOne).toHaveBeenCalledWith(
+      expect.objectContaining({
+        row: expect.objectContaining({ colour: 'Amarillo' }),
+      }),
+    )
+  })
+
+  it('takes a colour off a team, which the column allows', async () => {
+    const { saveOne } = show()
+    fireEvent.click(
+      await screen.findByRole('link', { name: 'Editar Birra del Fuego' }),
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'Sin color' }))
+    fireEvent.click(teamSaveButton())
+
+    expect(saveOne).toHaveBeenCalledWith(
+      expect.objectContaining({
+        row: expect.objectContaining({ colour: null }),
+      }),
+    )
   })
 
   it('offers a slug out of the name and lets it be corrected', async () => {
@@ -320,12 +358,12 @@ describe('TeamsAdminScreen', () => {
       'Hantachoppers',
     )
 
-    typeIn('Color (opcional)', 'negro')
+    fireEvent.click(screen.getByRole('button', { name: 'Negro' }))
     fireEvent.click(teamSaveButton())
 
     expect(saveOne).toHaveBeenCalledWith({
       teamId: 'team-hanta',
-      row: expect.objectContaining({ colour: 'negro' }),
+      row: expect.objectContaining({ colour: 'Negro' }),
     })
     expect(
       (saveOne as ReturnType<typeof vi.fn>).mock.calls[0]?.[0].row,
