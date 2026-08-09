@@ -84,8 +84,8 @@ for (const route of ROUTES) {
 // it claims to be, not merely answer.
 const WELL_KNOWN = [
   ['/favicon.ico', 'icon'],
-  ['/favicon.svg', 'svg'],
   ['/favicon-48.png', 'png'],
+  ['/favicon-192.png', 'png'],
   ['/apple-touch-icon.png', 'png'],
   ['/robots.txt', 'text/plain'],
   ['/sitemap.xml', 'xml'],
