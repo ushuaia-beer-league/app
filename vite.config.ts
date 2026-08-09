@@ -38,7 +38,17 @@ function spaFallback(onCloudflare: boolean): Plugin {
       // combination available: a visitor sees the page and every crawler and link
       // preview is told it does not exist.
       if (onCloudflare) {
-        writeFileSync(join(outDir, '_redirects'), '/*    /index.html   200\n')
+        // The first rule outlives a file this site used to have. `favicon.svg`
+        // was a puck-shaped stand-in removed on 2026-08-09, and Google had
+        // published it as the site's icon — so its crawler still asks for that
+        // exact path. Without this line the SPA rewrite below would hand it a
+        // web page with a 200 and a favicon fetcher given HTML keeps whatever
+        // it had, which here is the very mark we removed. Rules are read in
+        // order, so it must stay above the catch-all.
+        writeFileSync(
+          join(outDir, '_redirects'),
+          '/favicon.svg    /favicon-192.png   301\n/*    /index.html   200\n',
+        )
 
         // One HTML file per address, so a scraper that runs no JavaScript still
         // gets that address's own title, description and card. WhatsApp, Facebook
