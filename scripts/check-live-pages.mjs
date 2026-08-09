@@ -86,6 +86,11 @@ const WELL_KNOWN = [
   ['/favicon.ico', 'icon'],
   ['/favicon-48.png', 'png'],
   ['/favicon-192.png', 'png'],
+  // The path of the mark this site used to wear: Google published it, so its
+  // crawler still asks, and `_redirects` sends it to the real icon. Checked
+  // here because a redirect that goes missing puts the SPA rewrite back in its
+  // place, answering HTML to a fetcher expecting an image.
+  ['/favicon.svg', 'png'],
   ['/apple-touch-icon.png', 'png'],
   ['/robots.txt', 'text/plain'],
   ['/sitemap.xml', 'xml'],
