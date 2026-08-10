@@ -393,12 +393,20 @@ describe('MatchSheetScreen', () => {
     ).toBeNull()
   })
 
-  it('keeps a single franchise player: ticking a second one unticks the first', async () => {
+  it('keeps one franchise player per side, and both sides may have one', async () => {
+    // The league said on 2026-08-10 that a match may hold two, one each. So a
+    // second tick on the same side moves the flag, and the opponent's own is
+    // left exactly where it is.
     const save = show(sheet())
 
     addFromPicker(
       'Agregar a Rock Choppers',
-      'sub',
+      'p1',
+      'Agregar jugador de Rock Choppers',
+    )
+    addFromPicker(
+      'Agregar a Rock Choppers',
+      'p2',
       'Agregar jugador de Rock Choppers',
     )
     addFromPicker('Agregar a Sucucho', 'p3', 'Agregar jugador de Sucucho')
@@ -406,19 +414,23 @@ describe('MatchSheetScreen', () => {
     const franchiseOf = (person: string) =>
       within(rowIn('Quiénes jugaron', person)).getByLabelText('Franquicia')
 
-    fireEvent.click(franchiseOf('Zapata Rocío'))
-    expect(franchiseOf('Zapata Rocío')).toBeChecked()
-
+    fireEvent.click(franchiseOf('Aguirre Nahuel'))
     fireEvent.click(franchiseOf('Cárdenas Ivo'))
+    // Opposite sides: both stand.
+    expect(franchiseOf('Aguirre Nahuel')).toBeChecked()
+    expect(franchiseOf('Cárdenas Ivo')).toBeChecked()
 
-    expect(franchiseOf('Zapata Rocío')).not.toBeChecked()
+    // Same side as Aguirre: the flag moves rather than doubling.
+    fireEvent.click(franchiseOf('Barrientos Luz'))
+    expect(franchiseOf('Aguirre Nahuel')).not.toBeChecked()
+    expect(franchiseOf('Barrientos Luz')).toBeChecked()
     expect(franchiseOf('Cárdenas Ivo')).toBeChecked()
 
     fireEvent.click(saveButton())
     await waitFor(() => expect(save).toHaveBeenCalled())
 
     const written = save.mock.calls[0]?.[0].players.upsert ?? []
-    expect(written.filter((entry) => entry.is_franchise)).toHaveLength(1)
+    expect(written.filter((entry) => entry.is_franchise)).toHaveLength(2)
   })
 
   it('takes somebody off the sheet by name, and removes the row', async () => {

@@ -206,7 +206,9 @@ describe('draftProblems', () => {
     ])
   })
 
-  it('refuses two franchise players in one match, and counts them', () => {
+  it('allows a franchise player on each side, which is what the league says', () => {
+    // "Solo puede jugar uno por partido" is a sentence about a team requesting
+    // one; the league said plainly on 2026-08-10 that a match may hold two.
     const problems = draftProblems(
       sheet(),
       draft({
@@ -227,7 +229,32 @@ describe('draftProblems', () => {
       }),
     )
 
+    expect(problems).toEqual([])
+  })
+
+  it('refuses two franchise players on the same side, and names it', () => {
+    const problems = draftProblems(
+      sheet(),
+      draft({
+        appearances: [
+          {
+            playerId: 'p1',
+            teamId: HOME,
+            isSubstitute: true,
+            isFranchise: true,
+          },
+          {
+            playerId: 'p2',
+            teamId: HOME,
+            isSubstitute: true,
+            isFranchise: true,
+          },
+        ],
+      }),
+    )
+
     expect(problems[0]?.kind).toBe('two-franchise')
+    expect(problems[0]?.message).toContain('Rock Choppers')
     expect(problems[0]?.message).toContain('2 marcados')
   })
 
@@ -466,30 +493,40 @@ describe('linePercentage', () => {
 })
 
 describe('withFranchise', () => {
-  it('moves the single franchise flag rather than adding a second', () => {
+  it('moves the flag inside a side, and leaves the opponent alone', () => {
+    // Two of one side plus the opponent's own: ticking ours must move ours and
+    // never touch theirs, which is what the per-side index allows.
     const current = draft({
       appearances: [
         { playerId: 'p1', teamId: HOME, isSubstitute: true, isFranchise: true },
         {
+          playerId: 'p2',
+          teamId: HOME,
+          isSubstitute: true,
+          isFranchise: false,
+        },
+        {
           playerId: 'p3',
           teamId: AWAY,
           isSubstitute: true,
-          isFranchise: false,
+          isFranchise: true,
         },
       ],
     })
 
-    const moved = withFranchise(current, 'p3', true)
+    const moved = withFranchise(current, 'p2', true)
 
     expect(moved.appearances.map((row) => row.isFranchise)).toEqual([
       false,
       true,
+      true,
     ])
+    // Unticking the away side's flag leaves ours where it is.
     expect(
       withFranchise(moved, 'p3', false).appearances.map(
         (row) => row.isFranchise,
       ),
-    ).toEqual([false, false])
+    ).toEqual([false, true, false])
   })
 })
 

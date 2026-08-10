@@ -110,3 +110,12 @@ the pattern. Both tables: public SELECT, writes for
 Storage: `media_insert_sport_teams` / `media_update_sport_teams` let sporting
 management write under the `teams/` prefix only, because team crests belong to
 the team row, which is sport's.
+
+## The franchise index, changed 10 August 2026
+
+`match_players.is_franchise` is limited by
+`match_players_one_franchise_per_side_idx` on `(match_id, team_id)`, not by the
+original per-match index. The rulebook line is a sentence about a team
+requesting a franchise substitute, and the league confirmed a match may hold
+two, one each. A panel rule about this has to move with the index: offering a
+state the index refuses hands the operator an error they cannot act on.
