@@ -14,7 +14,7 @@ import {
   legalResolutions,
   linePercentage,
   matchSheetWrites,
-  nameOf,
+  nameIn,
   newGoal,
   partsOf,
   rosterMissing,
@@ -22,6 +22,7 @@ import {
   scorerPicks,
   substituteGoaliePicks,
   withFranchise,
+  withNewSubstitute,
   withSavedParts,
   withWholeRoster,
   type DraftGoal,
@@ -47,6 +48,7 @@ interface MatchSheetScreenProps {
 
 const PART_NAMES: Record<MatchSheetPart, string> = {
   result: 'el resultado',
+  people: 'las personas nuevas',
   players: 'quiénes jugaron',
   goals: 'los goles',
   goalkeepers: 'los arqueros',
@@ -104,6 +106,8 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
   /** The person each side's picker is pointing at, before it is added. */
   const [pickedPlayer, setPickedPlayer] = useState<Record<string, string>>({})
   const [pickedGoalie, setPickedGoalie] = useState<Record<string, string>>({})
+  /** A substitute's name as typed, per side, for somebody the league lacks. */
+  const [typedName, setTypedName] = useState<Record<string, string>>({})
 
   /** Any edit makes the last save report stale, so it goes. */
   const edit = (change: (current: MatchSheetDraft) => MatchSheetDraft) => {
@@ -172,6 +176,14 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
     sides.find((side) => side.id === teamId)?.shortName ?? 'Equipo desconocido'
 
   const legal = legalResolutions(draft)
+
+  const addSubstitute = (side: SheetTeam) => {
+    const name = typedName[side.id] ?? ''
+    if (name.trim() === '') return
+
+    edit((current) => withNewSubstitute(current, side.id, name))
+    setTypedName((current) => ({ ...current, [side.id]: '' }))
+  }
 
   const addPlayer = (side: SheetTeam, playerId: string) => {
     if (playerId === '') return
@@ -391,7 +403,7 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
 
                   <ul className="sheet__rows">
                     {listedHere.map((appearance) => {
-                      const person = nameOf(sheet, appearance.playerId)
+                      const person = nameIn(sheet, draft, appearance.playerId)
 
                       return (
                         <li className="sheet__row" key={appearance.playerId}>
@@ -512,14 +524,47 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
                   >
                     Agregar jugador de {side.shortName}
                   </button>
+
+                  {/* The door «el Cuiti» needed: the league's own statistics
+                      carry him as a substitute and he is on nobody's roster,
+                      so no list could offer him. Creating him from Equipos y
+                      planteles would also put him on a roster he is not in. */}
+                  <p className="sheet__field">
+                    <label htmlFor={`sheet-new-sub-${side.id}`}>
+                      Suplente que no está en la liga
+                    </label>
+                    <input
+                      autoComplete="off"
+                      id={`sheet-new-sub-${side.id}`}
+                      onChange={(event) =>
+                        setTypedName((current) => ({
+                          ...current,
+                          [side.id]: event.target.value,
+                        }))
+                      }
+                      placeholder="Apellido y nombre"
+                      type="text"
+                      value={typedName[side.id] ?? ''}
+                    />
+                  </p>
+
+                  <button
+                    className="sheet__add"
+                    disabled={(typedName[side.id] ?? '').trim() === ''}
+                    onClick={() => addSubstitute(side)}
+                    type="button"
+                  >
+                    Crear y sumar como suplente
+                  </button>
                 </div>
               )
             })}
           </div>
 
           <p className="sheet__hint">
-            Si la persona no está en ninguna de las dos listas, hay que crearla
-            en Equipos y planteles.
+            Un suplente que la liga no tiene se crea acá mismo, con el nombre y
+            nada más, y no entra a ningún plantel: un suplente no es jugador del
+            plantel. Se guarda con la planilla.
           </p>
         </fieldset>
 
@@ -655,7 +700,7 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
 
                   <ul className="sheet__rows">
                     {linesHere.map((line) => {
-                      const person = nameOf(sheet, line.playerId)
+                      const person = nameIn(sheet, draft, line.playerId)
 
                       return (
                         <li

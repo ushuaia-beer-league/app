@@ -488,6 +488,20 @@ async function deleteRows<T extends TableName>(
   return (data ?? []).length < values.length ? CHANGED_NOTHING : null
 }
 
+/**
+ * The people this sheet invents, written before the appearances that name
+ * them: a substitute who is on nobody's roster has no other way into
+ * `players`, and `match_players` would refuse an appearance for an id the
+ * table has never seen. Upserted on the primary key, so saving twice creates
+ * one person.
+ */
+async function savePeople(
+  client: LeagueClient,
+  writes: MatchSheetWrites,
+): Promise<PartFailure> {
+  return await upsertRows(client, 'players', writes.people, 'id', 'id')
+}
+
 async function savePlayers(
   client: LeagueClient,
   writes: MatchSheetWrites,
@@ -587,6 +601,7 @@ export async function saveMatchSheet(
     (client: LeagueClient, writes: MatchSheetWrites) => Promise<PartFailure>
   > = {
     result: saveResult,
+    people: savePeople,
     players: savePlayers,
     goals: saveGoals,
     goalkeepers: saveGoalkeepers,

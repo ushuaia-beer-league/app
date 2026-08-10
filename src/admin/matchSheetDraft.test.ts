@@ -19,6 +19,7 @@ import {
   scorerPicks,
   substituteGoaliePicks,
   withFranchise,
+  withNewSubstitute,
   withSavedParts,
   withWholeRoster,
   type MatchSheetData,
@@ -73,6 +74,7 @@ const draft = (overrides: Partial<MatchSheetDraft> = {}): MatchSheetDraft => ({
   homeGoals: '',
   awayGoals: '',
   resolution: '',
+  newPeople: [],
   appearances: [],
   goals: [],
   goalieLines: [],
@@ -91,6 +93,8 @@ describe('draftFromSheet', () => {
       appearances: [],
       goals: [],
       goalieLines: [],
+      // Nobody is invented until somebody types a name on this sheet.
+      newPeople: [],
     })
   })
 
@@ -486,6 +490,49 @@ describe('withFranchise', () => {
         (row) => row.isFranchise,
       ),
     ).toEqual([false, false])
+  })
+})
+
+describe('withNewSubstitute', () => {
+  it('creates the person and lists them as a substitute', () => {
+    // «El Cuiti» is in the league's own statistics as `Suplente (Sucucho)` and
+    // is on nobody's roster, so no picker could ever have offered him.
+    const next = withNewSubstitute(draft(), HOME, '  Cuitiño Joaquín  ')
+
+    expect(next.newPeople).toHaveLength(1)
+    expect(next.newPeople[0]?.fullName).toBe('Cuitiño Joaquín')
+    expect(next.appearances).toEqual([
+      {
+        playerId: next.newPeople[0]?.id,
+        teamId: HOME,
+        isSubstitute: true,
+        isFranchise: false,
+      },
+    ])
+  })
+
+  it('creates nobody out of an empty name', () => {
+    expect(withNewSubstitute(draft(), HOME, '   ')).toEqual(draft())
+  })
+
+  it('is written as a person before the appearance that names them', () => {
+    const next = withNewSubstitute(draft(), HOME, 'Cuitiño Joaquín')
+    const writes = matchSheetWrites('match-1', draft(), next)
+
+    expect(writes.people).toEqual([
+      { id: next.newPeople[0]?.id, full_name: 'Cuitiño Joaquín' },
+    ])
+    // People come first in the order the save walks: match_players would
+    // refuse an appearance for an id `players` has never seen.
+    expect(partsOf(writes)).toEqual(['people', 'players'])
+  })
+
+  it('writes nobody the sheet no longer names', () => {
+    // Typed in, then removed again before saving: no person, no appearance.
+    const invented = withNewSubstitute(draft(), HOME, 'Alguien Que No Jugó')
+    const undone = { ...invented, appearances: [] }
+
+    expect(matchSheetWrites('match-1', draft(), undone).people).toEqual([])
   })
 })
 
