@@ -111,11 +111,19 @@ Storage: `media_insert_sport_teams` / `media_update_sport_teams` let sporting
 management write under the `teams/` prefix only, because team crests belong to
 the team row, which is sport's.
 
-## The franchise index, changed 10 August 2026
+## The franchise flag, and the lesson it cost
 
-`match_players.is_franchise` is limited by
-`match_players_one_franchise_per_side_idx` on `(match_id, team_id)`, not by the
-original per-match index. The rulebook line is a sentence about a team
-requesting a franchise substitute, and the league confirmed a match may hold
-two, one each. A panel rule about this has to move with the index: offering a
-state the index refuses hands the operator an error they cannot act on.
+`match_players.is_franchise` carries **no** unique constraint:
+`match_players_franchise_idx` on `(match_id, team_id)` is a plain index. It was
+capped three times in one week, per match, then per side, then not at all, and
+every cap came from reading the rulebook rather than from asking the league,
+which eventually said teams had two and one and that the concern is balance,
+not a count.
+
+Two rules came out of it. **Do not encode a limit the sources only imply**: if
+the rulebook sentence can be read two ways, record the fact and report it,
+because a constraint that refuses a real match sheet stops the league from
+recording a night that happened. And **a panel rule about a constraint must
+move with the constraint**: offering a state the index refuses hands the
+operator an error they cannot act on, which is why the panel half waited for
+the migration both times.

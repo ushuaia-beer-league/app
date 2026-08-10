@@ -76,12 +76,16 @@ Verbatim:
 - El costo de los jugadores para participar de suplentes en junio será de 15.000
   por fecha.
 
-**Answered 10 August 2026**: a match may hold **two** franchise players, one
-per side. The sentence above is about a team requesting one, which is how the
-league reads it, and `match_players_one_franchise_per_side_idx` now enforces
-that. What a franchise player *is* remains open question 10.
+**Answered 10 August 2026, and it is not a number**: the league said this
+edition had teams with **two** franchise players and teams with one, and that
+what they want to avoid is a lopsided match, "uno con 3 y otro con 1". So there
+is no cap. The system records every franchise appearance and the panel says how
+many each side has; `match_players_franchise_idx` is a plain index, not a
+unique one, because a constraint that refuses a real sheet stops the league
+from recording a night that happened. What a franchise player *is* remains open
+question 10.
 
-Concepts the system has to model: **franchise player** (at most one per side),
+Concepts the system has to model: **franchise player** (recorded, never capped),
 the five-player threshold for requesting a substitute in the playoffs, the
 48-hour request window and the per-round cost.
 
@@ -710,10 +714,12 @@ only the matchups. Use the calendar CSV for results.
 9. Each player's level and position: the functional document lists them as
    minimum data and the current spreadsheet does not have them.
 10. What a franchise player is and how it is flagged. **Partly answered 10
-    August 2026**: how many may play is settled, two per match and one per
-    side, so the panel and the index allow that. What the status *means* is
-    still open, and so is whether the league wants it recorded at all: nothing
-    on the public site reads the flag today.
+    August 2026**: there is no limit on how many may play. The league fielded
+    two on one side and one on the other this edition, and the concern is
+    balance rather than a count, so the panel counts and warns and refuses
+    nothing. What the status *means* is still open, and so is whether the
+    league wants it recorded at all: nothing on the public site reads the flag,
+    and the operator asked what the point of ticking it is.
 11. The substitute cost per round after June.
 12. ~~The full playoff format.~~ **Answered 6 August 2026**: the first and
     second seeds each wait in a semifinal, the third plays the winner of sixth

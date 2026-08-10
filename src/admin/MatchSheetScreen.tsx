@@ -9,6 +9,7 @@ import {
   draftFromSheet,
   draftMatch,
   draftProblems,
+  franchiseImbalance,
   goaliePicks,
   leaguePicks,
   legalResolutions,
@@ -120,6 +121,7 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
   const gaps = matchGaps(match, counts)
   const contradiction = goalsExceedScore(match, counts)
   const problems = draftProblems(sheet, draft)
+  const franchise = franchiseImbalance(sheet, draft)
   const writes = matchSheetWrites(sheet.matchId, baseline, draft)
   const pending = partsOf(writes)
 
@@ -273,6 +275,18 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
             {gap.label}
           </li>
         ))}
+        {franchise.home + franchise.away > 0 && (
+          <li
+            className={
+              franchise.uneven ? 'sheet__gap sheet__gap--league' : 'sheet__gap'
+            }
+          >
+            Jugador franquicia: {franchise.home} de{' '}
+            {sheet.home?.shortName ?? 'local'} y {franchise.away} de{' '}
+            {sheet.away?.shortName ?? 'visitante'}
+            {franchise.uneven ? '. Los lados quedan desparejos.' : '.'}
+          </li>
+        )}
         {gaps.length === 0 && !contradiction && (
           <li className="sheet__gap sheet__gap--done">
             No falta nada en esta planilla
@@ -379,8 +393,9 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
 
           <p className="sheet__hint">
             Los suplentes no están en el plantel: se buscan en el resto de la
-            liga y quedan marcados como suplentes. De jugador franquicia solo
-            puede haber uno en todo el partido.
+            liga y quedan marcados como suplentes. La marca de franquicia no
+            tiene tope: se cargan los que jugaron, y arriba te decimos cuántos
+            tiene cada lado para que se vea si quedaron desparejos.
           </p>
 
           <div className="sheet__sides">

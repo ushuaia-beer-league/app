@@ -6,6 +6,7 @@ import {
   draftMatch,
   draftProblems,
   draftResult,
+  franchiseImbalance,
   goaliePicks,
   leaguePicks,
   legalResolutions,
@@ -206,33 +207,10 @@ describe('draftProblems', () => {
     ])
   })
 
-  it('allows a franchise player on each side, which is what the league says', () => {
-    // "Solo puede jugar uno por partido" is a sentence about a team requesting
-    // one; the league said plainly on 2026-08-10 that a match may hold two.
-    const problems = draftProblems(
-      sheet(),
-      draft({
-        appearances: [
-          {
-            playerId: 'p1',
-            teamId: HOME,
-            isSubstitute: true,
-            isFranchise: true,
-          },
-          {
-            playerId: 'p3',
-            teamId: AWAY,
-            isSubstitute: true,
-            isFranchise: true,
-          },
-        ],
-      }),
-    )
-
-    expect(problems).toEqual([])
-  })
-
-  it('refuses two franchise players on the same side, and names it', () => {
+  it('refuses no franchise arrangement at all, however lopsided', () => {
+    // The league said on 2026-08-10 that this edition had teams with two and
+    // teams with one. A panel that refused that could not record a night that
+    // happened, which is worse than a panel with no rule.
     const problems = draftProblems(
       sheet(),
       draft({
@@ -249,13 +227,17 @@ describe('draftProblems', () => {
             isSubstitute: true,
             isFranchise: true,
           },
+          {
+            playerId: 'p3',
+            teamId: AWAY,
+            isSubstitute: true,
+            isFranchise: true,
+          },
         ],
       }),
     )
 
-    expect(problems[0]?.kind).toBe('two-franchise')
-    expect(problems[0]?.message).toContain('Rock Choppers')
-    expect(problems[0]?.message).toContain('2 marcados')
+    expect(problems).toEqual([])
   })
 
   it('accepts one franchise player', () => {
@@ -493,9 +475,9 @@ describe('linePercentage', () => {
 })
 
 describe('withFranchise', () => {
-  it('moves the flag inside a side, and leaves the opponent alone', () => {
-    // Two of one side plus the opponent's own: ticking ours must move ours and
-    // never touch theirs, which is what the per-side index allows.
+  it('turns one flag on or off and touches nobody else', () => {
+    // It used to untick the other one, which is how a rule read out of the
+    // rulebook became a panel that could not record a real sheet.
     const current = draft({
       appearances: [
         { playerId: 'p1', teamId: HOME, isSubstitute: true, isFranchise: true },
@@ -514,19 +496,48 @@ describe('withFranchise', () => {
       ],
     })
 
-    const moved = withFranchise(current, 'p2', true)
-
-    expect(moved.appearances.map((row) => row.isFranchise)).toEqual([
-      false,
+    const both = withFranchise(current, 'p2', true)
+    expect(both.appearances.map((row) => row.isFranchise)).toEqual([
+      true,
       true,
       true,
     ])
-    // Unticking the away side's flag leaves ours where it is.
+
     expect(
-      withFranchise(moved, 'p3', false).appearances.map(
+      withFranchise(both, 'p1', false).appearances.map(
         (row) => row.isFranchise,
       ),
-    ).toEqual([false, true, false])
+    ).toEqual([false, true, true])
+  })
+
+  it('counts each side and says when they are uneven', () => {
+    // The fact the league actually watches for: "uno con 3 y otro con 1".
+    const lopsided = draft({
+      appearances: [
+        { playerId: 'p1', teamId: HOME, isSubstitute: true, isFranchise: true },
+        { playerId: 'p2', teamId: HOME, isSubstitute: true, isFranchise: true },
+        { playerId: 'p3', teamId: AWAY, isSubstitute: true, isFranchise: true },
+      ],
+    })
+
+    expect(franchiseImbalance(sheet(), lopsided)).toEqual({
+      home: 2,
+      away: 1,
+      uneven: true,
+    })
+
+    const even = withFranchise(lopsided, 'p2', false)
+    expect(franchiseImbalance(sheet(), even)).toEqual({
+      home: 1,
+      away: 1,
+      uneven: false,
+    })
+
+    expect(franchiseImbalance(sheet(), draft())).toEqual({
+      home: 0,
+      away: 0,
+      uneven: false,
+    })
   })
 })
 
