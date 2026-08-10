@@ -28,7 +28,12 @@ const UNTESTED: PublishedGoalkeepingRow = {
 
 describe('GoalkeepingTable', () => {
   it('heads the columns the goalkeeper sheet heads, and calls a keeper a keeper', () => {
-    render(<GoalkeepingTable rows={[KEEPER]} publishedOn="2026-07-04" />)
+    render(
+      <GoalkeepingTable
+        rows={[KEEPER]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     expect(
       screen.getAllByRole('columnheader').map((header) => header.textContent),
@@ -43,7 +48,12 @@ describe('GoalkeepingTable', () => {
   })
 
   it('prints the save percentage the league prints', () => {
-    render(<GoalkeepingTable rows={[KEEPER]} publishedOn="2026-07-04" />)
+    render(
+      <GoalkeepingTable
+        rows={[KEEPER]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     const row = screen.getByRole('row', { name: /Badaracco Nico/ })
 
@@ -55,7 +65,12 @@ describe('GoalkeepingTable', () => {
   })
 
   it('gives a keeper who faced no shot a dash rather than a zero', () => {
-    render(<GoalkeepingTable rows={[UNTESTED]} publishedOn="2026-07-04" />)
+    render(
+      <GoalkeepingTable
+        rows={[UNTESTED]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     expect(screen.getByText('—')).toBeVisible()
     expect(screen.queryByText('0%')).not.toBeInTheDocument()
@@ -63,7 +78,12 @@ describe('GoalkeepingTable', () => {
   })
 
   it('marks the substitute and explains the percentage', () => {
-    render(<GoalkeepingTable rows={[UNTESTED]} publishedOn="2026-07-04" />)
+    render(
+      <GoalkeepingTable
+        rows={[UNTESTED]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     const row = screen.getByRole('row', { name: /Jofré Lautaro.*, suplente/ })
 
@@ -74,7 +94,12 @@ describe('GoalkeepingTable', () => {
   })
 
   it('says when the league published these totals', () => {
-    render(<GoalkeepingTable rows={[KEEPER]} publishedOn="2026-07-04" />)
+    render(
+      <GoalkeepingTable
+        rows={[KEEPER]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     expect(
       screen.getByText(/Totales publicados por la liga el 4 de julio de 2026/),
@@ -82,7 +107,12 @@ describe('GoalkeepingTable', () => {
   })
 
   it('says so when the competition has no published keepers', () => {
-    render(<GoalkeepingTable rows={[]} publishedOn="2026-07-04" />)
+    render(
+      <GoalkeepingTable
+        rows={[]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     expect(
       screen.getByText(

@@ -94,7 +94,9 @@ describe('roundShareLines', () => {
     // The derived side is a real team; the unresolved one stays exactly as
     // the sheet printed it. Deriving is the resolver's job, never this list's.
     expect(lines[0]?.left).toBe('Sucucho — Ganador 4to 5to')
-    expect(lines[0]?.sub).toBe('21:30 · Cabecera a definir')
+    // The stage rides in the shared card too: a picture of the final should
+    // say which match it is.
+    expect(lines[0]?.sub).toBe('21:30 · Cabecera a definir · Semifinal')
   })
 
   it('keeps the gap visible when the sheet named nobody', () => {

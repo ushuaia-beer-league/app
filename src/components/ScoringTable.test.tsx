@@ -37,7 +37,12 @@ const WITHOUT_TEAM: PublishedScoringRow = {
 
 describe('ScoringTable', () => {
   it('heads the five columns the league publishes', () => {
-    render(<ScoringTable rows={[LEADER]} publishedOn="2026-07-04" />)
+    render(
+      <ScoringTable
+        rows={[LEADER]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     expect(
       screen.getAllByRole('columnheader').map((header) => header.textContent),
@@ -45,7 +50,12 @@ describe('ScoringTable', () => {
   })
 
   it('puts assists, goals and points where the sheet puts them', () => {
-    render(<ScoringTable rows={[LEADER]} publishedOn="2026-07-04" />)
+    render(
+      <ScoringTable
+        rows={[LEADER]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     const row = screen.getByRole('row', { name: /Beltrami Ramiro/ })
 
@@ -56,19 +66,34 @@ describe('ScoringTable', () => {
     ).toEqual(['Beerizar Rompehielos T9', '6', '23', '29'])
   })
 
-  it('says when the league published these totals and that they are not derived', () => {
-    render(<ScoringTable rows={[LEADER]} publishedOn="2026-07-04" />)
+  it('says where its numbers came from, whatever the caller says that is', () => {
+    // The same table renders the league's published totals and what the panel's
+    // own sheets add up to, so the sentence is the caller's: saying "publicados
+    // el 4 de julio" over last night's playoff goals would be false.
+    render(
+      <ScoringTable
+        rows={[LEADER]}
+        provenance="Calculado a partir de 3 planillas cargadas en el sitio."
+      />,
+    )
 
     expect(
-      screen.getByText(/Totales publicados por la liga el 4 de julio de 2026/),
+      screen.getByText(
+        'Calculado a partir de 3 planillas cargadas en el sitio.',
+      ),
     ).toBeVisible()
     expect(
-      screen.getByText(/No se calculan a partir de los partidos cargados/),
-    ).toBeVisible()
+      screen.queryByText(/No se calculan a partir de los partidos cargados/),
+    ).toBeNull()
   })
 
   it('marks a name nobody has confirmed, and explains the mark', () => {
-    render(<ScoringTable rows={[SUBSTITUTE]} publishedOn="2026-07-04" />)
+    render(
+      <ScoringTable
+        rows={[SUBSTITUTE]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     expect(
       screen.getByRole('rowheader', {
@@ -82,7 +107,12 @@ describe('ScoringTable', () => {
   })
 
   it('marks a substitute as one, and explains the mark', () => {
-    render(<ScoringTable rows={[SUBSTITUTE]} publishedOn="2026-07-04" />)
+    render(
+      <ScoringTable
+        rows={[SUBSTITUTE]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     const row = screen.getByRole('row', { name: /suplente/ })
 
@@ -91,13 +121,23 @@ describe('ScoringTable', () => {
   })
 
   it('leaves the team gap showing when the sheets never named one', () => {
-    render(<ScoringTable rows={[WITHOUT_TEAM]} publishedOn="2026-07-04" />)
+    render(
+      <ScoringTable
+        rows={[WITHOUT_TEAM]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     expect(screen.getByText('Sin equipo')).toBeVisible()
   })
 
   it('says so when the competition has no published totals', () => {
-    render(<ScoringTable rows={[]} publishedOn="2026-07-04" />)
+    render(
+      <ScoringTable
+        rows={[]}
+        provenance="Totales publicados por la liga el 4 de julio de 2026."
+      />,
+    )
 
     expect(
       screen.getByText(

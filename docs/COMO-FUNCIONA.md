@@ -53,9 +53,11 @@ El orden de la tabla es: puntos, después PGR, después diferencia de gol. No ha
 
 ### Lo de goleadores y arqueros
 
-Las planillas de la liga traen **totales por jugador de toda la temporada**, no gol por gol. Como no hay registro de cada gol, el sistema no puede calcular esa tabla: la transcribe tal como la liga la publicó, y lo dice arriba con la fecha.
+Las planillas de la liga traen **totales por jugador de toda la temporada**, no gol por gol. Como no hay registro de cada gol, esa tabla no se puede calcular: se transcribe tal como la liga la publicó, y lo dice arriba con la fecha.
 
-Cuando se carguen los goles partido por partido desde el panel, esa tabla va a poder calcularse igual que las posiciones.
+Y abajo de esa tabla, **cuando hay planillas cargadas en el sitio**, aparece una segunda: «Lo cargado en el sitio», calculada de los goles y los tiros que se cargaron partido por partido. Dice de cuántas planillas sale, así se entiende que no es la temporada entera.
+
+> Son dos cosas distintas y por eso están las dos. La publicada es la temporada regular como la cerró la liga; la calculada es lo que se cargó desde el panel. Sumarlas daría un número que no es ninguno de los dos, y reemplazar una por la otra haría parecer que se perdió el año.
 
 El **porcentaje de atajadas** es (tiros recibidos menos goles recibidos) dividido tiros recibidos. Se calcula al mostrarlo y nunca se guarda. Un arquero que no recibió tiros no tiene 100%: no tiene porcentaje, y se muestra un guion.
 

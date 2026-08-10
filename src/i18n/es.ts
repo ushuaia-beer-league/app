@@ -116,6 +116,10 @@ export const STRINGS = [
   'Ver las {n} fechas ya jugadas',
   'Repechaje',
   'Cuartos de final',
+  // The fixture names one match; the bracket above names a whole round.
+  'Cuartos',
+  'Semifinal',
+  'Juego de estrellas',
   'Semifinales',
   'Final',
   'Tercer puesto',

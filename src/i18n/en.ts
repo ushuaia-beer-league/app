@@ -157,6 +157,9 @@ export const en: Catalogue = {
   'Foto siguiente': 'Next photo',
   Cerrar: 'Close',
 
+  Cuartos: 'Quarterfinal',
+  Semifinal: 'Semifinal',
+  'Juego de estrellas': 'All-star game',
   // Sharing a table, a team or a round as an image.
   Compartir: 'Share',
   'Compartir {que} como imagen': 'Share {que} as an image',

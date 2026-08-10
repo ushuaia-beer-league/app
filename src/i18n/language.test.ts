@@ -76,7 +76,15 @@ const TRANSLATED = LANGUAGES.filter((language) => language !== 'es')
  * the words that happen to be the same in both.
  */
 const SAME_AS_SPANISH: Readonly<Record<string, readonly string[]>> = {
-  en: ['Fixture', 'Playoffs', 'Sponsors', 'Final', 'Hockey'],
+  en: [
+    'Fixture',
+    'Playoffs',
+    'Sponsors',
+    'Final',
+    'Hockey',
+    // The same word in English, and in Portuguese below.
+    'Semifinal',
+  ],
   'pt-BR': [
     'Ligas',
     'Fotos',
@@ -86,6 +94,7 @@ const SAME_AS_SPANISH: Readonly<Record<string, readonly string[]>> = {
     'Temporada {year}',
     'Final',
     'Empate',
+    'Semifinal',
     // "The previous photo" is the same three words in both languages.
     'Foto anterior',
   ],

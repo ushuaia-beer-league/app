@@ -97,3 +97,18 @@
   justify-content: flex-end;
   margin-top: var(--space-3);
 }
+
+/*
+ * The heading over what the panel's own sheets add up to. It sits under the
+ * league's published table because the two are different things: a season
+ * transcribed to 4 July, and the matches somebody has loaded since.
+ */
+.leagues__own-title {
+  font-family: var(--font-condensed);
+  font-size: var(--text-md);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-2);
+}

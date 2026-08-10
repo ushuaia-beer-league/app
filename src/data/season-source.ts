@@ -20,6 +20,8 @@
 import {
   PUBLISHED_GOALIE_STATS_SELECT,
   PUBLISHED_PLAYER_STATS_SELECT,
+  SEASON_GOALIE_LINES_SELECT,
+  SEASON_GOALS_SELECT,
   SEASON_MATCHES_SELECT,
   SEASON_PLAYERS_SELECT,
   SEASON_ROSTER_SELECT,
@@ -156,8 +158,16 @@ async function loadFromSupabase(
 
   const seasonId = (seasonRow.data as { id: string }).id
 
-  const [teams, matches, playerStats, goalieStats, players, roster] =
-    await Promise.all([
+  const [
+    teams,
+    matches,
+    playerStats,
+    goalieStats,
+    players,
+    roster,
+    goals,
+    goalieLines,
+  ] = await Promise.all([
       client.from('teams').select(TEAMS_SELECT),
       // The two teams are embedded by **foreign key name**, not by column. A match
       // reaches `teams` twice, so the embed has to say which way, and the obvious
@@ -187,6 +197,10 @@ async function loadFromSupabase(
         .from('team_players')
         .select(SEASON_ROSTER_SELECT)
         .eq('season_id', seasonId),
+      // The panel's own records. A competition with any of these gets a
+      // computed table instead of the league's transcribed totals.
+      client.from('match_goals').select(SEASON_GOALS_SELECT),
+      client.from('goalie_lines').select(SEASON_GOALIE_LINES_SELECT),
     ])
 
   const failure = [
@@ -196,6 +210,8 @@ async function loadFromSupabase(
     goalieStats,
     players,
     roster,
+    goals,
+    goalieLines,
   ].find((result) => result.error)
   if (failure?.error) return { data: null, because: failure.error.message }
 
@@ -213,6 +229,21 @@ async function loadFromSupabase(
   const playerRosterRows = (players.data ?? []) as {
     id: string
     full_name: string
+  }[]
+  const goalRows = (goals.data ?? []) as unknown as {
+    match_id: string
+    team_id: string
+    scorer_id: string | null
+    assist_id: string | null
+    matches: { competition_key: CompetitionKey } | null
+  }[]
+  const goalieRowsPanel = (goalieLines.data ?? []) as unknown as {
+    match_id: string
+    team_id: string
+    player_id: string
+    shots_faced: number
+    goals_against: number
+    matches: { competition_key: CompetitionKey } | null
   }[]
   const rosterRows = (roster.data ?? []) as unknown as {
     player_id: string
@@ -265,6 +296,35 @@ async function loadFromSupabase(
           : [],
       ),
       matches: matchRows.map(matchFromRow),
+      // A goal whose match answered nothing has no competition to belong to, so
+      // it is left out rather than filed under a guess.
+      goals: goalRows.flatMap((row) =>
+        row.matches === null
+          ? []
+          : [
+              {
+                matchId: row.match_id,
+                competition: row.matches.competition_key,
+                teamId: row.team_id,
+                scorerId: row.scorer_id,
+                assistId: row.assist_id,
+              },
+            ],
+      ),
+      goalieLines: goalieRowsPanel.flatMap((row) =>
+        row.matches === null
+          ? []
+          : [
+              {
+                matchId: row.match_id,
+                competition: row.matches.competition_key,
+                playerId: row.player_id,
+                teamId: row.team_id,
+                shotsFaced: row.shots_faced,
+                goalsAgainst: row.goals_against,
+              },
+            ],
+      ),
       publishedPlayerStats: playerRows.map((row) => ({
         competition: row.competition_key,
         sourceFile: row.source_file,

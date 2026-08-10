@@ -74,3 +74,15 @@ export const SEASON_PLAYERS_SELECT = 'id, full_name'
 
 export const SEASON_ROSTER_SELECT =
   'player_id, competition_key, jersey_number, active, teams (slug)'
+
+/**
+ * The goals and goalkeeper lines the panel records, for the public tables.
+ *
+ * The match is embedded for its competition, because a goal belongs to one
+ * through its match and the tables are per competition.
+ */
+export const SEASON_GOALS_SELECT =
+  'match_id, team_id, scorer_id, assist_id, matches (competition_key)'
+
+export const SEASON_GOALIE_LINES_SELECT =
+  'match_id, team_id, player_id, shots_faced, goals_against, matches (competition_key)'

@@ -2,7 +2,6 @@ import {
   formatSavePercentage,
   type PublishedGoalkeepingRow,
 } from '../utils/published-statistics'
-import { formatDate } from './dates'
 import {
   PublishedMarksLegend,
   PublishedName,
@@ -15,8 +14,16 @@ import { useT } from '../i18n/useLanguage'
 type GoalkeepingTableProps = {
   /** Already ordered by `publishedGoalkeepingTable()`: percentage, then shots. */
   rows: readonly PublishedGoalkeepingRow[]
-  /** The day the league published these totals, `YYYY-MM-DD`. */
-  publishedOn: string
+  /**
+   * Where these numbers came from, in one sentence, written by the caller.
+   *
+   * The caller owns it because the same table renders two different things: the
+   * league's published season totals, dated, and what the panel's own sheets
+   * add up to. Saying "publicados el 4 de julio" over numbers that came from
+   * last night's playoff sheets would be false, and the table cannot know
+   * which it was handed.
+   */
+  provenance: string
 }
 
 /**
@@ -32,7 +39,7 @@ type GoalkeepingTableProps = {
  * heads this table "Jugadores", which is the heading of the outfield table too,
  * so the goalkeepers get called goalkeepers here.
  */
-export function GoalkeepingTable({ rows, publishedOn }: GoalkeepingTableProps) {
+export function GoalkeepingTable({ rows, provenance }: GoalkeepingTableProps) {
   const t = useT()
   if (rows.length === 0) {
     return (
@@ -44,10 +51,7 @@ export function GoalkeepingTable({ rows, publishedOn }: GoalkeepingTableProps) {
 
   return (
     <div className="goalkeeping">
-      <p className="data-table__published">
-        Totales publicados por la liga el {formatDate(publishedOn)}. No se
-        calculan a partir de los partidos cargados en el sitio.
-      </p>
+      <p className="data-table__published">{provenance}</p>
 
       <div
         className="data-table-scroll"

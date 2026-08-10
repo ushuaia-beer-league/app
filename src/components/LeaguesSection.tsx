@@ -7,11 +7,15 @@ import {
   publishedGoalkeepingTable,
   publishedScoringTable,
 } from '../utils/published-statistics'
+import {
+  computedGoalkeeping,
+  computedScoring,
+} from '../utils/season-statistics'
 import { standings } from '../utils/standings'
 import { competitionLabel, COMPETITION_LABELS } from './competitions'
 import type { CompetitionChoice } from './competitions'
 import { CompetitionTabs } from './CompetitionTabs'
-import { todayIso } from './dates'
+import { formatDate, todayIso } from './dates'
 import { FixtureList } from './FixtureList'
 import { GoalkeepingTable } from './GoalkeepingTable'
 import { ScoringTable } from './ScoringTable'
@@ -84,6 +88,24 @@ type LeaguesSectionProps = {
  * tablist, with arrow keys, Home and End, and one stop in the tab order for the
  * whole set, which is what the pattern asks for.
  */
+/**
+ * What the league published, and when. Said over the transcribed tables so a
+ * reader knows they are a photograph of that day and not of tonight.
+ */
+function publishedNote(publishedOn: string): string {
+  return `Totales publicados por la liga el ${formatDate(publishedOn)}. No se calculan a partir de los partidos cargados en el sitio.`
+}
+
+/**
+ * What the panel's own sheets add up to, counted, because the count is what
+ * tells a reader this is not the season: three sheets is a playoff night.
+ */
+function loadedNote(matches: number): string {
+  return matches === 1
+    ? 'Calculado a partir de 1 planilla cargada en el sitio.'
+    : `Calculado a partir de ${matches} planillas cargadas en el sitio.`
+}
+
 export function LeaguesSection({
   season,
   today = todayIso(),
@@ -207,14 +229,17 @@ export function LeaguesSection({
         goalkeepers: publishedGoalkeepingTable(season.publishedGoalieStats, {
           competition,
         }),
+        // What the panel's own sheets add up to, or null while it has recorded
+        // nothing. Its own table rather than a replacement: the published
+        // totals are the regular season and these are the playoff night, and
+        // one is not a fresher version of the other.
+        ownScorers: computedScoring(season, competition),
+        ownGoalkeepers: computedGoalkeeping(season, competition),
       })),
-    [
-      shown,
-      season.matches,
-      season.teams,
-      season.publishedPlayerStats,
-      season.publishedGoalieStats,
-    ],
+    // The whole season: the tables read its goals, its goalie lines, its
+    // players and its teams, and naming five fields was already a list nobody
+    // could keep true.
+    [shown, season],
   )
 
   function moveTab(event: KeyboardEvent<HTMLButtonElement>, index: number) {
@@ -339,8 +364,20 @@ export function LeaguesSection({
                 <>
                   <ScoringTable
                     rows={block.scorers}
-                    publishedOn={season.publishedOn}
+                    provenance={publishedNote(season.publishedOn)}
                   />
+
+                  {block.ownScorers !== null && (
+                    <>
+                      <h4 className="leagues__own-title">
+                        Lo cargado en el sitio
+                      </h4>
+                      <ScoringTable
+                        rows={block.ownScorers.rows}
+                        provenance={loadedNote(block.ownScorers.matches)}
+                      />
+                    </>
+                  )}
                   {block.scorers.length > 0 && (
                     <div className="leagues__share">
                       <ShareButton
@@ -371,8 +408,20 @@ export function LeaguesSection({
                 <>
                   <GoalkeepingTable
                     rows={block.goalkeepers}
-                    publishedOn={season.publishedOn}
+                    provenance={publishedNote(season.publishedOn)}
                   />
+
+                  {block.ownGoalkeepers !== null && (
+                    <>
+                      <h4 className="leagues__own-title">
+                        Lo cargado en el sitio
+                      </h4>
+                      <GoalkeepingTable
+                        rows={block.ownGoalkeepers.rows}
+                        provenance={loadedNote(block.ownGoalkeepers.matches)}
+                      />
+                    </>
+                  )}
                   {block.goalkeepers.length > 0 && (
                     <div className="leagues__share">
                       <ShareButton

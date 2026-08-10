@@ -163,6 +163,9 @@ export const ptBR: Catalogue = {
   'Foto siguiente': 'Próxima foto',
   Cerrar: 'Fechar',
 
+  Cuartos: 'Quartas',
+  Semifinal: 'Semifinal',
+  'Juego de estrellas': 'Jogo das estrelas',
   // Sharing a table, a team or a round as an image.
   Compartir: 'Compartilhar',
   'Compartir {que} como imagen': 'Compartilhar {que} como imagem',

@@ -395,3 +395,53 @@ describe('FixtureList colours each match by its competition', () => {
     expect(cards[1]?.className).toContain('fixture__match--wubl')
   })
 })
+
+describe('which part of the bracket a match is', () => {
+  it('names the stage, so a final is not just two teams', () => {
+    // The row used to carry the sheet's own «Partido 3er lugar», and that text
+    // went away the moment the resolver named the sides.
+    render(
+      <FixtureList
+        rounds={[
+          {
+            date: '2026-08-15',
+            slots: [
+              {
+                time: '22:30',
+                matches: [
+                  match({
+                    id: 'la-final',
+                    stage: 'final',
+                    date: '2026-08-15',
+                    time: '22:30',
+                    venue: null,
+                    homeTeamId: 'rock-choppers',
+                    awayTeamId: 'sucucho',
+                  }),
+                ],
+              },
+            ],
+          },
+        ]}
+        teamName={teamName}
+        today="2026-08-10"
+      />,
+    )
+
+    expect(screen.getByText('Final')).toBeVisible()
+  })
+
+  it('says nothing about the stage of a regular-phase match', () => {
+    // Forty rows saying «fase regular» is forty rows of noise.
+    render(
+      <FixtureList
+        rounds={[ROUND_ONE]}
+        teamName={teamName}
+        today="2026-05-23"
+      />,
+    )
+
+    expect(screen.queryByText('Fase regular')).toBeNull()
+    expect(screen.queryByText('Final')).toBeNull()
+  })
+})
