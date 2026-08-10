@@ -19,6 +19,13 @@ import { savePercentage } from './goalkeeping'
 import { isSubstituteLine } from './source-notation'
 
 interface PublishedRowBase {
+  /**
+   * The person this line reaches, when the importer could match it, so a table
+   * can add the panel's own records to it without guessing at names. Null on a
+   * line whose printed name matches nobody — fourteen of the 2026 lines — and
+   * those stay as their own rows rather than being merged into somebody.
+   */
+  playerId: string | null
   /** The best name known: the roster's spelling, or the printed text. */
   name: string
   /**
@@ -47,6 +54,7 @@ export interface PublishedGoalkeepingRow extends PublishedRowBase {
 }
 
 function base(line: {
+  playerSlug: string | null
   resolvedName: string | null
   printedPlayerName: string
   printedTeam: string | null
@@ -59,6 +67,7 @@ function base(line: {
   const confirmed = confirmedSpelling(line.printedPlayerName)
 
   return {
+    playerId: line.playerSlug,
     name: line.resolvedName ?? confirmed ?? line.printedPlayerName,
     nameIsPrinted: line.resolvedName === null && confirmed === null,
     team: line.printedTeam,

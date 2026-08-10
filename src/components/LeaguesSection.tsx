@@ -7,10 +7,7 @@ import {
   publishedGoalkeepingTable,
   publishedScoringTable,
 } from '../utils/published-statistics'
-import {
-  computedGoalkeeping,
-  computedScoring,
-} from '../utils/season-statistics'
+import { seasonGoalkeeping, seasonScoring } from '../utils/season-statistics'
 import { standings } from '../utils/standings'
 import { competitionLabel, COMPETITION_LABELS } from './competitions'
 import type { CompetitionChoice } from './competitions'
@@ -89,21 +86,21 @@ type LeaguesSectionProps = {
  * whole set, which is what the pattern asks for.
  */
 /**
- * What the league published, and when. Said over the transcribed tables so a
- * reader knows they are a photograph of that day and not of tonight.
+ * Where the numbers in one table come from, in one sentence.
+ *
+ * Two sentences really, and the difference matters to somebody comparing the
+ * table against their own notes: the league's transcribed totals alone, or
+ * those totals plus the sheets recorded since. The count is the part that lets
+ * a reader tell how much of it is ours.
  */
-function publishedNote(publishedOn: string): string {
-  return `Totales publicados por la liga el ${formatDate(publishedOn)}. No se calculan a partir de los partidos cargados en el sitio.`
-}
-
-/**
- * What the panel's own sheets add up to, counted, because the count is what
- * tells a reader this is not the season: three sheets is a playoff night.
- */
-function loadedNote(matches: number): string {
-  return matches === 1
-    ? 'Calculado a partir de 1 planilla cargada en el sitio.'
-    : `Calculado a partir de ${matches} planillas cargadas en el sitio.`
+function statsNote(publishedOn: string, added: number): string {
+  const published = `Totales publicados por la liga el ${formatDate(publishedOn)}`
+  if (added === 0) {
+    return `${published}. No se calculan a partir de los partidos cargados en el sitio.`
+  }
+  return added === 1
+    ? `${published}, más 1 partido cargado en el sitio desde entonces.`
+    : `${published}, más ${added} partidos cargados en el sitio desde entonces.`
 }
 
 export function LeaguesSection({
@@ -223,18 +220,22 @@ export function LeaguesSection({
             .filter((team) => team.competition === competition)
             .map((team) => team.slug),
         }),
-        scorers: publishedScoringTable(season.publishedPlayerStats, {
+        // One table, which is what the operator asked for after reading two:
+        // the league's published totals plus every sheet recorded since they
+        // were published. Nothing loaded from before that date is added, or a
+        // goal already inside those totals would be counted twice.
+        scorers: seasonScoring(
+          season,
           competition,
-        }),
-        goalkeepers: publishedGoalkeepingTable(season.publishedGoalieStats, {
+          publishedScoringTable(season.publishedPlayerStats, { competition }),
+        ),
+        goalkeepers: seasonGoalkeeping(
+          season,
           competition,
-        }),
-        // What the panel's own sheets add up to, or null while it has recorded
-        // nothing. Its own table rather than a replacement: the published
-        // totals are the regular season and these are the playoff night, and
-        // one is not a fresher version of the other.
-        ownScorers: computedScoring(season, competition),
-        ownGoalkeepers: computedGoalkeeping(season, competition),
+          publishedGoalkeepingTable(season.publishedGoalieStats, {
+            competition,
+          }),
+        ),
       })),
     // The whole season: the tables read its goals, its goalie lines, its
     // players and its teams, and naming five fields was already a list nobody
@@ -363,26 +364,17 @@ export function LeaguesSection({
               {tab === 'scoring' && (
                 <>
                   <ScoringTable
-                    rows={block.scorers}
-                    provenance={publishedNote(season.publishedOn)}
+                    rows={block.scorers.rows}
+                    provenance={statsNote(
+                      season.publishedOn,
+                      block.scorers.addedMatches,
+                    )}
                   />
-
-                  {block.ownScorers !== null && (
-                    <>
-                      <h4 className="leagues__own-title">
-                        Lo cargado en el sitio
-                      </h4>
-                      <ScoringTable
-                        rows={block.ownScorers.rows}
-                        provenance={loadedNote(block.ownScorers.matches)}
-                      />
-                    </>
-                  )}
-                  {block.scorers.length > 0 && (
+                  {block.scorers.rows.length > 0 && (
                     <div className="leagues__share">
                       <ShareButton
                         build={() =>
-                          scoringShareCard(block.scorers, {
+                          scoringShareCard(block.scorers.rows, {
                             title:
                               block.key === 'wubl'
                                 ? t('Goleadoras')
@@ -407,26 +399,17 @@ export function LeaguesSection({
               {tab === 'goalkeeping' && (
                 <>
                   <GoalkeepingTable
-                    rows={block.goalkeepers}
-                    provenance={publishedNote(season.publishedOn)}
+                    rows={block.goalkeepers.rows}
+                    provenance={statsNote(
+                      season.publishedOn,
+                      block.goalkeepers.addedMatches,
+                    )}
                   />
-
-                  {block.ownGoalkeepers !== null && (
-                    <>
-                      <h4 className="leagues__own-title">
-                        Lo cargado en el sitio
-                      </h4>
-                      <GoalkeepingTable
-                        rows={block.ownGoalkeepers.rows}
-                        provenance={loadedNote(block.ownGoalkeepers.matches)}
-                      />
-                    </>
-                  )}
-                  {block.goalkeepers.length > 0 && (
+                  {block.goalkeepers.rows.length > 0 && (
                     <div className="leagues__share">
                       <ShareButton
                         build={() =>
-                          goalkeepingShareCard(block.goalkeepers, {
+                          goalkeepingShareCard(block.goalkeepers.rows, {
                             title:
                               block.key === 'wubl'
                                 ? t('Arqueras')
