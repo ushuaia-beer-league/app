@@ -130,6 +130,12 @@ export interface MatchSheetData {
 // ---------------------------------------------------------------------------
 
 /** What the operator has typed, which is not yet what the database holds. */
+/** A person invented on the sheet: an id generated here, and their name. */
+export interface NewSheetPerson {
+  id: string
+  fullName: string
+}
+
 export interface MatchSheetDraft {
   /** As typed. Empty means unreported, which is not the same as zero. */
   homeGoals: string
@@ -139,6 +145,17 @@ export interface MatchSheetDraft {
   appearances: readonly DraftAppearance[]
   goals: readonly DraftGoal[]
   goalieLines: readonly DraftGoalieLine[]
+  /**
+   * Somebody the operator is inventing on this sheet, so a substitute who is
+   * on nobody roster can be recorded at all. That is not an edge case: «el
+   * Cuiti» is in the league own published statistics as `Suplente (Sucucho)`,
+   * and until this existed the panel had no way to name him — the importer
+   * creates no player row for a substitute, and the only other door, Equipos y
+   * planteles, would also put him on a roster he does not belong to. Name and
+   * nothing else: `players` carries no other personal column and this screen
+   * offers no field for one.
+   */
+  newPeople: readonly NewSheetPerson[]
 }
 
 export function draftFromSheet(sheet: MatchSheetData): MatchSheetDraft {
@@ -151,6 +168,7 @@ export function draftFromSheet(sheet: MatchSheetData): MatchSheetDraft {
     appearances: sheet.appearances.map((row) => ({ ...row })),
     goals: sheet.goals.map((row) => ({ ...row })),
     goalieLines: sheet.goalieLines.map((row) => ({ ...row })),
+    newPeople: [],
   }
 }
 
@@ -234,6 +252,10 @@ export function legalResolutions(draft: MatchSheetDraft): MatchResolution[] {
  * "Solo puede jugar uno por partido", read literally, and enforced in the
  * database by a partial unique index. Ticking one box unticks the other rather
  * than letting the panel offer a state the index refuses.
+ *
+ * The league said on 2026-08-10 that a match may hold two, one per side. That
+ * is a change to the index as much as to this function, so it waits for its
+ * migration rather than shipping a panel the database would refuse.
  */
 export function withFranchise(
   draft: MatchSheetDraft,
@@ -246,6 +268,34 @@ export function withFranchise(
       ...row,
       isFranchise: on && row.playerId === playerId,
     })),
+  }
+}
+
+/**
+ * The sheet with a substitute nobody has on a roster: a person invented here
+ * and an appearance naming them, marked substitute, which is what they are.
+ *
+ * This is the door «el Cuiti» needed. The league's own published statistics
+ * carry him as `Suplente (Sucucho)`, the importer creates no player row for a
+ * substitute, and Equipos y planteles — the only other way in — would also put
+ * him on a roster he does not belong to.
+ */
+export function withNewSubstitute(
+  draft: MatchSheetDraft,
+  teamId: string,
+  fullName: string,
+): MatchSheetDraft {
+  const name = fullName.trim()
+  if (name === '') return draft
+
+  const id = crypto.randomUUID()
+  return {
+    ...draft,
+    newPeople: [...draft.newPeople, { id, fullName: name }],
+    appearances: [
+      ...draft.appearances,
+      { playerId: id, teamId, isSubstitute: true, isFranchise: false },
+    ],
   }
 }
 
@@ -294,7 +344,7 @@ export function draftProblems(
   draft: MatchSheetDraft,
 ): DraftProblem[] {
   const problems: DraftProblem[] = []
-  const name = (playerId: string) => nameOf(sheet, playerId)
+  const name = (playerId: string) => nameIn(sheet, draft, playerId)
 
   const home = readCount(draft.homeGoals)
   const away = readCount(draft.awayGoals)
@@ -494,6 +544,22 @@ export function nameOf(sheet: MatchSheetData, playerId: string): string {
   )
 }
 
+/**
+ * A person's name, the sheet's own inventions first.
+ *
+ * They come first because a person created on this sheet has no `players` row
+ * until the save lands, so `sheet.players` cannot answer for them and the row
+ * would read "Persona que no está en la base" about somebody just typed in.
+ */
+export function nameIn(
+  sheet: MatchSheetData,
+  draft: MatchSheetDraft,
+  playerId: string,
+): string {
+  const invented = draft.newPeople.find((person) => person.id === playerId)
+  return invented?.fullName ?? nameOf(sheet, playerId)
+}
+
 function byName(a: PickOption, b: PickOption): number {
   return a.name.localeCompare(b.name, 'es')
 }
@@ -502,8 +568,13 @@ function optionFor(
   sheet: MatchSheetData,
   playerId: string,
   jerseyNumber: number | null = null,
+  draft?: MatchSheetDraft,
 ): PickOption {
-  return { playerId, name: nameOf(sheet, playerId), jerseyNumber }
+  return {
+    playerId,
+    name: draft ? nameIn(sheet, draft, playerId) : nameOf(sheet, playerId),
+    jerseyNumber,
+  }
 }
 
 function isOffered(sheet: MatchSheetData, playerId: string): boolean {
@@ -568,7 +639,7 @@ export function scorerPicks(
   for (const appearance of draft.appearances) {
     if (appearance.teamId !== teamId || seen.has(appearance.playerId)) continue
     seen.add(appearance.playerId)
-    options.push(optionFor(sheet, appearance.playerId))
+    options.push(optionFor(sheet, appearance.playerId, null, draft))
   }
 
   for (const entry of sheet.roster) {
@@ -625,6 +696,12 @@ export function substituteGoaliePicks(
  * to a query builder that takes an indexable object.
  */
 
+/** A person as `players` holds them: a name, and nothing else personal. */
+export type PlayerRow = {
+  id: string
+  full_name: string
+}
+
 export type MatchPlayerRow = {
   match_id: string
   player_id: string
@@ -650,12 +727,19 @@ export type GoalieLineRow = {
 }
 
 /** The four groups the panel saves, and the four it reports on. */
-export type MatchSheetPart = 'result' | 'players' | 'goals' | 'goalkeepers'
+export type MatchSheetPart =
+  'result' | 'people' | 'players' | 'goals' | 'goalkeepers'
 
 export interface MatchSheetWrites {
   matchId: string
   /** Null when the result has not changed, so an untouched score is not rewritten. */
   result: DraftResult | null
+  /**
+   * People this sheet is creating, written before the appearances that name
+   * them so the foreign key resolves. A substitute nobody has on a roster has
+   * no other way into the league's records.
+   */
+  people: PlayerRow[]
   players: { upsert: MatchPlayerRow[]; removePlayerIds: string[] }
   goals: { upsert: MatchGoalRow[]; removeIds: string[] }
   goalieLines: { upsert: GoalieLineRow[]; removePlayerIds: string[] }
@@ -775,9 +859,16 @@ export function matchSheetWrites(
     keepers: new Set(draft.goalieLines.map((row) => row.playerId)),
   }
 
+  // Only the invented people the sheet still names: somebody typed in and then
+  // removed again is not created, and a blank name is not a person.
+  const named = new Set(draft.appearances.map((row) => row.playerId))
+
   return {
     matchId,
     result: sameResult(before, after) ? null : after,
+    people: draft.newPeople
+      .filter((person) => named.has(person.id) && person.fullName.trim() !== '')
+      .map((person) => ({ id: person.id, full_name: person.fullName.trim() })),
     players: {
       upsert: playerUpserts,
       removePlayerIds: [...playersBefore.keys()].filter(
@@ -802,6 +893,7 @@ export function partsOf(writes: MatchSheetWrites): MatchSheetPart[] {
   const parts: MatchSheetPart[] = []
 
   if (writes.result !== null) parts.push('result')
+  if (writes.people.length > 0) parts.push('people')
   if (
     writes.players.upsert.length > 0 ||
     writes.players.removePlayerIds.length > 0
@@ -847,5 +939,8 @@ export function withSavedParts(
     goalieLines: parts.includes('goalkeepers')
       ? draft.goalieLines
       : baseline.goalieLines,
+    // The invented people ride with the appearances that name them: the write
+    // that creates a person is part of saving who played.
+    newPeople: parts.includes('players') ? draft.newPeople : baseline.newPeople,
   }
 }

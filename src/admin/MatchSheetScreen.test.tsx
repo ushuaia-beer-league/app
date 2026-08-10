@@ -723,3 +723,39 @@ describe('loading a sheet the way the rink does', () => {
     expect(within(row).getByLabelText('Suplente')).toBeChecked()
   })
 })
+
+describe('a substitute the league does not have', () => {
+  it('creates the person from the sheet and lists them as a substitute', async () => {
+    // «El Cuiti» is in the league's own published statistics as `Suplente
+    // (Sucucho)` and is on nobody's roster, so no picker could offer him. The
+    // only other door, Equipos y planteles, would also put him on a roster.
+    const save = show(sheet())
+
+    fireEvent.change(
+      screen.getByLabelText('Suplente que no está en la liga', {
+        selector: '#sheet-new-sub-team-rock',
+      }),
+      { target: { value: 'Cuitiño Joaquín' } },
+    )
+    fireEvent.click(
+      screen.getAllByRole('button', {
+        name: 'Crear y sumar como suplente',
+      })[0]!,
+    )
+
+    const row = rowIn('Quiénes jugaron', 'Cuitiño Joaquín')
+    expect(within(row).getByLabelText('Suplente')).toBeChecked()
+
+    fireEvent.click(saveButton())
+    await screen.findByRole('status')
+
+    const writes = save.mock.calls[0]?.[0]
+    expect(writes?.people).toEqual([
+      { id: expect.any(String), full_name: 'Cuitiño Joaquín' },
+    ])
+    // The appearance names the person the same save creates, and nothing puts
+    // them on a roster: a substitute is not a roster player.
+    expect(writes?.players.upsert[0]?.player_id).toBe(writes?.people[0]?.id)
+    expect(writes?.players.upsert[0]?.is_substitute).toBe(true)
+  })
+})
