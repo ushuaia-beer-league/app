@@ -1,5 +1,4 @@
 import type { PublishedScoringRow } from '../utils/published-statistics'
-import { formatDate } from './dates'
 import {
   PublishedMarksLegend,
   PublishedName,
@@ -12,8 +11,16 @@ import { useT } from '../i18n/useLanguage'
 type ScoringTableProps = {
   /** Already ordered by `publishedScoringTable()`: points, then goals. */
   rows: readonly PublishedScoringRow[]
-  /** The day the league published these totals, `YYYY-MM-DD`. */
-  publishedOn: string
+  /**
+   * Where these numbers came from, in one sentence, written by the caller.
+   *
+   * The caller owns it because the same table renders two different things: the
+   * league's published season totals, dated, and what the panel's own sheets
+   * add up to. Saying "publicados el 4 de julio" over numbers that came from
+   * last night's playoff sheets would be false, and the table cannot know
+   * which it was handed.
+   */
+  provenance: string
 }
 
 /**
@@ -28,7 +35,7 @@ type ScoringTableProps = {
  * The columns are the league's own, from its player statistics sheet: assists,
  * goals, points, in that order, with points being goals plus assists.
  */
-export function ScoringTable({ rows, publishedOn }: ScoringTableProps) {
+export function ScoringTable({ rows, provenance }: ScoringTableProps) {
   const t = useT()
   if (rows.length === 0) {
     return (
@@ -40,10 +47,7 @@ export function ScoringTable({ rows, publishedOn }: ScoringTableProps) {
 
   return (
     <div className="scoring">
-      <p className="data-table__published">
-        Totales publicados por la liga el {formatDate(publishedOn)}. No se
-        calculan a partir de los partidos cargados en el sitio.
-      </p>
+      <p className="data-table__published">{provenance}</p>
 
       <div
         className="data-table-scroll"

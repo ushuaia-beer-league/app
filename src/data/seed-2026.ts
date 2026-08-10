@@ -1835,6 +1835,10 @@ export const SEED_2026: Seed = {
         'The row names no team and no competition; filed under the Beer League, which is the only competition playing on this date. Home side printed as "Final — 1er Lugar".',
     },
   ],
+  // The 2026 sources carry season totals per player and no record of a single
+  // goal, so there is nothing to seed here. The panel fills these.
+  goals: [],
+  goalieLines: [],
   publishedPlayerStats: [
     {
       competition: 'beer',

@@ -1,5 +1,6 @@
 import { splitFixtureByDate, type FixtureRound } from '../utils/fixture'
 import { competitionLabel } from './competitions'
+import { stageKeyFor } from './stages'
 import { formatWeekdayDate } from './dates'
 import './data-table.css'
 import './FixtureList.css'
@@ -208,6 +209,16 @@ function Rounds({
                           {showCompetition && (
                             <span className="fixture__competition">
                               {competitionLabel(match.competition)}
+                            </span>
+                          )}
+                          {/* Which part of the bracket this is. A visitor
+                              looking at two teams on 15 August could not tell
+                              the final from the fifth-place match: the sheet's
+                              own wording used to say it, and it went away the
+                              moment the resolver named the sides. */}
+                          {stageKeyFor(match.stage) !== null && (
+                            <span className="fixture__phase">
+                              {t(stageKeyFor(match.stage)!)}
                             </span>
                           )}
                         </p>

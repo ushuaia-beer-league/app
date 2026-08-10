@@ -13,7 +13,12 @@
  */
 
 import type { TeamSeed } from './teams-2026'
-import type { CompetitionKey, Match } from './types'
+import type {
+  CompetitionKey,
+  GoalieLine,
+  GoalRecord,
+  Match,
+} from './types'
 
 export interface SeedPlayer {
   slug: string
@@ -95,6 +100,18 @@ export interface Seed {
   players: readonly SeedPlayer[]
   rosters: readonly SeedRosterEntry[]
   matches: readonly Match[]
+  /**
+   * The goals and goalkeeper lines the panel records, match by match.
+   *
+   * Empty in the versioned snapshot, which is honest: the 2026 sources carry
+   * season totals per player and no record of a single goal, so there was
+   * nothing to seed. They fill up as the panel is used, and the moment a
+   * competition has any, its scoring and goalkeeping tables are computed from
+   * these instead of transcribed — which is what the operator expected the
+   * night he loaded sixty-eight goals and saw nothing change.
+   */
+  goals: readonly GoalRecord[]
+  goalieLines: readonly GoalieLine[]
   publishedPlayerStats: readonly SeedPublishedPlayerLine[]
   publishedGoalieStats: readonly SeedPublishedGoalieLine[]
   calendarNotes: readonly SeedCalendarNote[]

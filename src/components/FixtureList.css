@@ -268,3 +268,14 @@
   gap: var(--space-3);
   flex-wrap: wrap;
 }
+
+/*
+ * Which part of the bracket a match is. In the league's gold because it is the
+ * thing somebody scanning the 15 August fixture is looking for: two teams and
+ * no label left them unable to tell the final from the fifth-place match.
+ */
+.fixture__phase {
+  display: block;
+  color: var(--color-accent);
+  font-weight: var(--weight-bold);
+}

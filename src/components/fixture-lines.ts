@@ -2,6 +2,7 @@ import type { Match, MatchResolution, Venue } from '../data/types'
 import type { FixtureRound } from '../utils/fixture'
 import type { ShareLine } from '../utils/share-card'
 import { competitionLabel } from './competitions'
+import { stageKeyFor } from './stages'
 
 /** The two cabeceras, spelled as the league spells them. */
 export const VENUES: Record<Venue, string> = {
@@ -115,9 +116,14 @@ export function roundShareLines(
       )
       const resolution =
         match.score === null ? null : RESOLUTIONS[match.score.resolution]
+      const stageKey = stageKeyFor(match.stage)
+      const stage = stageKey === null ? null : stageKey
       const sub = [
         slot.time,
         match.venue === null ? 'Cabecera a definir' : VENUES[match.venue],
+        // Spanish here, unlike the rendered row: a drawn card carries no
+        // translator, and the league shares these in Spanish.
+        stage,
         resolution,
         showCompetition ? competitionLabel(match.competition) : null,
       ]

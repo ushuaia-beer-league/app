@@ -31,6 +31,8 @@ import {
   MATCH_SHEET_SELECT,
   PUBLISHED_GOALIE_STATS_SELECT,
   PUBLISHED_PLAYER_STATS_SELECT,
+  SEASON_GOALIE_LINES_SELECT,
+  SEASON_GOALS_SELECT,
   SEASON_MATCHES_SELECT,
   SEASON_PLAYERS_SELECT,
   SEASON_ROSTER_SELECT,
@@ -100,6 +102,16 @@ const QUERIES: { what: string; table: string; select: string }[] = [
     what: 'the public rosters',
     table: 'team_players',
     select: SEASON_ROSTER_SELECT,
+  },
+  {
+    what: 'the goals the panel recorded',
+    table: 'match_goals',
+    select: SEASON_GOALS_SELECT,
+  },
+  {
+    what: 'the goalkeeper lines the panel recorded',
+    table: 'goalie_lines',
+    select: SEASON_GOALIE_LINES_SELECT,
   },
 ]
 

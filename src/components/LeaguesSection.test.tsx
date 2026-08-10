@@ -13,6 +13,8 @@ const SEASON: SeasonData = {
   season: 2026,
   publishedOn: '2026-07-04',
   sources: [],
+  goals: [],
+  goalieLines: [],
   teams: [
     {
       slug: 'birra-del-fuego',

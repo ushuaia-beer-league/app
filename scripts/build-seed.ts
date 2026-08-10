@@ -286,6 +286,10 @@ if (problems.length > 0) {
 const seed: Seed = {
   season: parsed.season,
   publishedOn: parsed.publishedOn,
+  // The sources carry season totals per player and no record of a single goal,
+  // so the snapshot seeds none. The panel writes these.
+  goals: [],
+  goalieLines: [],
   sources: parsed.sources,
   teams: parsed.teams,
   players: parsed.players,
