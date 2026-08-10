@@ -247,27 +247,29 @@ export function legalResolutions(draft: MatchSheetDraft): MatchResolution[] {
 }
 
 /**
- * The same appearances with one franchise player, or none.
+ * The same appearances with one franchise player per side, or none.
  *
- * "Solo puede jugar uno por partido", read literally, and enforced in the
- * database by a partial unique index. Ticking one box unticks the other rather
- * than letting the panel offer a state the index refuses.
- *
- * The league said on 2026-08-10 that a match may hold two, one per side. That
- * is a change to the index as much as to this function, so it waits for its
- * migration rather than shipping a panel the database would refuse.
+ * "En el caso de que soliciten un jugador franquicia, solo puede jugar uno por
+ * partido" is a sentence about a team requesting one, and on 2026-08-10 the
+ * league said plainly that a match may hold two, one for each side. Ticking a
+ * box unticks that side's other one and leaves the opponent's alone, which is
+ * exactly what `match_players_one_franchise_per_side_idx` allows.
  */
 export function withFranchise(
   draft: MatchSheetDraft,
   playerId: string,
   on: boolean,
 ): MatchSheetDraft {
+  const side = draft.appearances.find((row) => row.playerId === playerId)
+  if (side === undefined) return draft
+
   return {
     ...draft,
-    appearances: draft.appearances.map((row) => ({
-      ...row,
-      isFranchise: on && row.playerId === playerId,
-    })),
+    appearances: draft.appearances.map((row) =>
+      row.teamId === side.teamId
+        ? { ...row, isFranchise: on && row.playerId === playerId }
+        : row,
+    ),
   }
 }
 
@@ -345,6 +347,10 @@ export function draftProblems(
 ): DraftProblem[] {
   const problems: DraftProblem[] = []
   const name = (playerId: string) => nameIn(sheet, draft, playerId)
+  // A bracket row can carry no teams at all, so both sides are nullable.
+  const sideName = (teamId: string) =>
+    [sheet.home, sheet.away].find((side) => side?.id === teamId)?.shortName ??
+    'un equipo que no es de este partido'
 
   const home = readCount(draft.homeGoals)
   const away = readCount(draft.awayGoals)
@@ -393,12 +399,18 @@ export function draftProblems(
     listed.add(appearance.playerId)
   }
 
-  const franchise = draft.appearances.filter((row) => row.isFranchise)
-  if (franchise.length > 1) {
-    problems.push({
-      kind: 'two-franchise',
-      message: `Solo puede jugar un jugador franquicia por partido, y hay ${franchise.length} marcados.`,
-    })
+  const franchiseBySide = new Map<string, number>()
+  for (const row of draft.appearances) {
+    if (!row.isFranchise) continue
+    franchiseBySide.set(row.teamId, (franchiseBySide.get(row.teamId) ?? 0) + 1)
+  }
+  for (const [teamId, count] of franchiseBySide) {
+    if (count > 1) {
+      problems.push({
+        kind: 'two-franchise',
+        message: `Solo puede jugar un jugador franquicia por equipo, y ${sideName(teamId)} tiene ${count} marcados.`,
+      })
+    }
   }
 
   for (const goal of draft.goals) {

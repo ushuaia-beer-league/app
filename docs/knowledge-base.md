@@ -76,7 +76,12 @@ Verbatim:
 - El costo de los jugadores para participar de suplentes en junio será de 15.000
   por fecha.
 
-Concepts the system has to model: **franchise player** (at most one per match),
+**Answered 10 August 2026**: a match may hold **two** franchise players, one
+per side. The sentence above is about a team requesting one, which is how the
+league reads it, and `match_players_one_franchise_per_side_idx` now enforces
+that. What a franchise player *is* remains open question 10.
+
+Concepts the system has to model: **franchise player** (at most one per side),
 the five-player threshold for requesting a substitute in the playoffs, the
 48-hour request window and the per-round cost.
 
@@ -704,7 +709,11 @@ only the matchups. Use the calendar CSV for results.
    as a result, and five people are now stored under the name that is theirs.
 9. Each player's level and position: the functional document lists them as
    minimum data and the current spreadsheet does not have them.
-10. What a franchise player is and how it is flagged.
+10. What a franchise player is and how it is flagged. **Partly answered 10
+    August 2026**: how many may play is settled, two per match and one per
+    side, so the panel and the index allow that. What the status *means* is
+    still open, and so is whether the league wants it recorded at all: nothing
+    on the public site reads the flag today.
 11. The substitute cost per round after June.
 12. ~~The full playoff format.~~ **Answered 6 August 2026**: the first and
     second seeds each wait in a semifinal, the third plays the winner of sixth
