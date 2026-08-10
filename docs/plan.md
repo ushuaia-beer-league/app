@@ -360,3 +360,17 @@ screen with editable roster names, and two truth fixes — the public rosters
 and the admin matches list now read the database, never the seed, when it
 answers. The favicon files pass every Google rule; the generic globe in
 results is their favicon crawler's lag.
+
+## Where this stands, 10 August 2026
+
+The night's loading session with the operator produced: the goal fields no
+longer overlapping, a whole roster in one press, a borrowed goalkeeper, a
+substitute the league does not have created from the sheet itself (the door «el
+Cuiti» needed), bigger type on the fixture and the tables, and the franchise
+flag turned from a cap into a count once the league explained what it is for.
+`docs/COMO-FUNCIONA.md` now explains the whole system to the league in Spanish,
+without code.
+
+Still waiting on the league: the 8 August results, so the finals resolve
+themselves; the men's missing colours; Zambirreras' badge; whether they want the
+franchise flag recorded at all; and the Google OAuth secret rotation.
