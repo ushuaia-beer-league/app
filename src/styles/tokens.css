@@ -230,11 +230,16 @@
    * Still in rem, which is the part that matters most: a reader who has set a
    * larger font size in their phone gets a larger site, and none of this
    * overrides that. */
-  --text-3xs: 0.6875rem;
-  --text-2xs: 0.75rem;
-  --text-xs: 0.8125rem;
-  --text-sm: 0.9375rem;
-  --text-md: 1.0625rem;
+  /* The bottom of the scale was raised on 2026-08-09, at the league's request:
+   * the fixture and the tables are read on a phone, at arm's length, often in
+   * a rink, and eleven pixels is not a size anybody reads a result at. Only
+   * the small end moved — the display sizes below are the reference's own and
+   * still set the page's proportions. */
+  --text-3xs: 0.75rem;
+  --text-2xs: 0.8125rem;
+  --text-xs: 0.875rem;
+  --text-sm: 1rem;
+  --text-md: 1.125rem;
   --text-lg: 1.1875rem;
   --text-xl: 1.4375rem;
   --text-2xl: 1.5rem;
