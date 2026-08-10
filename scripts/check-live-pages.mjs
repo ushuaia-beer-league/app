@@ -100,6 +100,29 @@ const WELL_KNOWN = [
   ['/share/ligas-posiciones.jpg', 'jpeg'],
 ]
 
+/*
+ * The served HTML has to carry the site's own links.
+ *
+ * Every address was an orphan until 2026-08-10: twenty pages in the sitemap and
+ * not one link between them, because the navigation is drawn by React after the
+ * page loads. Google reported them as crawled and not indexed, which is what a
+ * page nothing points at looks like. This is the check that stops that from
+ * coming back silently the next time somebody touches the shell.
+ */
+{
+  const response = await fetch(HOST, fresh)
+  const html = await response.text()
+  const internal = [...html.matchAll(/<a href="\/[^"]*"/g)].length
+  if (internal < 10) {
+    console.log(
+      `  the home page ships ${internal} internal links, which is not a site anybody can crawl`,
+    )
+    failures += 1
+  } else {
+    console.log(`  ok the home page links its own ${internal} addresses`)
+  }
+}
+
 for (const [path, expected] of WELL_KNOWN) {
   const response = await fetch(`${HOST}${path}`, fresh)
   const type = response.headers.get('content-type') ?? ''
