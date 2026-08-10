@@ -157,6 +157,11 @@ export function TeamsAdminScreen({
         de las temporadas que ya pasaron los siguen nombrando, y la base no deja
         borrar una fila que otra fila necesita.
       </p>
+      {/* The manual, from the screen it explains: asked for so
+       * anybody can look up what they are doing without leaving. */}
+      <Link className="admin__help" to="/admin/manual#equipos">
+        ¿Cómo funciona? Cómo funcionan los equipos y los planteles
+      </Link>
     </header>
   )
 

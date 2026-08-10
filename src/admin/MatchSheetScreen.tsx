@@ -153,6 +153,11 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
       {sheet.row.notes !== null && (
         <p className="sheet__note">La planilla dice: {sheet.row.notes}</p>
       )}
+      {/* The manual, from the screen it explains: asked for so
+       * anybody can look up what they are doing without leaving. */}
+      <Link className="admin__help" to="/admin/manual#planilla">
+        ¿Cómo funciona? Cómo se carga una planilla
+      </Link>
     </header>
   )
 

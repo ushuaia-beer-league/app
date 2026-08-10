@@ -27,7 +27,8 @@
     "preview:local": "vite preview --port 5173 --strictPort",
     "backup": "tsx scripts/backup-season.ts",
     "smoke:pages": "node scripts/check-live-pages.mjs",
-    "build:share-cards": "tsx scripts/share-pages.ts | python3 scripts/build-share-cards.py"
+    "build:share-cards": "tsx scripts/share-pages.ts | python3 scripts/build-share-cards.py",
+    "build:manual": "tsx scripts/build-manual.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "2.109.0",

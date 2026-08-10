@@ -1,0 +1,126 @@
+/*
+ * The manual reads like a document, not like a form: a measure narrow enough to
+ * follow a paragraph, and the panel's own type so it does not look bolted on.
+ */
+
+.manual {
+  max-width: 46rem;
+}
+
+.manual__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-wide);
+}
+
+.manual__header {
+  margin-bottom: var(--space-5);
+}
+
+.manual__toc {
+  margin-bottom: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border: var(--card-border);
+  background: var(--card-bg);
+}
+
+.manual__toc ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+
+.manual__toc a {
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-decoration: none;
+}
+
+.manual__toc a:hover {
+  text-decoration: underline;
+}
+
+.manual__section {
+  margin-bottom: var(--space-6);
+  /* Room for the header when somebody arrives by fragment from a screen. */
+  scroll-margin-top: var(--space-5);
+}
+
+.manual__section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: var(--card-border);
+}
+
+.manual__subtitle {
+  font-family: var(--font-condensed);
+  font-size: var(--text-md);
+  font-weight: var(--weight-bold);
+  margin-top: var(--space-4);
+}
+
+.manual__text,
+.manual__list {
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  margin-top: var(--space-3);
+}
+
+.manual__list {
+  padding-left: var(--space-4);
+  display: grid;
+  gap: var(--space-2);
+}
+
+/* The sentence a reader has to leave with, set apart by the league's gold. */
+.manual__note {
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  margin-top: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--color-accent);
+  background: var(--card-bg);
+}
+
+.manual__table-scroll {
+  overflow-x: auto;
+  margin-top: var(--space-3);
+}
+
+.manual__table {
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  min-width: 20rem;
+}
+
+.manual__table th,
+.manual__table td {
+  border: var(--card-border);
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+}
+
+.manual__table th {
+  font-family: var(--font-condensed);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* The «¿Cómo funciona?» link every screen carries, quiet on purpose. */
+.admin__help {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Route, Routes } from 'react-router-dom'
 import { SEED_2026 } from '../data/seed-2026'
+import { ManualScreen } from './ManualScreen'
 import { AdminGate } from './AdminGate'
 import { AdminsScreen } from './AdminsScreen'
 import { FixtureScreen } from './FixtureScreen'
@@ -80,6 +81,10 @@ export function AdminApp() {
               {/* Every role may look: whether the site is used is not a sporting
                * decision and not a content one. */}
               <NavLink to="/admin/visitas">Visitas</NavLink>
+              {/* And every role may read how the thing works. Asked for by the
+               * operator: «podría estar en las opciones de admin, como un
+               * manual», with free access. Knowing is not a permission. */}
+              <NavLink to="/admin/manual">Manual</NavLink>
             </nav>
 
             <p className="admin__who">
@@ -135,6 +140,7 @@ export function AdminApp() {
                   <FixtureScreen role={status.role} year={SEED_2026.season} />
                 }
               />
+              <Route path="manual" element={<ManualScreen />} />
               <Route path="sponsors" element={<SponsorsScreen />} />
               <Route path="fotos" element={<PhotosScreen />} />
               <Route path="textos" element={<TextsScreen />} />

@@ -58,12 +58,16 @@ added at the league's request on 2026-08-06: it does identify, so the panel and
 GA4 is disabled on `.vercel.app` and localhost so previews never pollute the
 real numbers, and it reports each route change itself (`send_page_view: false`).
 
-`docs/COMO-FUNCIONA.md` is the league's own explanation of the system, in
-Spanish and with no code in it: what is calculated, what is transcribed, why a
+The league's own explanation of the system lives in **`src/admin/manual.ts`**,
+in Spanish, with no code in it: what is calculated, what is transcribed, why a
 gap is shown instead of filled, and which rules of this league differ from
-hockey's. It is written for somebody who knows the sport and not the stack, and
-it is a Spanish exception alongside `ADMIN.md`. Keep it true when behaviour
-changes; a wrong explanation is worse than none.
+hockey's. That file is the only copy. The panel renders it at `/admin/manual`
+for every role, each screen links to the section that explains it, and
+`npm run build:manual` writes `docs/COMO-FUNCIONA.md` from it for the people who
+read it on GitHub. `manual.test.ts` fails when the committed file stops
+matching, so never edit that file by hand. Keep the manual true when behaviour
+changes: it is linked from the screens, so a wrong sentence is read at the exact
+moment somebody trusts it.
 
 Read `docs/knowledge-base.md` before changing anything that touches the domain.
 It holds the rulebook, the 2026 data, the organisation's functional document and
