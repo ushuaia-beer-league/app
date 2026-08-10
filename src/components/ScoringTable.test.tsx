@@ -4,6 +4,7 @@ import { ScoringTable } from './ScoringTable'
 
 /** The season's leading scorer, whose printed name the sheet truncated. */
 const LEADER: PublishedScoringRow = {
+  playerId: null,
   name: 'Beltrami Ramiro',
   nameIsPrinted: false,
   team: 'Beerizar Rompehielos T9',
@@ -15,6 +16,7 @@ const LEADER: PublishedScoringRow = {
 
 /** A substitute: on the sheet, not on the roster. */
 const SUBSTITUTE: PublishedScoringRow = {
+  playerId: null,
   name: 'Fermín López Silva',
   nameIsPrinted: true,
   team: 'Blancaspuma y las 7 pintas (sup)',
@@ -26,6 +28,7 @@ const SUBSTITUTE: PublishedScoringRow = {
 
 /** A line the sheets never tied to a team. */
 const WITHOUT_TEAM: PublishedScoringRow = {
+  playerId: null,
   name: 'Dana Gonzales',
   nameIsPrinted: true,
   team: null,

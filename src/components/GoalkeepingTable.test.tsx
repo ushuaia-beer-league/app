@@ -4,6 +4,7 @@ import { GoalkeepingTable } from './GoalkeepingTable'
 
 /** The season's best percentage among the keepers who played six games. */
 const KEEPER: PublishedGoalkeepingRow = {
+  playerId: null,
   name: 'Badaracco Nico',
   nameIsPrinted: false,
   team: 'Frozen Sucucho',
@@ -16,6 +17,7 @@ const KEEPER: PublishedGoalkeepingRow = {
 
 /** A keeper who faced nothing: no percentage exists, and none is invented. */
 const UNTESTED: PublishedGoalkeepingRow = {
+  playerId: null,
   name: 'Jofré Lautaro',
   nameIsPrinted: false,
   team: 'Suplente (Sucucho)',

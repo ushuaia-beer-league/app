@@ -55,9 +55,9 @@ El orden de la tabla es: puntos, después PGR, después diferencia de gol. No ha
 
 Las planillas de la liga traen **totales por jugador de toda la temporada**, no gol por gol. Como no hay registro de cada gol, esa tabla no se puede calcular: se transcribe tal como la liga la publicó, y lo dice arriba con la fecha.
 
-Y abajo de esa tabla, **cuando hay planillas cargadas en el sitio**, aparece una segunda: «Lo cargado en el sitio», calculada de los goles y los tiros que se cargaron partido por partido. Dice de cuántas planillas sale, así se entiende que no es la temporada entera.
+A esos totales **se les suma cada planilla que se carga en el sitio**, y arriba de la tabla dice cuántos partidos se sumaron: «Totales publicados por la liga el 4 de julio, más 3 partidos cargados en el sitio desde entonces». Es una sola tabla.
 
-> Son dos cosas distintas y por eso están las dos. La publicada es la temporada regular como la cerró la liga; la calculada es lo que se cargó desde el panel. Sumarlas daría un número que no es ninguno de los dos, y reemplazar una por la otra haría parecer que se perdió el año.
+> Solo se suman los partidos **posteriores** a la fecha de publicación. Un partido de junio ya está dentro de esos totales, así que sumarlo contaría los goles dos veces. Por eso, si cargás una planilla de la fase regular para completar el historial, no infla a nadie: entra cuando se reemplace la tabla publicada, no antes.
 
 El **porcentaje de atajadas** es (tiros recibidos menos goles recibidos) dividido tiros recibidos. Se calcula al mostrarlo y nunca se guarda. Un arquero que no recibió tiros no tiene 100%: no tiene porcentaje, y se muestra un guion.
 

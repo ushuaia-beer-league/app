@@ -23,6 +23,7 @@ function scorer(
   fields: Partial<PublishedScoringRow> & Pick<PublishedScoringRow, 'name'>,
 ): PublishedScoringRow {
   return {
+    playerId: null,
     nameIsPrinted: false,
     team: 'Sucucho',
     isSubstitute: false,
@@ -38,6 +39,7 @@ function goalkeeper(
     Pick<PublishedGoalkeepingRow, 'name'>,
 ): PublishedGoalkeepingRow {
   return {
+    playerId: null,
     nameIsPrinted: false,
     team: 'Blanco',
     isSubstitute: false,
