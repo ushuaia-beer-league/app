@@ -772,3 +772,16 @@ describe('a substitute the league does not have', () => {
     expect(writes?.players.upsert[0]?.is_substitute).toBe(true)
   })
 })
+
+describe('a row with no teams', () => {
+  it('offers the way to load them instead of being a dead end', () => {
+    // It used to say «los equipos se definen en el fixture» and give no way to
+    // get there, which is how the operator ended up reporting "no me deja
+    // cargar" about something the fixture could always do.
+    show(sheet({ home: null, away: null }))
+
+    expect(
+      screen.getByRole('link', { name: 'Cargar los equipos en el fixture' }),
+    ).toHaveAttribute('href', `/admin/fixture#partido-${MATCH}`)
+  })
+})

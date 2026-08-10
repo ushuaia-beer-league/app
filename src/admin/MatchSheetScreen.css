@@ -365,3 +365,11 @@
     gap: var(--space-5) var(--space-6);
   }
 }
+
+.sheet__blocked-action a {
+  color: var(--color-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+}

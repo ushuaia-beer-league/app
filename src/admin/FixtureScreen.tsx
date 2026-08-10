@@ -238,7 +238,13 @@ export function FixtureScreen({
 
           <ul className="fixture__list">
             {day.matches.map((match) => (
-              <li className="fixture__row" key={match.id}>
+              <li
+                className="fixture__row"
+                // The match sheet links here when a row has no teams yet, so
+                // the operator lands on the row instead of hunting the list.
+                id={`partido-${match.id}`}
+                key={match.id}
+              >
                 <span className="fixture__time">{match.time}</span>
 
                 <span className="fixture__venue">
