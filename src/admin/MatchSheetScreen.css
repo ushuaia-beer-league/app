@@ -150,6 +150,22 @@
   margin-top: var(--space-3);
 }
 
+/* The label carries a full team name — «Goles de Beerizar Rompehielos T9» —
+ * and the columns used to be a fixed 8rem, so the text ran out of its cell and
+ * painted over the field beside it. The column gives way, the label wraps
+ * inside it, and only the input keeps a fixed width. */
+.sheet__score .sheet__field {
+  min-width: 0;
+}
+
+.sheet__score .sheet__field label {
+  overflow-wrap: anywhere;
+}
+
+.sheet__score input {
+  max-width: 8rem;
+}
+
 /* ---------------------------------------------------------------------------
  * Fields
  * ------------------------------------------------------------------------ */
@@ -339,7 +355,8 @@
 
 @media (min-width: 42.5em) {
   .sheet__score {
-    grid-template-columns: 8rem 8rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 34rem;
     gap: var(--space-4);
   }
 

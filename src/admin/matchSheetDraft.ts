@@ -430,6 +430,56 @@ export function linePercentage(line: DraftGoalieLine): number | null {
 // Who the pickers may offer
 // ---------------------------------------------------------------------------
 
+/**
+ * The side's roster, as appearances, added to what the sheet already holds.
+ *
+ * Loading a sheet used to mean picking fifteen people out of a dropdown one at
+ * a time; the operator who does it asked for the opposite, in those words:
+ * bring everybody in and take out the ones who did not play. Nobody is
+ * duplicated and nothing already recorded is touched, so pressing it twice
+ * changes nothing the second time.
+ */
+export function withWholeRoster(
+  sheet: MatchSheetData,
+  draft: MatchSheetDraft,
+  teamId: string,
+): MatchSheetDraft {
+  const listed = new Set(draft.appearances.map((row) => row.playerId))
+  const added = sheet.roster
+    .filter(
+      (entry) =>
+        entry.teamId === teamId &&
+        !listed.has(entry.playerId) &&
+        isOffered(sheet, entry.playerId),
+    )
+    .map((entry) => ({
+      playerId: entry.playerId,
+      teamId,
+      isSubstitute: false,
+      isFranchise: false,
+    }))
+
+  return added.length === 0
+    ? draft
+    : { ...draft, appearances: [...draft.appearances, ...added] }
+}
+
+/** How many of a side's roster are not on the sheet yet. */
+export function rosterMissing(
+  sheet: MatchSheetData,
+  draft: MatchSheetDraft,
+  teamId: string,
+): number {
+  const listed = new Set(draft.appearances.map((row) => row.playerId))
+
+  return sheet.roster.filter(
+    (entry) =>
+      entry.teamId === teamId &&
+      !listed.has(entry.playerId) &&
+      isOffered(sheet, entry.playerId),
+  ).length
+}
+
 export interface PickOption {
   playerId: string
   name: string
@@ -540,6 +590,26 @@ export function goaliePicks(
   const keepers = new Set(draft.goalieLines.map((line) => line.playerId))
 
   return scorerPicks(sheet, draft, teamId).filter(
+    (option) => !keepers.has(option.playerId),
+  )
+}
+
+/**
+ * The keepers this side can still be given from the rest of the league.
+ *
+ * A team turns up without its goalkeeper and borrows one, and until now the
+ * sheet could not say so: the picker only ever offered the team's own roster
+ * and whoever was already listed as having played. A borrowed keeper is a
+ * substitute, which is exactly what `leaguePicks` is for, minus anybody who
+ * already has a line here.
+ */
+export function substituteGoaliePicks(
+  sheet: MatchSheetData,
+  draft: MatchSheetDraft,
+): PickOption[] {
+  const keepers = new Set(draft.goalieLines.map((line) => line.playerId))
+
+  return leaguePicks(sheet, draft).filter(
     (option) => !keepers.has(option.playerId),
   )
 }

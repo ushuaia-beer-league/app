@@ -14,10 +14,13 @@ import {
   newGoal,
   partsOf,
   readCount,
+  rosterMissing,
   rosterPicks,
   scorerPicks,
+  substituteGoaliePicks,
   withFranchise,
   withSavedParts,
+  withWholeRoster,
   type MatchSheetData,
   type MatchSheetDraft,
 } from './matchSheetDraft'
@@ -813,5 +816,42 @@ describe('draftResult', () => {
     expect(
       draftResult(draft({ homeGoals: '0', awayGoals: '0' })),
     ).toMatchObject({ home_goals: 0, away_goals: 0 })
+  })
+})
+
+describe('withWholeRoster', () => {
+  it('brings the side in at once, so absences are removed rather than presences added', () => {
+    // The operator who loads these sheets asked for exactly this: everybody
+    // in, then take out the ones who did not play.
+    const data = sheet()
+    const filled = withWholeRoster(data, draft(), HOME)
+    const listed = filled.appearances.filter((row) => row.teamId === HOME)
+
+    expect(listed.map((row) => row.playerId)).toEqual(['p1', 'p2'])
+    // Roster players are not substitutes, whatever else they are.
+    expect(listed.every((row) => !row.isSubstitute)).toBe(true)
+    // The other side is untouched: one button, one team.
+    expect(filled.appearances.some((row) => row.teamId === AWAY)).toBe(false)
+  })
+
+  it('doubles nobody when pressed twice, and keeps what was already recorded', () => {
+    const data = sheet()
+    const once = withWholeRoster(data, draft(), HOME)
+    const twice = withWholeRoster(data, once, HOME)
+
+    expect(twice.appearances).toEqual(once.appearances)
+    expect(rosterMissing(data, twice, HOME)).toBe(0)
+  })
+})
+
+describe('substituteGoaliePicks', () => {
+  it('offers the rest of the league, for a team that turned up without its keeper', () => {
+    const data = sheet()
+    const picks = substituteGoaliePicks(data, draft())
+    const onARoster = new Set(data.roster.map((entry) => entry.playerId))
+
+    expect(picks.length).toBeGreaterThan(0)
+    // Nobody on a roster: those are already in the team's own list.
+    expect(picks.every((pick) => !onARoster.has(pick.playerId))).toBe(true)
   })
 })
