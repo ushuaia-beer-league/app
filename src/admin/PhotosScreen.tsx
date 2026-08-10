@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { SEED_2026 } from '../data/seed-2026'
 import {
@@ -230,6 +231,11 @@ function PhotosGallery({ page, save, upload, imageUrl }: PhotosGalleryProps) {
             ? 'Todavía no hay fotos en la galería de esta temporada.'
             : `${draft.length} fotos en la galería.`}
         </p>
+        {/* The manual, from the screen it explains: asked for so
+         * anybody can look up what they are doing without leaving. */}
+        <Link className="admin__help" to="/admin/manual#compartir">
+          ¿Cómo funciona? Cómo se comparten las fotos
+        </Link>
       </header>
 
       <form

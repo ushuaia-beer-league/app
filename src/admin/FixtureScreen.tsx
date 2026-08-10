@@ -130,6 +130,11 @@ export function FixtureScreen({
         El resultado no se carga acá: eso es la planilla de cada partido. Desde
         cada fila se entra a la suya.
       </p>
+      {/* The manual, from the screen it explains: asked for so
+       * anybody can look up what they are doing without leaving. */}
+      <Link className="admin__help" to="/admin/manual#fixture">
+        ¿Cómo funciona? Cómo funciona el fixture
+      </Link>
     </header>
   )
 

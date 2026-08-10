@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import type { Result } from './adminQueries'
 import type {
   PhotoRecord,
@@ -64,12 +65,16 @@ const show = ({
   upload?: ReturnType<typeof storing>
 } = {}) => {
   render(
-    <PhotosScreen
-      imageUrl={(path) => `https://media.example/${path}`}
-      load={load ?? (() => Promise.resolve({ ok: true, data: page(photos) }))}
-      save={save}
-      upload={upload}
-    />,
+    // A router, because the screen's header links to the manual section that
+    // explains it.
+    <MemoryRouter>
+      <PhotosScreen
+        imageUrl={(path) => `https://media.example/${path}`}
+        load={load ?? (() => Promise.resolve({ ok: true, data: page(photos) }))}
+        save={save}
+        upload={upload}
+      />
+    </MemoryRouter>,
   )
   return { save, upload }
 }
