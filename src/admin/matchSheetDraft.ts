@@ -247,30 +247,52 @@ export function legalResolutions(draft: MatchSheetDraft): MatchResolution[] {
 }
 
 /**
- * The same appearances with one franchise player per side, or none.
+ * The same appearances with one franchise flag turned on or off.
  *
- * "En el caso de que soliciten un jugador franquicia, solo puede jugar uno por
- * partido" is a sentence about a team requesting one, and on 2026-08-10 the
- * league said plainly that a match may hold two, one for each side. Ticking a
- * box unticks that side's other one and leaves the opponent's alone, which is
- * exactly what `match_players_one_franchise_per_side_idx` allows.
+ * A plain toggle, and that is the third answer this rule has had in a week.
+ * The rulebook line was read as one per match, then the league said two, one
+ * per side, and then said what the rule is actually for: this edition had
+ * teams with two and teams with one, and what they want to avoid is a lopsided
+ * match, "uno con 3 y otro con 1". So nothing here caps anything and nothing
+ * unticks somebody else's box. `franchiseImbalance` reports the fact the
+ * league cares about, and `draftProblems` refuses none of it: a panel that
+ * cannot record a night that happened is worse than a panel with no rule.
  */
 export function withFranchise(
   draft: MatchSheetDraft,
   playerId: string,
   on: boolean,
 ): MatchSheetDraft {
-  const side = draft.appearances.find((row) => row.playerId === playerId)
-  if (side === undefined) return draft
-
   return {
     ...draft,
     appearances: draft.appearances.map((row) =>
-      row.teamId === side.teamId
-        ? { ...row, isFranchise: on && row.playerId === playerId }
-        : row,
+      row.playerId === playerId ? { ...row, isFranchise: on } : row,
     ),
   }
+}
+
+/** How many franchise players each side has, and whether that is lopsided. */
+export interface FranchiseCount {
+  home: number
+  away: number
+  /** True when the sides differ, which is what the league watches for. */
+  uneven: boolean
+}
+
+export function franchiseImbalance(
+  sheet: MatchSheetData,
+  draft: MatchSheetDraft,
+): FranchiseCount {
+  const on = (teamId: string | undefined) =>
+    teamId === undefined
+      ? 0
+      : draft.appearances.filter(
+          (row) => row.isFranchise && row.teamId === teamId,
+        ).length
+
+  const home = on(sheet.home?.id)
+  const away = on(sheet.away?.id)
+  return { home, away, uneven: home !== away }
 }
 
 /**
@@ -320,7 +342,6 @@ export type DraftProblemKind =
   | 'draw-not-level'
   | 'decided-is-level'
   | 'player-listed-twice'
-  | 'two-franchise'
   | 'scorer-is-assist'
   | 'goalie-listed-twice'
   | 'goalie-not-a-count'
@@ -347,10 +368,6 @@ export function draftProblems(
 ): DraftProblem[] {
   const problems: DraftProblem[] = []
   const name = (playerId: string) => nameIn(sheet, draft, playerId)
-  // A bracket row can carry no teams at all, so both sides are nullable.
-  const sideName = (teamId: string) =>
-    [sheet.home, sheet.away].find((side) => side?.id === teamId)?.shortName ??
-    'un equipo que no es de este partido'
 
   const home = readCount(draft.homeGoals)
   const away = readCount(draft.awayGoals)
@@ -397,20 +414,6 @@ export function draftProblems(
       })
     }
     listed.add(appearance.playerId)
-  }
-
-  const franchiseBySide = new Map<string, number>()
-  for (const row of draft.appearances) {
-    if (!row.isFranchise) continue
-    franchiseBySide.set(row.teamId, (franchiseBySide.get(row.teamId) ?? 0) + 1)
-  }
-  for (const [teamId, count] of franchiseBySide) {
-    if (count > 1) {
-      problems.push({
-        kind: 'two-franchise',
-        message: `Solo puede jugar un jugador franquicia por equipo, y ${sideName(teamId)} tiene ${count} marcados.`,
-      })
-    }
   }
 
   for (const goal of draft.goals) {

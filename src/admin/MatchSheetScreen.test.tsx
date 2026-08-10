@@ -393,10 +393,10 @@ describe('MatchSheetScreen', () => {
     ).toBeNull()
   })
 
-  it('keeps one franchise player per side, and both sides may have one', async () => {
-    // The league said on 2026-08-10 that a match may hold two, one each. So a
-    // second tick on the same side moves the flag, and the opponent's own is
-    // left exactly where it is.
+  it('records every franchise player and says when the sides are uneven', async () => {
+    // The league said this edition had teams with two and teams with one, and
+    // that what they watch for is a lopsided match. So nothing is refused and
+    // nothing unticks itself; the sheet counts and says so.
     const save = show(sheet())
 
     addFromPicker(
@@ -415,22 +415,23 @@ describe('MatchSheetScreen', () => {
       within(rowIn('Quiénes jugaron', person)).getByLabelText('Franquicia')
 
     fireEvent.click(franchiseOf('Aguirre Nahuel'))
-    fireEvent.click(franchiseOf('Cárdenas Ivo'))
-    // Opposite sides: both stand.
-    expect(franchiseOf('Aguirre Nahuel')).toBeChecked()
-    expect(franchiseOf('Cárdenas Ivo')).toBeChecked()
-
-    // Same side as Aguirre: the flag moves rather than doubling.
     fireEvent.click(franchiseOf('Barrientos Luz'))
-    expect(franchiseOf('Aguirre Nahuel')).not.toBeChecked()
+    fireEvent.click(franchiseOf('Cárdenas Ivo'))
+
+    // Two on one side and one on the other: all three stand.
+    expect(franchiseOf('Aguirre Nahuel')).toBeChecked()
     expect(franchiseOf('Barrientos Luz')).toBeChecked()
     expect(franchiseOf('Cárdenas Ivo')).toBeChecked()
+    expect(
+      screen.getByText(/Jugador franquicia: 2 de Rock Choppers y 1 de Sucucho/),
+    ).toBeVisible()
+    expect(screen.getByText(/Los lados quedan desparejos/)).toBeVisible()
 
     fireEvent.click(saveButton())
     await waitFor(() => expect(save).toHaveBeenCalled())
 
     const written = save.mock.calls[0]?.[0].players.upsert ?? []
-    expect(written.filter((entry) => entry.is_franchise)).toHaveLength(2)
+    expect(written.filter((entry) => entry.is_franchise)).toHaveLength(3)
   })
 
   it('takes somebody off the sheet by name, and removes the row', async () => {
