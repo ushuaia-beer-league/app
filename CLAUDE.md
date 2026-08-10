@@ -58,6 +58,13 @@ added at the league's request on 2026-08-06: it does identify, so the panel and
 GA4 is disabled on `.vercel.app` and localhost so previews never pollute the
 real numbers, and it reports each route change itself (`send_page_view: false`).
 
+`docs/COMO-FUNCIONA.md` is the league's own explanation of the system, in
+Spanish and with no code in it: what is calculated, what is transcribed, why a
+gap is shown instead of filled, and which rules of this league differ from
+hockey's. It is written for somebody who knows the sport and not the stack, and
+it is a Spanish exception alongside `ADMIN.md`. Keep it true when behaviour
+changes; a wrong explanation is worse than none.
+
 Read `docs/knowledge-base.md` before changing anything that touches the domain.
 It holds the rulebook, the 2026 data, the organisation's functional document and
 the open questions. `docs/plan.md` holds the delivery plan and its current phase.
@@ -162,6 +169,20 @@ corrupts every table on the site.
   not appear, grep for `SEED_2026` outside the fallback path before debugging
   the save. Every new panel-editable table must be read by `loadSeason` the
   day the panel learns to write it.
+
+- **Never encode a limit the sources only imply.** The franchise flag was capped
+  three ways in one week (one per match, then one per side, then no cap at all)
+  and every cap came from reading the rulebook rather than asking the league,
+  which finally said teams had two and one and that the concern is balance, not
+  a count. A constraint that refuses a real match sheet stops the league from
+  recording a night that happened. Record the fact, report its shape, and refuse
+  nothing until the owners state the rule.
+
+- **A panel rule about a constraint moves with the constraint.** Shipping the UI
+  half alone hands the operator a database error they cannot act on; shipping
+  the migration alone leaves the panel refusing what the base now allows. Apply
+  the migration first, after checking no existing row violates it, then merge
+  the code, or hold both and split the urgent half into its own pull request.
 
 - Standings, scoring leaders, goalkeeping and playoff progression are **derived**
   from match records at read time. Never persist an aggregate.
