@@ -83,7 +83,57 @@ function spaFallback(onCloudflare: boolean): Plugin {
           return `${PRODUCTION}/share/${slug}.jpg`
         }
 
-        const entry = readFileSync(join(outDir, 'index.html'), 'utf8')
+        /*
+         * Real links, in the served HTML, before any JavaScript runs.
+         *
+         * Every address of this site was an orphan: the sitemap listed twenty
+         * pages and not one of them was linked from anywhere, because the whole
+         * navigation is drawn by React after the page loads. Google reported
+         * exactly what that looks like from outside — "rastreada, actualmente
+         * sin indexar" — and it was right to: a page nothing points at reads as
+         * a page nobody thinks matters.
+         *
+         * So the shell ships a plain list of the site's own addresses inside
+         * `#root`, which React replaces the moment it mounts. A visitor never
+         * sees it; a crawler that runs no JavaScript gets the same links the
+         * application would have shown it, which is what makes this honest
+         * rather than a trick: identical destinations, identical words.
+         */
+        const links = [
+          ...SITE_ROUTES.filter((route) => route.path !== '/').map((route) => ({
+            path: route.path,
+            words: route.title.split(' · ')[0] ?? route.title,
+          })),
+          ...variantPages().map((page) => ({
+            path: page.path,
+            words: page.title.split(' · ').slice(0, 2).join(' · '),
+          })),
+        ]
+          .map(
+            ({ path, words }) =>
+              `<li><a href="${path}" style="color:#e8a820;text-decoration:none">${words}</a></li>`,
+          )
+          .join('')
+
+        // Styled inline because this is the only paint before React mounts and
+        // the stylesheet may not have arrived yet: on a slow phone an unstyled
+        // list of nineteen blue links reads as a broken page. `createRoot`
+        // replaces all of it, so nobody looks at it for long.
+        const skeleton =
+          '<nav aria-label="Secciones del sitio" style="font-family:system-ui,sans-serif;padding:1.5rem">' +
+          `<ul style="list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.75rem 1.5rem">${links}</ul>` +
+          '</nav>'
+
+        const shell = readFileSync(join(outDir, 'index.html'), 'utf8').replace(
+          '<div id="root"></div>',
+          `<div id="root">${skeleton}</div>`,
+        )
+        if (!shell.includes('href="/ligas/posiciones"')) {
+          throw new Error('the shell shipped without its own links')
+        }
+        writeFileSync(join(outDir, 'index.html'), shell)
+
+        const entry = shell
         for (const route of SITE_ROUTES) {
           if (route.path === '/') continue
 
