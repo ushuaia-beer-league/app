@@ -17,10 +17,13 @@ import {
   nameOf,
   newGoal,
   partsOf,
+  rosterMissing,
   rosterPicks,
   scorerPicks,
+  substituteGoaliePicks,
   withFranchise,
   withSavedParts,
+  withWholeRoster,
   type DraftGoal,
   type MatchSheetData,
   type MatchSheetDraft,
@@ -205,8 +208,29 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
   const addGoalie = (side: SheetTeam, playerId: string) => {
     if (playerId === '') return
 
+    // A keeper borrowed from another team played the match, so the sheet lists
+    // them as having played too — marked substitute, which is what they are.
+    // Without this the goalkeeping table would carry a line for somebody the
+    // same sheet says was not there.
+    const onTheRoster = sheet.roster.some(
+      (entry) => entry.teamId === side.id && entry.playerId === playerId,
+    )
+    const listed = (current: MatchSheetDraft) =>
+      current.appearances.some((row) => row.playerId === playerId)
+
     edit((current) => ({
       ...current,
+      appearances: listed(current)
+        ? current.appearances
+        : [
+            ...current.appearances,
+            {
+              playerId,
+              teamId: side.id,
+              isSubstitute: !onTheRoster,
+              isFranchise: false,
+            },
+          ],
       goalieLines: [
         ...current.goalieLines,
         { playerId, teamId: side.id, shotsFaced: '', goalsAgainst: '' },
@@ -431,6 +455,20 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
                     })}
                   </ul>
 
+                  {rosterMissing(sheet, draft, side.id) > 0 && (
+                    <button
+                      className="sheet__add"
+                      onClick={() =>
+                        edit((current) =>
+                          withWholeRoster(sheet, current, side.id),
+                        )
+                      }
+                      type="button"
+                    >
+                      Cargar el plantel de {side.shortName}
+                    </button>
+                  )}
+
                   <p className="sheet__field">
                     <label htmlFor={`sheet-add-player-${side.id}`}>
                       Agregar a {side.shortName}
@@ -603,6 +641,7 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
                 (line) => line.teamId === side.id,
               )
               const options = goaliePicks(sheet, draft, side.id)
+              const substituteGoalies = substituteGoaliePicks(sheet, draft)
 
               return (
                 <div className="sheet__side" key={side.id}>
@@ -717,11 +756,24 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
                       value={pickedGoalie[side.id] ?? ''}
                     >
                       <option value="">Elegí una persona</option>
-                      {options.map((pick) => (
-                        <option key={pick.playerId} value={pick.playerId}>
-                          {pickLabel(pick)}
-                        </option>
-                      ))}
+                      {options.length > 0 && (
+                        <optgroup label="Plantel">
+                          {options.map((pick) => (
+                            <option key={pick.playerId} value={pick.playerId}>
+                              {pickLabel(pick)}
+                            </option>
+                          ))}
+                        </optgroup>
+                      )}
+                      {substituteGoalies.length > 0 && (
+                        <optgroup label="Resto de la liga (suplente)">
+                          {substituteGoalies.map((pick) => (
+                            <option key={pick.playerId} value={pick.playerId}>
+                              {pickLabel(pick)}
+                            </option>
+                          ))}
+                        </optgroup>
+                      )}
                     </select>
                   </p>
 

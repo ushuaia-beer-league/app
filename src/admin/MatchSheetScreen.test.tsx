@@ -676,3 +676,50 @@ describe('MatchSheetScreen', () => {
     expect(container.textContent).not.toMatch(/puntos/i)
   })
 })
+
+describe('loading a sheet the way the rink does', () => {
+  it('brings a whole side in with one press, so absences are what gets removed', () => {
+    // Picking fifteen people out of a dropdown one at a time is what the
+    // operator asked us to stop making him do.
+    show(sheet())
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: 'Cargar el plantel de Rock Choppers',
+      }),
+    )
+
+    const listed = within(block('Quiénes jugaron'))
+    expect(listed.getByText('Aguirre Nahuel')).toBeVisible()
+    expect(listed.getByText('Barrientos Luz')).toBeVisible()
+    // The other side stays as it was: one button, one team.
+    expect(listed.queryByText('Cárdenas Ivo')).toBeNull()
+    // With everybody in, the button has nothing left to add.
+    expect(
+      screen.queryByRole('button', {
+        name: 'Cargar el plantel de Rock Choppers',
+      }),
+    ).toBeNull()
+  })
+
+  it('takes a goalkeeper from another team, and says they played', () => {
+    // A team turns up without its keeper and borrows one; the sheet could not
+    // say so before, because the picker only offered the team's own roster.
+    show(sheet())
+
+    fireEvent.change(
+      screen.getByLabelText('Agregar arquero de Rock Choppers'),
+      { target: { value: 'sub' } },
+    )
+    fireEvent.click(
+      screen.getByRole('button', { name: 'Agregar arquero de Rock Choppers' }),
+    )
+
+    expect(within(block('Arqueros')).getByText('Zapata Rocío')).toBeVisible()
+    // And they are on the sheet as having played, marked substitute: a
+    // goalkeeping line for somebody the same sheet says was not there would
+    // be a contradiction.
+    const row = rowIn('Quiénes jugaron', 'Zapata Rocío')
+    expect(within(row).getByLabelText('Suplente')).toBeChecked()
+  })
+})
