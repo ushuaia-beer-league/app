@@ -293,3 +293,14 @@
   font-size: var(--text-sm);
   line-height: var(--leading-body);
 }
+
+/*
+ * The row the match sheet sent us to. Somebody arriving from «Cargar los
+ * equipos en el fixture» is looking at a list of forty rows, so the one they
+ * came for says so.
+ */
+.fixture__row:target {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  scroll-margin-top: var(--space-6);
+}

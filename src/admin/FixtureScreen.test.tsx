@@ -485,3 +485,18 @@ describe('FixtureScreen', () => {
     expect(screen.getByText('21:30')).toBeVisible()
   })
 })
+
+describe('the row the match sheet sends people to', () => {
+  it('carries the address the sheet links to', async () => {
+    // The sheet's link is `/admin/fixture#partido-<id>`; without this id the
+    // fragment lands nowhere and the operator is back to hunting the list.
+    show({ matches: [match({ homeTeamId: null, awayTeamId: null })] })
+    // The row of a bracket match with no teams: exactly the one the sheet
+    // cannot load and links here for.
+    const row = (
+      await screen.findByText('Horario reservado, sin equipos')
+    ).closest('li')
+
+    expect(row?.id).toBe('partido-match-1')
+  })
+})

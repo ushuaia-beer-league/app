@@ -169,6 +169,16 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
           planilla que cargar. Los equipos se definen en el fixture; hasta
           entonces el partido se publica con el hueco a la vista.
         </p>
+
+        {/* The door this screen was missing. It told the operator where to go
+         * and gave him no way to get there, which is how somebody ends up
+         * saying "no me deja cargar": the fixture could always do it. The
+         * fragment lands on the row itself, which highlights. */}
+        <p className="sheet__blocked-action">
+          <Link to={`/admin/fixture#partido-${sheet.matchId}`}>
+            Cargar los equipos en el fixture
+          </Link>
+        </p>
       </section>
     )
   }
