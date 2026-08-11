@@ -28,7 +28,7 @@ function renderBracket(competition: 'beer' | 'wubl') {
 }
 
 describe('PlayoffBracket', () => {
-  it('names every round of the Beer League bracket in playing order', () => {
+  it('names every round of the Beer League bracket, climbing to the final', () => {
     renderBracket('beer')
 
     expect(
@@ -39,8 +39,11 @@ describe('PlayoffBracket', () => {
       'Repechaje',
       'Cuartos de final',
       'Semifinales',
-      'Tercer puesto',
+      // The three matches of 15 August are played at once, so the columns are
+      // ordered towards the trophy rather than by kickoff: the league asked for
+      // fifth, then third, then the final.
       'Quinto puesto',
+      'Tercer puesto',
       'Final',
     ])
   })

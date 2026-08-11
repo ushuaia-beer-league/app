@@ -108,12 +108,18 @@
   color: var(--color-text-muted);
 }
 
+/*
+ * The score, which is the one thing somebody scanning a played round is looking
+ * for. It was the same size as the team names beside it and read as a footnote;
+ * the league said so on 2026-08-10 ("el marcador se ve chico").
+ */
 .fixture__score {
   display: block;
   font-family: var(--font-display);
-  font-size: var(--text-2xl);
+  font-size: var(--text-4xl);
   line-height: var(--leading-display);
   color: var(--color-text-bright);
+  white-space: nowrap;
 }
 
 /* No score on the sheet: the row shows when the match starts instead. */
