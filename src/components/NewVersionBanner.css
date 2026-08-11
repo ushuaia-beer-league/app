@@ -1,0 +1,37 @@
+/*
+ * Bottom of the screen, out of the way of a table somebody is reading, and
+ * quiet: this is a courtesy, not an alarm.
+ */
+.new-version {
+  position: fixed;
+  inset-inline: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  max-width: 30rem;
+  margin-inline: auto;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-raised, #141b26);
+  border: var(--border-width-hairline) solid var(--color-border-accent);
+  font-family: var(--font-condensed);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text);
+}
+
+.new-version__reload {
+  flex-shrink: 0;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-accent);
+  border: 0;
+  color: #101418;
+  cursor: pointer;
+  font-family: var(--font-condensed);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}

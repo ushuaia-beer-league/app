@@ -251,6 +251,15 @@ export const MANUAL: readonly ManualSection[] = [
         kind: 'note',
         text: 'Lo único que el sistema **no** puede deducir: qué ganador de cuartos va a qué semifinal en el masculino. La liga nunca publicó ese cruce, así que esas dos filas hay que completarlas a mano en el fixture. Todo lo demás sale del resultado anterior.',
       },
+      { kind: 'subtitle', text: 'Un triangular' },
+      {
+        kind: 'text',
+        text: 'Cuando un puesto se define entre tres equipos, como el quinto puesto de 2026 (tres partidos de 15 minutos), se cargan **tres filas** en el fixture, a la misma hora y en la misma instancia, cada una con sus dos equipos. Los tres partidos aparecen con su resultado y se comparten como cualquier otro.',
+      },
+      {
+        kind: 'note',
+        text: 'Lo que el sistema **no** hace en ese caso es decir quién salió quinto: con tres equipos hace falta un criterio de desempate (puntos, diferencia de gol, quién le ganó a quién) y la liga no lo definió. Antes que coronar a alguien con una regla inventada, no dice nada. Si nos pasan el criterio, lo calculamos.',
+      },
     ],
   },
   {
@@ -307,6 +316,24 @@ export const MANUAL: readonly ManualSection[] = [
       {
         kind: 'text',
         text: 'Además cada página tiene su propia miniatura cuando pegás el link, y esas miniaturas **nunca dicen un resultado**: si dijeran quién va ganando, quedarían mintiendo hasta la próxima actualización.',
+      },
+    ],
+  },
+  {
+    id: 'version-nueva',
+    title: 'Cuando el sitio se actualiza mientras lo tenés abierto',
+    blocks: [
+      {
+        kind: 'text',
+        text: 'El sitio es una sola página: si lo dejás abierto, el navegador no vuelve a pedir nada y podés estar viendo la versión de ayer sin darte cuenta. Pasó, y varias veces: se arreglaba algo, se publicaba, y del otro lado seguía apareciendo el problema viejo.',
+      },
+      {
+        kind: 'text',
+        text: 'Ahora el propio sitio se da cuenta. Cuando hay una versión nueva aparece abajo un aviso que dice **«Hay una versión nueva del sitio»** con un botón **Actualizar**. Lo tocás y listo.',
+      },
+      {
+        kind: 'note',
+        text: 'Si algo que te dijimos que arreglamos no lo ves, y no aparece ese aviso, recargá igual (en el celular: mantené apretado el botón de recargar y elegí la recarga completa). Y si después de eso sigue igual, ahí sí es un problema nuestro: mandá captura.',
       },
     ],
   },

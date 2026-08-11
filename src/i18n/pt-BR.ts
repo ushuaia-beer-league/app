@@ -175,6 +175,8 @@ export const ptBR: Catalogue = {
   'No se pudo armar la imagen para compartir.':
     'Não foi possível montar a imagem para compartilhar.',
 
+  'Hay una versión nueva del sitio.': 'Há uma versão nova do site.',
+  Actualizar: 'Atualizar',
   // The hero.
   'Hockey sobre Hielo': 'Hóquei no Gelo',
   Hockey: 'Hóquei',

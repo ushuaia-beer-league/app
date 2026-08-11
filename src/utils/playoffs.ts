@@ -490,17 +490,28 @@ export interface BracketPlacings {
 }
 
 /**
- * The first match of a stage, whose winner the placings read. The league plays
- * one match per placing, never a series, so index 0 is the whole round.
+ * The match whose winner a placing reads, when one match decides it.
+ *
+ * A stage with a single match is a knockout and its winner takes the placing.
+ * A stage with several is not: on 2026-08-15 the fifth place is a triangular,
+ * three fifteen-minute games between three teams, and the winner of the first
+ * of them has finished nothing. So this answers null there and the placing goes
+ * unclaimed.
+ *
+ * Unclaimed rather than computed on purpose. A three-team round robin needs a
+ * tiebreaker — points, goal difference, head to head — and the league has not
+ * said which. Naming a fifth place from a rule nobody stated is exactly the
+ * mistake the franchise flag taught: record what happened, refuse to invent the
+ * rest, and let the league fill it in.
  */
 function decidedResultOf(
   rounds: readonly ResolvedBracketRound[],
   stage: BracketStage,
 ): KnockoutDecided | null {
-  const match = rounds
-    .find((round) => round.stage === stage)
-    ?.matches.find((candidate) => candidate.index === 0)
+  const round = rounds.find((candidate) => candidate.stage === stage)
+  if (round === undefined || round.matches.length !== 1) return null
 
+  const match = round.matches[0]
   return match?.result.decided ? match.result : null
 }
 

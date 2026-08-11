@@ -30,6 +30,7 @@ import {
   type SectionKey,
 } from './utils/site-routes'
 import { useT } from './i18n/useLanguage'
+import { NewVersionBanner } from './components/NewVersionBanner'
 
 /**
  * The public site, as separate pages.
@@ -111,6 +112,11 @@ export function App() {
       <a className="skip-link" href="#contenido">
         {t('Saltar al contenido')}
       </a>
+
+      {/* Nothing in a single page application reloads itself, and people leave
+       * this one open for days: the operator reported the same fix missing
+       * three times while running the JavaScript of two days before. */}
+      <NewVersionBanner />
 
       <SiteNav />
 

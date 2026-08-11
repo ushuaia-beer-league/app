@@ -151,6 +151,10 @@ export const STRINGS = [
   'y {n} más en ubl.com.ar',
   'No se pudo armar la imagen para compartir.',
 
+  // When the page is older than the site.
+  'Hay una versión nueva del sitio.',
+  'Actualizar',
+
   // The hero.
   'Hockey sobre Hielo',
   'Hockey',

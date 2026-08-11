@@ -123,6 +123,30 @@ const WELL_KNOWN = [
   }
 }
 
+/*
+ * The version file has to name the script the site is actually serving.
+ *
+ * The application compares it against the script it is running, so a stale or
+ * missing `version.txt` either nags every visitor forever or never tells the
+ * operator his page is two days old — which is the support loop it exists to
+ * end.
+ */
+{
+  const [html, version] = await Promise.all([
+    fetch(HOST, fresh).then((response) => response.text()),
+    fetch(`${HOST}/version.txt`, fresh).then((response) => response.text()),
+  ])
+  const running = /\/assets\/(index-[A-Za-z0-9_-]+\.js)/.exec(html)?.[1]
+  if (running === undefined || version.trim() !== running) {
+    console.log(
+      `  version.txt says "${version.trim()}" and the page runs "${running}"`,
+    )
+    failures += 1
+  } else {
+    console.log(`  ok version.txt names the script the page runs`)
+  }
+}
+
 for (const [path, expected] of WELL_KNOWN) {
   const response = await fetch(`${HOST}${path}`, fresh)
   const type = response.headers.get('content-type') ?? ''
