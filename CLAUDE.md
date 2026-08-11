@@ -166,6 +166,15 @@ corrupts every table on the site.
   passing. The durable fix — freezing a slug once referenced — is pending panel
   work.
 
+- **The two data paths drift, and only one is tested.** On 2026-08-11 the
+  published-statistics select fetched every column except `player_id`, the key
+  the scoring table joins on, so the panel's recorded goals became extra rows
+  instead of being added, and the table looked frozen at its publication date
+  for two days while every test passed: the tests mock the client, and the seed
+  path carries the id. A select that compiles and is accepted can still be
+  missing the join. `smoke:queries` now asserts the columns come back, and
+  `npm run verify:scoring` runs the real table over the live database.
+
 - **The seed only answers when the database cannot.** On 2026-08-07 an operator
   updated a roster and the public site kept showing the old one: the season
   source still handed `SEED_2026.players`/`rosters` behind a phase-3 comment
