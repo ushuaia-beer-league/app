@@ -1,4 +1,9 @@
-import { loadSeason, matchFromRow, type MatchRow } from './season-source'
+import {
+  loadSeason,
+  matchFromRow,
+  publicationDate,
+  type MatchRow,
+} from './season-source'
 import { supabaseConfig } from './supabase-client'
 import { SEED_2026 } from './seed-2026'
 
@@ -116,5 +121,24 @@ describe('loadSeason', () => {
 
   it('never throws, so a component never has to render an apology', async () => {
     await expect(loadSeason({ config: null })).resolves.toBeTruthy()
+  })
+})
+
+describe('publicationDate', () => {
+  it('takes the latest date the published rows carry', () => {
+    expect(
+      publicationDate(
+        [{ published_on: '2026-07-04' }],
+        [{ published_on: '2026-08-15' }],
+      ),
+    ).toBe('2026-08-15')
+  })
+
+  it('falls back to the snapshot when the database answered no rows', () => {
+    // The only case where nothing can be inferred. Everything else must come
+    // from the data: this date is the cutoff that decides which recorded
+    // matches may be added to the published totals, and a seeded 4 July against
+    // rows published in August would double every goal played between them.
+    expect(publicationDate([], [])).toBe(SEED_2026.publishedOn)
   })
 })
