@@ -638,3 +638,56 @@ describe('resolveBracket on a bracket 2026 cannot show yet', () => {
     expect(champion(rounds)).toBeNull()
   })
 })
+
+describe('a placing several matches decide', () => {
+  it('claims no fifth place when the stage is a triangular', () => {
+    // 15 August 2026: the fifth place is three fifteen-minute games between
+    // three teams. The winner of the first of them has finished nothing, and
+    // the league has not said how the three are ranked, so the site says
+    // nothing rather than crowning the wrong team.
+    const triangular: Match[] = [
+      bracket('fifth-place', {
+        date: '2026-08-15',
+        time: '20:30',
+        homeTeamId: 'tipo-nine',
+        awayTeamId: 'sucucho',
+        score: { home: 3, away: 1, resolution: 'regulation' },
+      }),
+      bracket('fifth-place', {
+        date: '2026-08-15',
+        time: '20:45',
+        homeTeamId: 'tipo-nine',
+        awayTeamId: 'zhockey',
+        score: { home: 2, away: 4, resolution: 'regulation' },
+      }),
+      bracket('fifth-place', {
+        date: '2026-08-15',
+        time: '21:00',
+        homeTeamId: 'sucucho',
+        awayTeamId: 'zhockey',
+        score: { home: 1, away: 1, resolution: 'draw' },
+      }),
+    ]
+
+    // The season's own fifth-place row is replaced by the three, which is what
+    // the panel does: the league edits that row and adds two more.
+    const rounds = resolveBracket(
+      [
+        ...SEED_2026.matches.filter((each) => each.stage !== 'fifth-place'),
+        ...triangular,
+      ],
+      { competition: 'beer' },
+    )
+
+    expect(bracketPlacings(rounds).fifthPlace).toBeNull()
+    // And the three games are still there, each with its own result: what the
+    // site refuses is the ranking, never the record.
+    const round = rounds.find((each) => each.stage === 'fifth-place')
+    expect(round?.matches).toHaveLength(3)
+    expect(
+      round?.matches.every(
+        (each) => each.result.decided || each.result.because === 'ended-level',
+      ),
+    ).toBe(true)
+  })
+})

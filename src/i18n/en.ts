@@ -169,6 +169,8 @@ export const en: Catalogue = {
   'No se pudo armar la imagen para compartir.':
     'The image could not be put together for sharing.',
 
+  'Hay una versión nueva del sitio.': 'There is a new version of the site.',
+  Actualizar: 'Update',
   // The hero.
   'Hockey sobre Hielo': 'Ice Hockey',
   Hockey: 'Hockey',

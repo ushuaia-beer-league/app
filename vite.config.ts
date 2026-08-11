@@ -133,6 +133,23 @@ function spaFallback(onCloudflare: boolean): Plugin {
         }
         writeFileSync(join(outDir, 'index.html'), shell)
 
+        /*
+         * The name of this build's entry script, in a file small enough to ask
+         * for often.
+         *
+         * The site is a single page application people leave open for days: the
+         * league's operator reported the same fix missing three times, and each
+         * time the deploy was live and his tab was still running the JavaScript
+         * of two days before. Nothing in an SPA reloads itself, so he had no way
+         * to know. The application compares this against the script it is
+         * running and offers a reload when they differ.
+         */
+        const running = /\/assets\/(index-[A-Za-z0-9_-]+\.js)/.exec(shell)?.[1]
+        if (running === undefined) {
+          throw new Error('the shell names no entry script to version by')
+        }
+        writeFileSync(join(outDir, 'version.txt'), `${running}\n`)
+
         const entry = shell
         for (const route of SITE_ROUTES) {
           if (route.path === '/') continue
