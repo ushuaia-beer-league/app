@@ -115,7 +115,51 @@ const QUERIES: { what: string; table: string; select: string }[] = [
   },
 ]
 
+/**
+ * The columns a select must actually bring back, beyond being accepted.
+ *
+ * On 2026-08-11 the published-statistics select was accepted by the API and
+ * fetched everything except the one column that mattered: `player_id`, the key
+ * that lets the site add the panel's own records to the league's totals. Every
+ * test passed, because they mock the client and the seed path carries the id;
+ * the operator spent two days reporting a table that would not update. A select
+ * that compiles, is accepted, and answers rows can still be missing the join.
+ */
+const MUST_CARRY: { table: string; select: string; keys: readonly string[] }[] =
+  [
+    {
+      table: 'published_player_stats',
+      select: PUBLISHED_PLAYER_STATS_SELECT,
+      keys: ['player_id', 'published_on'],
+    },
+    {
+      table: 'published_goalie_stats',
+      select: PUBLISHED_GOALIE_STATS_SELECT,
+      keys: ['player_id', 'published_on'],
+    },
+  ]
+
 let failed = 0
+
+for (const { table, select, keys } of MUST_CARRY) {
+  const target = `${url}/rest/v1/${table}?select=${encodeURIComponent(select)}&limit=1`
+  const response = await fetch(target, { headers: { apikey: key } })
+  const rows = response.ok ? ((await response.json()) as object[]) : []
+  const row = rows[0]
+
+  if (row === undefined) {
+    console.log(`  ${table}: no rows to check the columns of`)
+    continue
+  }
+
+  const missing = keys.filter((column) => !(column in row))
+  if (missing.length > 0) {
+    console.log(`  ${table} answers without ${missing.join(', ')}`)
+    failed += 1
+  } else {
+    console.log(`  ok ${table} carries ${keys.join(', ')}`)
+  }
+}
 
 for (const query of QUERIES) {
   const target = `${url}/rest/v1/${query.table}?select=${encodeURIComponent(query.select)}&limit=1`
