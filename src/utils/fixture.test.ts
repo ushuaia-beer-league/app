@@ -67,7 +67,7 @@ describe('fixtureRounds', () => {
 })
 
 describe('bracketRounds', () => {
-  it('lists the rounds in playing order and skips what a competition has not got', () => {
+  it('lists the rounds towards the trophy and skips what a competition has not got', () => {
     expect(
       bracketRounds(SEED_2026.matches, { competition: 'beer' }).map(
         (round) => round.stage,
@@ -76,8 +76,10 @@ describe('bracketRounds', () => {
       'playin',
       'quarterfinal',
       'semifinal',
-      'third-place',
+      // Fifth, then third, then the final: the placement matches share a time
+      // slot with it, so the columns climb rather than follow the clock.
       'fifth-place',
+      'third-place',
       'final',
     ])
 

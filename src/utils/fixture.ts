@@ -76,13 +76,21 @@ export function fixtureRounds(
     }))
 }
 
-/** The rounds a bracket is drawn in, in the order they are played. */
+/**
+ * The rounds a bracket is drawn in, left to right.
+ *
+ * The order is not the order they are played, because the three matches of 15
+ * August are played at once and a bracket is read towards the trophy. The
+ * league asked for it in those words on 2026-08-10: fifth place first, then
+ * third, then the final, so the columns climb to the match that decides the
+ * championship instead of ending on a placement game.
+ */
 export const BRACKET_STAGES = [
   'playin',
   'quarterfinal',
   'semifinal',
-  'third-place',
   'fifth-place',
+  'third-place',
   'final',
 ] as const satisfies readonly MatchStage[]
 
