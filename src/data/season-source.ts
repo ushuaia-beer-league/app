@@ -74,9 +74,32 @@ export interface MatchRow {
   away_team: { slug: string } | null
 }
 
+/**
+ * The day the league's transcribed totals belong to: the latest date its own
+ * rows carry.
+ *
+ * From the rows and not from the versioned snapshot, because this date is also
+ * the cutoff that decides which recorded matches may be added to those totals.
+ * A seeded 4 July against rows published in August would add two months of
+ * matches that are already inside them, and double every goal in each.
+ *
+ * The snapshot's date is the fallback for a database that answered no rows at
+ * all, which is the only case where nothing can be inferred.
+ */
+export function publicationDate(
+  ...groups: readonly { published_on: string }[][]
+): string {
+  const dates = groups.flat().map((row) => row.published_on)
+  return dates.length === 0
+    ? SEED_2026.publishedOn
+    : dates.reduce((latest, date) => (date > latest ? date : latest))
+}
+
 interface PublishedPlayerRow {
   competition_key: CompetitionKey
   source_file: string
+  published_on: string
+  player_id: string | null
   printed_player_name: string
   printed_team: string | null
   assists: number
@@ -87,6 +110,8 @@ interface PublishedPlayerRow {
 
 interface PublishedGoalieRow {
   competition_key: CompetitionKey
+  published_on: string
+  player_id: string | null
   source_file: string
   printed_player_name: string
   printed_team: string | null
@@ -168,40 +193,40 @@ async function loadFromSupabase(
     goals,
     goalieLines,
   ] = await Promise.all([
-      client.from('teams').select(TEAMS_SELECT),
-      // The two teams are embedded by **foreign key name**, not by column. A match
-      // reaches `teams` twice, so the embed has to say which way, and the obvious
-      // spelling of that (`home_team:home_team_id`) is wrong here: the key is the
-      // pair `(home_team_id, competition_key)`, which is what keeps a Beer League
-      // match from naming a women's team, and PostgREST only accepts the column
-      // shorthand for a single-column key. It answers `PGRST200` otherwise, which
-      // fails the whole request: no fixture, no standings, no scorers. This is not
-      // catchable by the tests, which mock the client, so
-      // `npm run smoke:queries` runs it against the real API instead.
-      client
-        .from('matches')
-        .select(SEASON_MATCHES_SELECT)
-        .eq('season_id', seasonId)
-        .order('match_date')
-        .order('start_time'),
-      client
-        .from('published_player_stats')
-        .select(PUBLISHED_PLAYER_STATS_SELECT)
-        .eq('season_id', seasonId),
-      client
-        .from('published_goalie_stats')
-        .select(PUBLISHED_GOALIE_STATS_SELECT)
-        .eq('season_id', seasonId),
-      client.from('players').select(SEASON_PLAYERS_SELECT),
-      client
-        .from('team_players')
-        .select(SEASON_ROSTER_SELECT)
-        .eq('season_id', seasonId),
-      // The panel's own records. A competition with any of these gets a
-      // computed table instead of the league's transcribed totals.
-      client.from('match_goals').select(SEASON_GOALS_SELECT),
-      client.from('goalie_lines').select(SEASON_GOALIE_LINES_SELECT),
-    ])
+    client.from('teams').select(TEAMS_SELECT),
+    // The two teams are embedded by **foreign key name**, not by column. A match
+    // reaches `teams` twice, so the embed has to say which way, and the obvious
+    // spelling of that (`home_team:home_team_id`) is wrong here: the key is the
+    // pair `(home_team_id, competition_key)`, which is what keeps a Beer League
+    // match from naming a women's team, and PostgREST only accepts the column
+    // shorthand for a single-column key. It answers `PGRST200` otherwise, which
+    // fails the whole request: no fixture, no standings, no scorers. This is not
+    // catchable by the tests, which mock the client, so
+    // `npm run smoke:queries` runs it against the real API instead.
+    client
+      .from('matches')
+      .select(SEASON_MATCHES_SELECT)
+      .eq('season_id', seasonId)
+      .order('match_date')
+      .order('start_time'),
+    client
+      .from('published_player_stats')
+      .select(PUBLISHED_PLAYER_STATS_SELECT)
+      .eq('season_id', seasonId),
+    client
+      .from('published_goalie_stats')
+      .select(PUBLISHED_GOALIE_STATS_SELECT)
+      .eq('season_id', seasonId),
+    client.from('players').select(SEASON_PLAYERS_SELECT),
+    client
+      .from('team_players')
+      .select(SEASON_ROSTER_SELECT)
+      .eq('season_id', seasonId),
+    // The panel's own records. A competition with any of these gets a
+    // computed table instead of the league's transcribed totals.
+    client.from('match_goals').select(SEASON_GOALS_SELECT),
+    client.from('goalie_lines').select(SEASON_GOALIE_LINES_SELECT),
+  ])
 
   const failure = [
     teams,
@@ -259,7 +284,7 @@ async function loadFromSupabase(
       source: 'supabase',
       fellBackBecause: null,
       season,
-      publishedOn: SEED_2026.publishedOn,
+      publishedOn: publicationDate(playerRows, goalieRows),
       sources: SEED_2026.sources,
       teams: teamRows.map((row) => ({
         slug: row.slug,
@@ -330,7 +355,10 @@ async function loadFromSupabase(
         sourceFile: row.source_file,
         printedPlayerName: row.printed_player_name,
         printedTeam: row.printed_team,
-        playerSlug: null,
+        // The person this line reaches. Null only when the importer could match
+        // nobody, which is how those lines keep their own row instead of being
+        // merged into somebody.
+        playerSlug: row.player_id,
         teamSlug: null,
         resolvedName: row.player?.full_name ?? null,
         assists: row.assists,
@@ -342,7 +370,7 @@ async function loadFromSupabase(
         sourceFile: row.source_file,
         printedPlayerName: row.printed_player_name,
         printedTeam: row.printed_team,
-        playerSlug: null,
+        playerSlug: row.player_id,
         teamSlug: null,
         resolvedName: row.player?.full_name ?? null,
         gamesPlayed: row.games_played,

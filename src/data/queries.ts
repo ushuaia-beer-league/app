@@ -40,12 +40,26 @@ export const MATCH_SHEET_SELECT =
   'id, season_id, competition_key, stage, match_date, start_time, venue, home_goals, away_goals, resolution, notes, home_team:matches_home_team_fkey (id, slug, short_name), away_team:matches_away_team_fkey (id, slug, short_name), match_players (player_id, team_id, is_substitute, is_franchise), match_goals (id, team_id, scorer_id, assist_id), goalie_lines (player_id, team_id, shots_faced, goals_against)'
 
 /** The scoring table the league published, with the person it belongs to. */
+/*
+ * `player_id` and `published_on` are read as columns, not only through the
+ * embed, and both matter for a reason that cost the league two days of
+ * confusion. The season load used to drop the id — every published line arrived
+ * with no person attached — so the table that adds the panel's own records to
+ * these totals could never match a line to a scorer, and every recorded goal
+ * became a second row instead of being added to the first. The top of the table
+ * kept showing the totals of 4 July, and the operator was right to say so.
+ *
+ * The date is read for the same kind of reason: it is the cutoff that decides
+ * which recorded matches may be added, and taking it from the versioned
+ * snapshot instead of from the rows would double-count everything played
+ * between the seeded date and a newer publication.
+ */
 export const PUBLISHED_PLAYER_STATS_SELECT =
-  'competition_key, source_file, printed_player_name, printed_team, assists, goals, points, player:player_id (full_name)'
+  'competition_key, source_file, published_on, player_id, printed_player_name, printed_team, assists, goals, points, player:player_id (full_name)'
 
 /** The goalkeeping table the league published. */
 export const PUBLISHED_GOALIE_STATS_SELECT =
-  'competition_key, source_file, printed_player_name, printed_team, games_played, shots_faced, goals_against, player:player_id (full_name)'
+  'competition_key, source_file, published_on, player_id, printed_player_name, printed_team, games_played, shots_faced, goals_against, player:player_id (full_name)'
 
 /** The teams, as both the public site and the panel list them. */
 export const TEAMS_SELECT =
