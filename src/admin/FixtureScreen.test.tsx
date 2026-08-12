@@ -224,9 +224,7 @@ describe('FixtureScreen', () => {
     const save = show({ matches: [match({ venue: 'poli' })] })
     await fillSlot('2026-05-23', '21:30', 'bahia')
 
-    expect(
-      screen.getByText(/Es lo normal: se juegan dos partidos a la vez/),
-    ).toBeVisible()
+    expect(screen.getByText(/Es normal: se juegan dos a la vez/)).toBeVisible()
     expect(saveButton()).toBeEnabled()
 
     fireEvent.click(saveButton())
@@ -237,17 +235,17 @@ describe('FixtureScreen', () => {
     )
   })
 
-  it('reads a second match in the same hour and cabecera as exactly that', async () => {
-    const save = show({ matches: [match({ venue: 'poli' })] })
+  it('saves a second match in the same hour and cabecera, which is a triangular', async () => {
+    // The fifth place of 15 August 2026 is three fifteen-minute games in one
+    // cabecera at one hour. The panel refused the second of them until
+    // 2026-08-12 and the league had to park two games on another day.
+    show({ matches: [match({ venue: 'poli' })] })
     await fillSlot('2026-05-23', '21:30', 'poli')
+    pick('Local', 'team-suc')
+    pick('Visitante', 'team-queens')
 
-    expect(
-      screen.getByText(/Ya hay un partido a esa hora en esa cabecera/),
-    ).toBeVisible()
-    expect(saveButton()).toBeDisabled()
-
-    fireEvent.click(saveButton())
-    expect(save).not.toHaveBeenCalled()
+    expect(screen.queryByText(/ya juegan entre ellos/)).toBeNull()
+    expect(saveButton()).toBeEnabled()
   })
 
   it('saves two matches at the same hour with no cabecera at all', async () => {

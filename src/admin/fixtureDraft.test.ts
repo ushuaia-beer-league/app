@@ -10,7 +10,7 @@ import {
   matchEdit,
   matchSavePlan,
   sameMatch,
-  slotHolder,
+  samePairingInSlot,
   slotNeighbours,
   STANDINGS_STAGE,
   teamPicks,
@@ -74,15 +74,11 @@ const draft = (overrides: Partial<FixtureDraft> = {}): FixtureDraft => ({
   ...overrides,
 })
 
-const teamName = (teamId: string) =>
-  page().teams.find((team) => team.id === teamId)?.shortName ?? teamId
-
 const problems = (
   current: FixtureDraft,
   where: FixturePage = page(),
   editingId: string | null = null,
-) =>
-  fixtureProblems(current, where, editingId, teamName).map((each) => each.kind)
+) => fixtureProblems(current, where, editingId).map((each) => each.kind)
 
 const notes = (
   current: FixtureDraft,
@@ -196,22 +192,36 @@ describe('the slot', () => {
     expect(problems(draft({ time: '21:30', venue: 'bahia' }))).toEqual([])
   })
 
-  it('says so when the same hour and cabecera is already taken', () => {
+  it('lets several matches share an hour and a cabecera, which is a triangular', () => {
+    // The refusal used to be "this slot is taken", and it stopped the league
+    // loading the fifth place of 15 August 2026: three fifteen-minute games,
+    // three pairings, one cabecera, one hour.
+    expect(problems(draft({ time: '21:30', venue: 'poli' }), page())).toEqual(
+      [],
+    )
+  })
+
+  it('refuses the same two teams twice in one slot, in either order', () => {
+    // That is one game entered twice, whichever way somebody typed the sides,
+    // and it is what the database refuses too.
     const said = fixtureProblems(
-      draft({ time: '21:30', venue: 'poli' }),
+      draft({
+        time: '21:30',
+        venue: 'poli',
+        homeTeamId: 'team-suc',
+        awayTeamId: 'team-hanta',
+      }),
       page(),
       null,
-      teamName,
     )
 
     expect(said.map((each) => each.kind)).toEqual(['slot-taken'])
-    expect(said[0]?.message).toContain(
-      'Ya hay un partido a esa hora en esa cabecera',
-    )
-    expect(said[0]?.message).toContain('Rock Choppers vs Sucucho')
+    expect(said[0]?.message).toContain('ya juegan entre ellos')
   })
 
-  it('names the slot holder as a row without teams when that is what it is', () => {
+  it('says nothing about a row in the slot that names no teams', () => {
+    // A reserved hour with nobody assigned is not a pairing, so nothing about
+    // it can be a duplicate of one.
     const said = fixtureProblems(
       draft({ time: '21:30', venue: 'bahia' }),
       page({
@@ -228,10 +238,9 @@ describe('the slot', () => {
         ],
       }),
       null,
-      teamName,
     )
 
-    expect(said[0]?.message).toContain('una fila sin equipos')
+    expect(said).toEqual([])
   })
 
   it('does not count the match being edited as being in its own way', () => {
@@ -253,7 +262,7 @@ describe('the slot', () => {
       problems(draft({ date: '2026-08-08', time: '21:30', venue: '' }), semis),
     ).toEqual([])
     expect(
-      slotHolder(
+      samePairingInSlot(
         draft({ date: '2026-08-08', time: '21:30', venue: '' }),
         semis.matches,
         null,
@@ -307,7 +316,9 @@ describe('fixtureNotes', () => {
     expect(about?.message).toContain('no cuenta para la tabla')
   })
 
-  it('says a second match at the same hour in the other cabecera is normal', () => {
+  it('counts what else is in the hour without telling anybody off', () => {
+    // Two cabeceras at once is the normal shape of a round, and three games in
+    // one cabecera is a triangular. Neither is a mistake.
     const said = fixtureNotes(
       draft({ time: '21:30', venue: 'bahia' }),
       page(),
@@ -315,8 +326,8 @@ describe('fixtureNotes', () => {
     )
     const about = said.find((each) => each.kind === 'slot-shared')
 
-    expect(about?.message).toContain('dos partidos a la vez')
-    expect(about?.message).toContain('Bahía')
+    expect(about?.message).toContain('otro partido')
+    expect(about?.message).toContain('triangular')
   })
 })
 

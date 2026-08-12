@@ -1327,15 +1327,18 @@ function becauseOfRoster(error: { code?: string; message: string }): string {
 /**
  * Why the database said no about a fixture row.
  *
- * `matches_slot_unique` keys a slot by season, date, time and cabecera, so the
- * refusal is about the cabecera and never about the hour: two matches at the same
- * hour in the two cabeceras are the normal shape of a round.
+ * The slot guard is `matches_slot_pairing_unique`, and what it refuses is the
+ * same two teams twice in the same slot — not a second match in the slot, which
+ * is legal and normal: two cabeceras run at once, and on 2026-08-15 one cabecera
+ * holds a triangular of three games. The old constraint allowed one match per
+ * (date, time, cabecera) and the message said so; both were wrong, and the
+ * operator hit it trying to load that triangular.
  */
 function becauseOfFixture(error: { code?: string; message: string }): string {
   if (error.code === '42501') return SPORT_REFUSED
   if (error.code === '23505') {
-    return error.message.includes('matches_slot_unique')
-      ? 'Ya hay un partido a esa hora en esa cabecera. Cambiá la hora, o poné este partido en la otra cabecera.'
+    return error.message.includes('matches_slot_pairing_unique')
+      ? 'Esos dos equipos ya juegan entre ellos a esa hora en esa cabecera. Varios partidos en el mismo horario sí se pueden: cambiá alguno de los equipos.'
       : 'La base rechazó el partido porque duplicaría una fila.'
   }
   if (error.code === '23503') {
@@ -1651,10 +1654,9 @@ export async function loadFixture(year: number): Promise<Result<FixturePage>> {
  * touches `home_goals`, `away_goals`, `resolution` or `notes`. The score belongs to
  * the match sheet and there is deliberately no second way to write it.
  *
- * The refusal worth reading is `matches_slot_unique`, which keys a slot by season,
- * date, time and cabecera. `becauseOfFixture` says so in those words, because the
- * hour is not the problem: two matches at the same hour in the two cabeceras are
- * the normal shape of a round in this league.
+ * The refusal worth reading is `matches_slot_pairing_unique`: the same pairing
+ * twice in one slot. Several matches in one slot are not a problem at all —
+ * two cabeceras run at once, and a triangular puts three games in one cabecera.
  */
 export async function saveMatch(plan: MatchSavePlan): Promise<Result<null>> {
   const client = await getSupabaseClient()

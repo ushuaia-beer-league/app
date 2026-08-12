@@ -165,7 +165,7 @@ export function FixtureScreen({
     'Equipo que no está en la base'
 
   const days = fixtureDays(page.matches)
-  const problems = fixtureProblems(draft, page, editing, teamName)
+  const problems = fixtureProblems(draft, page, editing)
   const notes = fixtureNotes(draft, page, editing)
   const picks = teamPicks(page, draft)
   const editingMatch =

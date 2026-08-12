@@ -254,7 +254,7 @@ export const MANUAL: readonly ManualSection[] = [
       { kind: 'subtitle', text: 'Un triangular' },
       {
         kind: 'text',
-        text: 'Cuando un puesto se define entre tres equipos, como el quinto puesto de 2026 (tres partidos de 15 minutos), se cargan **tres filas** en el fixture, a la misma hora y en la misma instancia, cada una con sus dos equipos. Los tres partidos aparecen con su resultado y se comparten como cualquier otro.',
+        text: 'Cuando un puesto se define entre tres equipos, como el quinto puesto de 2026 (tres partidos de 15 minutos), se cargan **tres filas** en el fixture: misma fecha, misma hora, misma cabecera y misma instancia, cada una con sus dos equipos. Varios partidos en un mismo horario y cabecera se pueden; lo único que el sistema rechaza es el mismo cruce dos veces.',
       },
       {
         kind: 'note',
