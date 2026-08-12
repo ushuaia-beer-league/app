@@ -197,7 +197,20 @@ export interface FixtureProblem {
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/
 
 /** The match already in this slot, or null when the slot is free. */
-export function slotHolder(
+/**
+ * The row that already has these two teams playing each other in this slot.
+ *
+ * Not "the row that already uses this slot", which is what this asked until
+ * 2026-08-12 and what stopped the league loading the triangular of 15 August:
+ * three fifteen-minute games, three pairings, one cabecera, one hour. Several
+ * matches in a slot are normal here — two cabeceras run at once — so the only
+ * thing that is certainly a mistake is the same two teams twice, which is what
+ * `matches_slot_pairing_unique` refuses in the database too.
+ *
+ * Either order, unlike the index: A against B and B against A in the same slot
+ * are one game entered twice, whichever way somebody typed the sides.
+ */
+export function samePairingInSlot(
   draft: FixtureDraft,
   matches: readonly FixtureMatch[],
   editingId: string | null,
@@ -206,15 +219,19 @@ export function slotHolder(
   // nulls as distinct, and the two 21:30 semifinals of 2026 are genuinely two
   // matches whose rinks nobody has assigned.
   if (draft.venue === '') return null
+  if (draft.homeTeamId === '' || draft.awayTeamId === '') return null
+
+  const sides = [draft.homeTeamId, draft.awayTeamId].sort().join('|')
 
   return (
-    matches.find(
-      (match) =>
-        match.id !== editingId &&
-        match.date === draft.date &&
-        match.time === draft.time &&
-        match.venue === draft.venue,
-    ) ?? null
+    matches.find((match) => {
+      if (match.id === editingId) return false
+      if (match.date !== draft.date || match.time !== draft.time) return false
+      if (match.venue !== draft.venue) return false
+      if (match.homeTeamId === null || match.awayTeamId === null) return false
+
+      return [match.homeTeamId, match.awayTeamId].sort().join('|') === sides
+    }) ?? null
   )
 }
 
@@ -230,8 +247,7 @@ export function slotNeighbours(
     (match) =>
       match.id !== editingId &&
       match.date === draft.date &&
-      match.time === draft.time &&
-      match.venue !== draft.venue,
+      match.time === draft.time,
   )
 }
 
@@ -246,7 +262,6 @@ export function fixtureProblems(
   draft: FixtureDraft,
   page: Pick<FixturePage, 'teams' | 'matches'>,
   editingId: string | null,
-  teamName: (teamId: string) => string,
 ): FixtureProblem[] {
   const problems: FixtureProblem[] = []
 
@@ -289,16 +304,12 @@ export function fixtureProblems(
     break
   }
 
-  const holder = slotHolder(draft, page.matches, editingId)
-  if (holder !== null) {
-    const who =
-      holder.homeTeamId === null || holder.awayTeamId === null
-        ? 'una fila sin equipos'
-        : `${teamName(holder.homeTeamId)} vs ${teamName(holder.awayTeamId)}`
-
+  const twice = samePairingInSlot(draft, page.matches, editingId)
+  if (twice !== null) {
     problems.push({
       kind: 'slot-taken',
-      message: `Ya hay un partido a esa hora en esa cabecera: ${who}. Cambiá la hora, o poné este partido en la otra cabecera.`,
+      message:
+        'Esos dos equipos ya juegan entre ellos a esa hora en esa cabecera. Varios partidos en el mismo horario sí se pueden, como en un triangular: lo que no puede repetirse es el mismo cruce.',
     })
   }
 
@@ -361,7 +372,10 @@ export function fixtureNotes(
   if (neighbours.length > 0) {
     notes.push({
       kind: 'slot-shared',
-      message: `A esa misma hora ya hay ${neighbours.length === 1 ? 'otro partido' : `otros ${neighbours.length} partidos`} en la otra cabecera. Es lo normal: se juegan dos partidos a la vez, uno en Bahía y otro en Poli.`,
+      // Two cabeceras at once is the normal shape of a round, and three games in
+      // one cabecera is a triangular. Both are worth saying and neither is a
+      // mistake, so the note counts them without telling anybody off.
+      message: `A esa misma hora ya hay ${neighbours.length === 1 ? 'otro partido' : `otros ${neighbours.length} partidos`} cargados. Es normal: se juegan dos a la vez, uno en Bahía y otro en Poli, y un triangular pone varios en la misma cabecera.`,
     })
   }
 

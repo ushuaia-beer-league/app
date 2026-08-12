@@ -115,7 +115,7 @@ El sistema conoce los dos cuadros de 2026 y deduce los cruces solo, a partir de 
 
 ### Un triangular
 
-Cuando un puesto se define entre tres equipos, como el quinto puesto de 2026 (tres partidos de 15 minutos), se cargan **tres filas** en el fixture, a la misma hora y en la misma instancia, cada una con sus dos equipos. Los tres partidos aparecen con su resultado y se comparten como cualquier otro.
+Cuando un puesto se define entre tres equipos, como el quinto puesto de 2026 (tres partidos de 15 minutos), se cargan **tres filas** en el fixture: misma fecha, misma hora, misma cabecera y misma instancia, cada una con sus dos equipos. Varios partidos en un mismo horario y cabecera se pueden; lo único que el sistema rechaza es el mismo cruce dos veces.
 
 > Lo que el sistema **no** hace en ese caso es decir quién salió quinto: con tres equipos hace falta un criterio de desempate (puntos, diferencia de gol, quién le ganó a quién) y la liga no lo definió. Antes que coronar a alguien con una regla inventada, no dice nada. Si nos pasan el criterio, lo calculamos.
 
