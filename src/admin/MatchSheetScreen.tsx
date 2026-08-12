@@ -16,6 +16,7 @@ import {
   linePercentage,
   matchSheetWrites,
   nameIn,
+  namesakeOf,
   newGoal,
   partsOf,
   rosterMissing,
@@ -577,6 +578,16 @@ export function MatchSheetScreen({ sheet, save }: MatchSheetScreenProps) {
                       value={typedName[side.id] ?? ''}
                     />
                   </p>
+
+                  {/* The accent style, not the muted one: this is the one
+                      moment where saying it late is the same as not saying it,
+                      because the duplicate person is created on click. */}
+                  {namesakeOf(sheet, typedName[side.id] ?? '') !== null && (
+                    <p className="sheet__gap">
+                      Ya hay alguien con ese nombre en la liga. Si es la misma
+                      persona, buscala en la lista; si son dos distintas, seguí.
+                    </p>
+                  )}
 
                   <button
                     className="sheet__add"

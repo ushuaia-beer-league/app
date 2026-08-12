@@ -220,7 +220,7 @@ export const MANUAL: readonly ManualSection[] = [
         kind: 'list',
         items: [
           '**Resultado**: los dos goles o ninguno. Después el panel te ofrece cómo terminó, y solo lo que el marcador permite: si quedó igualado, solo empate.',
-          '**Quiénes jugaron**: el botón «Cargar el plantel» mete al equipo entero de una, y después saqués a los que no jugaron, que son siempre menos. Si el suplente no está en la liga, hay un campo para crearlo ahí mismo, y no entra a ningún plantel.',
+          '**Quiénes jugaron**: el botón «Cargar el plantel» mete al equipo entero de una, y después saqués a los que no jugaron, que son siempre menos. Si el suplente no está en la liga, hay un campo para crearlo ahí mismo, y no entra a ningún plantel. Si el nombre que escribís ya existe en la liga, el campo lo avisa: buscalo en la lista en lugar de crearlo de nuevo, porque si no la misma persona queda dos veces y las estadísticas la muestran en dos filas.',
           '**Goles**: si la planilla no dice quién lo hizo, cargá el gol igual y dejá el goleador sin registrar. El hueco publicado es mejor que un nombre inventado.',
           '**Arqueros**: tiros recibidos y goles recibidos. El porcentaje lo calcula el sistema. Si el equipo jugó con arquero prestado, el selector ofrece al resto de la liga y queda marcado como suplente.',
         ],

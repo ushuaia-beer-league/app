@@ -529,6 +529,33 @@ export function withWholeRoster(
     : { ...draft, appearances: [...draft.appearances, ...added] }
 }
 
+/**
+ * Somebody the league already has under the name being typed.
+ *
+ * Ana Carbone ended up in the database twice: the importer created her from the
+ * published sheets, and on 2026-08-12 the operator created her again from this
+ * field, because it could not tell him she was already there. The statistics
+ * then showed her twice, one row with a team and one without, and the two had to
+ * be merged by hand.
+ *
+ * A warning and never a refusal: two people in a league really can share a
+ * name, and the person typing knows which case this is. What they cannot do is
+ * know what they cannot see.
+ */
+export function namesakeOf(
+  sheet: MatchSheetData,
+  name: string,
+): SheetPlayer | null {
+  const wanted = name.trim().toLowerCase()
+  if (wanted === '') return null
+
+  return (
+    sheet.players.find(
+      (player) => player.name.trim().toLowerCase() === wanted,
+    ) ?? null
+  )
+}
+
 /** How many of a side's roster are not on the sheet yet. */
 export function rosterMissing(
   sheet: MatchSheetData,
