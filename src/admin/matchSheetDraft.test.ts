@@ -12,6 +12,7 @@ import {
   legalResolutions,
   linePercentage,
   matchSheetWrites,
+  namesakeOf,
   newGoal,
   partsOf,
   readCount,
@@ -948,5 +949,18 @@ describe('substituteGoaliePicks', () => {
     expect(picks.length).toBeGreaterThan(0)
     // Nobody on a roster: those are already in the team's own list.
     expect(picks.every((pick) => !onARoster.has(pick.playerId))).toBe(true)
+  })
+})
+
+describe('namesakeOf', () => {
+  it('finds the person the league already has under that name', () => {
+    // Ana Carbone was created twice on 2026-08-12, once by the importer and
+    // once from this field, and her statistics had to be merged by hand.
+    expect(namesakeOf(sheet(), '  zapata rocío ')?.id).toBe('sub')
+  })
+
+  it('answers nothing for a name nobody has, or for no name at all', () => {
+    expect(namesakeOf(sheet(), 'Cuitiño Joaquín')).toBeNull()
+    expect(namesakeOf(sheet(), '   ')).toBeNull()
   })
 })
