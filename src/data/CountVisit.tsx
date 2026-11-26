@@ -30,7 +30,8 @@ export function CountVisit() {
   const counted = useRef<string | null>(null)
 
   useEffect(() => {
-    if (counted.current === pathname) return
+    if (counted.current === pathname || /^\/mi-cuenta\/?$/i.test(pathname))
+      return
     counted.current = pathname
     void recordView(pathname)
     void recordVisit(pathname)

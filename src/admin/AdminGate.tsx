@@ -53,6 +53,11 @@ export function AdminGate({
           que administran la liga. Si tendría que figurar, pedile a la
           administración general que te agregue.
         </p>
+        {error !== null && (
+          <p className="admin-gate__error" role="alert">
+            {error}
+          </p>
+        )}
         <button
           className="admin-gate__button"
           type="button"
@@ -83,5 +88,14 @@ export function AdminGate({
     )
   }
 
-  return <>{children}</>
+  return (
+    <>
+      {error !== null && (
+        <p className="admin-gate__error" role="alert">
+          {error}
+        </p>
+      )}
+      {children}
+    </>
+  )
 }

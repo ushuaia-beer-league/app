@@ -91,6 +91,7 @@ const SAME_AS_SPANISH: Readonly<Record<string, readonly string[]>> = {
     'Todas',
     'Playoffs',
     'Fotos & Momentos',
+    'Temporada',
     'Temporada {year}',
     'Final',
     'Empate',

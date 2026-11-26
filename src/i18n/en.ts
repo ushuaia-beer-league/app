@@ -23,6 +23,89 @@ import type { Catalogue } from './es'
  * actually needs.
  */
 export const en: Catalogue = {
+  // Player account.
+  'Cuenta corriente': 'Account statement',
+  'La liga todavía no habilitó estados de cuenta para tu usuario.':
+    'The league has not enabled account statements for your username yet.',
+  'Pagos registrados': 'Recorded payments',
+  'Saldo pendiente': 'Outstanding balance',
+  'Sin confirmar': 'Unconfirmed',
+  'Mi cuenta': 'My account',
+  'Cerrar sesión': 'Sign out',
+  'No pudimos iniciar sesión.': "We couldn't sign you in.",
+  'No pudimos cerrar la sesión.': "We couldn't sign you out.",
+  'Verificando tu sesión…': 'Checking your session…',
+  'El acceso a las cuentas no está disponible.':
+    'Account access is unavailable.',
+  'Entrá para vincular tu ficha y ver tu historial en la liga.':
+    'Sign in to link your player record and see your league history.',
+  'Ingresar con Google': 'Sign in with Google',
+  'No pudimos cargar la información.': "We couldn't load the information.",
+  Reintentar: 'Try again',
+  'Cargando tu cuenta…': 'Loading your account…',
+  'Solicitud pendiente': 'Request pending',
+  'La liga está revisando tu solicitud para {name}.':
+    'The league is reviewing your request for {name}.',
+  'La liga está revisando tu solicitud.':
+    'The league is reviewing your request.',
+  'Actualizar estado': 'Refresh status',
+  'Tu última solicitud fue rechazada. Podés buscar otra ficha.':
+    'Your last request was declined. You can search for another record.',
+  'Tu cuenta está lista. La liga también puede vincular tu ficha desde administración.':
+    'Your account is ready. League staff can also link your player record.',
+  'Buscar mi ficha': 'Find my player record',
+  'Revisá el nombre completo y el nombre de usuario.':
+    'Check your full name and username.',
+  'Ese nombre de usuario ya está en uso.': 'That username is already taken.',
+  'No pudimos crear tu cuenta.': "We couldn't create your account.",
+  'Creá tu cuenta': 'Set up your account',
+  'Nombre completo': 'Full name',
+  'Nombre de usuario': 'Username',
+  'Usá entre 3 y 30 letras sin tildes, números, guiones o guiones bajos.':
+    'Use 3 to 30 unaccented letters, digits, hyphens or underscores.',
+  'Crear cuenta': 'Create account',
+  'Esta ficha ya no está disponible.':
+    'This player record is no longer available.',
+  'No pudimos enviar la solicitud.': "We couldn't submit your request.",
+  'Buscá tu ficha': 'Find your player record',
+  'Buscando fichas…': 'Looking for player records…',
+  'Ficha elegida: {name}': 'Selected record: {name}',
+  'Esta ficha es mía': 'This is my player record',
+  'Elegir otra ficha': 'Choose another record',
+  'Seguir sin vincular': 'Continue without linking',
+  'Nombre en la ficha': 'Name on the player record',
+  'No encontramos fichas con ese nombre.':
+    'We found no player records with that name.',
+  'Escribí un nombre más completo para ver menos resultados.':
+    'Enter more of the name to narrow your results.',
+  'Cargando tu historial…': 'Loading your history…',
+  Temporada: 'Season',
+  'Todavía no hay temporadas y competencias para consultar.':
+    'There are no seasons and competitions to browse yet.',
+  Estadísticas: 'Statistics',
+  'Los totales pueden incluir partidos sin planilla individual disponible.':
+    'Totals may include games with no individual game sheet available.',
+  'No hay equipos registrados para esta selección.':
+    'There are no teams recorded for this selection.',
+  'Plantel anterior': 'Former roster',
+  'Tu plantel no tiene próximos partidos publicados.':
+    'Your roster has no upcoming games listed.',
+  'Partidos jugados': 'Games played',
+  'No hay participaciones registradas en las planillas de esta selección.':
+    'There are no appearances recorded on the game sheets for this selection.',
+  'Tu equipo: {name}': 'Your team: {name}',
+  Suplente: 'Substitute',
+  Franquicia: 'Franchise player',
+  Goles: 'Goals',
+  Asistencias: 'Assists',
+  'Tiros recibidos': 'Shots faced',
+  'Goles recibidos': 'Goals against',
+  'Por confirmar': 'To be confirmed',
+  'Todavía no hay estadísticas individuales para esta selección.':
+    'There are no individual statistics for this selection yet.',
+  Puntos: 'Points',
+  'Partidos como arquero': 'Games in goal',
+  'Porcentaje de atajadas': 'Save percentage',
   // Navigation and the shell.
   Inicio: 'Home',
   Historia: 'Our story',

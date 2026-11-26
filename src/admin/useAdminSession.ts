@@ -8,9 +8,9 @@
  * entitled to, which is the point.
  */
 
-import { useCallback, useEffect, useState } from 'react'
-import type { Session } from '@supabase/supabase-js'
-import { getSupabaseClient, supabaseConfig } from '../data/supabase-client'
+import { useEffect, useState } from 'react'
+import { getSupabaseClient } from '../data/supabase-client'
+import { useLeagueSession } from '../hooks/useLeagueSession'
 
 /** The three roles of the functional document, plus "signed in and none of them". */
 export type AdminRole =
@@ -42,101 +42,69 @@ function isRole(value: unknown): value is AdminRole {
   )
 }
 
-/** Where Google sends the administrator back to. */
-function redirectTo(): string {
-  return `${window.location.origin}${import.meta.env.BASE_URL}admin/`
-}
-
 export function useAdminSession(): AdminSession {
-  const [status, setStatus] = useState<AdminStatus>({ state: 'loading' })
-  const [error, setError] = useState<string | null>(null)
-
-  const readRole = useCallback(async (session: Session | null) => {
-    const client = await getSupabaseClient()
-    if (!client) {
-      setStatus({ state: 'unconfigured' })
-      return
-    }
-    if (!session) {
-      setStatus({ state: 'signed-out' })
-      return
-    }
-
-    const email = session.user.email ?? ''
-
-    // The founding owner has no row in `admins` on purpose, so the role comes
-    // from the database's own answer rather than from a table read.
-    const { data, error: failed } = await client.rpc('my_admin_role')
-
-    if (failed) {
-      setError('No pudimos verificar tus permisos. Probá de nuevo.')
-      setStatus({ state: 'not-an-admin', email })
-      return
-    }
-
-    setStatus(
-      isRole(data)
-        ? { state: 'ready', email, role: data }
-        : { state: 'not-an-admin', email },
-    )
-  }, [])
+  const auth = useLeagueSession('admin')
+  const session = auth.status.state === 'signed-in' ? auth.status.session : null
+  const userId = session?.user.id
+  const email = session?.user.email ?? ''
+  const [checked, setChecked] = useState<{
+    userId: string
+    email: string
+    role: AdminRole | null
+    failed: boolean
+  } | null>(null)
 
   useEffect(() => {
+    if (!userId) return
     let current = true
 
+    // Role checks run after the auth event. A response for an earlier session
+    // cannot restore that session's permissions after sign-out.
     void (async () => {
-      if (!supabaseConfig()) {
-        if (current) setStatus({ state: 'unconfigured' })
-        return
+      try {
+        const client = await getSupabaseClient()
+        if (!client) throw new Error('Supabase is not configured')
+        const { data, error } = await client.rpc('my_admin_role')
+        if (current)
+          setChecked({
+            userId,
+            email,
+            role: isRole(data) ? data : null,
+            failed: error !== null,
+          })
+      } catch {
+        if (current) setChecked({ userId, email, role: null, failed: true })
       }
-
-      const client = await getSupabaseClient()
-      if (!client || !current) return
-
-      const { data } = await client.auth.getSession()
-      if (current) await readRole(data.session)
-
-      const { data: subscription } = client.auth.onAuthStateChange(
-        (_event, session) => {
-          if (current) void readRole(session)
-        },
-      )
-
-      return () => subscription.subscription.unsubscribe()
     })()
-
     return () => {
       current = false
     }
-  }, [readRole])
+  }, [userId, email, session?.access_token])
 
-  const signIn = useCallback(async () => {
-    setError(null)
-    const client = await getSupabaseClient()
-    if (!client) {
-      setError('Este build no tiene la conexión a Supabase configurada.')
-      return
-    }
+  let status: AdminStatus
+  let error: string | null = null
+  if (auth.error === 'sign-in')
+    error = 'No pudimos abrir el ingreso con Google. Probá de nuevo.'
+  if (auth.error === 'sign-out')
+    error = 'No pudimos cerrar la sesión. Probá de nuevo.'
 
-    const { error: failed } = await client.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: redirectTo() },
-    })
+  if (auth.status.state === 'failed') {
+    status = { state: 'signed-out' }
+    error = 'No pudimos verificar tu sesión. Probá de nuevo.'
+  } else if (auth.status.state !== 'signed-in') {
+    status = { state: auth.status.state }
+  } else if (checked?.userId !== userId || checked?.email !== email) {
+    status = { state: 'loading' }
+  } else {
+    status =
+      checked?.role && !checked.failed
+        ? { state: 'ready', email, role: checked.role }
+        : { state: 'not-an-admin', email }
+    if (checked?.failed)
+      error = 'No pudimos verificar tus permisos. Probá de nuevo.'
+  }
 
-    if (failed) {
-      setError(
-        'No pudimos abrir el ingreso con Google. Puede que todavía no esté configurado.',
-      )
-    }
-  }, [])
-
-  const signOut = useCallback(async () => {
-    const client = await getSupabaseClient()
-    await client?.auth.signOut()
-    setStatus({ state: 'signed-out' })
-  }, [])
-
-  return { status, signIn, signOut, error }
+  return { status, error, signIn: auth.signIn, signOut: auth.signOut }
 }
 
 /** What each role may write, mirroring the policies in the database. */

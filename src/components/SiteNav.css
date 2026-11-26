@@ -34,7 +34,7 @@
   text-decoration: none;
 }
 
-/* The disclosure. Hidden from `42.5em` up, where the links fit in the bar. */
+/* The disclosure. Hidden from `51em` up, where the links fit in the bar. */
 .site-nav__toggle {
   display: inline-flex;
   align-items: center;
@@ -103,7 +103,7 @@
   color: var(--color-text-bright);
 }
 
-@media (min-width: 42.5em) {
+@media (min-width: 51em) {
   .site-nav__bar {
     padding-inline: var(--space-6);
   }
@@ -136,7 +136,7 @@
   margin-top: var(--space-2);
 }
 
-@media (min-width: 42.5em) {
+@media (min-width: 51em) {
   .site-nav__language {
     margin-top: 0;
     margin-left: var(--space-2);

@@ -209,9 +209,7 @@ corrupts every table on the site.
 
 ## Privacy
 
-Never store, log or display a national ID number, a date of birth, a phone
-number, a home address or payment status. The functional document rules them out
-and the registration sheets contain them.
+Never store, log or display a national ID number, a date of birth, a phone number or a home address. Membership statements are private. League administration can review and assign them, and only the confirmed account holder can read a statement after league administration grants access.
 
 Never put a password, an API secret or a service-role key in the client. The
 reference HTML checks a password in the browser; that is the anti-pattern this

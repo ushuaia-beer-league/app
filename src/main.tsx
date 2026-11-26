@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { App } from './App'
 import { AdminApp } from './admin/AdminApp'
 import { CountVisit } from './data/CountVisit'
+import { PlayerAccountPage } from './player/PlayerAccountPage'
 import { LanguageProvider } from './i18n/LanguageProvider'
 import './index.css'
 
@@ -29,6 +30,7 @@ createRoot(container).render(
         <CountVisit />
         <Routes>
           <Route path="/admin/*" element={<AdminApp />} />
+          <Route path="/mi-cuenta" element={<PlayerAccountPage />} />
           <Route path="*" element={<App />} />
         </Routes>
       </LanguageProvider>

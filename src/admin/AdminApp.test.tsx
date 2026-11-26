@@ -64,6 +64,8 @@ describe('the panel mounted the way production mounts it', () => {
     ['/admin', /partidos/i],
     ['/admin/equipos', /equipos/i],
     ['/admin/fixture', /fixture/i],
+    ['/admin/vinculaciones', /vinculaciones/i],
+    ['/admin/cuentas-corrientes', /cuentas corrientes/i],
     ['/admin/sponsors', /sponsors/i],
     ['/admin/fotos', /fotos/i],
     ['/admin/temporadas', /temporadas/i],

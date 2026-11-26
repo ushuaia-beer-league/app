@@ -29,6 +29,11 @@
 import {
   ADMIN_MATCHES_SELECT,
   MATCH_SHEET_SELECT,
+  PLAYER_APPEARANCE_SELECT,
+  PLAYER_CATALOG_SELECT,
+  PLAYER_GOAL_SELECT,
+  PLAYER_GOALIE_SELECT,
+  PLAYER_MATCH_SELECT,
   PUBLISHED_GOALIE_STATS_SELECT,
   PUBLISHED_PLAYER_STATS_SELECT,
   SEASON_GOALIE_LINES_SELECT,
@@ -112,6 +117,31 @@ const QUERIES: { what: string; table: string; select: string }[] = [
     what: 'the goalkeeper lines the panel recorded',
     table: 'goalie_lines',
     select: SEASON_GOALIE_LINES_SELECT,
+  },
+  {
+    what: 'player search context',
+    table: 'players',
+    select: PLAYER_CATALOG_SELECT,
+  },
+  {
+    what: 'player appearances',
+    table: 'match_players',
+    select: PLAYER_APPEARANCE_SELECT,
+  },
+  {
+    what: 'player match details',
+    table: 'matches',
+    select: PLAYER_MATCH_SELECT,
+  },
+  {
+    what: 'player scoring events',
+    table: 'match_goals',
+    select: PLAYER_GOAL_SELECT,
+  },
+  {
+    what: 'player goalie lines',
+    table: 'goalie_lines',
+    select: PLAYER_GOALIE_SELECT,
   },
 ]
 

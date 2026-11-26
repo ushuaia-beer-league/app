@@ -25,6 +25,90 @@ import type { Catalogue } from './es'
  * are quoted in Spanish in every language.
  */
 export const ptBR: Catalogue = {
+  // Player account.
+  'Cuenta corriente': 'Extrato da conta',
+  'La liga todavía no habilitó estados de cuenta para tu usuario.':
+    'A liga ainda não disponibilizou extratos para seu usuário.',
+  'Pagos registrados': 'Pagamentos registrados',
+  'Saldo pendiente': 'Saldo em aberto',
+  'Sin confirmar': 'A confirmar',
+  'Mi cuenta': 'Minha conta',
+  'Cerrar sesión': 'Sair',
+  'No pudimos iniciar sesión.': 'Não foi possível entrar.',
+  'No pudimos cerrar la sesión.': 'Não foi possível sair.',
+  'Verificando tu sesión…': 'Verificando sua sessão…',
+  'El acceso a las cuentas no está disponible.':
+    'O acesso às contas está indisponível.',
+  'Entrá para vincular tu ficha y ver tu historial en la liga.':
+    'Entre para vincular sua ficha e ver seu histórico na liga.',
+  'Ingresar con Google': 'Entrar com Google',
+  'No pudimos cargar la información.':
+    'Não foi possível carregar as informações.',
+  Reintentar: 'Tentar novamente',
+  'Cargando tu cuenta…': 'Carregando sua conta…',
+  'Solicitud pendiente': 'Solicitação pendente',
+  'La liga está revisando tu solicitud para {name}.':
+    'A liga está analisando sua solicitação para {name}.',
+  'La liga está revisando tu solicitud.':
+    'A liga está analisando sua solicitação.',
+  'Actualizar estado': 'Atualizar status',
+  'Tu última solicitud fue rechazada. Podés buscar otra ficha.':
+    'Sua última solicitação foi recusada. Você pode buscar outra ficha.',
+  'Tu cuenta está lista. La liga también puede vincular tu ficha desde administración.':
+    'Sua conta está pronta. A administração da liga também pode vincular sua ficha.',
+  'Buscar mi ficha': 'Buscar minha ficha',
+  'Revisá el nombre completo y el nombre de usuario.':
+    'Confira seu nome completo e nome de usuário.',
+  'Ese nombre de usuario ya está en uso.':
+    'Esse nome de usuário já está em uso.',
+  'No pudimos crear tu cuenta.': 'Não foi possível criar sua conta.',
+  'Creá tu cuenta': 'Crie sua conta',
+  'Nombre completo': 'Nome completo',
+  'Nombre de usuario': 'Nome de usuário',
+  'Usá entre 3 y 30 letras sin tildes, números, guiones o guiones bajos.':
+    'Use de 3 a 30 letras sem acento, números, hífens ou sublinhados.',
+  'Crear cuenta': 'Criar conta',
+  'Esta ficha ya no está disponible.': 'Esta ficha não está mais disponível.',
+  'No pudimos enviar la solicitud.': 'Não foi possível enviar a solicitação.',
+  'Buscá tu ficha': 'Encontre sua ficha',
+  'Buscando fichas…': 'Procurando fichas…',
+  'Ficha elegida: {name}': 'Ficha selecionada: {name}',
+  'Esta ficha es mía': 'Esta ficha é minha',
+  'Elegir otra ficha': 'Escolher outra ficha',
+  'Seguir sin vincular': 'Continuar sem vincular',
+  'Nombre en la ficha': 'Nome na ficha',
+  'No encontramos fichas con ese nombre.':
+    'Não encontramos fichas com esse nome.',
+  'Escribí un nombre más completo para ver menos resultados.':
+    'Digite um nome mais completo para reduzir os resultados.',
+  'Cargando tu historial…': 'Carregando seu histórico…',
+  Temporada: 'Temporada',
+  'Todavía no hay temporadas y competencias para consultar.':
+    'Ainda não há temporadas e competições para consultar.',
+  Estadísticas: 'Estatísticas',
+  'Los totales pueden incluir partidos sin planilla individual disponible.':
+    'Os totais podem incluir jogos sem súmula individual disponível.',
+  'No hay equipos registrados para esta selección.':
+    'Não há equipes registradas para esta seleção.',
+  'Plantel anterior': 'Elenco anterior',
+  'Tu plantel no tiene próximos partidos publicados.':
+    'Seu elenco não tem próximos jogos publicados.',
+  'Partidos jugados': 'Jogos disputados',
+  'No hay participaciones registradas en las planillas de esta selección.':
+    'Não há participações registradas nas súmulas desta seleção.',
+  'Tu equipo: {name}': 'Sua equipe: {name}',
+  Suplente: 'Reserva',
+  Franquicia: 'Jogador franquia',
+  Goles: 'Gols',
+  Asistencias: 'Assistências',
+  'Tiros recibidos': 'Chutes recebidos',
+  'Goles recibidos': 'Gols sofridos',
+  'Por confirmar': 'A confirmar',
+  'Todavía no hay estadísticas individuales para esta selección.':
+    'Ainda não há estatísticas individuais para esta seleção.',
+  Puntos: 'Pontos',
+  'Partidos como arquero': 'Jogos como goleiro',
+  'Porcentaje de atajadas': 'Percentual de defesas',
   // Navigation and the shell.
   Inicio: 'Início',
   Historia: 'Nossa história',

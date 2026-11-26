@@ -67,6 +67,7 @@ export async function getSupabaseClient(
   if (client) return client
 
   const { createClient } = await import('@supabase/supabase-js')
+  if (client) return client
   client = createClient<Database>(config.url, config.key, {
     auth: {
       // Sign-in comes back from Google as a fragment on the panel's own URL, so

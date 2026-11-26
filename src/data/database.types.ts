@@ -425,6 +425,168 @@ export type Database = {
           },
         ]
       }
+      membership_statements: {
+        Row: {
+          balance_cents: number | null
+          competition_key: string
+          id: string
+          payments_cents: number[]
+          player_id: string | null
+          season_year: number
+          source_name: string
+          source_row: number
+          visible_to: string | null
+        }
+        Insert: {
+          balance_cents?: number | null
+          competition_key: string
+          id?: string
+          payments_cents: number[]
+          player_id?: string | null
+          season_year: number
+          source_name: string
+          source_row: number
+          visible_to?: string | null
+        }
+        Update: {
+          balance_cents?: number | null
+          competition_key?: string
+          id?: string
+          payments_cents?: number[]
+          player_id?: string | null
+          season_year?: number
+          source_name?: string
+          source_row?: number
+          visible_to?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'membership_statements_competition_key_fkey'
+            columns: ['competition_key']
+            isOneToOne: false
+            referencedRelation: 'competitions'
+            referencedColumns: ['key']
+          },
+          {
+            foreignKeyName: 'membership_statements_player_id_fkey'
+            columns: ['player_id']
+            isOneToOne: false
+            referencedRelation: 'players'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'membership_statements_season_year_fkey'
+            columns: ['season_year']
+            isOneToOne: false
+            referencedRelation: 'seasons'
+            referencedColumns: ['year']
+          },
+        ]
+      }
+      player_accounts: {
+        Row: {
+          created_at: string
+          full_name: string
+          player_id: string | null
+          user_id: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          full_name: string
+          player_id?: string | null
+          user_id?: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          player_id?: string | null
+          user_id?: string
+          username?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'player_accounts_player_id_fkey'
+            columns: ['player_id']
+            isOneToOne: true
+            referencedRelation: 'players'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      player_link_events: {
+        Row: {
+          action: string
+          actor_id: string
+          created_at: string
+          id: number
+          player_id: string
+          request_id: string | null
+          user_id: string
+        }
+        Insert: {
+          action: string
+          actor_id: string
+          created_at?: string
+          id?: never
+          player_id: string
+          request_id?: string | null
+          user_id: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string
+          created_at?: string
+          id?: never
+          player_id?: string
+          request_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      player_link_requests: {
+        Row: {
+          created_at: string
+          id: string
+          player_id: string
+          resolved_at: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          player_id: string
+          resolved_at?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          player_id?: string
+          resolved_at?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'player_link_requests_player_id_fkey'
+            columns: ['player_id']
+            isOneToOne: false
+            referencedRelation: 'players'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'player_link_requests_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'player_accounts'
+            referencedColumns: ['user_id']
+          },
+        ]
+      }
       players: {
         Row: {
           active: boolean
@@ -869,6 +1031,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      assign_membership_statement: {
+        Args: {
+          p_statement_id: string
+          p_player_id?: string
+          p_visible_to?: string
+        }
+        Returns: undefined
+      }
       my_admin_role: { Args: never; Returns: string }
       record_view: { Args: { page: string }; Returns: undefined }
       record_visit: {
@@ -877,6 +1047,16 @@ export type Database = {
           entry?: string
           referrer?: string
           visitor?: string
+        }
+        Returns: undefined
+      }
+      request_player_link: { Args: { p_player_id: string }; Returns: string }
+      review_player_link: {
+        Args: {
+          p_action: string
+          p_player_id: string
+          p_request_id?: string
+          p_user_id: string
         }
         Returns: undefined
       }

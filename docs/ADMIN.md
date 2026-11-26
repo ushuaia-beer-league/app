@@ -8,10 +8,11 @@ Dos páginas. Si algo de acá no alcanza, está mal escrito: avisá y lo arregla
 
 ---
 
-## Las dos direcciones
+## Dónde entrar
 
 - **El sitio público**: https://ubl.com.ar
 - **El panel**: https://ubl.com.ar/admin/
+- **Mi cuenta de jugador**: https://ubl.com.ar/mi-cuenta/
 
 El sitio público no necesita nada de nadie: está siempre disponible y no tiene
 contraseña. El panel pide ingresar con Google.
@@ -32,11 +33,11 @@ de su propio sistema.
 
 ## Los tres roles
 
-| Rol                    | Qué puede cargar y modificar                |
-| ---------------------- | ------------------------------------------- |
-| Administración general | Todo, incluida la lista de administradores  |
-| Gestión deportiva      | Equipos, fixture, resultados y estadísticas |
-| Comunicación           | Fotos, sponsors, textos y contacto          |
+| Rol                    | Qué puede cargar y modificar                                  |
+| ---------------------- | ------------------------------------------------------------- |
+| Administración general | Todo, incluida la lista de administradores                    |
+| Gestión deportiva      | Equipos, fixture, resultados, estadísticas y vinculaciones     |
+| Comunicación           | Fotos, sponsors, textos y contacto                            |
 
 Estos permisos **no son botones escondidos**: están escritos en la base de
 datos. Si alguien de comunicación intenta cargar un resultado, la base lo
@@ -239,3 +240,15 @@ esconda: la base se lo niega.
   unos segundos la primera vez.
 - **Cambiar algo que el panel no deja cambiar**: probablemente sea a propósito.
   Preguntá antes de buscarle la vuelta.
+
+## Vinculaciones de jugadores
+
+Los jugadores crean su cuenta en https://ubl.com.ar/mi-cuenta/. Administración general y Gestión deportiva pueden aprobar o rechazar solicitudes, vincular manualmente cuentas sin solicitud y deshacer un vínculo desde **Vinculaciones**. Si hay homónimos, revisá el equipo y la temporada antes de confirmar. El vínculo habilita el historial de la ficha existente en la cuenta del jugador.
+
+Antes de publicar este acceso, aplicá la migración de cuentas en Supabase y agregá el destino exacto `https://ubl.com.ar/mi-cuenta/` a las URL permitidas de Google en Supabase Auth. Cada entorno de prueba necesita su propio destino. Probá el regreso desde Google con una cuenta de jugador y otra del panel. [Configuración de redirecciones en Supabase](https://supabase.com/docs/guides/auth/redirect-urls)
+
+## Cuentas corrientes
+
+Administración general puede abrir **Cuentas corrientes**, ver los pagos y el saldo por temporada y competencia y asignar las filas pendientes a una ficha. Para que el jugador vea el estado de cuenta en **Mi cuenta**, habilitá la consulta privada para el usuario vinculado después de comprobar su identidad.
+
+La carga inicial de 2026 se prepara con `python3 scripts/prepare-membership-statements.py --beer <csv> --wubl <csv> --output <archivo-privado.sql>`. Ejecutá el SQL en Supabase después de aplicar las migraciones de cuentas y cuenta corriente. El archivo de importación contiene datos privados. Guardalo fuera del repositorio. Las coincidencias únicas con el padrón asignan la ficha y dejan pendiente la visibilidad para el jugador. El guion se toma como cero y un saldo vacío queda sin confirmar.

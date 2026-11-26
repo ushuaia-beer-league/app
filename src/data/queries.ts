@@ -100,3 +100,27 @@ export const SEASON_GOALS_SELECT =
 
 export const SEASON_GOALIE_LINES_SELECT =
   'match_id, team_id, player_id, shots_faced, goals_against, matches (competition_key)'
+
+const PLAYER_CONTEXT_SELECT =
+  'team_players (id, seasons (year), competitions (name), team:teams!team_players_team_fkey (short_name))'
+
+export const PLAYER_CATALOG_SELECT =
+  `id, full_name, active, ${PLAYER_CONTEXT_SELECT}` as const
+
+export const PLAYER_MATCH_SELECT =
+  'id, match_date, start_time, home_goals, away_goals, home_team_id, away_team_id, home_team:teams!matches_home_team_fkey(short_name), away_team:teams!matches_away_team_fkey(short_name)'
+
+export const PLAYER_APPEARANCE_SELECT =
+  `is_substitute, is_franchise, team_id, match:matches!inner(season_id, competition_key, ${PLAYER_MATCH_SELECT})` as const
+
+export const PLAYER_GOAL_SELECT =
+  'match_id, team_id, scorer_id, assist_id, match:matches!inner(season_id, competition_key, match_date)'
+
+export const PLAYER_GOALIE_SELECT =
+  'match_id, team_id, player_id, shots_faced, goals_against, match:matches!inner(season_id, competition_key, match_date)'
+
+export const PLAYER_ACCOUNT_LINK_SELECT =
+  'user_id, full_name, username, player_id, player:player_accounts_player_id_fkey (full_name)'
+
+export const PLAYER_REQUEST_SELECT =
+  `id, user_id, player_id, status, player:players!player_link_requests_player_id_fkey (full_name, ${PLAYER_CONTEXT_SELECT})` as const

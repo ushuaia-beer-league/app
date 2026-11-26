@@ -27,6 +27,7 @@ const NAV_ITEMS: { to: string; label: StringKey }[] = [
   { to: '/equipos', label: 'Equipos' },
   { to: '/fotos', label: 'Fotos' },
   { to: '/contacto', label: 'Contacto' },
+  { to: '/mi-cuenta', label: 'Mi cuenta' },
 ]
 
 const LINKS_ID = 'site-nav-links'
@@ -36,7 +37,7 @@ const LINKS_ID = 'site-nav-links'
  *
  * The reference simply hides its links below 680px, leaving a phone with no way
  * to navigate. Here the links are a disclosure: a labelled button on a small
- * screen, a plain row from `42.5em` up.
+ * screen, a plain row from `51em` up.
  */
 export function SiteNav() {
   const [isOpen, setIsOpen] = useState(false)

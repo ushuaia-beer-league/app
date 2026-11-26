@@ -78,6 +78,42 @@ export const MANUAL_INTRO: readonly ManualBlock[] = [
 
 export const MANUAL: readonly ManualSection[] = [
   {
+    id: 'cuentas-corrientes',
+    title: 'Cómo se revisan las cuentas corrientes',
+    blocks: [
+      {
+        kind: 'text',
+        text: 'En **Cuentas corrientes**, Administración general ve los pagos registrados y el saldo de cada inscripción por temporada y competencia. Un saldo sin confirmar corresponde a un casillero que quedó vacío en la planilla.',
+      },
+      {
+        kind: 'text',
+        text: 'Para asignar un registro, buscá el nombre de la planilla y elegí la ficha deportiva. Si la ficha ya tiene un usuario confirmado, podés habilitarle la consulta privada desde esa misma pantalla.',
+      },
+    ],
+  },
+  {
+    id: 'vinculaciones',
+    title: 'Cómo se vincula una cuenta con una ficha',
+    blocks: [
+      {
+        kind: 'text',
+        text: 'En **Mi cuenta**, el jugador entra con Google, elige un usuario y puede pedir que le vinculen su ficha. Cuando llegan dos fichas con nombres parecidos, el equipo y la temporada ayudan a distinguirlas.',
+      },
+      {
+        kind: 'list',
+        items: [
+          'En **Vinculaciones**, Administración general y Gestión deportiva pueden revisar las solicitudes, comprobar los datos de la ficha y aprobar o rechazar.',
+          'Si el jugador salteó la búsqueda, buscá su cuenta por nombre o usuario en **Cuentas sin vincular**, elegí la ficha y confirmá.',
+          'Para corregir una asignación, buscá la cuenta en **Cuentas vinculadas**, elegí **Desvincular** y confirmá antes de asignar la ficha correcta.',
+        ],
+      },
+      {
+        kind: 'note',
+        text: 'El historial deportivo sigue asociado a la ficha de la liga. Los partidos jugados salen de las planillas disponibles. Los totales publicados pueden incluir partidos cuyo detalle individual todavía falta.',
+      },
+    ],
+  },
+  {
     id: 'la-idea',
     title: 'La idea de fondo, en una frase',
     blocks: [

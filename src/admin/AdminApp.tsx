@@ -16,6 +16,8 @@ import { loadAdminMatches, type AdminMatch } from './adminQueries'
 import { can, useAdminSession } from './useAdminSession'
 import './AdminApp.css'
 import { TextsScreen } from './TextsScreen'
+import { MembershipStatementsScreen } from './MembershipStatementsScreen'
+import { PlayerLinksScreen } from './PlayerLinksScreen'
 import { ContactScreen } from './ContactScreen'
 
 /**
@@ -60,6 +62,9 @@ export function AdminApp() {
               {can(status.role, 'sport') && (
                 <NavLink to="/admin/fixture">Fixture</NavLink>
               )}
+              {can(status.role, 'sport') && (
+                <NavLink to="/admin/vinculaciones">Vinculaciones</NavLink>
+              )}
               {can(status.role, 'content') && (
                 <NavLink to="/admin/sponsors">Sponsors</NavLink>
               )}
@@ -74,6 +79,11 @@ export function AdminApp() {
               )}
               {can(status.role, 'league') && (
                 <NavLink to="/admin/temporadas">Temporadas</NavLink>
+              )}
+              {can(status.role, 'league') && (
+                <NavLink to="/admin/cuentas-corrientes">
+                  Cuentas corrientes
+                </NavLink>
               )}
               {can(status.role, 'league') && (
                 <NavLink to="/admin/administradores">Administradores</NavLink>
@@ -140,6 +150,15 @@ export function AdminApp() {
                   <FixtureScreen role={status.role} year={SEED_2026.season} />
                 }
               />
+              {can(status.role, 'sport') && (
+                <Route path="vinculaciones" element={<PlayerLinksScreen />} />
+              )}
+              {can(status.role, 'league') && (
+                <Route
+                  path="cuentas-corrientes"
+                  element={<MembershipStatementsScreen />}
+                />
+              )}
               <Route path="manual" element={<ManualScreen />} />
               <Route path="sponsors" element={<SponsorsScreen />} />
               <Route path="fotos" element={<PhotosScreen />} />
